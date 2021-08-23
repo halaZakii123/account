@@ -34,16 +34,20 @@
                                     <tr class="active">
                                         <td>{{$account->account_number}}</td>
                                         <td>{{$account->account_name}}</td>
-                                        <td>{{$account->master_account_number}}</td>
+                                        <td> <a href="/show_master/{{$account->master_account_number}}">{{$account->master_account_number}} </a></td>
                                         <td>{{$account->report}}</td>
-                                        <td>{{$account->mainly}}</td>
+                                        <td>
+                                         @if($account->mainly == 1)
+                                                <i class="fas fa-check"></i>
+                                          @elseif($account->mainly == null)
+                                                <i class="fa fa-times"></i>
+                                            @endif
+                                        </td>
                                     </tr>
 
 
                                 </tbody>
                             </table>
-                            <button class="btn"><a href="/edit_account/{{$account->id}}">{{__('Edit')}}</a></button>
-                            <button class="btn"><a href="/delete_account/{{$account->id}}">{{__('Delete')}}</a></button>
 
                         </div>
 

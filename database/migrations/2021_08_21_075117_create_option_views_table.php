@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAccountViewsTable extends Migration
+class CreateOptionViewsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,9 +14,16 @@ class CreateAccountViewsTable extends Migration
     public function up()
     {
         DB::statement("
-          CREATE VIEW view_account_main AS
+          CREATE VIEW view_typeOperation_main AS
           (
-            SELECT * FROM tbl_accounts WHERE mainly = 1
+            SELECT * FROM options WHERE type = 'type_of_operation'
+            )
+        ");
+
+        DB::statement("
+          CREATE VIEW view_currencySymbol_main AS
+          (
+            SELECT * FROM options WHERE type = 'currency_symbol'
             )
         ");
     }
@@ -28,6 +35,6 @@ class CreateAccountViewsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('account_views');
+        Schema::dropIfExists('option_view');
     }
 }

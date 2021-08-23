@@ -8,7 +8,7 @@ class TblAccount extends Model
 {
 
     protected $fillable = [
-        'account_number', 'account_name', 'master_account_number','report','mainly',
+        'account_number', 'account_name', 'master_account_number', 'report', 'mainly',
     ];
 
     protected $casts = [

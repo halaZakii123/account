@@ -713,6 +713,37 @@ pre code {
   padding-left: 15px;
 }
 
+.dropbtn {
+    background-color: white;
+    color: black;
+    padding: 10px;
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+.dropdown-content {
+    position: absolute;
+    background-color: lightyellow;
+    min-width: 200px;
+    display: none;
+    z-index: 1;
+}
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+.dropdown-content a:hover {
+    background-color: #b0d4f1;
+}
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+.dropdown:hover .dropbtn {
+    background-color: white;
+}
+
 .col {
   flex-basis: 0;
   flex-grow: 1;
@@ -10940,5 +10971,6 @@ a.text-dark:focus {
     color: inherit;
     border-color: #dee2e6;
   }
+
 }
 

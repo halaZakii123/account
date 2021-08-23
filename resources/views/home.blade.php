@@ -17,31 +17,13 @@
                         </div>
                     @endif
                     @if (Auth::user()->parent_id == null)
-                        <button class="btn"><a href="/add_employee"> Add new employee </a></button>
+                        <button class="btn"><a href="{{route('Users.index')}}"> {{__('Employees')}} </a></button>
                     @endif
-                        <button class="btn"><a href="/add_account"> Add new account </a></button>
+                        <button class="btn"><a href="{{route('Accounts.index')}}"> {{__('Accounts')}} </a></button>
+                        <button class="btn"><a href="{{route('Options.index')}}"> {{__('Options')}}</a></button>
+                        <button class="btn"><a href="{{route('Subs.index')}}"> {{__('Subs')}}</a></button>
+                        <button class="btn"><a href="{{route('Mains.index')}}"> {{__('Mains')}}</a></button>
 
-                    <label> Accounting</label>
-                    <div>
-                            <table class="table table-cl">
-                                <thead>
-                                <tr>
-                                    <th>{{__('Account Number')}}</th>
-                                    <th>{{__('Account Name')}}</th>
-
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($accounts as $account)
-                                    <tr class="active">
-                                        <td>{{$account->account_number}} </td>
-                                        <td>{{$account->account_name}} <a href="/show_account/{{$account->id}}">{{__('show')}}</a> </td>
-                                </tr>
-                                @endforeach
-
-                                </tbody>
-                            </table>
-                    </div>
 
                 </div>
             </div>

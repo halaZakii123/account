@@ -16,10 +16,10 @@ class CreateTblAccountsTable extends Migration
         Schema::create('tbl_accounts', function (Blueprint $table) {
             $table->id();
             $table->string('account_number');
-            $table->string('account_name')->unique();
+            $table->string('account_name');
             $table->string('master_account_number')->nullable();
             $table->string('report');
-            $table->boolean('mainly')->nullable()->default(false);;
+            $table->boolean('mainly')->nullable()->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

@@ -18,20 +18,21 @@ class AccountController extends Controller
     {
         $this->middleware('auth');
     }
-    public function index(){
-        $accounts= TblAccount::all()->get();
 
-        return view('home',compact('accounts'));
+    public function index(){
+        $accounts= TblAccount::all();
+        return view('Account.index',compact('accounts'));
     }
 
     public function create(){
        $views = View_Account_Main::all();
-        return view('account',compact('views'));
+        return view('Account.crud',compact('views'));
 
     }
     public function store(Request $request){
         $validator = Validator::make($request->all(), [
-            'account_number' =>'required|string',
+            'account_number' =>['required','string',
+                Rule::unique('tbl_accounts'),],
             'account_name'=>'required|string',
             'master_account_number' => 'sometimes|required',
             'report'=>'required',
@@ -41,50 +42,56 @@ class AccountController extends Controller
         if ($validator->fails()) {
             return $validator->errors()->first();
         }
+        else{
         TblAccount::create(['account_number' => $request->account_number,
             'account_name' => $request->account_name,
             'master_account_number' => $request->master_account_number,
             'report' => $request->report,
-            'mainly' =>$request->mainly]);
-        return redirect("/home");
+            'mainly' =>$request->mainly]);}
+        return redirect(route('Accounts.index'));
     }
 
-    public function show( TblAccount $account){
-
-        return view('showAccount',compact('account'));
+    public function show(  $id){
+        $account = TblAccount::findOrFail($id);
+        return view('Account.showAccount',compact('account'));
     }
 
-    public function edit( TblAccount $account){
+
+
+    public function edit($id){
         $views = View_Account_Main::all();
-
-        return view('EditAccount',compact('account','views'));
+        $account = TblAccount::findOrFail($id);
+        return view('Account.crud',compact('account','views'));
     }
 
 
-    public function update( Request $request,TblAccount $account){
-
+    public function update( Request $request, $id){
         $validator = Validator::make($request->all(), [
-            'account_number' =>'required|string',
-            'account_name'=>'required|string',
+            'account_number' =>'sometimes|required|string',
+            'account_name'=>'sometimes|required|string',
             'master_account_number' => 'sometimes|required',
-            'report'=>'required',
+            'report'=>'sometimes|required',
             'mainly'=>'sometimes|required'
 
         ]);
+        $account = TblAccount::where('id',$id);
         if ($validator->fails()) {
             return $validator->errors()->first();
         }
+        else{
+                $account->update(['account_number' => $request->account_number,
+                    'account_name' => $request->account_name,
+                    'master_account_number' => $request->master_account_number,
+                    'report' => $request->report,
+                    'mainly' =>$request->mainly]);
 
-            else{
-                $account->update($request->all());
-
-                return redirect('/show_account' ."/". $account->id);
+                return redirect(route('Accounts.index'));
             }
         }
 
         public function destroy($account){
          TblAccount::where('id',$account)->delete();
-         return redirect('/home');
+         return redirect(route('Accounts.index'));
         }
 
     }
