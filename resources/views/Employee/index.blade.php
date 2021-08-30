@@ -6,13 +6,20 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ Auth::user()->company_name }}
-                        @if (Auth::user()->parent_id == null)
-                            <button class="btn"><a href="{{route('Users.index')}}"> {{__('Employees')}} </a></button>
-                        @endif
-                        <button class="btn"><a href="{{route('Accounts.index')}}"> {{__('Accounts')}} </a></button>
-                        <button class="btn"><a href="{{route('Options.index')}}"> {{__('Options')}}</a></button>
-                        <button class="btn"><a href="{{route('Mains.index')}}"> {{__('Mains')}}</a></button>
+                    <div class="card-header d-flex">
+
+{{--                        @if (Auth::user()->parent_id == null)--}}
+{{--                            <button class="btn"><a href="{{route('Users.index')}}"> {{__('Employees')}} </a></button>--}}
+{{--                        @endif--}}
+{{--                        <button class="btn"><a href="{{route('Accounts.index')}}"> {{__('Accounts')}} </a></button>--}}
+{{--                        <button class="btn"><a href="{{route('Options.index')}}"> {{__('Options')}}</a></button>--}}
+{{--                        <button class="btn"><a href="{{route('Mains.index')}}"> {{__('Mains')}}</a></button>--}}
+
+                            <h2> {{__('Employee')}} </h2>
+
+                            <a href="{{ route('Users.create') }}" class="btn btn-primary ml-auto"><i class="fa fa-plus"></i> {{ __('create') }}</a>
+
+
                     </div>
 
                     <div class="card-body">
@@ -22,7 +29,6 @@
                             </div>
                         @endif
 
-                        <button class="btn"><a href="{{route('Users.create')}}"> Add <i class="fa fa-plus"></i> </a></button>
 
                         <div>
 

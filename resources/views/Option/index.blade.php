@@ -6,13 +6,10 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ Auth::user()->company_name }}
-                        @if (Auth::user()->parent_id == null)
-                            <button class="btn"><a href="{{route('Users.index')}}"> {{__('Employees')}} </a></button>
-                        @endif
-                        <button class="btn"><a href="{{route('Accounts.index')}}"> {{__('Accounts')}} </a></button>
-                        <button class="btn"><a href="{{route('Options.index')}}"> {{__('Options')}}</a></button>
-                        <button class="btn"><a href="{{route('Mains.index')}}"> {{__('Mains')}}</a></button>
+                    <div class="card-header d-flex">
+                        <h2> {{__('Options')}} </h2>
+
+                        <a href="{{ route('Options.create') }}" class="btn btn-primary ml-auto"><i class="fa fa-plus"></i> {{ __('create') }}</a>
                     </div>
 
                     <div class="card-body">
@@ -22,7 +19,6 @@
                             </div>
                         @endif
 
-                            <button class="btn"><a href="{{route('Options.create')}}"> Add <i class="fa fa-plus"></i> </a></button>
 
                         <div>
 
@@ -33,21 +29,23 @@
                                 <tr>
                                     <th>{{__('Type')}}</th>
                                     <th>{{__('Content')}}</th>
+                                    <th>{{__('Actions')}}</th>
 
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($options as $option)
                                     <tr class="active">
+                                        <td>{{$option->type}} </td>
+                                        <td>{{$option->contents}}</td>
                                         <td>
-                                            {{$option->type}} </td>
-                                        <td>{{$option->contents}}
                                             <a href="{{route('Options.edit',$option->id) }}"><i class="fa fa-edit"></i></a>
                                             <a href="javascript:void(0)" onclick=" { document.getElementById('delete-{{ $option->id }}').submit(); } " class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
                                             <form action="{{ route('Options.destroy', $option->id) }}" method="post" id="delete-{{ $option->id }}" style="display: none;">
                                                 @csrf
                                                 @method('DELETE')
                                             </form>
+                                        </td>
                                     </tr>
                                 @endforeach
 

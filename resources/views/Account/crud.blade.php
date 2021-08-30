@@ -5,7 +5,10 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __(Auth::user()->company_name) }}</div>
+                    <div class="card-header d-flex">
+                        {{ __(' Account') }}
+                        <a href="{{ route('Accounts.index') }}" class="btn btn-primary ml-auto"><i class="fa fa-home"></i> {{ __('Back') }}</a>
+                    </div>
 
                     <div class="card-body">
                         @if (session('status'))

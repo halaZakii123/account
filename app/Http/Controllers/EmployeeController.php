@@ -58,8 +58,9 @@ class EmployeeController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        return view('Employee.crud',$user);
+        return view('Employee.crud',compact('user'));
     }
+
     public function update(Request $request ,$id){
         $validator = Validator::make($request->all(), [
             'email' => 'sometimes|required|email',
@@ -81,6 +82,7 @@ class EmployeeController extends Controller
 
     public function destroy($id){
         User::where('id',$id)->delete();
+        return redirect(route('Users.index'));
     }
 
 }

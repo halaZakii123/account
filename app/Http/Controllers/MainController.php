@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Main;
+use App\TblAccount;
 use App\View_CurrencySymbol_main;
 use App\View_TypeOperation_main;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
+
 
 class MainController extends Controller
 {
@@ -28,35 +31,42 @@ class MainController extends Controller
      */
     public function create()
     {
+        $accounts = TblAccount::all();
         $cus = View_CurrencySymbol_main::all();
         $ops = View_TypeOperation_main::all();
-        return view('Main.crud',compact('cus','ops'));
+
+        $account_numbers = DB::table('tbl_accounts')->pluck('account_number');
+
+
+
+        return view('Main.crud',compact('cus','ops','accounts','account_numbers'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return string
+     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'operation_date'=>'required|date',
-            'explained'=>'required|string',
-            'type_of_operation'=>'required|string',
-            'currency_symbol'=>'required|string',
-            'exchange_rate'=>'required|string',
-        ]);
-        if ($validator->fails()) {
-            return $validator->errors()->first();
+        $data['operation_date'] = $request->operation_date;
+        $data['explained'] = $request->Explained;
+        $data['type_of_operation'] = $request->type_of_operation;
+        $data['currency_symbol'] = $request->currency_symbol;
+        $data['exchange_rate'] = $request->exchange_rate;
+       $main= Main::create($data);
+
+        $details_list = [];
+        for ($i = 0; $i < count($request->debit); $i++) {
+            $details_list[$i]['debit'] = $request->debit[$i];
+            $details_list[$i]['credit'] = $request->credit[$i];
+            $details_list[$i]['account_number'] = 1;
+            $details_list[$i]['explained'] = $request->explained[$i];
         }
-        Main::create(['operation_date'=> $request->operation_date,
-            'explained'=>$request->explained,
-            'type_of_operation'=>$request->type_of_operation,
-            'currency_symbol'=>$request->currency_symbol,
-            'exchange_rate'=>$request->exchange_rate
-        ]);
+        $details = $main->subs()->createMany($details_list);
+
+
         return redirect(route('Mains.index'));
     }
 
@@ -80,10 +90,12 @@ class MainController extends Controller
      */
     public function edit($id)
     {
+        $accounts = TblAccount::all();
+
         $main = Main::FindOrFail($id);
         $cus = View_CurrencySymbol_main::all();
         $ops = View_TypeOperation_main::all();
-        return  view('Main.crud',compact('main','ops','cus'));
+        return  view('Main.crud',compact('main','ops','cus','accounts'));
     }
 
     /**
@@ -95,23 +107,26 @@ class MainController extends Controller
      */
     public function update(Request $request,$id)
     {
-  $main = Main::where('id',$id);
-        $validator = Validator::make($request->all(), [
-            'operation_date'=>'sometimes|required|date',
-            'explained'=>'sometimes|required|string',
-            'type_of_operation'=>'sometimes|required|string',
-            'currency_symbol'=>'sometimes|required|string',
-            'exchange_rate'=>'sometimes|required|string',
-        ]);
-        if ($validator->fails()) {
-            return $validator->errors()->first();
+        $main = Main::whereId($id)->first();
+        dd($request);
+        $data['operation_date'] = $request->operation_date;
+        $data['explained'] = $request->Explained;
+        $data['type_of_operation'] = $request->type_of_operation;
+        $data['currency_symbol'] = $request->currency_symbol;
+        $data['exchange_rate'] = $request->exchange_rate;
+        $main->update($data);
+
+
+        $main->subs()->delete();
+
+        $details_list = [];
+        for ($i = 0; $i < count($request->debit); $i++) {
+            $details_list[$i]['debit'] = $request->debit[$i];
+            $details_list[$i]['credit'] = $request->credit[$i];
+            $details_list[$i]['account_number'] = $request->account_number[$i];
+            $details_list[$i]['explained'] = $request->explained[$i];
         }
-        $main->update(['operation_date'=> $request->operation_date,
-            'explained'=>$request->explained,
-            'type_of_operation'=>$request->type_of_operation,
-            'currency_symbol'=>$request->currency_symbol,
-            'exchange_rate'=>$request->exchange_rate
-        ]);
+       $main->subs()->createMany($details_list);
         return redirect(route('Mains.index'));
     }
 
@@ -126,4 +141,10 @@ class MainController extends Controller
         Main::where('id',$id)->delete();
         return redirect(route('Mains.index'));
     }
+
+    public function add(){
+        $accounts = TblAccount::all();
+        return view('main.ajax',compact('accounts'));
+    }
+
 }

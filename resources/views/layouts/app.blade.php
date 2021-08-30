@@ -16,17 +16,29 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/><link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @yield('style')
 </head>
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    @auth()
+                    {{ __( Auth::user()->company_name) }}
+                        @endauth
                 </a>
+                @auth()
+                @if (Auth::user()->parent_id == null)
+                    <button class="btn"><a href="{{route('Users.index')}}"> {{__('Employees')}} </a></button>
+                @endif
+                @endauth
+                <button class="btn"><a href="{{route('Accounts.index')}}"> {{__('Accounts')}} </a></button>
+                <button class="btn"><a href="{{route('Options.index')}}"> {{__('Options')}}</a></button>
+                <button class="btn"><a href="{{route('Mains.index')}}"> {{__('Mains')}}</a></button>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -75,7 +87,11 @@
 
         <main class="py-4">
             @yield('content')
+
         </main>
     </div>
+
+    @yield('script')
+
 </body>
 </html>

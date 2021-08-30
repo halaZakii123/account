@@ -20,6 +20,8 @@ class CreateOptionViewsTable extends Migration
             )
         ");
 
+
+
         DB::statement("
           CREATE VIEW view_currencySymbol_main AS
           (

@@ -51,12 +51,10 @@ class AccountController extends Controller
         return redirect(route('Accounts.index'));
     }
 
-    public function show(  $id){
-        $account = TblAccount::findOrFail($id);
-        return view('Account.showAccount',compact('account'));
-    }
-
-
+//    public function show(  $id){
+//        $account = TblAccount::findOrFail($id);
+//        return view('Account.showAccount',compact('account'));
+//    }
 
     public function edit($id){
         $views = View_Account_Main::all();
