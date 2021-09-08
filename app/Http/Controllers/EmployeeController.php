@@ -19,7 +19,6 @@ class EmployeeController extends Controller
 
     public function index(){
 
-
         $users = DB::select("CALL pr_users(" .Auth::user()->id.")");
         return view('Employee.index',compact('users'));
     }

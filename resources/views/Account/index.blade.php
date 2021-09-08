@@ -10,6 +10,8 @@
                         <h2> {{__('Accounts')}} </h2>
 
                         <a href="{{ route('Accounts.create') }}" class="btn btn-primary ml-auto"><i class="fa fa-plus"></i> {{ __('create') }}</a>
+                        <a href="/print" class="btn btn-primary ml-auto"> print</a>
+                        <a href="/pdf" class="btn btn-primary ml-auto"> pdf</a>
                     </div>
 
                     <div class="card-body">
@@ -57,6 +59,8 @@
                                                 @csrf
                                                 @method('DELETE')
                                             </form>
+
+
                                         </td>
 
                                     </tr>
@@ -64,6 +68,7 @@
 
                                 </tbody>
                             </table>
+
 
                         </div>
 

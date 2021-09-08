@@ -25,8 +25,16 @@
                                 <label for="type" class="col-md-4 col-form-label text-md-right">{{ __('Type') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="type" type="text" class="form-control @error('type') is-invalid @enderror" name="type" value="@if(!empty($option)) {{$option->type}} @else {{old('type')? 'selected':''}} @endif" required autocomplete="type" autofocus>
-
+                                    <select name="type" id="type" class="type form-control" onchange="validate()">
+                                        <option></option>
+                                        @if(!empty($option))
+                                            <option  value="currency_symbol" {{$option->type == 'currency_symbol'? 'selected':''}}> {{__('currency_symbol')}}</option>
+                                             <option value="type_of_operation"{{$option->type  == 'type_of_operation' ? 'selected' : '' }}  > {{__('type_of_operation')}}</option>
+                                          @else
+                                            <option value="currency_symbol" {{old('type')?'selected' :''}} > {{__('currency_symbol')}}</option>
+                                            <option value="type_of_operation" {{old('type')?'selected' :''}}> {{__('type_of_operation')}}</option>
+                                          @endif
+                                    </select>
                                     @error('type')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -48,6 +56,19 @@
                                     @enderror
                                 </div>
                             </div>
+                            <div class="form-group row">
+                                <label for="exchange_rate" class="col-md-4 col-form-label text-md-right">{{ __('exchange rate') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="exchange_rate" type="text" class=" enable form-control @error('exchange_rate') is-invalid @enderror" name="exchange_rate" value="@if(!empty($option)){{$option->exchange_rate}} @else {{old('exchange_rate')? 'selected':''}} @endif" required autocomplete="exchange_rate" autofocus disabled="true">
+
+                                    @error('exchange_rate')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
 
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
@@ -63,5 +84,20 @@
             </div>
         </div>
     </div>
+    <script>
+        function validate()
+        {
+            var ddl = document.getElementById("type");
+            var selectedValue = ddl.options[ddl.selectedIndex].value;
+            if (selectedValue == "currency_symbol")
+            {
+                $('.enable').prop('disabled', false);
+            }
+            else{
+                $('.enable').prop('disabled', true);
+            }
+        }
+        </script>
 @endsection
+
 

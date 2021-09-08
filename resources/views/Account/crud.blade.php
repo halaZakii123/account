@@ -48,6 +48,7 @@
                                         <option value="" disabled> Select master acount _number</option>
                                         <option value="-" > don't have master</option>
                                         @foreach($views as $view)
+
                                           @if(!empty($account))
                                             <option value=" {{$view->account_number}} "{{ $account->master_account_number == $view->account_number? 'selected' : '' }} >{{$view->account_number}} </option>
                                            @else

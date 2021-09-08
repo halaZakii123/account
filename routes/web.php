@@ -38,6 +38,12 @@ Route::resource('/Mains',MainController::class);
 //Route::post('/update/{id}/{main}','SubController@update');
 Route::post('/addOption','MainController@add');
 
+Route::get('/print','AccountController@printAccount');
+Route::get('/pdf','AccountController@pdf');
+
+Route::get('/pdfM/{id}','MainController@pdf');
+Route::get('/main/print/{id}','MainController@printM');
+
 ;
 
 

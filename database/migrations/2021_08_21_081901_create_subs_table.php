@@ -19,10 +19,10 @@ class CreateSubsTable extends Migration
             $table->integer('credit');
             $table->string('account_number');
             $table->String('explained');
-
+            $table->String('explained_ar');
             $table->unsignedBigInteger('main_id');
             $table->timestamps();
-            
+
             $table->foreign('main_id')
        ->references('id')
        ->on('mains')
@@ -30,7 +30,7 @@ class CreateSubsTable extends Migration
        ->onDelete('cascade');
             });
 
-        
+
     }
 
     /**

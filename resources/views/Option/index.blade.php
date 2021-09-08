@@ -29,6 +29,7 @@
                                 <tr>
                                     <th>{{__('Type')}}</th>
                                     <th>{{__('Content')}}</th>
+                                    <th>{{__('exchange_rate')}}</th>
                                     <th>{{__('Actions')}}</th>
 
                                 </tr>
@@ -38,6 +39,7 @@
                                     <tr class="active">
                                         <td>{{$option->type}} </td>
                                         <td>{{$option->contents}}</td>
+                                        <td>{{$option->exchange_rate}}</td>
                                         <td>
                                             <a href="{{route('Options.edit',$option->id) }}"><i class="fa fa-edit"></i></a>
                                             <a href="javascript:void(0)" onclick=" { document.getElementById('delete-{{ $option->id }}').submit(); } " class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>

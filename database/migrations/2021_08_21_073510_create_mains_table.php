@@ -17,10 +17,15 @@ class CreateMainsTable extends Migration
             $table->bigIncrements('id');
             $table->date('operation_date');
             $table->string('explained');
+            $table->string('explained_ar');
             $table->string('type_of_operation');
+            $table->string('type_of_operation_ar');
             $table->string('currency_symbol');
             $table->string('exchange_rate');
             $table->timestamps();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('parent_id');
+
         });
     }
 

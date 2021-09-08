@@ -17,12 +17,15 @@ class CreateTblAccountsTable extends Migration
             $table->id();
             $table->string('account_number');
             $table->string('account_name');
+            $table->string('account_name_ar');
             $table->string('master_account_number')->nullable();
             $table->string('report');
             $table->boolean('mainly')->nullable()->default(false);
-            $table->rememberToken();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('parent_id');
             $table->timestamps();
-        });
+
+    });
     }
 
     /**

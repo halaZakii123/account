@@ -20,6 +20,28 @@
             document.getElementById('total').value = total;
         }
 </script>
+<script>
+
+        var arr = document.querySelectorAll('.debit_filed');
+        var total =0;
+        for (var i=0; i<arr.length;i++){
+            if (parseInt(arr[i].value)){
+                total+=parseInt(arr[i].value);
+            }
+        }
+        document.getElementById('totalDebit').value = total;
+
+
+        var arr = document.querySelectorAll('.credit_filed');
+        var total =0;
+        for (var i=0; i<arr.length;i++){
+            if (parseInt(arr[i].value)){
+                total+=parseInt(arr[i].value);
+            }
+        }
+        document.getElementById('totalCredit').value = total;
+
+</script>
 
 
 {{--@foreach ($account_numbers as $a)--}}
@@ -33,6 +55,11 @@
                     <div class="card-header d-flex">
                         <h2> {{__('Mains')}} <span> @if(!empty($main))#{{$main->id}} @endif</span></h2>
                         <a href="{{ route('Mains.index') }}" class="btn btn-primary ml-auto"><i class="fa fa-home"></i> {{ __('Back') }}</a>
+                        @if(!empty($main))
+                        <a href="/pdfM/{{$main->id}}" class="btn btn-primary ml-auto"> pdf</a>
+                        <a href="/main/print/{{$main->id}}" class="btn btn-primary ml-auto">print</a>
+
+                        @endif
                     </div>
 
                     <div class="card-body">
@@ -130,19 +157,19 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    <input type="number" name="debit[{{ $loop->index }}]" id="debit" class="debit_filed" value= "{{  $sub->debit}} " required  onchange="gettotald(),Total(),check()" >
+                                                    <input type="text" name="debit[{{ $loop->index }}]" id="debit" class="debit_filed" value="{{$sub->debit}} "   onchange="gettotald(),changeDebit(),gettotalc()" >
                                                     @error('debit')<span class="help-block text-danger">{{ $message }}</span>@enderror
                                                 </td>
                                                 <td>
-                                                    <input id="credit" type="number" class="credit_filed"  name="credit[{{ $loop->index }}]" value= " {{ $sub->credit}} " required  onchange="gettotalc(),Total(),check()">
+                                                    <input id="credit" type="text" class="credit_filed"  name="credit[{{ $loop->index }}]" value= " {{ $sub->credit}} "  onchange="gettotalc(),changeCredit(),gettotald()">
                                                     @error('credit')<span class="help-block text-danger">{{ $message }}</span>@enderror
 
                                                 </td>
                                                 <td>
                                                     <select name="account_number[{{ $loop->index }}]" id="account_number" class="account_number form-control">
                                                         <option></option>
-                                                        @foreach($accounts as $account)
-                                                            <option value=" {{ $account->account_number }} "{{ $sub->account_number == $account->account_number? 'selected' : '' }}  >{{$account->account_number}} </option>
+                                                        @foreach($account_numbers as $account)
+                                                            <option value=" {{$account}} "{{ $sub->account_number == $account ? 'selected' : '' }}  >{{$account}} </option>
                                                         @endforeach
                                                     </select>
                                                     @error('option')<span class="help-block text-danger">{{ $message }}</span>@enderror
@@ -151,9 +178,9 @@
                                                     <input id="explained" type="text" class="form-control "name="explained[{{ $loop->index }}]" value= "{{ $sub->explained}}" required >
                                                     @error('explained')<span class="help-block text-danger">{{ $message }}</span>@enderror
                                                 </td>
-                                                <td>
-                                                   <input class="box" id="total" value="0" >
-                                                </td>
+{{--                                                <td>--}}
+{{--                                                   <input class="box" id="total" value="0" >--}}
+{{--                                                </td>--}}
 
                                             </tr>
 
@@ -164,19 +191,19 @@
                                         <tr class="cloning_row" id="0">
                                             <td>#</td>
                                             <td>
-                                                <input type="number" name="debit[0]" id='debit' class="debit_filed" value= "  {{ old('debit') }} "  required onchange="gettotald(),Total(),check()" >
+                                                <input type="number" name="debit[0]" id='debit' class="debit_filed"  required onchange="gettotald(),check() ,Total(),gettotalc()" >
                                                 @error('debit')<span class="help-block text-danger">{{ $message }}</span>@enderror
                                             </td>
                                             <td>
-                                                <input id="credit" type="number" class="credit_filed"  name="credit[0]" value= "{{ old('credit') }}" required onchange="gettotalc(),Total(),check()" >
+                                                <input id="credit" type="number" class="credit_filed"  name="credit[0]" required onchange="gettotalc(),check(),Total(),gettotald()" >
                                                 @error('credit')<span class="help-block text-danger">{{ $message }}</span>@enderror
 
                                             </td>
                                             <td>
                                                 <select name="account_number[0]" id="account_number" class=" form-control">
                                                     <option></option>
-                                                    @foreach($accounts as $account)
-                                                        <option value="{{$account->account_number}}"{{old('account_number')}} >{{$account->account_number}} </option>
+                                                    @foreach($account_numbers as $account)
+                                                        <option value="{{$account}}"{{old('account_number')}} >{{$account}} </option>
                                                     @endforeach
                                                 </select>
                                                 @error('option')<span class="help-block text-danger">{{ $message }}</span>@enderror
@@ -218,8 +245,8 @@
                                     </thead>
                                     <tbody>
                                         <tr class="total">
-                                             <td><input type="number" id="totalDebit" class="totalD" value="0" readonly="readonly"   ></td>
-                                             <td><input type="number" id="totalCredit"  class="totalC" value="0" readonly="readonly" ></td>
+                                             <td><input type="number" id="totalDebit" class="totalD" value="0" readonly="readonly"  onchange=" check(), Total()" ></td>
+                                             <td><input type="number" id="totalCredit"  class="totalC" value="0" readonly="readonly" onchange="check(),Total()"></td>
                                              <td><input type="number"  name="total" id="total" value="0" class="total" readonly="readonly"  >                                             <span id="error"></span>
                                              </td>
                                         </tr>
@@ -285,6 +312,26 @@
 
         });
     </script>
+
+    <script>
+        function changeDebit() {
+            var a = document.getElementById('debit');
+                if ((parseInt(a.value) >= 0)){
+                    document.getElementById('credit').value = 0;
+
+                }
+
+        }
+
+    </script>
+    <script>
+        function changeCredit() {
+            var a = document.getElementById('credit');
+            if ((parseInt(a.value) >= 0)){
+                document.getElementById('debit').value = 0;
+            }
+        }
+    </script>
     <script>
 
         function gettotald() {
@@ -307,12 +354,7 @@
             }
             document.getElementById('totalCredit').value = total;
         }
-        function Total() {
-            var x = document.getElementById("totalDebit").value;
-            var y = document.getElementById("totalCredit").value;
-            var z = parseInt(x-y);
-            document.getElementById("total").value = z;
-        }
+
         function check() {
             var x = document.getElementById("total").value;
             if (x != 0) {
@@ -325,6 +367,14 @@
                 error.innerHTML = ""
                 $('.enableOnInput').prop('disabled', false);
             }
+        }
+    </script>
+    <script>
+        function Total() {
+            var x = document.getElementById("totalDebit").value;
+            var y = document.getElementById("totalCredit").value;
+            var z = parseInt(x-y);
+            document.getElementById("total").value = z;
         }
     </script>
  <script>
@@ -349,6 +399,28 @@
          }
      });
  </script>
+    <script>
+
+            var arr = document.querySelectorAll('.debit_filed');
+            var total =0;
+            for (var i=0; i<arr.length;i++){
+                if (parseInt(arr[i].value)){
+                    total+=parseInt(arr[i].value);
+                }
+            }
+            document.getElementById('totalDebit').value = total;
+
+
+            var arr = document.querySelectorAll('.credit_filed');
+            var total =0;
+            for (var i=0; i<arr.length;i++){
+                if (parseInt(arr[i].value)){
+                    total+=parseInt(arr[i].value);
+                }
+            }
+            document.getElementById('totalCredit').value = total;
+
+    </script>
 
     <script src="{{ asset('js/form_validation/jquery.form.js') }}"></script>
     <script src="{{ asset('js/form_validation/jquery.validate.min.js') }}"></script>
