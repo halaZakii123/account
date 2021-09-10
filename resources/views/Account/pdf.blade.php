@@ -134,7 +134,7 @@
             <td></td>
             <td>{{__('Account Number')}}</td>
             <td>{{__('Account Name')}}</td>
-            <td>{{__(' Master Account Number')}}</td>
+            <td>{{__('Master Account number')}}</td>
             <td>{{__('Report')}}</td>
             <td>{{__('Mainly')}}</td>
         </tr>

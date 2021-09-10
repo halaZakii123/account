@@ -53,7 +53,6 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header d-flex">
-                        <h2> {{__('Mains')}} <span> @if(!empty($main))#{{$main->id}} @endif</span></h2>
                         <a href="{{ route('Mains.index') }}" class="btn btn-primary ml-auto"><i class="fa fa-home"></i> {{ __('Back') }}</a>
                         @if(!empty($main))
                         <a href="/pdfM/{{$main->id}}" class="btn btn-primary ml-auto"> pdf</a>
@@ -94,7 +93,7 @@
                             <div class="row">
                                 <div class="col-4">
                                     <div class="form-group">
-                                        <label for="type_of_operation" >{{ __('Type of Operation') }}</label>
+                                        <label for="type_of_operation" >{{ __('Type of operation') }}</label>
                                         <select name="type_of_operation" id="type_of_operation" class="unit form-control">
                                             <option value="" disabled> Select type of operation</option>
                                             @foreach($ops as $op)
@@ -111,8 +110,8 @@
 
                                 <div class="col-4">
                                     <div class="form-group">
-                                        <label for="currency_symbol">{{ __('Currency Symbol') }}</label>
-                                        <select name="currency_symbol" id="currency_symbol" class="unit form-control" >
+                                        <label for="currency_symbol">{{ __('Currency symbol') }}</label>
+                                        <select name="currency_symbol" id="currency_symbol" class="unit form-control" onchange="ajaxE()" >
                                             <option value="" disabled> Select type of operation</option>
                                             @foreach($cus as $cu)
                                                 @if(!empty($main))
@@ -127,8 +126,10 @@
                                 </div>
                                 <div class="col-4">
                                     <div class="form-group">
-                                        <label for="exchange_rate" >{{ __('exchange_rate') }}</label>
-                                        <input id="exchange_rate'" type="text" class="form-control @error('exchange_rate') is-invalid @enderror" name="exchange_rate"  required value= "@if (!empty($main)) {{ $main->exchange_rate}} @else {{ old('exchange_rate') }} @endif" required >
+                                        <label for="exchange_rate" >{{ __('Exchange rate') }}</label>
+                                        <div id="c">
+
+                                        </div>
                                         @error('exchange_rate')<span class="help-block text-danger">{{ $message }}</span>@enderror
                                     </div>
                                 </div>
@@ -141,7 +142,7 @@
                                         <th>{{ __('Debit') }}</th>
                                         <th>{{ __('Credit') }}</th>
                                         <th>{{ __('Account Number') }}</th>
-                                        <th>{{ __('explained') }}</th>
+                                        <th>{{ __('Explained') }}</th>
                                     </tr>
                                     </thead>
                                     <tbody id="i">
@@ -157,11 +158,11 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    <input type="text" name="debit[{{ $loop->index }}]" id="debit" class="debit_filed" value="{{$sub->debit}} "   onchange="gettotald(),changeDebit(),gettotalc()" >
+                                                    <input type="text" name="debit[{{ $loop->index }}]" id="debit" class="debit_filed" value="{{$sub->debit}} "   onchange="gettotald(),changeDebit(),Total()" >
                                                     @error('debit')<span class="help-block text-danger">{{ $message }}</span>@enderror
                                                 </td>
                                                 <td>
-                                                    <input id="credit" type="text" class="credit_filed"  name="credit[{{ $loop->index }}]" value= " {{ $sub->credit}} "  onchange="gettotalc(),changeCredit(),gettotald()">
+                                                    <input id="credit" type="text" class="credit_filed"  name="credit[{{ $loop->index }}]" value= " {{ $sub->credit}} "  onchange="gettotalc(),changeCredit(),Total()">
                                                     @error('credit')<span class="help-block text-danger">{{ $message }}</span>@enderror
 
                                                 </td>
@@ -191,11 +192,11 @@
                                         <tr class="cloning_row" id="0">
                                             <td>#</td>
                                             <td>
-                                                <input type="number" name="debit[0]" id='debit' class="debit_filed"  required onchange="gettotald(),check() ,Total(),gettotalc()" >
+                                                <input type="number" name="debit[0]" id='debit' class="debit_filed"  required onchange="gettotald(),check() ,Total()" >
                                                 @error('debit')<span class="help-block text-danger">{{ $message }}</span>@enderror
                                             </td>
                                             <td>
-                                                <input id="credit" type="number" class="credit_filed"  name="credit[0]" required onchange="gettotalc(),check(),Total(),gettotald()" >
+                                                <input id="credit" type="number" class="credit_filed"  name="credit[0]" required onchange="gettotalc(),check(),Total()" >
                                                 @error('credit')<span class="help-block text-danger">{{ $message }}</span>@enderror
 
                                             </td>
@@ -228,7 +229,7 @@
                             <tfoot>
                             <tr>
                                 <td colspan="6">
-                                    <button   type="button" id="btn_add" class="btn_add btn btn-primary">{{ __('add_another_sub') }}</button>
+                                    <button   type="button" id="btn_add" class="btn_add btn btn-primary">{{ __('Add another sub') }}</button>
                                 </td>
 
                             </tr>
@@ -238,8 +239,8 @@
                                     <thead>
                                         <tr>
 
-                                            <th>{{ __('Total_Debit') }}</th>
-                                            <th>{{ __(' total_Credit') }}</th>
+                                            <th>{{ __('Total Debit') }}</th>
+                                            <th>{{ __('Total Credit') }}</th>
                                             <th>{{ __('Total') }}</th>
                                         </tr>
                                     </thead>
@@ -255,7 +256,7 @@
                             </div>
 
                             <div class="text-right pt-3">
-                                <button onclick="check()" name="save" class=" enableOnInput btn btn-primary"  >{{ __('save') }}  </button>
+                                <button onclick="check()" name="save" class=" enableOnInput btn btn-primary"  >{{ __('Submit') }}  </button>
                             </div>
 
                         </form>
@@ -312,6 +313,30 @@
 
         });
     </script>
+    <script>
+        function ajaxE() {
+            var ddl = document.getElementById("currency_symbol");
+            var selectedValue = ddl.options[ddl.selectedIndex].value;
+            console.log('x:',selectedValue);
+            $.ajax({
+                type:'post',
+                url:'{{URL::to('/addC')}}',
+                data:{
+                    '_token':'{{csrf_token()}}',
+                    'selectedValue': selectedValue,
+
+                },
+                success:function (data){
+                    console.log('data:',data);
+                    $('#c').html(data);
+                },
+                error:function(){
+                    console.log('error ',$error);
+                }
+            });
+
+        }
+    </script>
 
     <script>
         function changeDebit() {
@@ -355,19 +380,19 @@
             document.getElementById('totalCredit').value = total;
         }
 
-        function check() {
-            var x = document.getElementById("total").value;
-            if (x != 0) {
-                error.innerHTML = "<span style='color: red;'>"+
-                    "The Total must be zero</span>"
-                $('.enableOnInput').prop('disabled', true);
-
-            } else {
-                // input is fine -- reset the error message
-                error.innerHTML = ""
-                $('.enableOnInput').prop('disabled', false);
-            }
-        }
+        // function check() {
+        //     var x = document.getElementById("total").value;
+        //     if (x != 0) {
+        //         error.innerHTML = "<span style='color: red;'>"+
+        //             "The Total must be zero</span>"
+        //         $('.enableOnInput').prop('disabled', true);
+        //
+        //     } else {
+        //         // input is fine -- reset the error message
+        //         error.innerHTML = ""
+        //         $('.enableOnInput').prop('disabled', false);
+        //     }
+        // }
     </script>
     <script>
         function Total() {
@@ -380,24 +405,9 @@
  <script>
      $(document).on('click', '.delegated-btn', function (e) {
          e.preventDefault();
-         $(this).parent().parent().remove();})
-
-     $('form').validate({
-         rules: {
-             'operation_date' : { required:true },
-             'explained' : { required:true, email:true },
-             'type_of_operation' : { required:true, digits: true, minlength: 10, maxlength: 14 },
-             'currency_symbol' : { required:true },
-             'invoice_number' : { required:true, digits: true },
-             'exchange_rate' : { required:true },
-             'debit' : { required:true ,digits:true},
-             'credit' : { required:true ,digits:true},
-             'account_number' : { required:true ,digits:true},
-         },
-         submitHandler: function (form) {
-             form.submit();
-         }
+         $(this).parent().parent().remove();
      });
+
  </script>
     <script>
 
@@ -409,8 +419,6 @@
                 }
             }
             document.getElementById('totalDebit').value = total;
-
-
             var arr = document.querySelectorAll('.credit_filed');
             var total =0;
             for (var i=0; i<arr.length;i++){

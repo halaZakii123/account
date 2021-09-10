@@ -6,7 +6,6 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header d-flex">
-                        {{ __(' Option') }}
                         <a href="{{ route('Options.index') }}" class="btn btn-primary ml-auto"><i class="fa fa-home"></i> {{ __('Back') }}</a>
                     </div>
 
@@ -57,7 +56,7 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="exchange_rate" class="col-md-4 col-form-label text-md-right">{{ __('exchange rate') }}</label>
+                                <label for="exchange_rate" class="col-md-4 col-form-label text-md-right">{{ __('Exchange rate') }}</label>
 
                                 <div class="col-md-6">
                                     <input id="exchange_rate" type="text" class=" enable form-control @error('exchange_rate') is-invalid @enderror" name="exchange_rate" value="@if(!empty($option)){{$option->exchange_rate}} @else {{old('exchange_rate')? 'selected':''}} @endif" required autocomplete="exchange_rate" autofocus disabled="true">
@@ -73,7 +72,7 @@
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-primary">
-                                        {{ __('Add') }}
+                                        {{ __('Submit') }}
                                     </button>
                                 </div>
                             </div>

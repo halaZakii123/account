@@ -151,10 +151,22 @@ class MainController extends Controller
     }
 
     public function add(){
+
         $user_id = checkPermissionHelper::checkPermission();
         $account_numbers = DB::table('tbl_accounts')->where('parent_id',$user_id)->pluck('account_number');
 
         return view('main.ajax',compact('account_numbers'));
+    }
+    public function addE(){
+        $user_id = checkPermissionHelper::checkPermission();
+        $cus = View_CurrencySymbol_main::where('parent_id',$user_id)->get();
+//        foreach ($cus as $cu){
+//            if ($cu->contents == "@"){
+//                dd($cu->contents);
+//            }
+//        }
+        $x=request()->selectedValue;
+    return view('main.ajaxE',compact('cus','x'));
     }
 
     public function printM($id){

@@ -29,8 +29,8 @@
                                 <tr>
                                     <th>{{__('Type')}}</th>
                                     <th>{{__('Content')}}</th>
-                                    <th>{{__('exchange_rate')}}</th>
-                                    <th>{{__('Actions')}}</th>
+                                    <th>{{__('Exchange rate')}}</th>
+                                    <th>{{__('Action')}}</th>
 
                                 </tr>
                                 </thead>

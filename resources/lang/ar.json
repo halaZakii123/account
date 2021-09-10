@@ -1,0 +1,44 @@
+{
+    "Employees":"الموظفون",
+    "Accounts":"الحسابات",
+    "Options": "الخيارات",
+    "Mains": "الجدول الرئيسي",
+    "create":"إنشاء",
+    "Account Number": "رقم الحساب",
+    "Account Name":"اسم الحساب",
+    "Master Account number": " رقم حساب الاب",
+    "Report":"التقرير",
+    "Mainly": "رئيسي",
+    "Action":" الخيارات",
+    "print": "طباعة",
+    "Submit": "إرسال",
+    "Back":"رجوع",
+    "Type": "النوع",
+    "Content": "المحتوى",
+    "Exchange rate": "سعر الصرف",
+    "Operation_number": "رقم العملية",
+    "Date": "التاريخ",
+    "Explained":"الشرح",
+    "Type of operation": "نوع العملية",
+    "Currency symbol":"رمز العملة",
+    "Exchange rate": "سعر الصرف",
+    "Operation Date": "رقم العملية",
+    "Debit": "دائن",
+    "Credit": "مدين",
+    "Add another sub": "اضافة حقل جديد",
+    "Total Debit": "مجموع دائن",
+    "Total Credit": "مجموع مدين",
+    "Total": "المجموع",
+    "Name": "الاسم",
+    "Email": "البريد الالكتروني",
+    "Password": "كلمة المرور",
+    "Confirm Password": "تأكيد كلمة المرور",
+    "lang": "اللغة"
+
+
+
+
+
+
+
+}

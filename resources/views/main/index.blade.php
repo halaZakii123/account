@@ -7,7 +7,6 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header d-flex">
-                        <h2> {{__('Mains')}} </h2>
 
                         <a href="{{ route('Mains.create') }}" class="btn btn-primary ml-auto"><i class="fa fa-plus"></i> {{ __('create') }}</a>
 
@@ -29,9 +28,9 @@
                                     <th>{{__('Operation_number')}}</th>
                                     <th>{{__('Date')}}</th>
                                     <th>{{__('Explained')}}</th>
-                                    <th>{{__('Type_of_operation')}}</th>
-                                    <th>{{__('Currency_symbol')}}</th>
-                                    <th>{{__('Exchange_rate')}}</th>
+                                    <th>{{__('Type of operation')}}</th>
+                                    <th>{{__('Currency symbol')}}</th>
+                                    <th>{{__('Exchange rate')}}</th>
                                     <th>{{__('Action')}}</th>
 
 

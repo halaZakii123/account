@@ -15,7 +15,6 @@
 {{--                        <button class="btn"><a href="{{route('Options.index')}}"> {{__('Options')}}</a></button>--}}
 {{--                        <button class="btn"><a href="{{route('Mains.index')}}"> {{__('Mains')}}</a></button>--}}
 
-                            <h2> {{__('Employee')}} </h2>
 
                             <a href="{{ route('Users.create') }}" class="btn btn-primary ml-auto"><i class="fa fa-plus"></i> {{ __('create') }}</a>
 
@@ -39,6 +38,7 @@
                                 <tr>
                                     <th>{{__('Name')}}</th>
                                     <th>{{__('Email')}}</th>
+                                    <th>{{__('Action')}}</th>
 
 
                                 </tr>
@@ -50,7 +50,9 @@
                                         <td>
                                             {{$user->name}} </td>
                                         <td>{{$user->email}}
-                                            <a href="{{route('Users.edit',$user->id) }}"><i class="fa fa-edit"></i></a>
+
+                                        </td>
+                                        <td>  <a href="{{route('Users.edit',$user->id) }}"><i class="fa fa-edit"></i></a>
                                             <a href="javascript:void(0)" onclick=" { document.getElementById('delete-{{ $user->id }}').submit(); } " class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
                                             <form action="{{ route('Users.destroy', $user->id) }}" method="post" id="delete-{{ $user->id }}" style="display: none;">
                                                 @csrf

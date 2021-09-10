@@ -16,7 +16,26 @@ use Illuminate\Support\Facades\Redirect;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
+});
+Route::get('locale/ar', function ($locale){
+    if (! in_array($locale, ['en', 'ar'])) {
+        abort(400);
+    }
+    Session::put('locale', $locale);
+    App::setLocale($locale);
+    return redirect()->back();
+});
+Route::get('locale/ar', function (){
+
+    Session::put('locale', 'ar');
+    App::setLocale('ar');
+    return redirect()->back();
+});Route::get('locale/en', function (){
+
+    Session::put('locale', 'en');
+    App::setLocale('en');
+    return redirect()->back();
 });
 
 Auth::routes();
@@ -37,6 +56,7 @@ Route::resource('/Mains',MainController::class);
 //Route::get('/sub/{sub}/edit/{main}','SubController@edit');
 //Route::post('/update/{id}/{main}','SubController@update');
 Route::post('/addOption','MainController@add');
+Route::post('/addC','MainController@addE');
 
 Route::get('/print','AccountController@printAccount');
 Route::get('/pdf','AccountController@pdf');

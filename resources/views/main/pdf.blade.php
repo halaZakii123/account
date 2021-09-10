@@ -138,7 +138,7 @@
             </tr>
 
             <tr>
-                <th>{{ __('Type of Operation') }}</th>
+                <th>{{ __('Type of operation') }}</th>
                 <td>{{ $type_of_operation }}</td>
                 <th>{{ __('Currency Symbol') }}</th>
                 <td>{{ $currency_symbol }}</td>

@@ -17,7 +17,7 @@
                                 <td>{{ $main->explained }}</td>
                             </tr>
                             <tr>
-                                <th>{{ __('Type of Operation') }}</th>
+                                <th>{{ __('Type of operation') }}</th>
                                 <td>{{ $main->type_of_operation }}</td>
                                 <th>{{ __('Currency Symbol') }}</th>
                                 <td>{{ $main->currency_symbol }}</td>
@@ -35,7 +35,7 @@
                                 <th>{{ __('Debit') }}</th>
                                 <th>{{ __('Credit') }}</th>
                                 <th>{{ __('Account Number') }}</th>
-                                <th>{{ __('explained') }}</th>
+                                <th>{{ __('Explained') }}</th>
                             </tr>
                             </thead>
                             <tbody>

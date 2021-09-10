@@ -42,20 +42,23 @@ class OptionsController extends Controller
         $validator = Validator::make($request->all(), [
              'type' => 'required|string',
             'contents'=>'required|string',
-
+            'exchange_rate'=>'sometimes|required|numeric',
+            'type_ar'=>'sometimes',
+            'contents_ar'=>'sometimes'
         ]);
         if ($validator->fails()) {
             return $validator->errors()->first();
         }
 
+        
         Options::create(['type'=> $request->type,
+                        'type_ar'=> $request->type,
                          'contents'=>$request->contents,
-                         'type_ar'=>'هلا',
-                         'contents_ar'=>'cc',
-            'exchange_rate'=>'bb',
-            'parent_id'=>$user_id,
-            'user_id'=>Auth::user()->id
-                         ]);
+                         'contents_ar'=>$request->contents,
+                         'exchange_rate'=>$request->exchange_rate,
+                         'parent_id'=>$user_id,
+                         'user_id'=>Auth::user()->id
+                                     ]);
         return redirect(route('Options.index'));
     }
 

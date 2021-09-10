@@ -1,4 +1,5 @@
 <tr>
+    {{dd($x)}}
     <td><button type="button" class="btn btn-danger btn-sm delegated-btn"><i class="fa fa-minus"></i></button></td>
     <td>
         <input type="number" name="debit[]" id="debit" class="debit_filed" value= "{{ old('debit') }} "required onchange="gettotald(),gettotalc(),Total(),check()" >

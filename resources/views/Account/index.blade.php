@@ -7,11 +7,10 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header d-flex">
-                        <h2> {{__('Accounts')}} </h2>
 
                         <a href="{{ route('Accounts.create') }}" class="btn btn-primary ml-auto"><i class="fa fa-plus"></i> {{ __('create') }}</a>
-                        <a href="/print" class="btn btn-primary ml-auto"> print</a>
-                        <a href="/pdf" class="btn btn-primary ml-auto"> pdf</a>
+                        <a href="/print" class="btn btn-primary ml-auto">{{__('print')}}</a>
+                        <a href="/pdf" class="btn btn-primary ml-auto"> {{__('pdf')}}</a>
                     </div>
 
                     <div class="card-body">
@@ -30,7 +29,7 @@
                                 <tr>
                                     <th>{{__('Account Number')}}</th>
                                     <th>{{__('Account Name')}}</th>
-                                    <th>{{__(' Master Account Number')}}</th>
+                                    <th>{{__('Master Account number')}}</th>
                                     <th>{{__('Report')}}</th>
                                     <th>{{__('Mainly')}}</th>
                                     <th>{{__('Action')}}</th>
