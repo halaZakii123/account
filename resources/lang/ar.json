@@ -22,7 +22,7 @@
     "Type of operation": "نوع العملية",
     "Currency symbol":"رمز العملة",
     "Exchange rate": "سعر الصرف",
-    "Operation Date": "رقم العملية",
+    "Operation Date": "تاريخ العملية",
     "Debit": "دائن",
     "Credit": "مدين",
     "Add another sub": "اضافة حقل جديد",
@@ -33,7 +33,23 @@
     "Email": "البريد الالكتروني",
     "Password": "كلمة المرور",
     "Confirm Password": "تأكيد كلمة المرور",
-    "lang": "اللغة"
+    "lang": "اللغة",
+    "Select master account number": "قم باختيار رقم الحساب الرئيسي",
+    "do not have master": "لايوجد حساب رئيسي",
+    "budget": "ميزانية",
+    "list": "قائمة",
+    " Select Type of report": "قم باختيار نوع التقرير",
+    "select type": "قم باختيار نوع",
+    "select currency": "قم باختيار العملة",
+    "Login":"تسجيل الدخول",
+    "Register": "إنشاء حساب",
+    "Company name": "اسم الشركة",
+    "Logout": "تسجيل الخروج",
+    "Arabic": "العربية",
+    "Eng": "الانكليزية",
+    "Explained in eng": " الشرح باللغة الانكليزية",
+    "Explained in ar": "الشرح باللغة العربية",
+    "Create At": "تاريخ انشاء"
 
 
 

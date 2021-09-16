@@ -26,7 +26,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Email') }}</label>
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
@@ -64,7 +64,7 @@
 
 
                         <div class="form-group row">
-                            <label for="company_name" class="col-md-4 col-form-label text-md-right">{{ __('Company_name') }}</label>
+                            <label for="company_name" class="col-md-4 col-form-label text-md-right">{{ __('Company name') }}</label>
 
                             <div class="col-md-6">
                                 <input id="company_name" type="text" class="form-control" name="company_name" required autocomplete="company_name">

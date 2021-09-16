@@ -18,20 +18,20 @@ use Illuminate\Support\Facades\Redirect;
 Route::get('/', function () {
     return view('home');
 });
-Route::get('locale/ar', function ($locale){
-    if (! in_array($locale, ['en', 'ar'])) {
-        abort(400);
-    }
-    Session::put('locale', $locale);
-    App::setLocale($locale);
-    return redirect()->back();
-});
-Route::get('locale/ar', function (){
+//Route::get('locale/ar', function ($locale){
+//    if (! in_array($locale, ['en', 'ar'])) {
+//        abort(400);
+//    }
+//    Session::put('locale', $locale);
+//    App::setLocale($locale);
+//    return redirect()->back();
+//});
+Route::get('/locale/ar', function (){
 
     Session::put('locale', 'ar');
     App::setLocale('ar');
     return redirect()->back();
-});Route::get('locale/en', function (){
+});Route::get('/locale/en', function (){
 
     Session::put('locale', 'en');
     App::setLocale('en');
@@ -64,6 +64,7 @@ Route::get('/pdf','AccountController@pdf');
 Route::get('/pdfM/{id}','MainController@pdf');
 Route::get('/main/print/{id}','MainController@printM');
 
-;
+Route::get('Accounts/list', [AccountController::class, 'getAccounts'])->name('accounts.list');
+
 
 

@@ -19,7 +19,8 @@ class CreateSubsTable extends Migration
             $table->integer('credit');
             $table->string('account_number');
             $table->String('explained');
-            $table->String('explained_ar');
+            $table->string('explained_ar');
+
             $table->unsignedBigInteger('main_id');
             $table->timestamps();
 

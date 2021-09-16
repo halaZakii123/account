@@ -23,7 +23,7 @@ class MainController extends Controller
     public function index()
     {
         $user_id = checkPermissionHelper::checkPermission();
-        $mains = Main::where('parent_id',$user_id)->get();
+        $mains = Main::where('parent_id',$user_id)->paginate(8);
         return view('Main.index',compact('mains'));
     }
 
@@ -52,6 +52,7 @@ class MainController extends Controller
         $user_id = checkPermissionHelper::checkPermission();
         $data['operation_date'] = $request->operation_date;
         $data['explained'] = $request->Explained;
+        $data['explained_ar'] = $request->Explained_ar;
         $data['type_of_operation'] = $request->type_of_operation;
         $data['currency_symbol'] = $request->currency_symbol;
         $data['exchange_rate'] = $request->exchange_rate;
@@ -65,6 +66,7 @@ class MainController extends Controller
             $details_list[$i]['credit'] = $request->credit[$i];
             $details_list[$i]['account_number'] = $request->account_number[$i];
             $details_list[$i]['explained'] = $request->explained[$i];
+            $details_list[$i]['explained_ar'] = $request->explained_ar[$i];
         }
         $details = $main->subs()->createMany($details_list);
 
@@ -94,8 +96,9 @@ class MainController extends Controller
         $user_id = checkPermissionHelper::checkPermission();
 
         $main = Main::FindOrFail($id);
-        $cus = View_CurrencySymbol_main::where('parent_id',$user_id);
-        $ops = View_TypeOperation_main::where('parent_id',$user_id);
+        $cus = View_CurrencySymbol_main::where('parent_id',$user_id)->get();
+        $ops = View_TypeOperation_main::where('parent_id',$user_id)->get();
+
         $account_numbers = DB::table('tbl_accounts')->where('parent_id',$user_id)->pluck('account_number');
         if ($main->parent_id == $user_id) {
             return view('Main.crud', compact('main', 'ops', 'cus', 'accounts', 'account_numbers'));
@@ -118,6 +121,7 @@ class MainController extends Controller
 
         $data['operation_date'] = $request->operation_date;
         $data['explained'] = $request->Explained;
+        $data['explained_ar'] = $request->Explained_ar;
         $data['type_of_operation'] = $request->type_of_operation;
         $data['currency_symbol'] = $request->currency_symbol;
         $data['exchange_rate'] = $request->exchange_rate;
@@ -133,6 +137,7 @@ class MainController extends Controller
             $details_list[$i]['credit'] = $request->credit[$i];
             $details_list[$i]['account_number'] = $request->account_number[$i];
             $details_list[$i]['explained'] = $request->explained[$i];
+            $details_list[$i]['explained_ar'] = $request->explained_ar[$i];
         }
        $main->subs()->createMany($details_list);
         return redirect(route('Mains.index'));
@@ -154,8 +159,9 @@ class MainController extends Controller
 
         $user_id = checkPermissionHelper::checkPermission();
         $account_numbers = DB::table('tbl_accounts')->where('parent_id',$user_id)->pluck('account_number');
-
-        return view('main.ajax',compact('account_numbers'));
+        $x=request()->count;
+//       $c = 'A'.$x ;
+        return view('main.ajax',compact('account_numbers','x'));
     }
     public function addE(){
         $user_id = checkPermissionHelper::checkPermission();

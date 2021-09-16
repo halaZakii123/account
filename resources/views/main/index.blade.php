@@ -41,7 +41,7 @@
                                     <tr class="active">
                                         <td>{{$main->id}} </td>
                                         <td>{{$main->operation_date}} </td>
-                                        <td>{{$main->explained}} </td>
+                                        <td> @if (app()->getLocale() == 'ar'){{$main->explained_ar}} @else  {{$main->explained}} @endif </td>
                                         <td>{{$main->type_of_operation}} </td>
                                         <td>{{$main->currency_symbol}} </td>
                                         <td>{{$main->exchange_rate}} </td>
@@ -59,6 +59,9 @@
 
                                 </tbody>
                             </table>
+                            <div class="d-flex justify-content-center">
+                                {!! $mains->links() !!}
+                            </div>
                         </div>
 
                     </div>
@@ -66,4 +69,5 @@
             </div>
         </div>
     </div>
+
 @endsection

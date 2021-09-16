@@ -19,7 +19,6 @@
                     @endif
                         <button class="btn"><a href="{{route('Accounts.index')}}"> {{__('Accounts')}} </a></button>
                         <button class="btn"><a href="{{route('Options.index')}}"> {{__('Options')}}</a></button>
-                        <button class="btn"><a href="{{route('Subs.index')}}"> {{__('Subs')}}</a></button>
                         <button class="btn"><a href="{{route('Mains.index')}}"> {{__('Mains')}}</a></button>
 
 

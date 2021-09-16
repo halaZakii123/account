@@ -19,7 +19,6 @@ class CreateMainsTable extends Migration
             $table->string('explained');
             $table->string('explained_ar');
             $table->string('type_of_operation');
-            $table->string('type_of_operation_ar');
             $table->string('currency_symbol');
             $table->string('exchange_rate');
             $table->timestamps();

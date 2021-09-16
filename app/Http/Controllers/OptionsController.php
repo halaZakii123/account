@@ -43,18 +43,15 @@ class OptionsController extends Controller
              'type' => 'required|string',
             'contents'=>'required|string',
             'exchange_rate'=>'sometimes|required|numeric',
-            'type_ar'=>'sometimes',
-            'contents_ar'=>'sometimes'
         ]);
         if ($validator->fails()) {
             return $validator->errors()->first();
         }
 
-        
+
         Options::create(['type'=> $request->type,
                         'type_ar'=> $request->type,
                          'contents'=>$request->contents,
-                         'contents_ar'=>$request->contents,
                          'exchange_rate'=>$request->exchange_rate,
                          'parent_id'=>$user_id,
                          'user_id'=>Auth::user()->id
@@ -68,6 +65,8 @@ class OptionsController extends Controller
         $validator = Validator::make($request->all(), [
             'type' =>'sometimes|required|string',
             'content'=>'sometimes|required|string',
+            'exchange_rate'=>'sometimes|required|numeric',
+
 
         ]);
         if ($validator->fails()) {
@@ -76,7 +75,8 @@ class OptionsController extends Controller
         $options= Options::where('id',$id);
         $options->update(['type'=>$request->type,
             'contents'=>$request->contents,
-            'user_id'=>$user_id]);
+            'user_id'=>$user_id,
+            'exchange_rate'=>$request->exchange_rate]);
 
         return redirect(route('Options.index'));
     }

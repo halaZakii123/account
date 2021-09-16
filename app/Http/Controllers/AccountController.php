@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use PDF;
+use DataTables;
 
 
 class AccountController extends Controller
@@ -25,13 +26,27 @@ class AccountController extends Controller
 
     public function index(){
        $user_id = checkPermissionHelper::checkPermission();
-        $accounts= TblAccount::where('parent_id',$user_id)->get();
+        $accounts= TblAccount::where('parent_id',$user_id)->paginate(3);
         return view('Account.index',compact('accounts'));
+    }
+
+    public function getAccounts(Request $request){
+        if ($request->ajax()) {
+            $data = TblAccount::select('*');
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function($row){
+                    $actionBtn = '<a href="javascript:void(0)" class="edit btn btn-success btn-sm">Edit</a> <a href="javascript:void(0)" class="delete btn btn-danger btn-sm">Delete</a>';
+                    return $actionBtn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
     }
 
     public function create(){
        $user_id = checkPermissionHelper::checkPermission();
-        $views = View_Account_Main::where('parent_id',$user_id);
+        $views = View_Account_Main::where('parent_id',$user_id)->get();
 
         return view('Account.crud',compact('views'));
 

@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"> </script>
 
     <div class="container">
         <div class="row justify-content-center">
@@ -33,8 +36,7 @@
 
                         </div>
                         <div>
-                            <table class="table table-cl">
-                                <thead>
+                        <table class="table display responsive nowrap">                                <thead>
                                 <tr>
                                     <th>{{__('Name')}}</th>
                                     <th>{{__('Email')}}</th>
@@ -60,8 +62,6 @@
                                             </form>
                                         </td>
 
-
-
                                     </tr>
                                 @endforeach
 
@@ -74,4 +74,7 @@
             </div>
         </div>
     </div>
+
+
+
 @endsection

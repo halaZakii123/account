@@ -18,14 +18,23 @@ class EmployeeController extends Controller
     }
 
     public function index(){
-
+        if (Auth::user()->parent_id == 0){
         $users = DB::select("CALL pr_users(" .Auth::user()->id.")");
-        return view('Employee.index',compact('users'));
+        return view('Employee.index',compact('users'));}
+        else{
+            return ' you do not have permission';
+        }
     }
+
+
 
     public function create()
     {
-        return view('Employee.crud');
+        if (Auth::user()->parent_id == 0){
+        return view('Employee.crud');}
+        else{
+                return ' you do not have permission';
+            }
     }
 
 
@@ -57,7 +66,11 @@ class EmployeeController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        return view('Employee.crud',compact('user'));
+        if (Auth::user()->parent_id == 0 and $user->parent_id == Auth::user()->id){
+        return view('Employee.crud',compact('user'));}
+        else{
+            return ' you do not have permission';
+        }
     }
 
     public function update(Request $request ,$id){

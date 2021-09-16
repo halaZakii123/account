@@ -37,8 +37,9 @@
                                 <tbody>
                                 @foreach($options as $option)
                                     <tr class="active">
-                                        <td>{{$option->type}} </td>
-                                        <td>{{$option->contents}}</td>
+                                        <td>@if($option->type == 'currency_symbol') {{__('Currency symbol')}} @else {{__('Type of operation')}} @endif</td>
+                                        <td>
+                                            {{$option->contents}}</td>
                                         <td>{{$option->exchange_rate}}</td>
                                         <td>
                                             <a href="{{route('Options.edit',$option->id) }}"><i class="fa fa-edit"></i></a>

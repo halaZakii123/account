@@ -21,7 +21,7 @@
         }
 </script>
 <script>
-
+    window.addEventListener('load', (event) => {
         var arr = document.querySelectorAll('.debit_filed');
         var total =0;
         for (var i=0; i<arr.length;i++){
@@ -30,8 +30,6 @@
             }
         }
         document.getElementById('totalDebit').value = total;
-
-
         var arr = document.querySelectorAll('.credit_filed');
         var total =0;
         for (var i=0; i<arr.length;i++){
@@ -40,6 +38,13 @@
             }
         }
         document.getElementById('totalCredit').value = total;
+
+        var x = document.getElementById("totalDebit").value;
+        var y = document.getElementById("totalCredit").value;
+        var z = parseInt(x-y);
+        document.getElementById("total").value = z;
+    });
+
 
 </script>
 
@@ -83,22 +88,30 @@
                                 </div>
                                 <div class="col-4">
                                     <div class="form-group">
-                                        <label for="Explained" >{{ __('Explained') }}</label>
+                                        <label for="Explained" >{{ __('Explained in eng') }}</label>
                                         <input id="Explained" type="text" class="form-control @error('Explained') is-invalid @enderror" name="Explained" value= "@if (!empty($main)) {{ $main->explained}} @else {{ old('Explained') }} @endif" required >
                                         @error('Explained')<span class="help-block text-danger">{{ $message }}</span>@enderror
                                     </div>
                                 </div>
+
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="Explained_ar" >{{ __('Explained in ar') }}</label>
+                                    <input id="Explained_ar" type="text" class="form-control @error('Explained_ar') is-invalid @enderror" name="Explained_ar" value= "@if (!empty($main)) {{ $main->explained_ar}} @else {{ old('Explained_ar') }} @endif" required >
+                                    @error('Explained_ar')<span class="help-block text-danger">{{ $message }}</span>@enderror
+                                </div>
                             </div>
+                    </div>
 
                             <div class="row">
                                 <div class="col-4">
                                     <div class="form-group">
                                         <label for="type_of_operation" >{{ __('Type of operation') }}</label>
                                         <select name="type_of_operation" id="type_of_operation" class="unit form-control">
-                                            <option value="" disabled> Select type of operation</option>
+                                            <option > {{__('select type')}} </option>
                                             @foreach($ops as $op)
                                                 @if(!empty($main))
-                                                    <option value=" {{$op->contents}} "{{ $main->type_of_operation == $op->contents? 'selected' : '' }} >{{$op->contents}} </option>
+                                                    <option value="{{$op->contents}} "{{ $main->type_of_operation == $op->contents? 'selected' : '' }} > {{$op->contents}} </option>
                                                 @else
                                                     <option value="{{$op->contents}}" {{ old('type_of_operation')? 'selected' : '' }} >{{$op->contents}} </option>
                                                 @endif
@@ -112,7 +125,7 @@
                                     <div class="form-group">
                                         <label for="currency_symbol">{{ __('Currency symbol') }}</label>
                                         <select name="currency_symbol" id="currency_symbol" class="unit form-control" onchange="ajaxE()" >
-                                            <option value="" disabled> Select type of operation</option>
+                                            <option value="" > {{__('select currency')}}</option>
                                             @foreach($cus as $cu)
                                                 @if(!empty($main))
                                                     <option value=" {{$cu->contents}} "{{ $main->currency_symbol == $cu->contents? 'selected' : '' }} >{{$cu->contents}} </option>
@@ -128,7 +141,9 @@
                                     <div class="form-group">
                                         <label for="exchange_rate" >{{ __('Exchange rate') }}</label>
                                         <div id="c">
-
+                                            @if(!empty($main))
+                                                <input id="exchange_rate" type="text" class="form-control @error('exchange_rate') is-invalid @enderror" name="exchange_rate"  value= "{{$main->exchange_rate}} " required >
+@endif
                                         </div>
                                         @error('exchange_rate')<span class="help-block text-danger">{{ $message }}</span>@enderror
                                     </div>
@@ -142,7 +157,8 @@
                                         <th>{{ __('Debit') }}</th>
                                         <th>{{ __('Credit') }}</th>
                                         <th>{{ __('Account Number') }}</th>
-                                        <th>{{ __('Explained') }}</th>
+                                        <th>{{ __('Explained in eng') }}</th>
+                                        <th>{{ __('Explained in ar') }}</th>
                                     </tr>
                                     </thead>
                                     <tbody id="i">
@@ -158,11 +174,11 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    <input type="text" name="debit[{{ $loop->index }}]" id="debit" class="debit_filed" value="{{$sub->debit}} "   onchange="gettotald(),changeDebit(),Total()" >
+                                                    <input type="text" name="debit[{{ $loop->index }}]" id="debit_{{$loop->index}}" class="debit_filed" value="{{$sub->debit}} "   onchange="gettotald(),changeDebit({{$loop->index}}),gettotalc(),Total(),check()" >
                                                     @error('debit')<span class="help-block text-danger">{{ $message }}</span>@enderror
                                                 </td>
                                                 <td>
-                                                    <input id="credit" type="text" class="credit_filed"  name="credit[{{ $loop->index }}]" value= " {{ $sub->credit}} "  onchange="gettotalc(),changeCredit(),Total()">
+                                                    <input id="credit_{{$loop->index}}" type="text" class="credit_filed"  name="credit[{{ $loop->index }}]" value= " {{ $sub->credit}} "  onchange="gettotalc(),changeCredit({{$loop->index}}),gettotald(),Total(),check()">
                                                     @error('credit')<span class="help-block text-danger">{{ $message }}</span>@enderror
 
                                                 </td>
@@ -179,6 +195,10 @@
                                                     <input id="explained" type="text" class="form-control "name="explained[{{ $loop->index }}]" value= "{{ $sub->explained}}" required >
                                                     @error('explained')<span class="help-block text-danger">{{ $message }}</span>@enderror
                                                 </td>
+                                                <td>
+                                                    <input id="explained_ar" type="text" class="form-control "name="explained_ar[{{ $loop->index }}]" value= "{{ $sub->explained_ar}}" required >
+                                                    @error('explained_ar')<span class="help-block text-danger">{{ $message }}</span>@enderror
+                                                </td>
 {{--                                                <td>--}}
 {{--                                                   <input class="box" id="total" value="0" >--}}
 {{--                                                </td>--}}
@@ -192,11 +212,11 @@
                                         <tr class="cloning_row" id="0">
                                             <td>#</td>
                                             <td>
-                                                <input type="number" name="debit[0]" id='debit' class="debit_filed"  required onchange="gettotald(),check() ,Total()" >
+                                                <input type="number" name="debit[0]" id='debit' class="debit_filed"  required onchange="gettotald() ,change_Debit(),gettotalc(),Total(),check()" >
                                                 @error('debit')<span class="help-block text-danger">{{ $message }}</span>@enderror
                                             </td>
                                             <td>
-                                                <input id="credit" type="number" class="credit_filed"  name="credit[0]" required onchange="gettotalc(),check(),Total()" >
+                                                <input id="credit" type="number" class="credit_filed"  name="credit[0]" required onchange="gettotalc(),change_Credit(),gettotald(),Total(),check()" >
                                                 @error('credit')<span class="help-block text-danger">{{ $message }}</span>@enderror
 
                                             </td>
@@ -213,6 +233,10 @@
                                                 <input id="explained" type="text" class="explained form-control "name="explained[0]" value= " {{ old('explained') }}" required >
                                                 @error('explained')<span class="help-block text-danger">{{ $message }}</span>@enderror
 
+                                            </td>
+                                            <td>
+                                                <input id="explained_ar" type="text" class="form-control "name="explained_ar[0]" value= "{{ old('explained_ar') }}" required >
+                                                @error('explained_ar')<span class="help-block text-danger">{{ $message }}</span>@enderror
                                             </td>
 
                                         </tr>
@@ -268,38 +292,18 @@
 
     </div>
 
-{{--    <script>--}}
-{{--        function myFunction() {--}}
-{{--            let trCount = $('#sub_details').find('tr.cloning_row:last').length;--}}
-{{--            let numberIncr = trCount > 0 ? parseInt($('#sub_details').find('tr.cloning_row:last').attr('id')) + 1 : 0;--}}
-{{--            $('#sub_details').find('tbody').append($('' +--}}
-{{--                '<tr class="cloning_row" id="' + numberIncr + '">' +--}}
-{{--                '<td><button type="button" class="btn btn-danger btn-sm delegated-btn"><i class="fa fa-minus"></i></button></td>' +--}}
-{{--                '<td><input type="text" name="debit[' + numberIncr + ']" class="debit_filed" onchange="gettotald(),Total(),check()"></td>' +--}}
-{{--                '<td><input type="text" name="credit[' + numberIncr + ']" class="credit_filed" onchange="gettotalc(),Total(),check()"></td>' +--}}
-{{--                '<td><select name="unit[' + numberIncr + ']" class="unit form-control"> <option  value =" posts"></option>' +--}}
-{{--                '<td><input type="text" name="explained[' + numberIncr + ']" step="0.01" class="explained form-control"></td>' +--}}
-{{--                '<td>  </td>'+--}}
-{{--                --}}
-{{--                    --}}
-{{--            --}}
-{{--                '</tr>'));--}}
-{{--            --}}
-
-{{--        }--}}
-
-{{--    </script>--}}
     <script>
+        var c = 0;
         $(document).on('click', '.btn_add', function () {
 
-            $count = 1;
-            console.log('x:',$count);
+            c++;
+            console.log('x:',c);
             $.ajax({
                 type:'post',
                 url:'{{URL::to('/addOption')}}',
                 data:{
                     '_token':'{{csrf_token()}}',
-                    'count': $count,
+                    'count': c,
 
                 },
                 success:function (data){
@@ -339,7 +343,45 @@
     </script>
 
     <script>
-        function changeDebit() {
+        function changeDebit(x) {
+            var a = document.getElementById('debit_'+x);
+                if ((parseInt(a.value) >= 0)){
+                    document.getElementById('credit_'+x).value = 0;
+
+                }
+        }
+
+    </script>
+    <script>
+        function changeCredit(x) {
+            var a = document.getElementById('credit_'+x);
+            if ((parseInt(a.value) >= 0)){
+                document.getElementById('debit_'+x).value = 0;
+            }
+
+        }
+    </script>
+    <script>
+        function changeDebitt(x) {
+            var a = document.getElementById('debit-'+x);
+                if ((parseInt(a.value) >= 0)){
+                    document.getElementById('credit-'+x).value = 0;
+
+                }
+        }
+
+    </script>
+    <script>
+        function changeCreditt(x) {
+            var a = document.getElementById('credit-'+x);
+            if ((parseInt(a.value) >= 0)){
+                document.getElementById('debit-'+x).value = 0;
+            }
+
+        }
+    </script>
+    <script>
+        function change_Debit() {
             var a = document.getElementById('debit');
                 if ((parseInt(a.value) >= 0)){
                     document.getElementById('credit').value = 0;
@@ -350,7 +392,7 @@
 
     </script>
     <script>
-        function changeCredit() {
+        function change_Credit(x) {
             var a = document.getElementById('credit');
             if ((parseInt(a.value) >= 0)){
                 document.getElementById('debit').value = 0;
@@ -380,19 +422,17 @@
             document.getElementById('totalCredit').value = total;
         }
 
-        // function check() {
-        //     var x = document.getElementById("total").value;
-        //     if (x != 0) {
-        //         error.innerHTML = "<span style='color: red;'>"+
-        //             "The Total must be zero</span>"
-        //         $('.enableOnInput').prop('disabled', true);
-        //
-        //     } else {
-        //         // input is fine -- reset the error message
-        //         error.innerHTML = ""
-        //         $('.enableOnInput').prop('disabled', false);
-        //     }
-        // }
+         function check() {
+                 var x = document.getElementById("total").value;
+                      if (x != 0) {
+                 error.innerHTML = "<span style='color: red;'>"+
+                     "The Total must be zero</span>"
+                 $('.enableOnInput').prop('disabled', true);
+
+             } else {
+                          $('.enableOnInput').prop('disabled', false);
+             }
+         }
     </script>
     <script>
         function Total() {
@@ -405,30 +445,12 @@
  <script>
      $(document).on('click', '.delegated-btn', function (e) {
          e.preventDefault();
-         $(this).parent().parent().remove();
+        $(this).parent().parent().remove();
+
      });
 
  </script>
-    <script>
 
-            var arr = document.querySelectorAll('.debit_filed');
-            var total =0;
-            for (var i=0; i<arr.length;i++){
-                if (parseInt(arr[i].value)){
-                    total+=parseInt(arr[i].value);
-                }
-            }
-            document.getElementById('totalDebit').value = total;
-            var arr = document.querySelectorAll('.credit_filed');
-            var total =0;
-            for (var i=0; i<arr.length;i++){
-                if (parseInt(arr[i].value)){
-                    total+=parseInt(arr[i].value);
-                }
-            }
-            document.getElementById('totalCredit').value = total;
-
-    </script>
 
     <script src="{{ asset('js/form_validation/jquery.form.js') }}"></script>
     <script src="{{ asset('js/form_validation/jquery.validate.min.js') }}"></script>

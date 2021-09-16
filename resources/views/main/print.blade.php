@@ -14,7 +14,7 @@
                                 <th>{{ __('Operation Date') }}</th>
                                 <td>{{ $main->operation_date }}</td>
                                 <th>{{ __('Explained') }}</th>
-                                <td>{{ $main->explained }}</td>
+                                <td>@if (app()->getLocale() == 'ar'){{$main->explained_ar}} @else  {{$main->explained}} @endif </td>
                             </tr>
                             <tr>
                                 <th>{{ __('Type of operation') }}</th>
@@ -45,7 +45,7 @@
                                     <td width="10%">{{ $sub->debit }}</td>
                                     <td width="10%">{{ $sub->credit }}</td>
                                     <td width="10%">{{ $sub->account_number }}</td>
-                                    <td width="10%">{{ $sub->explained }}</td>
+                                    <td width="10%">@if (app()->getLocale() == 'ar'){{$sub->explained_ar}} @else  {{$sub->explained}} @endif </td>
                                 </tr>
                             @endforeach
                             </tbody>
