@@ -3,17 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\checkPermissionHelper;
-use App\Options;
-use App\TblAccount;
+use App\Set;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use DataTables;
 
-class OptionsController extends Controller
+class SetController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('auth');
@@ -21,22 +19,22 @@ class OptionsController extends Controller
 
     public function index(){
         $user_id = checkPermissionHelper::checkPermission();
-        $options = Options::where('parent_id',$user_id)->get();
-        return view('Option.index',compact('options'));
+        $sets = Set::where('parent_id',$user_id)->get();
+        return view('Set.index',compact('sets'));
     }
     public function create(){
         $user_id = checkPermissionHelper::checkPermission();
         $account_numbers = DB::table('tbl_accounts')->where('parent_id',$user_id)->pluck('account_number');
-        return view('Option.crud',compact('account_numbers'));
+        return view('Set.crud',compact('account_numbers'));
     }
 
     public function edit($id){
-        $option = Options::findOrFail($id);
+        $set = Set::findOrFail($id);
         $user_id = checkPermissionHelper::checkPermission();
         $account_numbers = DB::table('tbl_accounts')->where('parent_id',$user_id)->pluck('account_number');
 
-        if ($option->parent_id==$user_id){
-        return view('Option.crud',compact('option','account_numbers'));}
+        if ($set->parent_id==$user_id){
+            return view('Set.crud',compact('set','account_numbers'));}
         else{
             return  'you do not have permission ';
         }
@@ -46,51 +44,44 @@ class OptionsController extends Controller
     public function store(Request $request){
         $user_id = checkPermissionHelper::checkPermission();
         $validator = Validator::make($request->all(), [
-             'type' => 'required|string',
-            'contents'=>'required|string',
-            'exchange_rate'=>'sometimes|required|numeric',
+            'key' => 'required|string',
+            'value'=>'required|string',
         ]);
         if ($validator->fails()) {
             return $validator->errors()->first();
         }
 
-
-        Options::create(['type'=> $request->type,
-                        'type_ar'=> $request->type,
-                         'contents'=>$request->contents,
-                         'exchange_rate'=>$request->exchange_rate,
-                         'parent_id'=>$user_id,
-                         'user_id'=>Auth::user()->id
-                                     ]);
-        return redirect(route('Options.index'));
+        Set::create(['key'=> $request->key,
+            'value'=>$request->value,
+            'parent_id'=>$user_id,
+            'user_id'=>Auth::user()->id
+        ]);
+        return redirect(route('Sets.index'));
     }
 
     public function update(Request $request ,$id){
         $user_id = checkPermissionHelper::checkPermission();
 
         $validator = Validator::make($request->all(), [
-            'type' =>'sometimes|required|string',
-            'content'=>'sometimes|required|string',
-            'exchange_rate'=>'sometimes|required|numeric',
-
-
+            'key' =>'sometimes|required|string',
+            'value'=>'sometimes|required|string',
         ]);
         if ($validator->fails()) {
             return $validator->errors()->first();
         }
-        $options= Options::where('id',$id);
-        $options->update(['type'=>$request->type,
-            'contents'=>$request->contents,
+        $set= Set::where('id',$id);
+        $set->update(['key'=>$request->key,
+            'value'=>$request->value,
             'user_id'=>$user_id,
             'exchange_rate'=>$request->exchange_rate]);
 
-        return redirect(route('Options.index'));
+        return redirect(route('Sets.index'));
     }
 
     public function destroy($id){
-       Options::where('id',$id)->delete();
+        Set::where('id',$id)->delete();
 
 
-        return redirect(route('Options.index'));
+        return redirect(route('Sets.index'));
     }
 }

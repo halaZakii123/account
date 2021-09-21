@@ -24,6 +24,12 @@
                                 <th>{{ __('Exchange rate') }}</th>
                                 <td>{{ $main->exchange_rate }}</td>
                             </tr>
+                            <tr>
+                                <th>{{__('Account Number')}}</th>
+                                @foreach($main->subs as $sub)
+                                 <td>{{ $sub->account_number }} </td>
+                                @endforeach
+                            </tr>
                         </table>
 
                         <h3>{{ __('details') }}</h3>
@@ -32,9 +38,7 @@
                             <thead>
                             <tr>
                                 <th></th>
-                                <th>{{ __('Debit') }}</th>
-                                <th>{{ __('Credit') }}</th>
-                                <th>{{ __('Account Number') }}</th>
+                                <th>{{ __('Amount') }}</th>
                                 <th>{{ __('Explained') }}</th>
                             </tr>
                             </thead>
@@ -42,10 +46,12 @@
                             @foreach($main->subs as $sub)
                                 <tr>
                                     <td width="5%">{{ $loop->iteration }}</td>
-                                    <td width="10%">{{ $sub->debit }}</td>
-                                    <td width="10%">{{ $sub->credit }}</td>
-                                    <td width="10%">{{ $sub->account_number }}</td>
-                                    <td width="10%">@if (app()->getLocale() == 'ar'){{$sub->explained_ar}} @else  {{$sub->explained}} @endif </td>
+                                    @if($main->type_of_operation == "cashing")
+                                        <td width="10%">{{ $sub->credit }}</td>
+                                    @else
+                                        <td width="10%">{{ $sub->debit }}</td>
+                                    @endif
+                                        <td width="10%">@if (app()->getLocale() == 'ar'){{$sub->explained_ar}} @else  {{$sub->explained}} @endif </td>
                                 </tr>
                             @endforeach
                             </tbody>

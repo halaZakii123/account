@@ -25,24 +25,26 @@ class AccountController extends Controller
     }
 
     public function index(){
-       $user_id = checkPermissionHelper::checkPermission();
-        $accounts= TblAccount::where('parent_id',$user_id)->paginate(3);
+        $user_id = checkPermissionHelper::checkPermission();
+        $accounts= TblAccount::where('parent_id',$user_id)->get();
         return view('Account.index',compact('accounts'));
     }
 
-    public function getAccounts(Request $request){
-        if ($request->ajax()) {
-            $data = TblAccount::select('*');
-            return Datatables::of($data)
-                ->addIndexColumn()
-                ->addColumn('action', function($row){
-                    $actionBtn = '<a href="javascript:void(0)" class="edit btn btn-success btn-sm">Edit</a> <a href="javascript:void(0)" class="delete btn btn-danger btn-sm">Delete</a>';
-                    return $actionBtn;
-                })
-                ->rawColumns(['action'])
-                ->make(true);
-        }
-    }
+//    public function getAccounts(Request $request){
+//        $user_id = checkPermissionHelper::checkPermission();
+//        $accounts= TblAccount::where('parent_id',$user_id);
+//        if ($request->ajax()) {
+//            $data = $accounts;
+//            return Datatables::of($data)
+//                ->addIndexColumn()
+//                ->addColumn('action', function($row){
+//                    $actionBtn = '<a href="javascript:void(0)" class="edit btn btn-success btn-sm">Edit</a> <a href="javascript:void(0)" class="delete btn btn-danger btn-sm">Delete</a>';
+//                    return $actionBtn;
+//                })
+//                ->rawColumns(['action'])
+//                ->make(true);
+//        }
+//    }
 
     public function create(){
        $user_id = checkPermissionHelper::checkPermission();

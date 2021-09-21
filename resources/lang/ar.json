@@ -49,7 +49,15 @@
     "Eng": "الانكليزية",
     "Explained in eng": " الشرح باللغة الانكليزية",
     "Explained in ar": "الشرح باللغة العربية",
-    "Create At": "تاريخ انشاء"
+    "Create At": "تاريخ انشاء",
+    "Amount": "المبلغ",
+    "Cash Id":"الصندوق" ,
+    "Value": "القيمة",
+    "document_number": "رقم الوثيقة",
+    "financial record": "قيد مالي",
+    "Cash": "مصروف",
+    "Cash in": "المقبوضات",
+    "Cash out": "المدفوعات"
 
 
 

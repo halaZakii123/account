@@ -48,6 +48,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('/Users',EmployeeController::class);
 Route::resource('/Accounts',AccountController::class);
 Route::resource('/Options',OptionsController::class);
+Route::resource('/Sets',SetController::class);
 Route::resource('/Subs',SubController::class);
 Route::resource('/Mains',MainController::class);
 
@@ -56,15 +57,24 @@ Route::resource('/Mains',MainController::class);
 //Route::get('/sub/{sub}/edit/{main}','SubController@edit');
 //Route::post('/update/{id}/{main}','SubController@update');
 Route::post('/addOption','MainController@add');
+Route::post('/addDailyOp','MainController@addDaily');
 Route::post('/addC','MainController@addE');
 
 Route::get('/print','AccountController@printAccount');
 Route::get('/pdf','AccountController@pdf');
 
 Route::get('/pdfM/{id}','MainController@pdf');
+Route::get('/pdfM/daily/{id}','MainController@pdfDaily');
 Route::get('/main/print/{id}','MainController@printM');
+Route::get('/main/print/daily/{id}','MainController@printMDaily');
 
-Route::get('Accounts/list', [AccountController::class, 'getAccounts'])->name('accounts.list');
+//daily_operation route
+Route::get('Accounts/daily_op_getAll','daily_operationController@getAll')->name('Accounts.daily_op');
+Route::get('main/daily_op_create','MainController@createDaily')->name('daily_op_create');
+Route::get('main/dailyCashing/{cash}','MainController@createDaily')->name('Mains.dailyCash');
+Route::get('main/dailyCashIn/{in}','MainController@createDaily')->name('Mains.dailyCashIn');
+Route::get('main/dailyCashOut/{out}','MainController@createDaily')->name('Mains.dailyCashOut');
 
-
-
+//ajax datatable
+Route::get('Accounts/dataTable/list','AccountController@getAccounts')->name('accounts.list');
+Route::get('Employee/dataTable/list','EmployeeController@getEmployees')->name('employees.list');

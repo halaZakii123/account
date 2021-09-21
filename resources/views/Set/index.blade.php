@@ -5,27 +5,14 @@
     <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
 @endsection
 @section('content')
-{{--<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">--}}
-{{--    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>--}}
-{{--    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"> </script>--}}
 
     <div class="container">
         <div class="row justify-content-center">
-{{--            <div class="col-md-2  ">--}}
-{{--                <div class="card-header d-flex">--}}
-{{--                </div>--}}
-{{--                <div class="card  ">--}}
-{{--                    <a href="{{ route('Accounts.create') }}" class="text-center"><i class="fa fa-plus"></i>--}}
-{{--                        {{ __('create') }}</a>--}}
-{{--                    --}}{{--                    <a href="{{route('print')}}" class="text-center">{{__('print')}}</a>--}}
-{{--                    --}}{{--                    <a href="{{route('pdf')}}" class="text-center"> {{__('pdf')}}</a>--}}
-
-{{--                </div>--}}
-{{--            </div>--}}
-            <div class="col-md-9">
+            <div class="col-md-8">
                 <div class="card">
                     <div class="card-header d-flex">
-                        <a href="{{ route('Users.create') }}" class="btn btn-primary ml-auto"><i class="fa fa-plus"></i> {{ __('create') }}</a>
+
+                        <a href="{{ route('Sets.create') }}" class="btn btn-primary ml-auto"><i class="fa fa-plus"></i> {{ __('create') }}</a>
                     </div>
 
                     <div class="card-body">
@@ -35,32 +22,33 @@
                             </div>
                         @endif
 
+
                         <div>
-                        <table class="table  table-bordered display responsive nowrap employeeDataTable">
-                            <thead>
+
+                        </div>
+                        <div>
+                            <table class="table table-bordered  display responsive nowrap  setDataTable">
+                                <thead>
                                 <tr>
-                                    <th>{{__('Name')}}</th>
-                                    <th>{{__('Email')}}</th>
+                                    <th>{{__('Type')}}</th>
+                                    <th>{{__('Value')}}</th>
                                     <th>{{__('Action')}}</th>
                                 </tr>
-                            </thead>
+                                </thead>
                                 <tbody>
-                                @foreach($users as $user)
-
+                                @foreach($sets as $set)
                                     <tr class="active">
+                                        <td>@if($set->key == 'cash_id') {{__('Cash id')}} @else {{__(' ')}} @endif</td>
                                         <td>
-                                            {{$user->name}} </td>
-                                        <td>{{$user->email}}
-
-                                        </td>
-                                        <td>  <a href="{{route('Users.edit',$user->id) }}"><i class="fa fa-edit"></i></a>
-                                            <a href="javascript:void(0)" onclick=" { document.getElementById('delete-{{ $user->id }}').submit(); } " class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                            <form action="{{ route('Users.destroy', $user->id) }}" method="post" id="delete-{{ $user->id }}" style="display: none;">
+                                            {{$set->value}}</td>
+                                        <td>
+                                            <a href="{{route('Sets.edit',$set->id) }}"><i class="fa fa-edit"></i></a>
+                                            <a href="javascript:void(0)" onclick=" { document.getElementById('delete-{{ $set->id }}').submit(); } " class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                            <form action="{{ route('Sets.destroy', $set->id) }}" method="post" id="delete-{{ $set->id }}" style="display: none;">
                                                 @csrf
                                                 @method('DELETE')
                                             </form>
                                         </td>
-
                                     </tr>
                                 @endforeach
 
@@ -84,7 +72,7 @@
 
     <script type="text/javascript">
         $(document).ready(function(){
-            var table = $('.employeeDataTable').DataTable();
+            $('.setDataTable').DataTable();
 
         });
     </script>
