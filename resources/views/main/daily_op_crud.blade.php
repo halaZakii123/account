@@ -5,44 +5,19 @@
 @endsection
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script>
-    function my() {
-        var x = document.getElementById("debit");
-        document.getElementById("row_sub_total").value = x.value;}
-    function gettotal() {
-        var arr = document.querySelectorAll('.dd');
-        var total =0;
-        for (var i=0; i<arr.length;i++){
-            if (parseInt(arr[i].value)){
-                total+=parseInt(arr[i].value);
-            }
-        }
-        document.getElementById('total').value = total;
-    }
-</script>
+
 <script>
     window.addEventListener('load', (event) => {
-        var arr = document.querySelectorAll('.debit_filed');
-        var total =0;
-        for (var i=0; i<arr.length;i++){
-            if (parseInt(arr[i].value)){
-                total+=parseInt(arr[i].value);
-            }
-        }
-        document.getElementById('totalDebit').value = total;
-        var arr = document.querySelectorAll('.credit_filed');
-        var total =0;
-        for (var i=0; i<arr.length;i++){
-            if (parseInt(arr[i].value)){
-                total+=parseInt(arr[i].value);
-            }
-        }
-        document.getElementById('totalCredit').value = total;
 
-        var x = document.getElementById("totalDebit").value;
-        var y = document.getElementById("totalCredit").value;
-        var z = parseInt(x-y);
-        document.getElementById("total").value = z;
+        var arr = document.querySelectorAll('.amount_filed');
+        var total =0;
+        for (var i=0; i<arr.length;i++){
+            if (parseInt(arr[i].value)){
+                total+=parseInt(arr[i].value);
+            }
+        }
+
+        document.getElementById("total").value = total;
     });
 
 
@@ -82,14 +57,14 @@
                                 <div class="col-4">
                                     <div class="form-group">
                                         <label for="operation_date">{{ __('Operation Date') }}</label>
-                                        <input id="operation_date" type="text" class=" form-control pickdate" name="operation_date" required  value= "@if (!empty($main)) {{$main->operation_date}} @else {{ old('operation_date') }} @endif" >
+                                        <input id="operation_date" type="text" class=" form-control pickdate" name="operation_date" required  value= " {{ Carbon\Carbon::now()->format('Y-m-d') }}" >
                                         @error('operation_date')<span class="help-block text-danger">{{ $message }}</span>@enderror
                                     </div>
                                 </div>
                                 <div class="col-4">
                                     <div class="form-group">
                                         <label for="Explained" >{{ __('Explained in eng') }}</label>
-                                        <input id="Explained" type="text" class="form-control @error('Explained') is-invalid @enderror" name="Explained" value= "@if (!empty($main)) {{ $main->explained}} @else {{ old('Explained') }} @endif" required >
+                                        <input id="Explained" type="text" class="form-control @error('Explained') is-invalid @enderror" name="Explained" value= "@if (!empty($main)) {{ $main->explained}} @else {{ old('Explained') }} @endif" required autocomplete="on" >
                                         @error('Explained')<span class="help-block text-danger">{{ $message }}</span>@enderror
                                     </div>
                                 </div>
@@ -97,7 +72,7 @@
                                 <div class="col-4">
                                     <div class="form-group">
                                         <label for="Explained_ar" >{{ __('Explained in ar') }}</label>
-                                        <input id="Explained_ar" type="text" class="form-control @error('Explained_ar') is-invalid @enderror" name="Explained_ar" value= "@if (!empty($main)) {{ $main->explained_ar}} @else {{ old('Explained_ar') }} @endif" required >
+                                        <input id="Explained_ar" type="text" class="form-control @error('Explained_ar') is-invalid @enderror" name="Explained_ar" value= "@if (!empty($main)) {{ $main->explained_ar}} @else {{ old('Explained_ar') }} @endif" required autocomplete="on">
                                         @error('Explained_ar')<span class="help-block text-danger">{{ $message }}</span>@enderror
                                     </div>
                                 </div>
@@ -106,8 +81,18 @@
                                 <div class="col-4">
                                     <div class="form-group">
                                         <label for="cash id" >{{ __('Cash Id') }}</label>
-                                        <input id="cash_id" type="text" name="cash_id" class="form-control @error('cash_id') is-invalid @enderror" value="{{$c}}" readonly="true">
-                                        @error('cash_id')<span class="help-block text-danger">{{ $message }}</span>@enderror
+                                        <select name="cash_id" id="cash_id" class="cash_id form-control">
+                                            <option>{{$c}}</option>
+                                            @foreach($account_numbers as $account)
+                                                @if($account != $c)
+                                                  @if(!empty($main))
+                                                        <option value=" {{$account}} "{{ $main->cash_id == $account? 'selected' : '' }} >{{$account}} </option>
+                                                      @else
+                                                        <option value="{{$account}}" {{ old('cash_id')? 'selected' : '' }} >{{$account}} </option>
+                                                      @endif
+                                                @endif
+                                            @endforeach
+                                        </select>                                        @error('cash_id')<span class="help-block text-danger">{{ $message }}</span>@enderror
                                     </div>
                                 </div>
 
@@ -164,6 +149,7 @@
                                     <tr>
                                         <th></th>
                                         <th>{{ __('Amount') }}</th>
+                                        <th>{{ __('Account Name') }}</th>
                                         <th>{{ __('Account Number') }}</th>
                                         <th>{{ __('Explained in eng') }}</th>
                                         <th>{{ __('Explained in ar') }}</th>
@@ -182,25 +168,32 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    <input type="text" name="amount[{{ $loop->index }}]" id="amount_{{$loop->index}}" class="amount_filed" value="@if($main->type_of_operation == __('Cash'))  {{$sub->credit}} @else {{ $sub->debit }} @endif"   onchange="gettotald()">
+                                                    <input type="text" name="amount[{{ $loop->index }}]" id="amount_{{$loop->index}}" class="amount_filed" value="@if($main->type_of_operation == __('Cash in')) {{$sub->credit}} @else {{ $sub->debit }} @endif"   onchange="gettotald()">
                                                     @error('debit')<span class="help-block text-danger">{{ $message }}</span>@enderror
+                                                </td>
+                                                <td>
+                                                    <select name="account_name[{{ $loop->index }}]" id="account_number" class="account_number form-control">
+                                                        <option></option>
+                                                        @foreach($accounts as $account)
+                                                            <option value=" {{$account->account_name}} "{{ $sub->account_name == $account->account_name ? 'selected' : '' }}  >{{$account->account_name}} </option>
+                                                        @endforeach
+                                                    </select>
                                                 </td>
                                                 <td>
                                                     <select name="account_number[{{ $loop->index }}]" id="account_number" class="account_number form-control">
                                                         <option></option>
-                                                        @foreach($account_numbers as $account)
-                                                            <option value=" {{$account}} "{{ $sub->account_number == $account ? 'selected' : '' }}  >{{$account}} </option>
+                                                        @foreach($accounts as $account)
+                                                            <option value=" {{$account->account_number}} "{{ $sub->account_number == $account->account_number ? 'selected' : '' }}  >{{$account->account_number}} </option>
                                                         @endforeach
                                                     </select>
-                                                    @error('option')<span class="help-block text-danger">{{ $message }}</span>@enderror
                                                 </td>
 
                                                 <td>
-                                                    <input id="explained" type="text" class="form-control "name="explained[{{ $loop->index }}]" value= "{{ $sub->explained}}" required >
+                                                    <input id="explained" type="text" class="form-control "name="explained[{{ $loop->index }}]" value= "{{ $sub->explained}}" required  autocomplete="on">
                                                     @error('explained')<span class="help-block text-danger">{{ $message }}</span>@enderror
                                                 </td>
                                                 <td>
-                                                    <input id="explained_ar" type="text" class="form-control " name="explained_ar[{{ $loop->index }}]" value= "{{ $sub->explained_ar}}" required >
+                                                    <input id="explained_ar" type="text" class="form-control " name="explained_ar[{{ $loop->index }}]" value= "{{ $sub->explained_ar}}" required  autocomplete="on">
                                                     @error('explained_ar')<span class="help-block text-danger">{{ $message }}</span>@enderror
                                                 </td>
 
@@ -214,24 +207,30 @@
                                         <tr class="cloning_row" id="0">
                                             <td>#</td>
                                             <td>
-                                                <input type="number" name="amount[0]" id='amount' class="amount_filed"  required onchange="gettotald() " >
+                                                <input type="text" name="amount[0]" id='amount_0' class="amount_filed"  required onchange="cur(0),gettotald()" >
                                                 @error('amount')<span class="help-block text-danger">{{ $message }}</span>@enderror
                                             </td>
                                             <td>
-                                            <select name="account_number[0]" id="account_number" class=" form-control">
-                                                <option></option>
-                                                @foreach($account_numbers as $account)
-                                                    <option value="{{$account}}"{{old('account_number')}} >{{$account}} </option>
-                                                @endforeach
+                                                <select name="account_name[0]" id="account_name" class=" form-control" onchange="ajaxA()">
+                                                    <option></option>
+                                                    @foreach($accounts as $account)
+                                                        <option value="{{$account->account_name}}"{{old('account_name')}} >{{$account->account_name}} </option>
+                                                    @endforeach
+                                                </select>
+                                            </td>
+                                            <td>
+                                            <select name="account_number[0]" id="A" class=" form-control">
+
+
                                             </select>
                                             </td>
                                             <td>
-                                                <input id="explained" type="text" class="explained form-control "name="explained[0]" value= " {{ old('explained') }}" required >
+                                                <input id="explained" type="text" class="explained form-control "name="explained[0]" value= " {{ old('explained') }}" required autocomplete="on" >
                                                 @error('explained')<span class="help-block text-danger">{{ $message }}</span>@enderror
 
                                             </td>
                                             <td>
-                                                <input id="explained_ar" type="text" class="form-control "name="explained_ar[0]" value= "{{ old('explained_ar') }}" required >
+                                                <input id="explained_ar" type="text" class="form-control "name="explained_ar[0]" value= "{{ old('explained_ar') }}" required autocomplete="on">
                                                 @error('explained_ar')<span class="help-block text-danger">{{ $message }}</span>@enderror
                                             </td>
 
@@ -249,7 +248,7 @@
                             <tfoot>
                             <tr>
                                 <td colspan="6">
-                                    <button   type="button" id="btn_add" class="btn_add btn btn-primary">{{ __('Add another sub') }}</button>
+                                    <button   type="button" id="btn_add" class="btn_add btn btn-primary"><i class="fa fa-plus"></i></button>
                                 </td>
 
                             </tr>
@@ -264,7 +263,7 @@
                                     <tbody>
                                     <tr class="total">
 
-                                        <td><input type="number"  name="total" id="total" value="0" class="total" readonly="readonly"  >                                             <span id="error"></span>
+                                        <td><input type="text"  name="total" id="total" value="0" class="total" readonly="readonly"  >                                             <span id="error"></span>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -345,7 +344,10 @@
                     total+=parseInt(arr[i].value);
                 }
             }
-            document.getElementById('total').value = total;
+            var num = new Intl.NumberFormat("en-US",{
+                maximumSignificantDigits: 1
+            })
+            document.getElementById('total').value = num.format(total);
         }
 
     </script>
@@ -358,7 +360,40 @@
         });
 
     </script>
+    <script>
+        function cur(v) {
+            var vv = document.getElementById('amount_'+v).value;
+            var num = new Intl.NumberFormat("en-US",{
+                maximumSignificantDigits: 3
+            })
+            // document.getElementById('amount_'+v).value =new Intl.NumberFormat().format(vv);
+            document.getElementById('amount_'+v).value =vv.toLocaleString(undefined,{minimumFractionDigits:2});
+        }
+    </script>
+    <script>
+        function ajaxA() {
+            var ddl = document.getElementById("account_name");
+            var selectedValue = ddl.options[ddl.selectedIndex].value;
+            console.log('x:',selectedValue);
+            $.ajax({
+                type:'post',
+                url:'{{URL::to('/addADaily')}}',
+                data:{
+                    '_token':'{{csrf_token()}}',
+                    'selectedValue': selectedValue,
 
+                },
+                success:function (data){
+                    console.log('data:',data);
+                    $('#A').html(data);
+                },
+                error:function(){
+                    console.log('error ',$error);
+                }
+            });
+
+        }
+    </script>
 
     <script src="{{ asset('js/form_validation/jquery.form.js') }}"></script>
     <script src="{{ asset('js/form_validation/jquery.validate.min.js') }}"></script>

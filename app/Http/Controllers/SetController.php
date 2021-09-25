@@ -24,14 +24,18 @@ class SetController extends Controller
     }
     public function create(){
         $user_id = checkPermissionHelper::checkPermission();
-        $account_numbers = DB::table('tbl_accounts')->where('parent_id',$user_id)->pluck('account_number');
+        $account_numbers = DB::table('tbl_accounts')->where('parent_id',$user_id)
+            ->where('mainly',null)
+            ->pluck('account_number');
         return view('Set.crud',compact('account_numbers'));
     }
 
     public function edit($id){
         $set = Set::findOrFail($id);
         $user_id = checkPermissionHelper::checkPermission();
-        $account_numbers = DB::table('tbl_accounts')->where('parent_id',$user_id)->pluck('account_number');
+        $account_numbers = DB::table('tbl_accounts')->where('parent_id',$user_id)
+            ->where('mainly',null)
+            ->pluck('account_number');
 
         if ($set->parent_id==$user_id){
             return view('Set.crud',compact('set','account_numbers'));}
@@ -72,8 +76,8 @@ class SetController extends Controller
         $set= Set::where('id',$id);
         $set->update(['key'=>$request->key,
             'value'=>$request->value,
-            'user_id'=>$user_id,
-            'exchange_rate'=>$request->exchange_rate]);
+            'user_id'=>$user_id]
+            );
 
         return redirect(route('Sets.index'));
     }

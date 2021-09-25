@@ -136,29 +136,31 @@
                     <th>{{ __('Explained') }}</th>
                     <td>{{ $explained}}</td>
                 </tr>
+                <tr>
+                    <th>{{__('Cash Id')}}</th>
+                    <td>{{ $cash_id }} </td>
+                    <th>{{__('document_number')}}</th>
+                    <td>{{ $document_number }} </td>
 
+                </tr>
                 <tr>
                     <th>{{ __('Type of operation') }}</th>
                     <td>{{ $type_of_operation }}</td>
-                    <th>{{ __('Currency Symbol') }}</th>
+                    <th>{{ __('Currency symbol') }}</th>
                     <td>{{ $currency_symbol }}</td>
                     <th>{{ __('Exchange rate') }}</th>
                     <td>{{ $exchange_rate }}</td>
 
                 </tr>
-                <tr>
-                    <th>{{ __('Account Number') }}</th>
-                    @foreach($items as $item)
-                        <td>{{ $item['account_number'] }}</td>
-                    @endforeach
-                </tr>
+
 
             </table>
             <table class="table">
                 <thead>
                 <tr class="heading">
-                    <td></td>
+                    <td>#</td>
                     <td>{{ __('Amount') }}</td>
+                    <td>{{ __('Account Number') }}</td>
                     <td>{{ __('explained') }}</td>
                 </tr>
                 </thead>
@@ -171,11 +173,18 @@
                         @else
                             <td>{{ $item['debit'] }}</td>
                         @endif
+                        <td>{{$item['account_number']}}</td>
                         <td>{{ $item['explained'] }}</td>
 
                     </tr>
-                @endforeach
 
+                @endforeach
+                <tfoot>
+                <tr>
+                    <th>{{_('Total')}}</th>
+                    <td>{{$total}}</td>
+                </tr>
+                </tfoot>
             </table>
 
         </div>

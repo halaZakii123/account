@@ -16,8 +16,8 @@
                 <div class="card  ">
                     <a href="{{ route('Accounts.create') }}" class="text-center"><i class="fa fa-plus"></i>
                         {{ __('create') }}</a>
-{{--                    <a href="{{route('print')}}" class="text-center">{{__('print')}}</a>--}}
-{{--                    <a href="{{route('pdf')}}" class="text-center"> {{__('pdf')}}</a>--}}
+                  <a href="{{route('print')}}" class="text-center">{{__('print')}}</a>
+                    <a href="{{route('pdf')}}" class="text-center"> {{__('pdf')}}</a>
 
                 </div>
             </div>
@@ -34,7 +34,7 @@
 
 
                         {{-- <div class="table-responsive"> --}}
-                        <table class="table table-bordered  display responsive nowrap yajra-datatable">
+                        <table class="table table-bordered  display responsive  yajra-datatable">
                             <thead>
                             <tr>
                                 {{-- <th>#</th> --}}

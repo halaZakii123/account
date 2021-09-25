@@ -26,7 +26,8 @@ class OptionsController extends Controller
     }
     public function create(){
         $user_id = checkPermissionHelper::checkPermission();
-        $account_numbers = DB::table('tbl_accounts')->where('parent_id',$user_id)->pluck('account_number');
+        $account_numbers = DB::table('tbl_accounts')->where('parent_id',$user_id )
+            ->pluck('account_number');
         return view('Option.crud',compact('account_numbers'));
     }
 
@@ -51,8 +52,9 @@ class OptionsController extends Controller
             'exchange_rate'=>'sometimes|required|numeric',
         ]);
         if ($validator->fails()) {
-            return $validator->errors()->first();
-        }
+            return back()
+                ->withErrors($validator);
+        }else{
 
 
         Options::create(['type'=> $request->type,
@@ -62,7 +64,7 @@ class OptionsController extends Controller
                          'parent_id'=>$user_id,
                          'user_id'=>Auth::user()->id
                                      ]);
-        return redirect(route('Options.index'));
+        return redirect(route('Options.index'));}
     }
 
     public function update(Request $request ,$id){
@@ -76,8 +78,10 @@ class OptionsController extends Controller
 
         ]);
         if ($validator->fails()) {
-            return $validator->errors()->first();
-        }
+            return back()
+                ->withErrors($validator);
+        }else{
+
         $options= Options::where('id',$id);
         $options->update(['type'=>$request->type,
             'contents'=>$request->contents,
@@ -85,6 +89,7 @@ class OptionsController extends Controller
             'exchange_rate'=>$request->exchange_rate]);
 
         return redirect(route('Options.index'));
+        }
     }
 
     public function destroy($id){

@@ -16,17 +16,27 @@ use PDF;
 use DataTables;
 
 
+
 class MainController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
         $user_id = checkPermissionHelper::checkPermission();
-        $mains = Main::where('parent_id',$user_id)->paginate(8);
+            if ($request->from != null){
+            $from = $request->from;
+            $to = $request->to;
+            $mains = Main::whereBetween('operation_date', [$from, $to])
+                ->where('parent_id',$user_id)
+                ->get();
+        }
+        else{
+        $mains = Main::where('parent_id',$user_id)->get();}
         return view('Main.index',compact('mains'));
     }
 
@@ -40,7 +50,12 @@ class MainController extends Controller
         $user_id = checkPermissionHelper::checkPermission();
         $cus = View_CurrencySymbol_main::where('parent_id',$user_id)->get();
         $ops = View_TypeOperation_main::where('parent_id',$user_id)->get();
-        $account_numbers = DB::table('tbl_accounts')->where('parent_id',$user_id)->pluck('account_number');
+//        $account_numbers = DB::table('tbl_accounts')->where('parent_id',$user_id)
+//            ->where('mainly',null)
+//            ->pluck('account_number');
+//        dd($account_numbers);
+        $accounts = TblAccount::where('parent_id',$user_id)
+            ->where('mainly',null)->get();
      //   $sets = DB::select("CALL pr_set(" ."cash_id".")");
         $sets = Set::where( 'parent_id',$user_id)->get();
         foreach ($sets as $set ){
@@ -48,7 +63,7 @@ class MainController extends Controller
                 $c = $set->value;
             }
         }
-  return view('Main.crud', compact('cus', 'ops', 'account_numbers','c'));
+  return view('Main.crud', compact('cus', 'ops', 'accounts','c'));
 
     }
     public function createDaily($cash)
@@ -56,7 +71,11 @@ class MainController extends Controller
         $user_id = checkPermissionHelper::checkPermission();
         $cus = View_CurrencySymbol_main::where('parent_id',$user_id)->get();
         $ops = View_TypeOperation_main::where('parent_id',$user_id)->get();
-        $account_numbers = DB::table('tbl_accounts')->where('parent_id',$user_id)->pluck('account_number');
+        $account_numbers = DB::table('tbl_accounts')->where('parent_id',$user_id)
+            ->where('mainly',null)
+            ->pluck('account_number');
+        $accounts = TblAccount::where('parent_id',$user_id)
+            ->where('mainly',null)->get();
         $sets = Set::where( 'parent_id',$user_id)->get();
         foreach ($sets as $set ){
             if ($set->key == "cash_id"){
@@ -71,7 +90,7 @@ class MainController extends Controller
         else{
             $v=__('Cash out');
         }
-            return view('Main.daily_op_crud', compact('cus', 'ops', 'account_numbers','v','c'));
+            return view('Main.daily_op_crud', compact('cus', 'ops', 'account_numbers','v','c','accounts'));
 
     }
 
@@ -79,10 +98,32 @@ class MainController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'operation_date' => 'required',
+            'Explained'=>'required',
+            'Explained_ar' => 'required',
+            'cash_id' => 'required',
+            'document_number' => 'sometimes|required',
+            'type_of_operation' => 'required',
+            'currency_symbol' => 'required',
+            'exchange_rate' => 'required',
+            'debit' => 'required',
+            'credit' => 'required',
+            'account_number' => 'required',
+            'explained' => 'required',
+            'explained_ar' => 'required',
+
+
+        ]);
+        if ($validator->fails()) {
+            return back()
+                ->withErrors($validator);
+        }else{
+
         $user_id = checkPermissionHelper::checkPermission();
         $data['operation_date'] = $request->operation_date;
         $data['explained'] = $request->Explained;
@@ -97,7 +138,7 @@ class MainController extends Controller
        $main= Main::create($data);
         $details_list = [];
 
-        if ($request->type_of_operation == __('Cash')) {
+        if ($request->type_of_operation == __('Cash in')) {
 
             for ($i = 0; $i < count($request->amount); $i++) {
                 $details_list[$i]['credit'] = $request->amount[$i];
@@ -106,7 +147,7 @@ class MainController extends Controller
                 $details_list[$i]['explained'] = $request->explained[$i];
                 $details_list[$i]['explained_ar'] = $request->explained_ar[$i];
             }
-        }elseif($request->type_of_operation == __('Cash in') or  $request->type_of_operation == __('Cash out')){
+        }elseif($request->type_of_operation == __('Cash') or  $request->type_of_operation == __('Cash out')){
 
             for ($i = 0; $i < count($request->amount); $i++) {
                 $details_list[$i]['credit'] = 0;
@@ -130,7 +171,7 @@ class MainController extends Controller
          $main->subs()->createMany($details_list);
 
         return redirect(route('Mains.index'));
-    }
+    }}
 
     /**
      * Display the specified resource.
@@ -156,7 +197,11 @@ class MainController extends Controller
         $main = Main::FindOrFail($id);
         $cus = View_CurrencySymbol_main::where('parent_id',$user_id)->get();
         $ops = View_TypeOperation_main::where('parent_id',$user_id)->get();
-        $account_numbers = DB::table('tbl_accounts')->where('parent_id',$user_id)->pluck('account_number');
+        $accounts = TblAccount::where('parent_id',$user_id)
+            ->where('mainly',null)->get();
+        $account_numbers = DB::table('tbl_accounts')->where('parent_id',$user_id)
+            ->where('mainly',null)
+            ->pluck('account_number');
         $sets = Set::where( 'parent_id',$user_id)->get();
 
         foreach ($sets as $set ){
@@ -168,11 +213,11 @@ class MainController extends Controller
         {
             if($main->type_of_operation == __('financial record') )
             {
-             return view('Main.crud', compact('main', 'ops', 'cus',  'account_numbers','c'));
+             return view('Main.crud', compact('main', 'ops', 'cus',  'account_numbers','c','accounts'));
             }
             else
                 {
-                return view('Main.daily_op_crud', compact('main', 'ops', 'cus', 'account_numbers','c'));}
+                return view('Main.daily_op_crud', compact('main', 'ops', 'cus', 'account_numbers','c','accounts'));}
              }
 
         else{
@@ -206,7 +251,7 @@ class MainController extends Controller
 
         $main->subs()->delete();
         $details_list = [];
-        if ($request->type_of_operation == 'cashing') {
+        if ($request->type_of_operation == __('Cash in')) {
             for ($i = 0; $i < count($request->amount); $i++) {
                 $details_list[$i]['credit'] = $request->amount[$i];
                 $details_list[$i]['debit'] = 0;
@@ -214,7 +259,7 @@ class MainController extends Controller
                 $details_list[$i]['explained'] = $request->explained[$i];
                 $details_list[$i]['explained_ar'] = $request->explained_ar[$i];
             }
-        }elseif($request->type_of_operation == 'cash out' or  $request->type_of_operation == 'cash in'){
+        }elseif($request->type_of_operation == __('Cash') or  $request->type_of_operation == __('Cash out')){
             for ($i = 0; $i < count($request->amount); $i++) {
                 $details_list[$i]['credit'] = 0;
                 $details_list[$i]['debit'] = $request->amount[$i];
@@ -251,19 +296,27 @@ class MainController extends Controller
     public function add(){
 
         $user_id = checkPermissionHelper::checkPermission();
-        $account_numbers = DB::table('tbl_accounts')->where('parent_id',$user_id)->pluck('account_number');
+        $accounts = TblAccount::where('parent_id',$user_id)
+            ->where('mainly',null)->get();
+        $account_numbers = DB::table('tbl_accounts')->where('parent_id',$user_id)
+            ->where('mainly',null)
+            ->pluck('account_number');
         $x=request()->count;
 //       $c = 'A'.$x ;
-        return view('main.ajax',compact('account_numbers','x'));
+        return view('main.ajax',compact('account_numbers','x','accounts'));
     }
 
 
     public function addDaily(){
        $user_id = checkPermissionHelper::checkPermission();
-        $account_numbers = DB::table('tbl_accounts')->where('parent_id',$user_id)->pluck('account_number');
+        $accounts = TblAccount::where('parent_id',$user_id)
+            ->where('mainly',null)->get();
+        $account_numbers = DB::table('tbl_accounts')->where('parent_id',$user_id)
+            ->where('mainly',null)
+            ->pluck('account_number');
     $x=request()->count;
 
-        return view('main.ajax_daily',compact('x','account_numbers'));
+        return view('main.ajax_daily',compact('x','account_numbers','accounts'));
     }
     public function addE(){
         $user_id = checkPermissionHelper::checkPermission();
@@ -276,7 +329,24 @@ class MainController extends Controller
         $x=request()->selectedValue;
     return view('main.ajaxE',compact('cus','x'));
     }
+    public function addA(){
+        $user_id = checkPermissionHelper::checkPermission();
+        $x=request()->selectedValue;
+        $account_number = TblAccount::where('parent_id',$user_id)->where('account_name',$x)->get();
 
+        $account_numbers =  TblAccount::where('parent_id',$user_id)
+        ->where('mainly',null)->get();
+        return view('main.ajaxA',compact('account_number','account_numbers'));
+    }
+    public function addADaily(){
+        $user_id = checkPermissionHelper::checkPermission();
+        $x=request()->selectedValue;
+        $account_number = TblAccount::where('parent_id',$user_id)->where('account_name',$x)->get();
+
+        $account_numbers =  TblAccount::where('parent_id',$user_id)
+            ->where('mainly',null)->get();
+        return view('main.ajaxADaily',compact('account_number','account_numbers'));
+    }
     public function printM($id){
         $main = Main::where('id',$id)->first();
 
@@ -287,10 +357,15 @@ class MainController extends Controller
     }
     public function printMDaily($id){
         $main = Main::where('id',$id)->first();
-
         $user_id = checkPermissionHelper::checkPermission();
+        $total =0;
+        foreach ($main->subs as $sub){
+           if($main->type_of_operation == __('Cash in'))
+            $total+=$sub->credit;
+           else $total+=$sub->debit;
+        }
         if ($main->parent_id == $user_id){
-            return view('Main.printDaily',compact('main'));}
+            return view('Main.printDaily',compact('main','total'));}
         else {return ' you do not have permission';}
     }
     public function pdf($id){
@@ -328,6 +403,8 @@ class MainController extends Controller
         $data['operation_date'] = $main->operation_date;
         $data['id'] = $main->id;
         $data['explained'] = $main->explained;
+        $data['cash_id'] = $main->cash_id;
+        $data['document_number'] = $main->document_number;
         $data['type_of_operation'] = $main->type_of_operation;
         $data['currency_symbol'] = $main->currency_symbol;
         $data['exchange_rate'] = $main->exchange_rate;
@@ -343,8 +420,14 @@ class MainController extends Controller
         }
         $data['items'] = $items;
         $user_id = checkPermissionHelper::checkPermission();
-
-        if ($main->parent_id == $user_id){
+        $total =0;
+        foreach ($main->subs as $sub){
+            if($main->type_of_operation == "cashing")
+                $total+=$sub->credit;
+            else $total+=$sub->debit;
+        }
+        $data['total'] =$total;
+           if ($main->parent_id == $user_id){
             $pdf = PDF::loadView('main.pdfDaily', $data);
             return $pdf->download('main'.'.pdf');
         }

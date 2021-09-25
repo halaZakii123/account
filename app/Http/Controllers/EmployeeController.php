@@ -70,7 +70,9 @@ class EmployeeController extends Controller
 
         ]);
         if ($validator->fails()) {
-            return $validator->errors()->first();
+            return back()
+                ->withErrors($validator);
+//            return $validator->errors()->first();
         }
         else {
             User::create(['name' => $request->name,
@@ -101,7 +103,8 @@ class EmployeeController extends Controller
 
         ]);
         if ($validator->fails()) {
-            return $validator->errors()->first();
+            return back()
+                ->withErrors($validator);
         }
         else{
             $user =User::where('id',$id);

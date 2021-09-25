@@ -58,7 +58,7 @@ class AccountController extends Controller
         $user_id = checkPermissionHelper::checkPermission();
 
         $validator = Validator::make($request->all(), [
-            'account_number' =>['required','string',
+            'account_number' =>['required','number',
                 Rule::unique('tbl_accounts'),],
             'account_name'=>'required|string',
             'master_account_number' => 'sometimes|required',
@@ -67,7 +67,8 @@ class AccountController extends Controller
 
         ]);
         if ($validator->fails()) {
-            return $validator->errors()->first();
+            return back()
+                ->withErrors($validator);
         }
         else{
         TblAccount::create(['account_number' => $request->account_number,
@@ -110,7 +111,8 @@ class AccountController extends Controller
         ]);
         $account = TblAccount::where('id',$id);
         if ($validator->fails()) {
-            return $validator->errors()->first();
+            return back()
+                ->withErrors($validator);
         }
         else{
                 $account->update(['account_number' => $request->account_number,

@@ -59,9 +59,11 @@ Route::resource('/Mains',MainController::class);
 Route::post('/addOption','MainController@add');
 Route::post('/addDailyOp','MainController@addDaily');
 Route::post('/addC','MainController@addE');
+Route::post('/addA','MainController@addA');
+Route::post('/addADaily','MainController@addADaily');
 
-Route::get('/print','AccountController@printAccount');
-Route::get('/pdf','AccountController@pdf');
+Route::get('/print','AccountController@printAccount')->name('print');
+Route::get('/pdf','AccountController@pdf')->name('pdf');
 
 Route::get('/pdfM/{id}','MainController@pdf');
 Route::get('/pdfM/daily/{id}','MainController@pdfDaily');
@@ -78,3 +80,5 @@ Route::get('main/dailyCashOut/{out}','MainController@createDaily')->name('Mains.
 //ajax datatable
 Route::get('Accounts/dataTable/list','AccountController@getAccounts')->name('accounts.list');
 Route::get('Employee/dataTable/list','EmployeeController@getEmployees')->name('employees.list');
+
+Route::post('main/search','MainController@index')->name('search');
