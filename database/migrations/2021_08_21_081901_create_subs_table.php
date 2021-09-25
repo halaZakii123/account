@@ -18,6 +18,7 @@ class CreateSubsTable extends Migration
             $table->integer('debit');
             $table->integer('credit');
             $table->string('account_number');
+            $table->string('account_name');
             $table->String('explained');
             $table->string('explained_ar');
 

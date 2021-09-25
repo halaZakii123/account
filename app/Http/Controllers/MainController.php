@@ -144,6 +144,8 @@ class MainController extends Controller
                 $details_list[$i]['credit'] = $request->amount[$i];
                 $details_list[$i]['debit'] = 0;
                 $details_list[$i]['account_number'] = $request->account_number[$i];
+                $details_list[$i]['account_name'] = $request->account_name[$i];
+
                 $details_list[$i]['explained'] = $request->explained[$i];
                 $details_list[$i]['explained_ar'] = $request->explained_ar[$i];
             }
@@ -153,6 +155,7 @@ class MainController extends Controller
                 $details_list[$i]['credit'] = 0;
                 $details_list[$i]['debit'] = $request->amount[$i];
                 $details_list[$i]['account_number'] = $request->account_number[$i];
+                $details_list[$i]['account_name'] = $request->account_name[$i];
                 $details_list[$i]['explained'] = $request->explained[$i];
                 $details_list[$i]['explained_ar'] =$request->explained_ar[$i];
 
@@ -163,6 +166,8 @@ class MainController extends Controller
                 $details_list[$i]['debit'] = $request->debit[$i];
                 $details_list[$i]['credit'] = $request->credit[$i];
                 $details_list[$i]['account_number'] = $request->account_number[$i];
+                $details_list[$i]['account_name'] = $request->account_name[$i];
+
                 $details_list[$i]['explained'] = $request->explained[$i];
                 $details_list[$i]['explained_ar'] = $request->explained_ar[$i];
             }
@@ -256,6 +261,8 @@ class MainController extends Controller
                 $details_list[$i]['credit'] = $request->amount[$i];
                 $details_list[$i]['debit'] = 0;
                 $details_list[$i]['account_number'] = $request->account_number[$i];
+                $details_list[$i]['account_name'] = $request->account_name[$i];
+
                 $details_list[$i]['explained'] = $request->explained[$i];
                 $details_list[$i]['explained_ar'] = $request->explained_ar[$i];
             }
@@ -264,6 +271,8 @@ class MainController extends Controller
                 $details_list[$i]['credit'] = 0;
                 $details_list[$i]['debit'] = $request->amount[$i];
                 $details_list[$i]['account_number'] = $request->account_number[$i];
+                $details_list[$i]['account_name'] = $request->account_name[$i];
+
                 $details_list[$i]['explained'] = $request->explained[$i];
                 $details_list[$i]['explained_ar'] = $request->explained_ar[$i];
             }
@@ -273,6 +282,8 @@ class MainController extends Controller
                 $details_list[$i]['debit'] = $request->debit[$i];
                 $details_list[$i]['credit'] = $request->amount[$i];
                 $details_list[$i]['account_number'] = $request->account_number[$i];
+                $details_list[$i]['account_name'] = $request->account_name[$i];
+
                 $details_list[$i]['explained'] = $request->explained[$i];
                 $details_list[$i]['explained_ar'] = $request->explained_ar[$i];
             }

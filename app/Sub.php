@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Sub extends Model
 {
     protected $fillable = [
-        'debit','credit','account_number','explained','main_id','explained_ar'
+        'debit','credit','account_number','explained','main_id','explained_ar','account_name'
     ];
     public function main(){
         return $this->belongsTo(Main::class);
