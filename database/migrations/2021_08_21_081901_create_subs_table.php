@@ -15,8 +15,8 @@ class CreateSubsTable extends Migration
     {
         Schema::create('subs', function (Blueprint $table) {
             $table->id();
-            $table->integer('debit');
-            $table->integer('credit');
+            $table->decimal('debit');
+            $table->decimal('credit');
             $table->string('account_number');
             $table->string('account_name');
             $table->String('explained');

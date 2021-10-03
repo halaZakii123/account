@@ -51,11 +51,11 @@ class MainController extends Controller
         $cus = View_CurrencySymbol_main::where('parent_id',$user_id)->get();
         $ops = View_TypeOperation_main::where('parent_id',$user_id)->get();
 //        $account_numbers = DB::table('tbl_accounts')->where('parent_id',$user_id)
-//            ->where('mainly',null)
+//            ->where('mainly',0)
 //            ->pluck('account_number');
 //        dd($account_numbers);
         $accounts = TblAccount::where('parent_id',$user_id)
-            ->where('mainly',null)->get();
+            ->where('mainly',0)->get();
      //   $sets = DB::select("CALL pr_set(" ."cash_id".")");
         $sets = Set::where( 'parent_id',$user_id)->get();
         foreach ($sets as $set ){
@@ -72,10 +72,10 @@ class MainController extends Controller
         $cus = View_CurrencySymbol_main::where('parent_id',$user_id)->get();
         $ops = View_TypeOperation_main::where('parent_id',$user_id)->get();
         $account_numbers = DB::table('tbl_accounts')->where('parent_id',$user_id)
-            ->where('mainly',null)
+            ->where('mainly',0)
             ->pluck('account_number');
         $accounts = TblAccount::where('parent_id',$user_id)
-            ->where('mainly',null)->get();
+            ->where('mainly',0)->get();
         $sets = Set::where( 'parent_id',$user_id)->get();
         foreach ($sets as $set ){
             if ($set->key == "cash_id"){
@@ -203,9 +203,9 @@ class MainController extends Controller
         $cus = View_CurrencySymbol_main::where('parent_id',$user_id)->get();
         $ops = View_TypeOperation_main::where('parent_id',$user_id)->get();
         $accounts = TblAccount::where('parent_id',$user_id)
-            ->where('mainly',null)->get();
+            ->where('mainly',0)->get();
         $account_numbers = DB::table('tbl_accounts')->where('parent_id',$user_id)
-            ->where('mainly',null)
+            ->where('mainly',0)
             ->pluck('account_number');
         $sets = Set::where( 'parent_id',$user_id)->get();
 
@@ -346,7 +346,7 @@ class MainController extends Controller
         $account_number = TblAccount::where('parent_id',$user_id)->where('account_name',$x)->get();
 
         $account_numbers =  TblAccount::where('parent_id',$user_id)
-        ->where('mainly',null)->get();
+        ->where('mainly',0)->get();
         return view('main.ajaxA',compact('account_number','account_numbers'));
     }
     public function addADaily(){
@@ -355,7 +355,7 @@ class MainController extends Controller
         $account_number = TblAccount::where('parent_id',$user_id)->where('account_name',$x)->get();
 
         $account_numbers =  TblAccount::where('parent_id',$user_id)
-            ->where('mainly',null)->get();
+            ->where('mainly',0)->get();
         return view('main.ajaxADaily',compact('account_number','account_numbers'));
     }
     public function printM($id){
