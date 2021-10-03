@@ -58,8 +58,7 @@ class AccountController extends Controller
         $user_id = checkPermissionHelper::checkPermission();
 
         $validator = Validator::make($request->all(), [
-            'account_number' =>['required','number',
-                Rule::unique('tbl_accounts'),],
+            'account_number' =>'required',
             'account_name'=>'required|string',
             'master_account_number' => 'sometimes|required',
             'report'=>'required',
@@ -89,7 +88,7 @@ class AccountController extends Controller
 
     public function edit($id){
         $user_id = checkPermissionHelper::checkPermission();
-        $views = View_Account_Main::where('parent_id',$user_id);
+        $views = View_Account_Main::where('parent_id',$user_id)->get();
         $account = TblAccount::findOrFail($id);
         if ($account->user_id == $user_id) {
         return view('Account.crud',compact('account','views'));}

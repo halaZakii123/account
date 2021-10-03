@@ -98,7 +98,7 @@
                                 <div class="col-4">
                                     <div class="form-group">
                                         <label for="operation_date">{{ __('Operation Date') }}</label>
-                                        <input id="operation_date" type="text" class=" form-control pickdate" name="operation_date" required  value= " {{ Carbon\Carbon::now()->format('Y-m-d') }}" >
+                                        <input id="operation_date" type="text" class=" form-control pickdate" name="operation_date" required  value= " {{ Carbon\Carbon::now()->format('Y/m/d') }}" >
                                         @error('operation_date')<span class="help-block text-danger">{{ $message }}</span>@enderror
                                     </div>
                                 </div>
@@ -109,13 +109,13 @@
                                     </div>
                                 </div>
 
-                            <div class="col-4">
-                                <div class="form-group">
-                                    <label for="Explained_ar" >{{ __('Explained in ar') }}</label>
-                                    <input id="Explained_ar" type="text" class="form-control " name="Explained_ar" value= "@if (!empty($main)) {{ $main->explained_ar}} @else {{ old('Explained_ar') }} @endif" required autocomplete="on">
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label for="Explained_ar" >{{ __('Explained in ar') }}</label>
+                                        <input id="Explained_ar" type="text" class="form-control " name="Explained_ar" value= "@if (!empty($main)) {{ $main->explained_ar}} @else {{ old('Explained_ar') }} @endif" required autocomplete="on">
+                                    </div>
                                 </div>
                             </div>
-                    </div>
                             <div class="row">
                                 <div class="col-4">
                                     <div class="form-group">
@@ -139,17 +139,18 @@
                                 <div class="col-4">
                                     <div class="form-group">
                                         <label for="document_number" >{{ __('Document Number') }}</label>
-                                        <input id="document_number" type="text" name="document_number" class="form-control @error('document_number') is-invalid @enderror" value="@if (!empty($main)) {{ $main->document_number}} @else {{ old('document_number') }} @endif " >
+                                        <input id="document_number" type="text" name="document_number" class="form-control @error('document_number') is-invalid @enderror"  required value="@if (!empty($main)) {{ $main->document_number}} @else {{ old('document_number') }} @endif "  >
                                         @error('document_number')<span class="help-block text-danger">{{ $message }}</span>@enderror
                                     </div>
                                 </div>
                             </div>
-                                <div class="row">
+                            <div class="row">
                                 <div class="col-4">
                                     <div class="form-group">
                                         <label for="type_of_operation" >{{ __('Type of operation') }}</label>
-                                        <input id="type_of_operation" type="text" name="type_of_operation" class="form-control @error('type_of_operation') is-invalid @enderror" value="@if (!empty($main)) {{ $main->type_of_operation}} @else{{__('financial record')}} @endif" readonly="true">
-
+                                        <select name="type_of_operation" id="type_of_operation" class="unit form-control">
+                                            <option value="0">{{__('financial record')}}</option>
+                                        </select>
                                         @error('type_of_operation')<span class="help-block text-danger">{{ $message }}</span>@enderror
                                     </div>
                                 </div>
@@ -176,12 +177,32 @@
                                         <div id="c">
                                             @if(!empty($main))
                                                 <input id="exchange_rate" type="text" class="form-control @error('exchange_rate') is-invalid @enderror" name="exchange_rate"  value= "{{$main->exchange_rate}} " required >
-@endif
+                                            @endif
                                         </div>
                                         @error('exchange_rate')<span class="help-block text-danger">{{ $message }}</span>@enderror
                                     </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label for="doc_date" >{{ __('document date') }}</label>
+                                        @if(!empty($main))
+                                         <input id="doc_date" type="date" class="form-control " name="doc_date"  value= "{{$main->doc_date}}" required >
+                                        @else
+                                         <input id="doc_date" type="date" class="form-control " name="doc_date"  value= "@if (!empty($main)) {{ $main->doc_no}} @else {{ old('doc_no')? 'selected' : '' }} @endif" required >
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label for="doc_no" >{{ __('document no') }}</label>
+                                        <input id="doc_no" type="text" class="form-control " name="doc_no"  value= "{{old('doc_no')}} " required >
+
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="table-responsive">
                                 <table class="table" id="sub_details">
                                     <thead>
@@ -225,7 +246,7 @@
                                                     </select>
                                                 </td>
                                                 <td>
-                                                    <select name="account_number[{{ $loop->index }}]" id="A" class="account_number form-control">
+                                                    <select name="account_number[{{ $loop->index }}]" id="account_number" class="account_number form-control">
                                                         @foreach($accounts as $account)
                                                             <option value=" {{$account->account_number}} "{{ $sub->account_name == $account->account_number ? 'selected' : '' }}  >{{$account->account_number}} </option>
                                                         @endforeach

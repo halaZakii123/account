@@ -117,6 +117,12 @@ return [
     'uploaded' => 'The :attribute failed to upload.',
     'url' => 'The :attribute format is invalid.',
     'uuid' => 'The :attribute must be a valid UUID.',
+    'debit[0]'=>'debit',
+    'credit[0]'=>'credit',
+    'account_name[0]'=>'account name',
+    'account_number[0]'=>'account number',
+    'explained[0]'=>'explained',
+    'explained_ar[0]'=>'explained in ar',
 
     /*
     |--------------------------------------------------------------------------

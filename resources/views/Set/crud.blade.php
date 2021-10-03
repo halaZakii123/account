@@ -25,7 +25,7 @@
 
                                 <div class="col-md-6">
                                     <select name="key" id="key" class="key form-control" onchange="validate()">
-                                        <option >{{__('select type')}}</option>
+
                                         @if(!empty($set))
                                             <option  value="cash_id" {{$set->key == 'cash_id'? 'selected':''}}> {{__('Cash Id')}}</option>
 
@@ -54,9 +54,9 @@
 
                                         @foreach($account_numbers as $account)
                                             @if(!empty($set))
-                                                <option value=" {{$account}} "{{ $set->value == $account ? 'selected' : '' }}  >{{$account}} </option>
+                                                <option value=" {{$account->account_number}} "{{ $set->value == $account->account_number ? 'selected' : '' }}  >{{$account->account_number}} {{$account->account_name}} </option>
                                             @else
-                                                <option value=" {{$account}} "{{old('value')}} >{{$account}} </option>
+                                                <option value=" {{$account->account_number}} "{{old('value')}} >{{$account->account_number}} {{$account->account_name}} </option>
                                             @endif
 
                                         @endforeach
