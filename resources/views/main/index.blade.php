@@ -19,9 +19,9 @@
                             </button>
                             <div class="dropdown-menu">
                                 <a  class="dropdown-item" href ="{{route('Mains.create')}} "> {{__('financial record')}} </a>
-                                <a class="dropdown-item" href=" {{route('Mains.dailyCash',__('Cash'))}} "> {{__('Cash')}}</a>
-                                <a  class="dropdown-item" href=" {{route('Mains.dailyCashIn',__('Cash in'))}}"> {{__('Cash in')}}</a>
-                                <a  class="dropdown-item" href=" {{route('Mains.dailyCashOut',__('Cash out'))}}"> {{__('Cash out')}}</a>
+                                <a class="dropdown-item" href=" {{route('Mains.dailyCash',3)}} "> {{__('Cash')}}</a>
+                                <a  class="dropdown-item" href=" {{route('Mains.dailyCashIn',1)}}"> {{__('Cash in')}}</a>
+                                <a  class="dropdown-item" href=" {{route('Mains.dailyCashOut',2)}}"> {{__('Cash out')}}</a>
                             </div>
                         </div>
 
@@ -42,13 +42,13 @@
         <div class="col-4">
             <div class ="form-group" >
                 <label> {{__('start date :')}}</label>
-                <input type="text" id="startDate" name="from" placeholder="yyyy-mm-dd"  autocomplete="on">
+                <input type="date" id="startDate" name="from" placeholder="yyyy-mm-dd"  autocomplete="on">
             </div>
         </div>
         <div class="col-8">
             <div class ="form-group" >
                 <label> {{__('end date :')}}</label>
-                <input type="text" id="endDate"  name="to"  placeholder="yyyy-mm-dd"  autocomplete="on" >
+                <input type="date" id="endDate"  name="to"  placeholder="yyyy-mm-dd"  autocomplete="on" >
                 <button type="submit" class="btn btn-primary">
                     {{ __('Submit') }}
                 </button>
@@ -82,7 +82,16 @@
                                         <td>{{$main->operation_date}} </td>
                                         <td> @if (app()->getLocale() == 'ar'){{$main->explained_ar}} @else  {{$main->explained}} @endif </td>
                                         <td>{{$main->document_number}} </td>
-                                        <td>{{$main->type_of_operation}} </td>
+                                        <td>@if($main->type_of_operation == 0)
+                                                {{__('financial record')}}
+                                             @elseif($main->type_of_operation == 1)
+                                                {{__('Cash in')}}
+                                             @elseif($main->type_of_operation == 2)
+                                                {{__('Cash out')}}
+                                             @else
+                                                {{__('Cash')}}
+                                            @endif
+                                            </td>
                                         <td>{{$main->currency_symbol}} </td>
                                         <td>{{$main->exchange_rate}} </td>
                                             <td><a href="{{route('Mains.edit',$main->id) }}"><i class="fa fa-edit"></i></a>

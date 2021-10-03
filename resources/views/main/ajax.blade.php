@@ -10,7 +10,7 @@
 
     </td>
     <td>
-        <select name="account_name[]" id="account_name" class=" form-control" onchange="ajaxB()">
+        <select name="account_name[]" id="account_name_" class=" form-control" onchange="ajaxB()">
             <option></option>
             @foreach($accounts as $account)
                 <option value="{{$account->account_name}}"{{old('account_name')}} >{{$account->account_name}} </option>
@@ -31,7 +31,7 @@
 </tr>
 <script>
     function ajaxB() {
-        var ddl = document.getElementById("account_name");
+        var ddl = document.getElementById("account_name_");
         var selectedValue = ddl.options[ddl.selectedIndex].value;
         console.log('x:',selectedValue);
         $.ajax({

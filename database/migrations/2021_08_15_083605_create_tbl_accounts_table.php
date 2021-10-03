@@ -19,7 +19,7 @@ class CreateTblAccountsTable extends Migration
             $table->string('account_name');
             $table->string('master_account_number')->nullable();
             $table->string('report');
-            $table->boolean('mainly')->nullable()->default(false);
+            $table->boolean('mainly')->nullable()->default(0);
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('parent_id');
             $table->timestamps();

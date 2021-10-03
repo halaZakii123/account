@@ -46,13 +46,14 @@
                                   <div class="col-md-6">
                                     <select name="master_account_number" id="master_account_number" >
                                         <option value="" disabled> {{__('Select master account number')}}</option>
-                                        <option value="-" > {{__('do not have master')}}</option>
                                         @foreach($views as $view)
 
                                           @if(!empty($account))
-                                            <option value=" {{$view->account_number}} "{{ $account->master_account_number == $view->account_number? 'selected' : '' }} >{{$view->account_number}} </option>
+                                            <option value=" {{$view->account_number}} "{{ $account->master_account_number == $view->account_number }} >
+                                                {{$view->account_number}} {{$view->account_name}} </option>
                                            @else
-                                            <option value="{{$view->account_number}}" {{ old('master_account_number')? 'selected' : '' }} >{{$view->account_number}} </option>
+                                                <option value="-" > {{__('do not have master')}}</option>
+                                                <option value="{{$view->account_number}}" {{ old('master_account_number')? 'selected' : '' }} >{{$view->account_number}} {{$view->account_name}}</option>
                                             @endif
                                         @endforeach
                                     </select>

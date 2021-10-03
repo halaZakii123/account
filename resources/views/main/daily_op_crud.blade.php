@@ -48,7 +48,7 @@
                             </div>
                         @endif
 
-                        <form method="POST"  name ="aa" on onsubmit="return v" action="{!! !empty($main) ? route('Mains.update',$main->id)  : route('Mains.store') !!}">
+                            <form method="POST"  name ="aa" on onsubmit="return v" action="{!! !empty($main) ? route('Mains.update',$main->id)  : route('Mains.store') !!}">
                             @csrf
                             @if (!empty($main))
                                 @method('PUT')
@@ -57,7 +57,7 @@
                                 <div class="col-4">
                                     <div class="form-group">
                                         <label for="operation_date">{{ __('Operation Date') }}</label>
-                                        <input id="operation_date" type="text" class=" form-control pickdate" name="operation_date" required  value= " {{ Carbon\Carbon::now()->format('Y-m-d') }}" >
+                                        <input id="operation_date" type="text" class=" form-control pickdate" name="operation_date" required  value= " {{ Carbon\Carbon::now()->format('Y/m/d') }}" >
                                         @error('operation_date')<span class="help-block text-danger">{{ $message }}</span>@enderror
                                     </div>
                                 </div>
@@ -108,9 +108,24 @@
                                 <div class="col-4">
                                     <div class="form-group">
                                         <label for="type_of_operation" >{{ __('Type of operation') }}</label>
-                                        <input id="type_of_operation" type="text" name="type_of_operation" class="form-control @error('type_of_operation') is-invalid @enderror" value=" @if (!empty($main)) {{ $main->type_of_operation}} @else  {{$v}}  @endif" readonly="true">
-
-                                        @error('type_of_operation')<span class="help-block text-danger">{{ $message }}</span>@enderror
+                                        <select name="type_of_operation" id="type_of_operation" class="unit form-control">
+                                            @if(!empty($main))
+                                                <option value="{{$main->type_of_operation}}">
+                                                    @if($main->type_of_operation == 0)
+                                                        {{__('financial record')}}
+                                                    @elseif($main->type_of_operation == 1)
+                                                        {{__('Cash in')}}
+                                                    @elseif($main->type_of_operation == 2)
+                                                        {{__('Cash out')}}
+                                                    @else
+                                                        {{__('Cash')}}
+                                                    @endif</option>
+                                            @else
+                                                <option value="1"@if($cash != 1) disabled @endif>{{__('Cash in')}}</option>
+                                                <option value="2"@if($cash != 2) disabled @endif>{{__('Cash out')}}</option>
+                                                <option value="3"@if($cash != 3) disabled @endif>{{__('Cash')}}</option>
+                                            @endif
+                                        </select>
                                     </div>
                                 </div>
 
@@ -142,7 +157,25 @@
                                     </div>
                                 </div>
                             </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label for="doc_date" >{{ __('document date') }}</label>
+                                            @if(!empty($main))
+                                                <input id="doc_date" type="date" class="form-control " name="doc_date"  value= "{{$main->doc_date}}" required >
+                                            @else
+                                                <input id="doc_date" type="date" class="form-control " name="doc_date"  value= "{{ old('doc_date')? 'selected' : '' }} " required >
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label for="doc_no" >{{ __('document no') }}</label>
+                                            <input id="doc_no" type="text" class="form-control " name="doc_no"  value= "@if (!empty($main)) {{ $main->doc_no}} @else {{ old('doc_no')? 'selected' : '' }} @endif" required >
 
+                                        </div>
+                                    </div>
+                                </div>
                             <div class="table-responsive">
                                 <table class="table" id="sub_details">
                                     <thead>
@@ -168,7 +201,7 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    <input type="text" name="amount[{{ $loop->index }}]" id="amount_{{$loop->index}}" class="amount_filed" value="@if($main->type_of_operation == __('Cash in')) {{$sub->credit}} @else {{ $sub->debit }} @endif"   onchange="gettotald()">
+                                                    <input type="text" name="amount[{{ $loop->index }}]" id="amount_{{$loop->index}}" class="amount_filed" value="@if($main->type_of_operation == __('Cash in')) {{$sub->credit}} @else {{ $sub->debit }} @endif"   onchange="gettotald(),cur()">
                                                     @error('debit')<span class="help-block text-danger">{{ $message }}</span>@enderror
                                                 </td>
                                                 <td>
@@ -207,7 +240,8 @@
                                         <tr class="cloning_row" id="0">
                                             <td>#</td>
                                             <td>
-                                                <input type="text" name="amount[0]" id='amount_0' class="amount_filed"  required onchange="cur(0),gettotald()" >
+
+                                                <input type="text" name="amount[0]" id='amount_0' class="amount_filed" value="{{old('amount[0]')}}" required onchange=",gettotald()" >
                                                 @error('amount')<span class="help-block text-danger">{{ $message }}</span>@enderror
                                             </td>
                                             <td>
@@ -336,9 +370,12 @@
 
     <script>
 
-        function gettotald() {
+        function gettotald(v) {
+
             var arr = document.querySelectorAll('.amount_filed');
-            var total =0;
+            var total = 0;
+
+
             for (var i=0; i<arr.length;i++){
                 if (parseInt(arr[i].value)){
                     total+=parseInt(arr[i].value);
@@ -347,7 +384,7 @@
             var num = new Intl.NumberFormat("en-US",{
                 maximumSignificantDigits: 1
             })
-            document.getElementById('total').value = num.format(total);
+            document.getElementById('total').value = new Intl.NumberFormat().format(total,0,',',10,'.','');
         }
 
     </script>
@@ -366,8 +403,7 @@
             var num = new Intl.NumberFormat("en-US",{
                 maximumSignificantDigits: 3
             })
-            // document.getElementById('amount_'+v).value =new Intl.NumberFormat().format(vv);
-            document.getElementById('amount_'+v).value =vv.toLocaleString(undefined,{minimumFractionDigits:2});
+            document.getElementById('amount_'+v).value =new Intl.NumberFormat().format(vv,0,',',3,'.','');
         }
     </script>
     <script>

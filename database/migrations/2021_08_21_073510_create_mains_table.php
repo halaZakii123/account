@@ -20,10 +20,12 @@ class CreateMainsTable extends Migration
             $table->string('explained_ar');
             $table->string('type_of_operation');
             $table->string('currency_symbol');
-            $table->string('exchange_rate');
-            $table->timestamps();
+            $table->decimal('exchange_rate');
+            $table->date('doc_date');
+            $table->string('doc_no');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('parent_id');
+            $table->timestamps();
 
         });
     }

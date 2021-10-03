@@ -47,9 +47,9 @@
 
                                         @foreach($accounts as $account)
                                             @if(!empty($sub))
-                                                <option value=" {{$account->account_number}} "{{ $sub->account_number == $account->account_number? 'selected' : '' }} >{{$account->account_number}} </option>
+                                                <option value=" {{$account->account_number}} "{{ $sub->account_number == $account->account_number? 'selected' : '' }} >{{$account->account_number}}  </option>
                                             @else
-                                                <option value="{{$account->account_number}}" {{ old('account_number')? 'selected' : '' }} >{{$account->account_number}} </option>
+                                                <option value="{{$account->account_number}}" {{ old('account_number')? 'selected' : '' }} >{{$account->account_number}}  </option>
                                             @endif
                                         @endforeach
                                     </select>

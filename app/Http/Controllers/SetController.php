@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\checkPermissionHelper;
 use App\Set;
+use App\TblAccount;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -20,13 +21,15 @@ class SetController extends Controller
     public function index(){
         $user_id = checkPermissionHelper::checkPermission();
         $sets = Set::where('parent_id',$user_id)->get();
-        return view('Set.index',compact('sets'));
+        $accounts = TblAccount::where('parent_id',$user_id)->where('mainly',0)->get();
+        return view('Set.index',compact('sets','accounts'));
     }
     public function create(){
         $user_id = checkPermissionHelper::checkPermission();
         $account_numbers = DB::table('tbl_accounts')->where('parent_id',$user_id)
-            ->where('mainly',null)
-            ->pluck('account_number');
+            ->where('mainly',0)->get();
+
+
         return view('Set.crud',compact('account_numbers'));
     }
 
@@ -34,8 +37,7 @@ class SetController extends Controller
         $set = Set::findOrFail($id);
         $user_id = checkPermissionHelper::checkPermission();
         $account_numbers = DB::table('tbl_accounts')->where('parent_id',$user_id)
-            ->where('mainly',null)
-            ->pluck('account_number');
+            ->where('mainly',0)->get();
 
         if ($set->parent_id==$user_id){
             return view('Set.crud',compact('set','account_numbers'));}
