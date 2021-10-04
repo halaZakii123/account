@@ -178,6 +178,8 @@ return [
 //        Meneses\LaravelMpdf\LaravelMpdfServiceProvider::class,
         niklasravnsborg\LaravelPdf\PdfServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
+        Felixkiss\UniqueWithValidator\ServiceProvider::class,
+
 
 
 

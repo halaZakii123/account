@@ -98,21 +98,38 @@
                                 <div class="col-4">
                                     <div class="form-group">
                                         <label for="operation_date">{{ __('Operation Date') }}</label>
-                                        <input id="operation_date" type="text" class=" form-control pickdate" name="operation_date" required  value= " {{ Carbon\Carbon::now()->format('Y/m/d') }}" >
+                                        @if(!empty($main))
+                                        <input id="operation_date" type="text" class=" form-control" name="operation_date" required  value= "{{$main->operation_date}}" >
+                                       @else
+                                        <input id="operation_date" type="text" class=" form-control" name="operation_date" required  value= " {{ Carbon\Carbon::now()->format('Y/m/d') }}" >
+                                       @endif
                                         @error('operation_date')<span class="help-block text-danger">{{ $message }}</span>@enderror
+
                                     </div>
                                 </div>
                                 <div class="col-4">
                                     <div class="form-group">
                                         <label for="Explained" >{{ __('Explained in eng') }}</label>
-                                        <input id="Explained" type="text" class="form-control "name="Explained" value= "@if (!empty($main)) {{ $main->explained}} @else {{ old('Explained') }} @endif" required autocomplete="on">
+                                        @if(!empty($main))
+                                        <input id="Explained" type="text" class="form-control" name="Explained" value= " {{ $main->explained}}" required >
+                                       @else
+                                        <input id="Explained" type="text" class="form-control " name="Explained" value= " {{ old('Explained') }} " required >
+                                       @endif
+                                        @error('Explained')<span class="help-block text-danger">{{ $message }}</span>@enderror
+
                                     </div>
                                 </div>
 
                                 <div class="col-4">
                                     <div class="form-group">
                                         <label for="Explained_ar" >{{ __('Explained in ar') }}</label>
-                                        <input id="Explained_ar" type="text" class="form-control " name="Explained_ar" value= "@if (!empty($main)) {{ $main->explained_ar}} @else {{ old('Explained_ar') }} @endif" required autocomplete="on">
+                                        @if(!empty($main))
+                                        <input id="Explained_ar" type="text" class="form-control " name="Explained_ar" value= " {{ $main->explained_ar}} " required >
+                                       @else
+                                        <input id="Explained_ar" type="text" class="form-control " name="Explained_ar" value= " {{ old('Explained_ar') }} " required >
+                                   @endif
+                                        @error('Explained_ar')<span class="help-block text-danger">{{ $message }}</span>@enderror
+
                                     </div>
                                 </div>
                             </div>
@@ -120,7 +137,7 @@
                                 <div class="col-4">
                                     <div class="form-group">
                                         <label for="cash id" >{{ __('Cash Id') }}</label>
-                                        <select name="cash_id" id="cash_id" class="cash_id form-control">
+                                        <select name="cash_id" id="cash_id" class="cash_id form-control" required>
                                             <option>{{$c}}</option>
                                             @foreach($accounts as $account)
                                                 @if($account->account_number != $c)
@@ -139,8 +156,13 @@
                                 <div class="col-4">
                                     <div class="form-group">
                                         <label for="document_number" >{{ __('Document Number') }}</label>
-                                        <input id="document_number" type="text" name="document_number" class="form-control @error('document_number') is-invalid @enderror"  required value="@if (!empty($main)) {{ $main->document_number}} @else {{ old('document_number') }} @endif "  >
-                                        @error('document_number')<span class="help-block text-danger">{{ $message }}</span>@enderror
+                                        @if(!empty($main))
+                                            <input id="document_number" type="text" name="document_number" class="form-control "  required value=" {{ $main->document_number}}  "  >
+                                        @else
+                                            <input id="document_number" type="text" name="document_number" class="form-control "  required value="{{ old('document_number') }}"  >
+
+                                        @endif
+                                            @error('document_number')<span class="help-block text-danger">{{ $message }}</span>@enderror
                                     </div>
                                 </div>
                             </div>
@@ -158,7 +180,7 @@
                                 <div class="col-4">
                                     <div class="form-group">
                                         <label for="currency_symbol">{{ __('Currency symbol') }}</label>
-                                        <select name="currency_symbol" id="currency_symbol" class="unit form-control" onchange="ajaxE()" >
+                                        <select name="currency_symbol" id="currency_symbol" class="unit form-control" onchange="ajaxE()" required>
                                             <option value="" > {{__('select currency')}}</option>
                                             @foreach($cus as $cu)
                                                 @if(!empty($main))
@@ -176,8 +198,12 @@
                                         <label for="exchange_rate" >{{ __('Exchange rate') }}</label>
                                         <div id="c">
                                             @if(!empty($main))
-                                                <input id="exchange_rate" type="text" class="form-control @error('exchange_rate') is-invalid @enderror" name="exchange_rate"  value= "{{$main->exchange_rate}} " required >
+                                                <input id="exchange_rate" type="text" class="form-control " name="exchange_rate"  value= "{{$main->exchange_rate}} " required >
+                                          @else
+                                                <input id="exchange_rate " type="text" class="form-control " name="exchange_rate"  value= "" required >
+
                                             @endif
+
                                         </div>
                                         @error('exchange_rate')<span class="help-block text-danger">{{ $message }}</span>@enderror
                                     </div>
@@ -186,7 +212,7 @@
                             <div class="row">
                                 <div class="col-4">
                                     <div class="form-group">
-                                        <label for="doc_date" >{{ __('document date') }}</label>
+                                        <label for="doc_date" >{{ __('Document Date') }}</label>
                                         @if(!empty($main))
                                          <input id="doc_date" type="date" class="form-control " name="doc_date"  value= "{{$main->doc_date}}" required >
                                         @else
@@ -196,8 +222,12 @@
                                 </div>
                                 <div class="col-4">
                                     <div class="form-group">
-                                        <label for="doc_no" >{{ __('document no') }}</label>
+                                        <label for="doc_no" >{{ __('Document Number') }}</label>
+                                        @if(!empty($main))
+                                        <input id="doc_no" type="text" class="form-control " name="doc_no"  value= "{{$main->doc_no}} " required >
+                                        @else
                                         <input id="doc_no" type="text" class="form-control " name="doc_no"  value= "{{old('doc_no')}} " required >
+                                        @endif
 
                                     </div>
                                 </div>
@@ -459,6 +489,7 @@
         }
 
     </script>
+
     <script>
         function changeCreditt(x) {
             var a = document.getElementById('credit-'+x);

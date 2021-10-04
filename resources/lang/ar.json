@@ -53,12 +53,13 @@
     "Amount": "المبلغ",
     "Cash Id":"الصندوق" ,
     "Value": "القيمة",
-    "document_number": "رقم الوثيقة",
+    "Document Number": "رقم الوثيقة",
     "financial record": "قيد مالي",
     "Cash": "مصروف",
     "Cash in": "المقبوضات",
     "Cash out": "المدفوعات",
-    "details": "التفاصيل"
+    "details": "التفاصيل",
+    "Document Date": "تاريخ الوثيقة"
 
 
 

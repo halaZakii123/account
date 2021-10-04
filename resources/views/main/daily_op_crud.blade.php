@@ -53,57 +53,72 @@
                             @if (!empty($main))
                                 @method('PUT')
                             @endif
-                            <div class="row">
-                                <div class="col-4">
-                                    <div class="form-group">
-                                        <label for="operation_date">{{ __('Operation Date') }}</label>
-                                        <input id="operation_date" type="text" class=" form-control pickdate" name="operation_date" required  value= " {{ Carbon\Carbon::now()->format('Y/m/d') }}" >
-                                        @error('operation_date')<span class="help-block text-danger">{{ $message }}</span>@enderror
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label for="operation_date">{{ __('Operation Date') }}</label>
+                                            @if(!empty($main))
+                                                <input id="operation_date" type="text" class=" form-control" name="operation_date" required  value= "{{$main->operation_date}}" >
+                                            @else
+                                                <input id="operation_date" type="text" class=" form-control" name="operation_date" required  value= " {{ Carbon\Carbon::now()->format('Y/m/d') }}" >
+                                            @endif
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-4">
-                                    <div class="form-group">
-                                        <label for="Explained" >{{ __('Explained in eng') }}</label>
-                                        <input id="Explained" type="text" class="form-control @error('Explained') is-invalid @enderror" name="Explained" value= "@if (!empty($main)) {{ $main->explained}} @else {{ old('Explained') }} @endif" required autocomplete="on" >
-                                        @error('Explained')<span class="help-block text-danger">{{ $message }}</span>@enderror
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label for="Explained" >{{ __('Explained in eng') }}</label>
+                                            @if(!empty($main))
+                                                <input id="Explained" type="text" class="form-control" name="Explained" value= " {{ $main->explained}}" required autocomplete="on">
+                                            @else
+                                                <input id="Explained" type="text" class="form-control " name="Explained" value= " {{ old('Explained') }} " required autocomplete="on">
+                                            @endif
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="col-4">
-                                    <div class="form-group">
-                                        <label for="Explained_ar" >{{ __('Explained in ar') }}</label>
-                                        <input id="Explained_ar" type="text" class="form-control @error('Explained_ar') is-invalid @enderror" name="Explained_ar" value= "@if (!empty($main)) {{ $main->explained_ar}} @else {{ old('Explained_ar') }} @endif" required autocomplete="on">
-                                        @error('Explained_ar')<span class="help-block text-danger">{{ $message }}</span>@enderror
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label for="Explained_ar" >{{ __('Explained in ar') }}</label>
+                                            @if(!empty($main))
+                                                <input id="Explained_ar" type="text" class="form-control " name="Explained_ar" value= " {{ $main->explained_ar}} " required autocomplete="on">
+                                            @else
+                                                <input id="Explained_ar" type="text" class="form-control " name="Explained_ar" value= " {{ old('Explained_ar') }} " required autocomplete="on">
+                                            @endif
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-4">
-                                    <div class="form-group">
-                                        <label for="cash id" >{{ __('Cash Id') }}</label>
-                                        <select name="cash_id" id="cash_id" class="cash_id form-control">
-                                            <option>{{$c}}</option>
-                                            @foreach($account_numbers as $account)
-                                                @if($account != $c)
-                                                  @if(!empty($main))
-                                                        <option value=" {{$account}} "{{ $main->cash_id == $account? 'selected' : '' }} >{{$account}} </option>
-                                                      @else
-                                                        <option value="{{$account}}" {{ old('cash_id')? 'selected' : '' }} >{{$account}} </option>
-                                                      @endif
-                                                @endif
-                                            @endforeach
-                                        </select>                                        @error('cash_id')<span class="help-block text-danger">{{ $message }}</span>@enderror
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label for="cash id" >{{ __('Cash Id') }}</label>
+                                            <select name="cash_id" id="cash_id" class="cash_id form-control" required>
+                                                <option>{{$c}}</option>
+                                                @foreach($accounts as $account)
+                                                    @if($account->account_number != $c)
+                                                        @if(!empty($main))
+                                                            <option value=" {{$account->account_number}} "{{ $main->cash_id == $account->account_number? 'selected' : '' }} >{{$account->account_number}} </option>
+                                                        @else
+                                                            <option value="{{$account->account_number}}" {{ old('cash_id')? 'selected' : '' }} >{{$account->account_number}} </option>
+                                                        @endif
+                                                    @endif
+                                                @endforeach
+                                            </select>
+                                            @error('cash_id')<span class="help-block text-danger">{{ $message }}</span>@enderror
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="col-4">
-                                    <div class="form-group">
-                                        <label for="document_number" >{{ __('Document Number') }}</label>
-                                        <input id="document_number" type="text" name="document_number" class="form-control @error('document_number') is-invalid @enderror" value="@if (!empty($main)) {{ $main->document_number}} @else {{ old('document_number') }} @endif " >
-                                        @error('document_number')<span class="help-block text-danger">{{ $message }}</span>@enderror
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label for="document_number" >{{ __('Document Number') }}</label>
+                                            @if(!empty($main))
+                                                <input id="document_number" type="text" name="document_number" class="form-control "  required value=" {{ $main->document_number}}  "  >
+                                            @else
+                                                <input id="document_number" type="text" name="document_number" class="form-control "  required value="{{ old('document_number') }}"  >
+
+                                            @endif
+                                            @error('document_number')<span class="help-block text-danger">{{ $message }}</span>@enderror
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                             <div class="row">
                                 <div class="col-4">
                                     <div class="form-group">
@@ -128,11 +143,10 @@
                                         </select>
                                     </div>
                                 </div>
-
                                 <div class="col-4">
                                     <div class="form-group">
                                         <label for="currency_symbol">{{ __('Currency symbol') }}</label>
-                                        <select name="currency_symbol" id="currency_symbol" class="unit form-control" onchange="ajaxE()" >
+                                        <select name="currency_symbol" id="currency_symbol" class="unit form-control" onchange="ajaxE()" required>
                                             <option value="" > {{__('select currency')}}</option>
                                             @foreach($cus as $cu)
                                                 @if(!empty($main))
@@ -142,7 +156,7 @@
                                                 @endif
                                             @endforeach
                                         </select>
-                                        @error('Currency symbol')<span class="help-block text-danger">{{ $message }}</span>@enderror
+                                        @error('type_of_operation')<span class="help-block text-danger">{{ $message }}</span>@enderror
                                     </div>
                                 </div>
                                 <div class="col-4">
@@ -160,18 +174,22 @@
                                 <div class="row">
                                     <div class="col-4">
                                         <div class="form-group">
-                                            <label for="doc_date" >{{ __('document date') }}</label>
+                                            <label for="doc_date" >{{ __('Document Date') }}</label>
                                             @if(!empty($main))
                                                 <input id="doc_date" type="date" class="form-control " name="doc_date"  value= "{{$main->doc_date}}" required >
                                             @else
-                                                <input id="doc_date" type="date" class="form-control " name="doc_date"  value= "{{ old('doc_date')? 'selected' : '' }} " required >
+                                                <input id="doc_date" type="date" class="form-control " name="doc_date"  value= "@if (!empty($main)) {{ $main->doc_no}} @else {{ old('doc_no')? 'selected' : '' }} @endif" required >
                                             @endif
                                         </div>
                                     </div>
                                     <div class="col-4">
                                         <div class="form-group">
-                                            <label for="doc_no" >{{ __('document no') }}</label>
-                                            <input id="doc_no" type="text" class="form-control " name="doc_no"  value= "@if (!empty($main)) {{ $main->doc_no}} @else {{ old('doc_no')? 'selected' : '' }} @endif" required >
+                                            <label for="doc_no" >{{ __('Document No') }}</label>
+                                            @if(!empty($main))
+                                                <input id="doc_no" type="text" class="form-control " name="doc_no"  value= "{{$main->doc_no}} " required >
+                                            @else
+                                                <input id="doc_no" type="text" class="form-control " name="doc_no"  value= "{{old('doc_no')}} " required >
+                                            @endif
 
                                         </div>
                                     </div>
@@ -234,18 +252,16 @@
                                             </tr>
 
                                         @endforeach
-
-
                                     @else
                                         <tr class="cloning_row" id="0">
                                             <td>#</td>
                                             <td>
 
-                                                <input type="text" name="amount[0]" id='amount_0' class="amount_filed" value="{{old('amount[0]')}}" required onchange=",gettotald()" >
+                                                <input type="text" name="amount[0]" id='amount_0' class="amount_filed" value="{{old('amount[0]')}}" required onchange="gettotald()" >
                                                 @error('amount')<span class="help-block text-danger">{{ $message }}</span>@enderror
                                             </td>
                                             <td>
-                                                <select name="account_name[0]" id="account_name" class=" form-control" onchange="ajaxA()">
+                                                <select name="account_name[0]" id="account_name" class=" form-control" onchange="ajaxA()" required>
                                                     <option></option>
                                                     @foreach($accounts as $account)
                                                         <option value="{{$account->account_name}}"{{old('account_name')}} >{{$account->account_name}} </option>
@@ -259,12 +275,12 @@
                                             </select>
                                             </td>
                                             <td>
-                                                <input id="explained" type="text" class="explained form-control "name="explained[0]" value= " {{ old('explained') }}" required autocomplete="on" >
+                                                <input id="explained" type="text" class="form-control" name="explained[0]" value= " {{ old('explained') }}" required  >
                                                 @error('explained')<span class="help-block text-danger">{{ $message }}</span>@enderror
 
                                             </td>
                                             <td>
-                                                <input id="explained_ar" type="text" class="form-control "name="explained_ar[0]" value= "{{ old('explained_ar') }}" required autocomplete="on">
+                                                <input id="explained_ar" type="text" class="form-control "name="explained_ar[0]" value= "{{ old('explained_ar') }}" required >
                                                 @error('explained_ar')<span class="help-block text-danger">{{ $message }}</span>@enderror
                                             </td>
 

@@ -56,11 +56,21 @@ Route::resource('/Mains',MainController::class);
 //Route::post('/store/{id}','SubController@store');
 //Route::get('/sub/{sub}/edit/{main}','SubController@edit');
 //Route::post('/update/{id}/{main}','SubController@update');
-Route::post('/addOption','MainController@add');
-Route::post('/addDailyOp','MainController@addDaily');
-Route::post('/addC','MainController@addE');
-Route::post('/addA','MainController@addA');
-Route::post('/addADaily','MainController@addADaily');
+
+//use ajax to add new row in main
+Route::post('/addOption','MainController@addNewRow');
+
+//use ajax to add new row in daily operation
+Route::post('/addDailyOp','MainController@addNewDaily');
+
+//use ajax to add exchange rate
+Route::post('/addC','MainController@addExchangeRate');
+
+//use ajax to add account number
+Route::post('/addA','MainController@addAccountNumber');
+
+//use ajax to add account number for daily op
+Route::post('/addADaily','MainController@addAccountNumber_Daily');
 
 Route::get('/print','AccountController@printAccount')->name('print');
 Route::get('/pdf','AccountController@pdf')->name('pdf');
@@ -72,10 +82,10 @@ Route::get('/main/print/daily/{id}','MainController@printMDaily');
 
 //daily_operation route
 Route::get('Accounts/daily_op_getAll','daily_operationController@getAll')->name('Accounts.daily_op');
-Route::get('main/daily_op_create','MainController@createDaily')->name('daily_op_create');
-Route::get('main/dailyCashing/{cash}','MainController@createDaily')->name('Mains.dailyCash');
-Route::get('main/dailyCashIn/{in}','MainController@createDaily')->name('Mains.dailyCashIn');
-Route::get('main/dailyCashOut/{out}','MainController@createDaily')->name('Mains.dailyCashOut');
+Route::get('main/daily_op_create','MainController@createDailyOperation')->name('daily_op_create');
+Route::get('main/dailyCashing/{cash}','MainController@createDailyOperation')->name('Mains.dailyCash');
+Route::get('main/dailyCashIn/{in}','MainController@createDailyOperation')->name('Mains.dailyCashIn');
+Route::get('main/dailyCashOut/{out}','MainController@createDailyOperation')->name('Mains.dailyCashOut');
 
 //ajax datatable
 Route::get('Accounts/dataTable/list','AccountController@getAccounts')->name('accounts.list');

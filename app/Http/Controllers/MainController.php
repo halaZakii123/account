@@ -19,6 +19,12 @@ use DataTables;
 
 class MainController extends Controller
 {
+
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -66,9 +72,8 @@ class MainController extends Controller
   return view('Main.crud', compact('cus', 'ops', 'accounts','c'));
 
     }
-    public function createDaily($cash)
+    public function createDailyOperation($cash)
     {
-
         $user_id = checkPermissionHelper::checkPermission();
         $cus = View_CurrencySymbol_main::where('parent_id',$user_id)->get();
         $ops = View_TypeOperation_main::where('parent_id',$user_id)->get();
@@ -104,25 +109,25 @@ class MainController extends Controller
     public function store(Request $request)
     {
 
-        $validator = Validator::make($request->all(), [
-            'operation_date' => 'required',
-            'Explained'=>'required',
-            'Explained_ar' => 'required',
-            'cash_id' => 'required',
-            'document_number' => 'sometimes|required',
-            'type_of_operation' => 'required',
-            'currency_symbol' => 'required',
-            'exchange_rate' => 'required',
-            'account_number' => 'required',
-            'explained' => 'required',
-            'explained_ar' => 'required',
-            'doc_date' => 'required|date',
-            'doc_no' => 'required'
-        ]);
-        if ($validator->fails()) {
-            return back()
-                ->withErrors($validator);
-        }else{
+//        $validator = Validator::make($request->all(), [
+//            'operation_date' => 'required',
+//            'Explained'=>'required',
+//            'Explained_ar' => 'required',
+//            'cash_id' => 'required',
+//            'document_number' => 'sometimes|required',
+//            'type_of_operation' => 'required',
+//            'currency_symbol' => 'required',
+//            'exchange_rate' => 'required',
+//            'account_number' => 'required',
+//            'explained' => 'required',
+//            'explained_ar' => 'required',
+//            'doc_date' => 'required|date',
+//            'doc_no' => 'required',
+//        ]);
+//        if ($validator->fails()) {
+//           return back()
+//                ->withErrors($validator);
+//        }else{
         $user_id = checkPermissionHelper::checkPermission();
         $data['operation_date'] = $request->operation_date;
         $data['explained'] = $request->Explained;
@@ -176,19 +181,9 @@ class MainController extends Controller
          $main->subs()->createMany($details_list);
 
         return redirect(route('Mains.index'));
-    }}
-
-    /**
-     * Display the specified resource.
-     *
-     * @param $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function show($id)
-    {
-       $main = Main::FindOrFail($id);
-        return view('Main.show',compact('main'));
     }
+
+
 
     /**
      * Show the form for editing the specified resource.
@@ -303,7 +298,7 @@ class MainController extends Controller
         return redirect(route('Mains.index'));
     }
 
-    public function add(){
+    public function addNewRow(){
 
         $user_id = checkPermissionHelper::checkPermission();
         $accounts = TblAccount::where('parent_id',$user_id)
@@ -317,29 +312,23 @@ class MainController extends Controller
     }
 
 
-    public function addDaily(){
+    public function addNewDaily(){
        $user_id = checkPermissionHelper::checkPermission();
         $accounts = TblAccount::where('parent_id',$user_id)
             ->where('mainly',0)->get();
         $account_numbers = DB::table('tbl_accounts')->where('parent_id',$user_id)
             ->where('mainly',1)
             ->pluck('account_number');
-    $x=request()->count;
-
+          $x=request()->count;
         return view('main.ajax_daily',compact('x','account_numbers','accounts'));
     }
-    public function addE(){
+    public function addExchangeRate(){
         $user_id = checkPermissionHelper::checkPermission();
         $cus = View_CurrencySymbol_main::where('parent_id',$user_id)->get();
-//        foreach ($cus as $cu){
-//            if ($cu->contents == "@"){
-//                dd($cu->contents);
-//            }
-//        }
         $x=request()->selectedValue;
     return view('main.ajaxE',compact('cus','x'));
     }
-    public function addA(){
+    public function addAccountNumber(){
         $user_id = checkPermissionHelper::checkPermission();
         $x=request()->selectedValue;
         $account_number = TblAccount::where('parent_id',$user_id)->where('account_name',$x)->get();
@@ -348,7 +337,7 @@ class MainController extends Controller
         ->where('mainly',0)->get();
         return view('main.ajaxA',compact('account_number','account_numbers'));
     }
-    public function addADaily(){
+    public function addAccountNumber_Daily(){
         $user_id = checkPermissionHelper::checkPermission();
         $x=request()->selectedValue;
         $account_number = TblAccount::where('parent_id',$user_id)->where('account_name',$x)->get();

@@ -2,6 +2,7 @@
     @extends('layouts.app')
 
 @section('content')
+<script></script>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -14,12 +15,32 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    @if (Auth::user()->parent_id == null)
-                        <button class="btn"><a href="{{route('Users.index')}}"> {{__('Employees')}} </a></button>
-                    @endif
-                        <button class="btn"><a href="{{route('Accounts.index')}}"> {{__('Accounts')}} </a></button>
-                        <button class="btn"><a href="{{route('Options.index')}}"> {{__('Options')}}</a></button>
-                        <button class="btn"><a href="{{route('Mains.index')}}"> {{__('Mains')}}</a></button>
+                        <ul class="wizard-timeline center-align">
+                            <li class="completed">
+                                <span class="step-num">1</span>
+                                <label> {{__('Register create your company')}}</label>
+                            </li>
+                            <li class="completed">
+                                <span class="step-num">2</span>
+                                <label>{{__('Add your employee (option now)')}}</label>
+                            </li>
+                            <li class="active">
+                                <span class="step-num">3</span>
+                                <label>{{__('Create Accounts')}}</label>
+                            </li>
+                            <li>
+                                <span class="step-num">4</span>
+                                <label>{{__('Create Options')}}</label>
+                            </li>
+                            <li>
+                                <span class="step-num">4</span>
+                                <label>{{__('Create Sets')}}</label>
+                            </li>
+                            <li>
+                                <span class="step-num">4</span>
+                                <label>{{__('Create Mains')}}</label>
+                            </li>
+                        </ul>
 
 
                 </div>

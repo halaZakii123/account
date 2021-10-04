@@ -1,6 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
+    <script>
+        function validate(){
+            let x = document.forms["f1"]["account_number"].value;
+            if (x == "") {
+                alert("Name must be filled out");
+                return false;
+            }
+
+        }
+    </script>
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -43,22 +53,21 @@
                             <div class="form-group row">
                                 <label for="master_account_number" class="col-md-4 col-form-label text-md-right">{{ __('Master Account number') }}</label>
 
-                                  <div class="col-md-6">
+                                <div class="col-md-6">
                                     <select name="master_account_number" id="master_account_number" >
                                         <option value="" disabled> {{__('Select master account number')}}</option>
+                                        <option value="-" > {{__('do not have master')}}</option>
                                         @foreach($views as $view)
 
-                                          @if(!empty($account))
-                                            <option value=" {{$view->account_number}} "{{ $account->master_account_number == $view->account_number }} >
-                                                {{$view->account_number}} {{$view->account_name}} </option>
-                                           @else
-                                                <option value="-" > {{__('do not have master')}}</option>
-                                                <option value="{{$view->account_number}}" {{ old('master_account_number')? 'selected' : '' }} >{{$view->account_number}} {{$view->account_name}}</option>
+                                            @if(!empty($account))
+                                                <option value=" {{$view->account_number}} "{{ $account->master_account_number == $view->account_number? 'selected' : '' }} >{{$view->account_number}} {{$view->account_name}} </option>
+                                            @else
+                                                <option value="{{$view->account_number}}" {{ old('master_account_number')? 'selected' : '' }} >{{$view->account_number}}{{$view->account_name}}</option>
                                             @endif
                                         @endforeach
                                     </select>
                                     @error('master_account_number')
-                                     <span class="invalid-feedback" role="alert">
+                                    <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                      </span>
                                     @enderror
@@ -75,8 +84,8 @@
                                             <option value="{{__('budget')}}" {{$account->reoprt == 'budget'? 'selected':''}}> {{__('budget')}}</option>
                                             <option value="{{__('list')}}" {{$account->reoprt == 'list'? 'selected':''}}> {{__('list')}}</option>
                                         @else
-                                        <option value="{{__('budget')}}" {{old('report')?'selected' :''}} > {{__('budget')}}</option>
-                                        <option value="{{__('list')}}" {{old('report')?'selected' :''}}> {{__('list')}}</option>
+                                            <option value="{{__('budget')}}" {{old('report')?'selected' :''}} > {{__('budget')}}</option>
+                                            <option value="{{__('list')}}" {{old('report')?'selected' :''}}> {{__('list')}}</option>
                                         @endif
                                     </select>
                                 </div>
@@ -86,10 +95,10 @@
 
                                 <div class="col-md-6">
                                     @if((!empty($account)))
-                                    <input type="checkbox" name="mainly" class="switch-input" @if($account->mainly == 1) checked value="1" @else value="1" @endif/>
+                                        <input type="checkbox" name="mainly" class="switch-input" @if($account->mainly == 1) checked value="1" @else value="1" @endif/>
                                     @else
                                         <input type="checkbox" name="mainly" class="switch-input" value="1" />
-                                     @endif
+                                    @endif
 
                                 </div>
                             </div>

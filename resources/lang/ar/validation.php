@@ -169,7 +169,7 @@ return [
         'minute'                => 'دقيقة',
         'second'                => 'ثانية',
         'title'                 => 'العنوان',
-        'content'               => 'المُحتوى',
+        'contents'               => 'المُحتوى',
         'description'           => 'الوصف',
         'excerpt'               => 'المُلخص',
         'date'                  => 'التاريخ',
@@ -218,6 +218,8 @@ return [
         'account_number[0]'=>'رقم الحساب',
         'explained[0]'=>'الشرح',
         'explained_ar[0]'=>'الشرح باللغة العربية',
+        'account_number'=>'رقم الحساب',
+        'account_name'=>'اسم الحساب',
 
     ],
 

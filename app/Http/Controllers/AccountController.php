@@ -58,7 +58,12 @@ class AccountController extends Controller
         $user_id = checkPermissionHelper::checkPermission();
 
         $validator = Validator::make($request->all(), [
-            'account_number' =>'required',
+            'account_number' =>[
+                'required',
+                Rule::unique('tbl_accounts', 'account_number')->where(function ($query) use ($user_id) {
+                    $query->where('parent_id', $user_id);
+                })
+            ],
             'account_name'=>'required|string',
             'master_account_number' => 'sometimes|required',
             'report'=>'required',
