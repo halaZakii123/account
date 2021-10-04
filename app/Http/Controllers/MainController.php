@@ -57,7 +57,7 @@ class MainController extends Controller
         $cus = View_CurrencySymbol_main::where('parent_id',$user_id)->get();
         $ops = View_TypeOperation_main::where('parent_id',$user_id)->get();
 //        $account_numbers = DB::table('tbl_accounts')->where('parent_id',$user_id)
-//            ->where('mainly',null)
+//            ->where('mainly',0)
 //            ->pluck('account_number');
 //        dd($account_numbers);
         $accounts = TblAccount::where('parent_id',$user_id)

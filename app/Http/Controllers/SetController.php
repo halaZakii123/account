@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 namespace App\Http\Controllers;
 
@@ -27,9 +27,14 @@ class SetController extends Controller
     public function create(){
         $user_id = checkPermissionHelper::checkPermission();
         $account_numbers = DB::table('tbl_accounts')->where('parent_id',$user_id)
+<<<<<<< HEAD
+            ->where('mainly',1)
+            ->pluck('account_number');
+=======
             ->where('mainly',0)->get();
 
 
+>>>>>>> 71d2600e1d03320fa354aea0d0767bcf684ef50e
         return view('Set.crud',compact('account_numbers'));
     }
 
@@ -37,7 +42,12 @@ class SetController extends Controller
         $set = Set::findOrFail($id);
         $user_id = checkPermissionHelper::checkPermission();
         $account_numbers = DB::table('tbl_accounts')->where('parent_id',$user_id)
+<<<<<<< HEAD
+            ->where('mainly',1)
+            ->pluck('account_number');
+=======
             ->where('mainly',0)->get();
+>>>>>>> 71d2600e1d03320fa354aea0d0767bcf684ef50e
 
         if ($set->parent_id==$user_id){
             return view('Set.crud',compact('set','account_numbers'));}
