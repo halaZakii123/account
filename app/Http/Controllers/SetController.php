@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use DataTables;
+use Illuminate\Validation\Rule;
 
 class SetController extends Controller
 {
@@ -35,7 +36,7 @@ class SetController extends Controller
         $set = Set::findOrFail($id);
         $user_id = checkPermissionHelper::checkPermission();
         $account_numbers = DB::table('tbl_accounts')->where('parent_id',$user_id)
-            ->pluck('account_number')
+
             ->where('mainly',0)->get();
 
         if ($set->parent_id==$user_id){
@@ -49,11 +50,17 @@ class SetController extends Controller
     public function store(Request $request){
         $user_id = checkPermissionHelper::checkPermission();
         $validator = Validator::make($request->all(), [
-            'key' => 'required|string',
+            'key' => [
+                'required',
+                Rule::unique('sets', 'key')->where(function ($query) use ($user_id) {
+                    $query->where('parent_id', $user_id);
+                })
+            ],
             'value'=>'required|string',
         ]);
         if ($validator->fails()) {
-            return $validator->errors()->first();
+            return back()
+                ->withErrors($validator);
         }
 
         Set::create(['key'=> $request->key,
@@ -68,7 +75,13 @@ class SetController extends Controller
         $user_id = checkPermissionHelper::checkPermission();
 
         $validator = Validator::make($request->all(), [
-            'key' =>'sometimes|required|string',
+            'key' =>['sometimes',
+                'required',
+                Rule::unique('sets', 'key')->where(function ($query) use ($id, $user_id) {
+                    $query->where('parent_id', $user_id);
+                    $query->where('id','!=', $id);
+                })
+            ],
             'value'=>'sometimes|required|string',
         ]);
         if ($validator->fails()) {

@@ -5,6 +5,7 @@
     <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
 @endsection
 @section('content')
+
     <?php
     $user_id = App\Helpers\checkPermissionHelper::checkPermission();
     $sets = App\Set::where('parent_id',$user_id)->get();
@@ -12,10 +13,11 @@
         foreach ($sets as $set){
             if ($account->account_number == $set->value ){
                 $s= $account->account_name;
+
+
             }
         }}
     ?>
-
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -50,9 +52,10 @@
                                     <tr class="active">
                                         <td>@if($set->key == 'cash_id') {{__('Cash id')}} @else {{__(' ')}} @endif</td>
                                         <td>
-                                            {{$set->value}}{{$s}}
-
+                                            {{$set->value}}
+                                            {{$s}}
                                         </td>
+
 
                                         <td>
                                             <a href="{{route('Sets.edit',$set->id) }}"><i class="fa fa-edit"></i></a>

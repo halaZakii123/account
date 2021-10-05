@@ -28,7 +28,6 @@
 
                                         @if(!empty($set))
                                             <option  value="cash_id" {{$set->key == 'cash_id'? 'selected':''}}> {{__('Cash Id')}}</option>
-
                                         @else
                                             <option value="cash_id" {{old('key')?'selected' :''}} > {{__('Cash Id')}}</option>
 
@@ -37,7 +36,7 @@
                                     @error('key')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
-                                    </span>
+                                     </span>
                                     @enderror
                                 </div>
                             </div>

@@ -106,7 +106,13 @@ class AccountController extends Controller
     public function update( Request $request, $id){
         $user_id = checkPermissionHelper::checkPermission();
         $validator = Validator::make($request->all(), [
-            'account_number' =>'sometimes|required|string',
+            'account_number' =>['sometimes',
+            'required',
+            Rule::unique('tbl_accounts', 'account_number')->where(function ($query) use ($id, $user_id) {
+                $query->where('parent_id', $user_id);
+                $query->where('id','!=', $id);
+            })
+        ],
             'account_name'=>'sometimes|required|string',
             'master_account_number' => 'sometimes|required',
             'report'=>'sometimes|required',
