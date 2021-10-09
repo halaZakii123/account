@@ -7,19 +7,15 @@
         @error('debit')<span class="help-block text-danger">{{ $message }}</span>@enderror
     </td>
     <td>
-        <select name="account_name[]" id="account_name" class=" form-control" onchange="ajaxB()">
+        <select name="account_number[]" id="account_number" class=" form-control" >
             <option></option>
             @foreach($accounts as $account)
-                <option value="{{$account->account_name}}"{{old('account_name')}} >{{$account->account_name}} </option>
+                <option value="{{$account->account_number}}"{{old('account_number')}} >{{$account->account_number}} {{$account->account_name}}  </option>
             @endforeach
         </select>
         @error('option')<span class="help-block text-danger">{{ $message }}</span>@enderror
     </td>
-    <td>
-        <select name="account_number[]" id="B" class=" form-control">
 
-        </select>
-    </td>
     <td>
         <input id="explained" type="text" class="explained form-control "name="explained[]" value= " {{ old('explained') }}" required autocomplete="on" >
         @error('explained')<span class="help-block text-danger">{{ $message }}</span>@enderror

@@ -70,7 +70,7 @@
                                             @if(!empty($main))
                                                 <input id="Explained" type="text" class="form-control" name="Explained" value= " {{ $main->explained}}" required autocomplete="on">
                                             @else
-                                                <input id="Explained" type="text" class="form-control " name="Explained" value= " {{ old('Explained') }} " required autocomplete="on">
+                                                <input id="Explained" type="text" class="form-control " name="Explained" required autocomplete="on">
                                             @endif
                                         </div>
                                     </div>
@@ -81,7 +81,7 @@
                                             @if(!empty($main))
                                                 <input id="Explained_ar" type="text" class="form-control " name="Explained_ar" value= " {{ $main->explained_ar}} " required autocomplete="on">
                                             @else
-                                                <input id="Explained_ar" type="text" class="form-control " name="Explained_ar" value= " {{ old('Explained_ar') }} " required autocomplete="on">
+                                                <input id="Explained_ar" type="text" class="form-control " name="Explained_ar" required autocomplete="on">
                                             @endif
                                         </div>
                                     </div>
@@ -116,6 +116,16 @@
 
                                             @endif
                                             @error('document_number')<span class="help-block text-danger">{{ $message }}</span>@enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label for="doc_date" >{{ __('Document Date') }}</label>
+                                            @if(!empty($main))
+                                                <input id="doc_date" type="date" class="form-control " name="doc_date"  value= "{{$main->doc_date}}" required >
+                                            @else
+                                                <input id="doc_date" type="date" class="form-control " name="doc_date"  value= "@if (!empty($main)) {{ $main->doc_no}} @else {{ old('doc_no')? 'selected' : '' }} @endif" required >
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -165,6 +175,9 @@
                                         <div id="c">
                                             @if(!empty($main))
                                                 <input id="exchange_rate" type="text" class="form-control @error('exchange_rate') is-invalid @enderror" name="exchange_rate"  value= "{{$main->exchange_rate}} " required >
+                                          @else
+                                                <input id="exchange_rate " type="text" class="form-control " name="exchange_rate"  value= "" required >
+
                                             @endif
                                         </div>
                                         @error('exchange_rate')<span class="help-block text-danger">{{ $message }}</span>@enderror
@@ -172,27 +185,8 @@
                                 </div>
                             </div>
                                 <div class="row">
-                                    <div class="col-4">
-                                        <div class="form-group">
-                                            <label for="doc_date" >{{ __('Document Date') }}</label>
-                                            @if(!empty($main))
-                                                <input id="doc_date" type="date" class="form-control " name="doc_date"  value= "{{$main->doc_date}}" required >
-                                            @else
-                                                <input id="doc_date" type="date" class="form-control " name="doc_date"  value= "@if (!empty($main)) {{ $main->doc_no}} @else {{ old('doc_no')? 'selected' : '' }} @endif" required >
-                                            @endif
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="form-group">
-                                            <label for="doc_no" >{{ __('Document No') }}</label>
-                                            @if(!empty($main))
-                                                <input id="doc_no" type="text" class="form-control " name="doc_no"  value= "{{$main->doc_no}} " required >
-                                            @else
-                                                <input id="doc_no" type="text" class="form-control " name="doc_no"  value= "{{old('doc_no')}} " required >
-                                            @endif
 
-                                        </div>
-                                    </div>
+
                                 </div>
                             <div class="table-responsive">
                                 <table class="table" id="sub_details">
@@ -200,7 +194,6 @@
                                     <tr>
                                         <th></th>
                                         <th>{{ __('Amount') }}</th>
-                                        <th>{{ __('Account Name') }}</th>
                                         <th>{{ __('Account Number') }}</th>
                                         <th>{{ __('Explained in eng') }}</th>
                                         <th>{{ __('Explained in ar') }}</th>
@@ -223,18 +216,10 @@
                                                     @error('debit')<span class="help-block text-danger">{{ $message }}</span>@enderror
                                                 </td>
                                                 <td>
-                                                    <select name="account_name[{{ $loop->index }}]" id="account_number" class="account_number form-control">
-                                                        <option></option>
-                                                        @foreach($accounts as $account)
-                                                            <option value=" {{$account->account_name}} "{{ $sub->account_name == $account->account_name ? 'selected' : '' }}  >{{$account->account_name}} </option>
-                                                        @endforeach
-                                                    </select>
-                                                </td>
-                                                <td>
                                                     <select name="account_number[{{ $loop->index }}]" id="account_number" class="account_number form-control">
                                                         <option></option>
                                                         @foreach($accounts as $account)
-                                                            <option value=" {{$account->account_number}} "{{ $sub->account_number == $account->account_number ? 'selected' : '' }}  >{{$account->account_number}} </option>
+                                                            <option value=" {{$account->account_number}} "{{ $sub->account_number == $account->account_number ? 'selected' : '' }}  >{{$account->account_number}} {{$account->account_name}} </option>
                                                         @endforeach
                                                     </select>
                                                 </td>
@@ -257,23 +242,18 @@
                                             <td>#</td>
                                             <td>
 
-                                                <input type="text" name="amount[0]" id='amount_0' class="amount_filed" value="{{old('amount[0]')}}" required onchange="gettotald()" >
+                                                <input type="text" name="amount[0]" id='amount_0' class="amount_filed number-separator" value="{{old('amount[0]')}}" required onchange="gettotald()" >
                                                 @error('amount')<span class="help-block text-danger">{{ $message }}</span>@enderror
                                             </td>
                                             <td>
-                                                <select name="account_name[0]" id="account_name" class=" form-control" onchange="ajaxA()" required>
+                                                <select name="account_number[0]" id="account_number" class=" form-control"  required>
                                                     <option></option>
                                                     @foreach($accounts as $account)
-                                                        <option value="{{$account->account_name}}"{{old('account_name')}} >{{$account->account_name}} </option>
+                                                        <option value="{{$account->account_number}}"{{old('account_number')}} > {{ $account->account_number }} {{$account->account_name}} </option>
                                                     @endforeach
                                                 </select>
                                             </td>
-                                            <td>
-                                            <select name="account_number[0]" id="A" class=" form-control">
 
-
-                                            </select>
-                                            </td>
                                             <td>
                                                 <input id="explained" type="text" class="form-control" name="explained[0]" value= " {{ old('explained') }}" required  >
                                                 @error('explained')<span class="help-block text-danger">{{ $message }}</span>@enderror
@@ -313,7 +293,7 @@
                                     <tbody>
                                     <tr class="total">
 
-                                        <td><input type="text"  name="total" id="total" value="0" class="total" readonly="readonly"  >                                             <span id="error"></span>
+                                        <td><input type="number"  name="total" id="total" value="0" class="total" readonly="readonly"  >                                             <span id="error"></span>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -385,22 +365,24 @@
 
 
     <script>
+        function gettotald() {
 
-        function gettotald(v) {
-
-            var arr = document.querySelectorAll('.amount_filed');
-            var total = 0;
-
+            var arr = document.querySelectorAll('.amount_filed')
+            // var arr1 = parseFloat(document.getElementById('amount_'+v).value);
+            //  var old = parseFloat(document.getElementById('total').value);
+             var total=0;
+            //  total = arr1 + old;
 
             for (var i=0; i<arr.length;i++){
-                if (parseInt(arr[i].value)){
-                    total+=parseInt(arr[i].value);
+                if (parseFloat(arr[i].value)){
+                    total+=parseFloat(arr[i].value);
                 }
             }
-            var num = new Intl.NumberFormat("en-US",{
-                maximumSignificantDigits: 1
-            })
-            document.getElementById('total').value = new Intl.NumberFormat().format(total,0,',',10,'.','');
+            // var formatter = new Intl.NumberFormat('de-DE', {
+            //     style: 'currency',
+            //     currency: 'EUR'
+            // });
+            document.getElementById('total').value = total;
         }
 
     </script>
@@ -416,10 +398,12 @@
     <script>
         function cur(v) {
             var vv = document.getElementById('amount_'+v).value;
-            var num = new Intl.NumberFormat("en-US",{
-                maximumSignificantDigits: 3
-            })
-            document.getElementById('amount_'+v).value =new Intl.NumberFormat().format(vv,0,',',3,'.','');
+            // var formatter = new Intl.NumberFormat('de-DE', {
+            //     style: 'currency',
+            //     currency: 'EUR'
+            // });
+            var c = new Intl.NumberFormat('en-IN', { maximumSignificantDigits: 3 }).format(vv)
+            document.getElementById('amount_'+v).value = c;
         }
     </script>
     <script>
@@ -452,6 +436,7 @@
     <script src="{{ asset('js/form_validation/additional-methods.min.js') }}"></script>
 
     <script src="{{ asset('js/custom.js') }}"></script>
+    <script src="{{asset('js/easy-number-separator.js')}}"></script>
 
 @endsection
 

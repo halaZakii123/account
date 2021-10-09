@@ -148,9 +148,8 @@ class MainController extends Controller
 
             for ($i = 0; $i < count($request->amount); $i++) {
                 $details_list[$i]['credit'] = $request->amount[$i];
-                $details_list[$i]['debit'] = 0;
+                $details_list[$i]['debit'] = 0.0;
                 $details_list[$i]['account_number'] = $request->account_number[$i];
-                $details_list[$i]['account_name'] = $request->account_name[$i];
 
                 $details_list[$i]['explained'] = $request->explained[$i];
                 $details_list[$i]['explained_ar'] = $request->explained_ar[$i];
@@ -158,10 +157,9 @@ class MainController extends Controller
         }elseif($request->type_of_operation == 2 or  $request->type_of_operation == 3){
 
             for ($i = 0; $i < count($request->amount); $i++) {
-                $details_list[$i]['credit'] = 0;
+                $details_list[$i]['credit'] = 0.0;
                 $details_list[$i]['debit'] = $request->amount[$i];
                 $details_list[$i]['account_number'] = $request->account_number[$i];
-                $details_list[$i]['account_name'] = $request->account_name[$i];
                 $details_list[$i]['explained'] = $request->explained[$i];
                 $details_list[$i]['explained_ar'] =$request->explained_ar[$i];
 
@@ -172,13 +170,30 @@ class MainController extends Controller
                 $details_list[$i]['debit'] = $request->debit[$i];
                 $details_list[$i]['credit'] = $request->credit[$i];
                 $details_list[$i]['account_number'] = $request->account_number[$i];
-                $details_list[$i]['account_name'] = $request->account_name[$i];
                 $details_list[$i]['explained'] = $request->explained[$i];
                 $details_list[$i]['explained_ar'] = $request->explained_ar[$i];
             }
         }
 
-         $main->subs()->createMany($details_list);
+       $sub = $main->subs()->createMany($details_list);
+         $bid =$main->id;
+         $pid = $main->parent_id;
+        if ($main->type_of_operation == 0){
+            DB::select("CALL pr_postid(" .$main->id.",".$main->parent_id.")");
+            DB::select("CALL pr_postid0(" .$main->id.",".$main->parent_id.")");
+        }elseif ($main->type_of_operation == 1){
+            DB::select("CALL pr_postid(" .$main->id.",".$main->parent_id.")");
+            DB::select("CALL pr_postid1A(" .$main->id.",".$main->parent_id.")");
+            DB::select("CALL pr_postid1B(" .$main->id.",".$main->parent_id.")");
+        }elseif ($main->type_of_operation == 2){
+            DB::select("CALL pr_postid(" .$main->id.",".$main->parent_id.")");
+            DB::select("CALL pr_postid2A(" .$main->id.",".$main->parent_id.")");
+            DB::select("CALL pr_postid2B(" .$main->id.",".$main->parent_id.")");
+        }elseif ($main->type_of_operation == 3){
+            DB::select("CALL pr_postid(" .$main->id.",".$main->parent_id.")");
+            DB::select("CALL pr_postid3A(" .$main->id.",".$main->parent_id.")");
+            DB::select("CALL pr_postid3B(" .$main->id.",".$main->parent_id.")");
+        }
 
         return redirect(route('Mains.index'));
     }
@@ -255,7 +270,7 @@ class MainController extends Controller
                 $details_list[$i]['credit'] = $request->amount[$i];
                 $details_list[$i]['debit'] = 0;
                 $details_list[$i]['account_number'] = $request->account_number[$i];
-                $details_list[$i]['account_name'] = $request->account_name[$i];
+                $details_list[$i]['account_name'] = "b";
 
                 $details_list[$i]['explained'] = $request->explained[$i];
                 $details_list[$i]['explained_ar'] = $request->explained_ar[$i];
@@ -265,7 +280,7 @@ class MainController extends Controller
                 $details_list[$i]['credit'] = 0;
                 $details_list[$i]['debit'] = $request->amount[$i];
                 $details_list[$i]['account_number'] = $request->account_number[$i];
-                $details_list[$i]['account_name'] = $request->account_name[$i];
+                $details_list[$i]['account_name'] = "b";
 
                 $details_list[$i]['explained'] = $request->explained[$i];
                 $details_list[$i]['explained_ar'] = $request->explained_ar[$i];
@@ -276,7 +291,7 @@ class MainController extends Controller
                 $details_list[$i]['debit'] = $request->debit[$i];
                 $details_list[$i]['credit'] = $request->amount[$i];
                 $details_list[$i]['account_number'] = $request->account_number[$i];
-                $details_list[$i]['account_name'] = $request->account_name[$i];
+                $details_list[$i]['account_name'] = "b";
 
                 $details_list[$i]['explained'] = $request->explained[$i];
                 $details_list[$i]['explained_ar'] = $request->explained_ar[$i];

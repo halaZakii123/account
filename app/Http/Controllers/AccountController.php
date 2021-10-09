@@ -27,6 +27,7 @@ class AccountController extends Controller
     public function index(){
         $user_id = checkPermissionHelper::checkPermission();
         $accounts= TblAccount::where('parent_id',$user_id)->get();
+
         return view('Account.index',compact('accounts'));
     }
 

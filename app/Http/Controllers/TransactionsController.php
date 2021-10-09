@@ -14,7 +14,8 @@ class TransactionsController extends Controller
      */
     public function index()
     {
-        //
+      $trans = transactions::all();
+      return view('Transactions.index',compact('trans'));
     }
 
     /**
@@ -41,12 +42,28 @@ class TransactionsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\transactions  $transactions
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return void
      */
-    public function show(transactions $transactions)
+    public function show(Request $request)
     {
-        //
+        $total =0;
+        if ($request->trans == 'account_number')
+        {
+            $account_number = $request->account_number_value;
+            $trans =transactions::where('accountid',$account_number)->get();
+
+        }elseif ($request->trans == 'document_number'){
+            $document_number = $request->document_number_value;
+            $trans =transactions::where('sourceid',$document_number)->get();
+        }else{
+            $dateFrom = $request->doc_date_from;
+            $dateTo = $request->doc_date_to;
+            $trans= transactions::whereBetween('dydate', [$dateFrom, $dateTo])->get();
+
+        }
+        return view('Transactions.show',compact('trans'));
+
     }
 
     /**

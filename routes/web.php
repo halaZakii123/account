@@ -51,6 +51,8 @@ Route::resource('/Options',OptionsController::class);
 Route::resource('/Sets',SetController::class);
 Route::resource('/Subs',SubController::class);
 Route::resource('/Mains',MainController::class);
+Route::resource('/Transactions',TransactionsController::class);
+Route::post('/TransactionsSelect','TransactionsController@show')->name('TransactionsSelect');
 
 //Route::get('/create/{id}','SubController@create');
 //Route::post('/store/{id}','SubController@store');

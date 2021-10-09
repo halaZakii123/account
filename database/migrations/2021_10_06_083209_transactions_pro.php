@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSetPro extends Migration
+class TransactionsPro extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,29 @@ class CreateSetPro extends Migration
      */
     public function up()
     {
-        $procedure = "DROP PROCEDURE IF EXISTS `pr_set`;
-        CREATE PROCEDURE `pr_set` (IN k string)
+        $procedure = "DROP PROCEDURE IF EXISTS `pr_postid`;
+        CREATE PROCEDURE `pr_postid`(IN `bid` BIGINT UNSIGNED, IN `pid` BIGINT UNSIGNED)
         BEGIN
-         SELECT value FROM sets WHERE key = k   ;
-        End;
-       ";
+         delete from transactions where sourceid = bid and parent_id = pid ;
+        END; ";
+
+
         DB::unprepared($procedure);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
     /**
@@ -29,6 +45,6 @@ class CreateSetPro extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('set_pro');
+        //
     }
 }
