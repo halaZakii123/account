@@ -8,7 +8,7 @@
     {
         /**
      * @param $money
-     * @return formated_money
+     * @return string
      */
         function format_money_pdf($money, $currency = null)
         {

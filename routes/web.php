@@ -52,7 +52,16 @@ Route::resource('/Sets',SetController::class);
 Route::resource('/Subs',SubController::class);
 Route::resource('/Mains',MainController::class);
 Route::resource('/Transactions',TransactionsController::class);
-Route::post('/TransactionsSelect','TransactionsController@show')->name('TransactionsSelect');
+Route::post('/TransSearch','TransactionsController@index')->name('TransSearch');
+
+Route::get('/printTrans/{searchType}/{account_number}/{from}/{to}','TransactionsController@printtransAcc');
+Route::get('/printTrans/{searchType}/{source_id}','TransactionsController@printtransSou');
+Route::get('/printTrans/{searchType}/{from}/{to}','TransactionsController@printtransDate');
+
+Route::get('/pdfTrans/{searchType}/{account_number}/{from}/{to}','TransactionsController@pdftransAcc');
+Route::get('/pdfTrans/{searchType}/{source_id}','TransactionsController@pdftransSou');
+Route::get('/pdfTrans/{searchType}/{from}/{to}','TransactionsController@pdftransDate');
+
 
 //Route::get('/create/{id}','SubController@create');
 //Route::post('/store/{id}','SubController@store');

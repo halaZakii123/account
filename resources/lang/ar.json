@@ -59,7 +59,23 @@
     "Cash in": "المقبوضات",
     "Cash out": "المدفوعات",
     "details": "التفاصيل",
-    "Document Date": "تاريخ الوثيقة"
+    "Document Date": "تاريخ الوثيقة",
+    "Transactions": "المناقلات",
+    "please select one :": "الرجاء اختيار نوع :",
+    "Source id": "رقم القيد",
+    "From date to date": "من تاريخ الى تاريخ",
+    "Search": "بحث",
+    "Result by Account Number": "النتيجة حسب رقم الحساب",
+    "between": "بين",
+    "Debit M": "دائن مواز",
+    "Credit M": "مدين مواز",
+    "Search between two dates": "البحث بين تاريخين",
+    "start date :": "تاريخ البداية:",
+    "end date :": "تاريخ النهاية:",
+    "Result by source id": "النتيجة حسب رقم القيد",
+    "Result by date": "النتيجة حسب التاريخ",
+    "From:": "من",
+    "To:": "الى"
 
 
 

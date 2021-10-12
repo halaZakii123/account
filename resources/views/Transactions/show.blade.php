@@ -4,19 +4,67 @@
 
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-9">
-                <div class="card">
+            <div class="col-md-12">
                     <div class="card-header d-flex">
                         {{--                        <a href="{{ route('Options.create') }}" class="btn btn-primary ml-auto"><i class="fa fa-plus"></i> {{ __('create') }}</a>--}}
                     </div>
 
-                    <div class="card-body">
-                        @if (session('status'))
-                            <div class="alert alert-success" role="alert">
-                                {{ session('status') }}
-                            </div>
-                        @endif
                         <div>
+                            <div>
+                                <form method="POST"  name ="aa" on onsubmit="return v" action="{!! route('TransSearch') !!}">
+                                    @csrf
+
+                                    <p>{{__('please select one :')}}</p>
+
+                                    <div class="form-group">
+                                        <div>
+                                          <input type="radio" id="account_number" name="trans" value="account_number" checked>
+                                          <label for="html">{{__('Account Number')}}</label>
+                                        </div>
+                                        <div class="row" style="margin-bottom: 10px">
+                                        <div  class="col-md-1">
+                                        </div>
+                                            <div >
+                                                <input type="text" id="account_number_value" name="account_number_value" placeholder="{{__('Enter account number')}} ">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-1"></div>
+                                        <div >
+                                            <input type="date" id="doc_date_value" name="A_date_from" >
+                                            <input type="date" id="doc_date_value" name="A_date_to"><br>
+                                       </div>
+                                        </div>
+                                        <hr>
+                                    <div class="form-group">
+                                        <input type="radio" id="sourc_id" name="trans" value="source_id">
+                                          <label for="html">{{__('Source id')}}</label>
+                                        <div class="row">
+                                            <div  class="col-md-1">
+                                            </div>
+                                            <input type="text" id="source_id_value" name="source_id_value" placeholder="{{__('Enter Source id')}}"><br>
+
+                                        </div>
+                                    </div>
+                                        <hr>
+
+                                        <div class="form-group">
+                                          <input type="radio" id="doc_date" name="trans" value="doc_date">
+                                          <label for="html">{{__('From date to date')}}</label>
+                                            <div class="row">
+                                                <div class="col-md-1"></div>
+                                                <input type="date" id="doc_date_value" name="doc_date_from" >
+                                                <input type="date" id="doc_date_value" name="doc_date_to"><br>
+                                            </div>
+
+                                    </div>
+                                    <div class="form-group" type="submit">
+                                        <button type="submit"> {{__('Search')}}</button>
+                                    </div>
+                                    </div>
+                                </form>
+                            </div>
+
                             <table class="table table-bordered display responsive nowrap  optionDataTable" >
                                 <thead >
                                 <tr style="background-color: #95999c">
@@ -59,11 +107,10 @@
                             </table>
                         </div>
 
-                    </div>
+
                 </div>
             </div>
         </div>
-    </div>
 @endsection
 @section('script')
 

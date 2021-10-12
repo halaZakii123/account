@@ -242,7 +242,7 @@
                                             <td>#</td>
                                             <td>
 
-                                                <input type="text" name="amount[0]" id='amount_0' class="amount_filed number-separator" value="{{old('amount[0]')}}" required onchange="gettotald()" >
+                                                <input type="text" name="amount[0]" id='amount_0' class="amount_filed " value="{{old('amount[0]')}}" required onchange="gettotald()" >
                                                 @error('amount')<span class="help-block text-danger">{{ $message }}</span>@enderror
                                             </td>
                                             <td>
