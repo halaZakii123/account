@@ -50,7 +50,6 @@
 
         .invoice-box table tr.heading td {
             background: #eee;
-            border-bottom: 1px solid #ddd;
             font-weight: bold;
         }
 
@@ -59,7 +58,6 @@
         }
 
         .invoice-box table tr.item td{
-            border-bottom: 1px solid #eee;
         }
 
         .invoice-box table tr.item.last td {
@@ -67,7 +65,6 @@
         }
 
         .invoice-box table tr.total td {
-            border-top: 2px solid #eee;
             font-weight: bold;
         }
 
@@ -166,30 +163,33 @@
                 @foreach($items as $item)
                     <tr class="item {{ $loop->last ? 'last' : '' }}">
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $item['amntdb'] }}</td>
-                        <td>{{ $item['amntcr'] }}</td>
+                        <td>{{number_format($item['amntdb'], 2, '.', ',')  }}</td>
+                        <td>{{  number_format($item['amntcr'], 2, '.', ',') }}</td>
                         <td>{{ $item['accountid'] }}</td>
                         <td>{{ $item['sourceid'] }}</td>
                         <td>{{ $item['dydate'] }}</td>
                     </tr>
-                <tr>
-                        <td>{{ $item['amntdbc'] }}</td>
-                        <td>{{ $item['amntcrc'] }}</td>
+                    <tr>
+                        <td> </td>
+                        <td>{{  number_format($item['amntdbc'], 2, '.', ',') }}</td>
+                        <td>{{  number_format($item['amntcrc'], 2, '.', ',')}}</td>
                         <td>{{ $item['currcode'] }}</td>
-                        <td>{{ $item['docno'] }}  {{ $item['docdate'] }}  {{ $item['docdate'] }} </td>
+                        <td>{{ $item['docno'] }}  {{ $item['docdate'] }}  {{ $item['description'] }} </td>
 
                     </tr>
+
                 @endforeach
                 <tr>
-
-                    <td>{{ $totaldb}}
-                    <td>{{ $totalcr}}
-                    </td>
+                   <td></td>
+                    <td>{{  number_format($totaldb ,2, '.', ',') }} </td>
+                    <td>{{  number_format($totalcr, 2, '.', ',')}}</td>
                     <td colspan="4">{{__('Total')}}</td>
                 </tr>
                 <tr>
-                    <td>{{ $totaldbc }}
-                    <td>{{ $totalcrc }}
+                    <td></td>
+
+                    <td>{{  number_format($totaldbc, 2, '.', ',')}} </td>
+                    <td>{{  number_format($totalcrc, 2, '.', ',') }} </td>
 
                     <td colspan="4">{{__('Total')}}</td>
                 </tr>

@@ -54,13 +54,13 @@ Route::resource('/Mains',MainController::class);
 Route::resource('/Transactions',TransactionsController::class);
 Route::post('/TransSearch','TransactionsController@index')->name('TransSearch');
 
-Route::get('/printTrans/{searchType}/{account_number}/{from}/{to}','TransactionsController@printtransAcc');
-Route::get('/printTrans/{searchType}/{source_id}','TransactionsController@printtransSou');
-Route::get('/printTrans/{searchType}/{from}/{to}','TransactionsController@printtransDate');
+Route::get('/printTrans/{searchType}/{account_number}/{from}/{to}','TransactionsController@printtransAcc')->name('printAcc');
+Route::get('/printTrans/{searchType}/{source_id}','TransactionsController@printtransSou')->name('printSource');
+Route::get('/printTrans/{searchType}/{from}/{to}','TransactionsController@printtransDate')->name('printdate');
 
-Route::get('/pdfTrans/{searchType}/{account_number}/{from}/{to}','TransactionsController@pdftransAcc');
-Route::get('/pdfTrans/{searchType}/{source_id}','TransactionsController@pdftransSou');
-Route::get('/pdfTrans/{searchType}/{from}/{to}','TransactionsController@pdftransDate');
+Route::get('/pdfTrans/{searchType}/{account_number}/{from}/{to}','TransactionsController@pdftransAcc')->name('pdfAcc');
+Route::get('/pdfTrans/{searchType}/{source_id}','TransactionsController@pdftransSou')->name('pdfSource');
+Route::get('/pdfTrans/{searchType}/{from}/{to}','TransactionsController@pdftransDate')->name('pdfdate');
 
 
 //Route::get('/create/{id}','SubController@create');

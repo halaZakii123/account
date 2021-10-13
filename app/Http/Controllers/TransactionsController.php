@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\checkPermissionHelper;
 use App\Helpers\currencyHelper;
 use App\transactions;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use PDF;
@@ -24,7 +25,18 @@ class TransactionsController extends Controller
         $totaldbc=0;
         $totalcr=0;
         $totalcrc=0;
+        $subAmount =0;
+        $subAmountc =0;
         $searchType = $request->trans;
+        $day = date('m/d/Y');
+
+        $first = Carbon::createFromFormat('m/d/Y', $day)
+            ->firstOfYear()
+            ->format('Y-m-d');
+        $last =  Carbon::createFromFormat('m/d/Y', $day)
+            ->lastOfYear()
+            ->format('Y-m-d');
+
 
 //        $allTrans = transactions::where('parent_id', $user_id)->distinct('sourceid')
 //            ->distinct('accountid')
@@ -48,7 +60,9 @@ class TransactionsController extends Controller
                     $totalcrc+=$tran->amntcrc;
 
                 }
-                return view('Transactions.index', compact('trans', 'allTrans','allTransSource','totaldb','totaldbc','totalcr','totalcrc','searchType','account_number','from','to'));
+                $subAmount = $totaldb -$totalcr;
+                $subAmountc = $totaldbc -$totalcrc;
+                return view('Transactions.index', compact('trans', 'allTrans','allTransSource','totaldb','totaldbc','totalcr','totalcrc','searchType','account_number','from','to','first','last','subAmount','subAmountc'));
 
             } elseif ($request->trans == 'source_id') {
                 $source_id = $request->source_id_value;
@@ -62,8 +76,9 @@ class TransactionsController extends Controller
                     $totalcrc+=$tran->amntcrc;
 
                 }
-
-                return view('Transactions.index', compact('allTrans','allTransSource', 'trans','totaldb','totaldbc','totalcr','totalcrc','source_id','searchType'));
+                $subAmount = $totaldb -$totalcr;
+                $subAmountc = $totaldbc -$totalcrc;
+                return view('Transactions.index', compact('allTrans','allTransSource', 'trans','totaldb','totaldbc','totalcr','totalcrc','source_id','searchType','first','last','subAmount','subAmountc'));
 
             } else {
                 $dateFrom = $request->doc_date_from;
@@ -78,11 +93,13 @@ class TransactionsController extends Controller
                     $totalcrc+=$tran->amntcrc;
 
                 }
-                return view('Transactions.index', compact('allTrans','allTransSource', 'trans','totaldb','totaldbc','totalcr','totalcrc','searchType','dateTo','dateFrom'));
+                $subAmount = $totaldb -$totalcr;
+                $subAmountc = $totaldbc -$totalcrc;
+                return view('Transactions.index', compact('allTrans','allTransSource', 'trans','totaldb','totaldbc','totalcr','totalcrc','searchType','dateTo','dateFrom','first','last','subAmount','subAmountc'));
             }
         }else{
             $trans = null;
-        return view('Transactions.index',compact('trans','allTrans','allTransSource'));        }
+        return view('Transactions.index',compact('trans','allTrans','allTransSource','first','last'));        }
 
     }
 
@@ -185,7 +202,9 @@ class TransactionsController extends Controller
                     $totalcrc+=$tran->amntcrc;
 
                 }
-                return view('Transactions.print', compact('trans', 'totaldb','totaldbc','totalcr','totalcrc'));
+        $subAmount = $totaldb -$totalcr;
+        $subAmountc = $totaldbc -$totalcrc;
+                return view('Transactions.print', compact('trans', 'totaldb','totaldbc','totalcr','totalcrc','subAmount','subAmountc'));
 
             }
     public function printtransSou($searchType,$source_id){
@@ -205,8 +224,9 @@ class TransactionsController extends Controller
             $totalcr+=$tran->amntcr;
             $totalcrc+=$tran->amntcrc;
     }
-
-    return view('Transactions.print', compact( 'trans','totaldb','totaldbc','totalcr','totalcrc'));
+        $subAmount = $totaldb -$totalcr;
+        $subAmountc = $totaldbc -$totalcrc;
+    return view('Transactions.print', compact( 'trans','totaldb','totaldbc','totalcr','totalcrc','subAmount','subAmountc'));
     }
     public function printtransDate($searchType,$from,$to){
         $user_id = checkPermissionHelper::checkPermission();
@@ -223,8 +243,9 @@ class TransactionsController extends Controller
             $totalcr+=$tran->amntcr;
             $totalcrc+=$tran->amntcrc;
 
-        }
-    return view('Transactions.print', compact( 'trans','totaldb','totaldbc','totalcr','totalcrc'));
+        } $subAmount = $totaldb -$totalcr;
+        $subAmountc = $totaldbc -$totalcrc;
+    return view('Transactions.print', compact( 'trans','totaldb','totaldbc','totalcr','totalcrc','subAmount','subAmountc'));
 }
 
   public function pdftransAcc($searchType,$account_number,$from,$to){
@@ -269,9 +290,115 @@ class TransactionsController extends Controller
       $data['totaldbc'] =$totaldbc;
       $data['totalcrc'] =$totalcrc;
       $data['totalcr'] =$totalcr;
+      $subAmount = $totaldb -$totalcr;
+      $subAmountc = $totaldbc -$totalcrc;
+      $data['subAmount'] =$subAmount;
+      $data['subAmountc'] =$subAmountc;
           $pdf = PDF::loadView('Transactions.pdf', $data);
           return $pdf->download('Transactions'.'.pdf');
 
 
   }
+
+    public function pdftransSou($searchType,$source_id){
+
+        $user_id = checkPermissionHelper::checkPermission();
+        $totaldb=0;
+        $totaldbc=0;
+        $totalcr=0;
+        $totalcrc=0;
+
+        $trans = transactions::where('parent_id', $user_id)
+            ->where('sourceid', $source_id)
+            ->get();
+
+        foreach ($trans as $item) {
+            if (app()->getLocale() == 'ar'){
+                $des = $item->description_ar;
+            }else
+                $des =$item->description_en ;
+            $items[] = [
+                'amntdb'          => $item->amntdb,
+                'amntcr'         => $item->amntcr,
+                'accountid'         => $item->accountid,
+                'sourceid' => $item->sourceid,
+                'dydate'      => $item->dydate,
+                'amntdbc'      => $item->amntdbc,
+                'amntcrc'      => $item->amntcrc,
+                'docno'      => $item->docno,
+                'docdate'      => $item->docdate,
+                'description' => $des,
+                'currcode' =>$item->currcode
+
+            ];
+            $totaldb+=$item->amntdb;
+            $totaldbc+=$item->amntdbc;
+            $totalcr+=$item->amntcr;
+            $totalcrc+=$item->amntcrc;
+        }
+        $data['items'] = $items;
+        $data['totaldb'] =$totaldb;
+        $data['totaldbc'] =$totaldbc;
+        $data['totalcrc'] =$totalcrc;
+        $data['totalcr'] =$totalcr;
+        $subAmount = $totaldb -$totalcr;
+        $subAmountc = $totaldbc -$totalcrc;
+        $data['subAmount'] =$subAmount;
+        $data['subAmountc'] =$subAmountc;
+        $pdf = PDF::loadView('Transactions.pdf', $data);
+        return $pdf->download('Transactions'.'.pdf');
+
+
+    }
+    public function pdftransDate($searchType,$from,$to){
+
+        $user_id = checkPermissionHelper::checkPermission();
+        $totaldb=0;
+        $totaldbc=0;
+        $totalcr=0;
+        $totalcrc=0;
+
+        $trans = transactions::where('parent_id', $user_id)
+            ->whereBetween('dydate', [$from, $to])
+            ->get();
+
+        foreach ($trans as $item) {
+            if (app()->getLocale() == 'ar'){
+                $des = $item->description_ar;
+            }else
+                $des =$item->description_en ;
+            $items[] = [
+                'amntdb'          => $item->amntdb,
+                'amntcr'         => $item->amntcr,
+                'accountid'         => $item->accountid,
+                'sourceid' => $item->sourceid,
+                'dydate'      => $item->dydate,
+                'amntdbc'      => $item->amntdbc,
+                'amntcrc'      => $item->amntcrc,
+                'docno'      => $item->docno,
+                'docdate'      => $item->docdate,
+                'description' => $des,
+                'currcode' =>$item->currcode
+
+            ];
+            $totaldb+=$item->amntdb;
+            $totaldbc+=$item->amntdbc;
+            $totalcr+=$item->amntcr;
+            $totalcrc+=$item->amntcrc;
+        }
+        $data['items'] = $items;
+        $data['totaldb'] =$totaldb;
+        $data['totaldbc'] =$totaldbc;
+        $data['totalcrc'] =$totalcrc;
+        $data['totalcr'] =$totalcr;
+        $subAmount = $totaldb -$totalcr;
+        $subAmountc = $totaldbc -$totalcrc;
+
+        $data['subAmount'] =$subAmount;
+        $data['subAmountc'] =$subAmountc;
+        $pdf = PDF::loadView('Transactions.pdf', $data);
+        return $pdf->download('Transactions'.'.pdf');
+
+
+    }
 }

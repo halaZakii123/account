@@ -35,16 +35,16 @@
                             <tbody>
                             @foreach($trans  as $tran )
                                 <tr class="active" style="border-left: 2px solid black;border-top: 2px solid black;border-right: 2px solid black">
-                                    <td >{{ number_format($tran->amntdb, 2, ',', '.') }}</td>
-                                    <td>{{ number_format($tran->amntcr, 2, ',', '.') }}</td>
+                                    <td >{{ number_format($tran->amntdb, 2, '.', ',') }}</td>
+                                    <td>{{ number_format($tran->amntcr, 2, '.', ',') }}</td>
                                     <td>{{$tran->accountid}}</td>
                                     <td></td>
                                     <td>{{$tran->sourceid}}</td>
                                     <td>{{$tran->dydate}}</td>
                                 </tr>
                                 <tr class="active" style="border-left: 2px solid black;border-right: 2px solid black; border-bottom: 2px solid black">
-                                    <td >{{ number_format($tran->amntdbc, 2, ',', '.') }}</td>
-                                    <td> {{ number_format($tran->amntcrc, 2, ',', '.') }}</td>
+                                    <td >{{ number_format($tran->amntdbc, 2, '.', ',') }}</td>
+                                    <td> {{ number_format($tran->amntcrc, 2, '.', ',') }}</td>
                                     <td>{{$tran->currcode}}</td>
                                     <td colspan="3" style="text-align: center;padding-right: 30px"> {{$tran->docno}} , {{$tran->docdate}} , @if (app()->getLocale() == 'ar'){{$tran->description_ar}} @else  {{$tran->description_en}} @endif </td>
 
@@ -52,14 +52,14 @@
 
                             @endforeach
                             <tr>
-                                <td>{{ number_format($totaldb, 2, ',', '.') }}
-                                <td>{{ number_format($totalcr, 2, ',', '.') }}
+                                <td>{{ number_format($totaldb, 2, '.', ',') }}
+                                <td>{{ number_format($totalcr, 2, '.', ',') }}
                                 </td>
                                 <td colspan="4">{{__('Total')}}</td>
                             </tr>
                             <tr>
-                                <td>{{ number_format($totaldbc, 2, ',', '.') }}
-                                <td>{{ number_format($totalcrc, 2, ',', '.') }}
+                                <td>{{ number_format($totaldbc, 2, '.', ',') }}
+                                <td>{{ number_format($totalcrc, 2, '.', ',') }}
 
                                 <td colspan="4">{{__('Total')}}</td>
                             </tr>
