@@ -138,12 +138,31 @@
             </tr>
 
             <tr>
+                <th>{{__('Cash Id')}}</th>
+                <td>{{ $cash_id }} </td>
+                <th>{{__('Document Number')}}</th>
+                <td>{{ $document_number }} </td>
+                <th>{{ __('Document Date') }}</th>
+                <td>{{ $doc_date }} </td>
+
+            </tr>
+            <tr>
                 <th>{{ __('Type of operation') }}</th>
-                <td>{{ $type_of_operation }}</td>
-                <th>{{ __('Currency Symbol') }}</th>
+                <td>@if($type_of_operation == 0)
+                        {{__('financial record')}}
+                    @elseif($type_of_operation == 1)
+                        {{__('Cash in')}}
+                    @elseif($type_of_operation == 2)
+                        {{__('Cash out')}}
+                    @else
+                        {{__('Cash')}}
+                    @endif
+                </td>
+                <th>{{ __('Currency symbol') }}</th>
                 <td>{{ $currency_symbol }}</td>
                 <th>{{ __('Exchange rate') }}</th>
-                <td>{{ $exchange_rate }}</td>
+                <td>{{ number_format($exchange_rate , 2, '.', ',')}}</td>
+
             </tr>
 
         </table>
@@ -154,21 +173,26 @@
                 <td>{{ __('Debit') }}</td>
                 <td>{{ __('Credit') }}</td>
                 <td>{{ __('Account Number') }}</td>
-                <td>{{ __('explained') }}</td>
+                <td>{{ __('Explained') }}</td>
             </tr>
             </thead>
 
         @foreach($items as $item)
             <tr class="item {{ $loop->last ? 'last' : '' }}">
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ $item['debit'] }}</td>
-                <td>{{ $item['credit'] }}</td>
+                <td>{{ number_format($item['debit'], 2, '.', ',') }}</td>
+                <td>{{number_format($item['credit'], 2, '.', ',')  }}</td>
                 <td>{{ $item['account_number'] }}</td>
                 <td>{{ $item['explained'] }}</td>
 
             </tr>
         @endforeach
-
+            <tfoot>
+            <tr>
+                <th>{{_('Total')}}</th>
+                <td colspan=>{{number_format($totalDebit, 2, '.', ',')}}</td>
+                <td colspan="3">{{number_format($totalCredit, 2, '.', ',')}}</td>  </tr>
+            </tfoot>
     </table>
 
 </div>

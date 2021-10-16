@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('style')
-    <link rel="stylesheet" href="{{ asset('css/pickadate/classic.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/pickadate/classic.date.css') }}">
+
 @endsection
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -69,17 +68,25 @@
 {{--     {{$a}}--}}
 {{--    @endforeach--}}
   @section('content')
+      <div class="dropdown dropleft float-right">
+          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+              {{__('More')}}
+          </button>
+          <div class="dropdown-menu">
+              @if(!empty($main))
+                  <a class="dropdown-item" href="{{ route('pdfMain',$main->id)}}" class="btn btn-primary ml-auto"> pdf</a>
+                  <a  class="dropdown-item"href="{{ route('printMain',$main->id)}}" class="btn btn-primary ml-auto">print</a>
+              @endif
+          </div>
+      </div>
+
     <div class="container">
         <div class="row justify-content-center">
+
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header d-flex">
                         <a href="{{ route('Mains.index') }}" class="btn btn-primary ml-auto"><i class="fa fa-home"></i> {{ __('Back') }}</a>
-                        @if(!empty($main))
-                        <a href="/pdfM/{{$main->id}}" class="btn btn-primary ml-auto"> pdf</a>
-                        <a href="/main/print/{{$main->id}}" class="btn btn-primary ml-auto">print</a>
-
-                        @endif
                     </div>
 
                     <div class="card-body">
@@ -569,6 +576,7 @@
 
     <script src="{{ asset('js/custom.js') }}"></script>
     <script src="{{asset('js/easy-number-separator.js')}}"></script>
+
 
 @endsection
 

@@ -259,6 +259,8 @@ class MainController extends Controller
         $data['type_of_operation'] = $request->type_of_operation;
         $data['currency_symbol'] = $request->currency_symbol;
         $data['exchange_rate'] = $request->exchange_rate;
+        $data['doc_date'] = $request->doc_date;
+
         $data['user_id'] = Auth::user()->id;
         $main->update($data);
 
@@ -363,44 +365,98 @@ class MainController extends Controller
     }
     public function printM($id){
         $main = Main::where('id',$id)->first();
-
+        $total =0;
+        $totalDebit =0;
+        $totalCredit =0;
+        foreach ($main->subs as $sub){
+            if($main->type_of_operation == 0) {
+                $totalDebit += $sub->debit;
+                $totalCredit += $sub->credit;
+            }
+            elseif($main->type_of_operation == 1) {
+                $total+=$sub->credit;
+            }
+            else{
+                $total+=$sub->debit;
+            }
+        }
         $user_id = checkPermissionHelper::checkPermission();
         if ($main->parent_id == $user_id){
-            return view('Main.print',compact('main'));}
+            return view('Main.print',compact('main','totalCredit','totalDebit','total'));}
         else {return ' you do not have permission';}
     }
     public function printMDaily($id){
         $main = Main::where('id',$id)->first();
         $user_id = checkPermissionHelper::checkPermission();
         $total =0;
+        $totalDebit =0;
+        $totalCredit =0;
         foreach ($main->subs as $sub){
-           if($main->type_of_operation == __('Cash in'))
-            $total+=$sub->credit;
-           else $total+=$sub->debit;
+            if($main->type_of_operation == 0) {
+                $totalDebit += $sub->debit;
+                $totalCredit += $sub->credit;
+            }
+            elseif($main->type_of_operation == 1) {
+                $total+=$sub->credit;
+            }
+            else{
+                $total+=$sub->debit;
+            }
         }
         if ($main->parent_id == $user_id){
-            return view('Main.printDaily',compact('main','total'));}
+            return view('Main.printDaily',compact('main','total','totalDebit','totalCredit'));}
         else {return ' you do not have permission';}
     }
     public function pdf($id){
         $main = Main::whereId($id)->first();
+        if (app()->getLocale() == 'ar'){
+            $exp = $main->explained_ar;
+        }else
+            $exp =$main->explained ;
         $data['operation_date'] = $main->operation_date;
         $data['id'] = $main->id;
-        $data['explained'] = $main->explained;
+        $data['explained'] = $exp;
+        $data['cash_id'] = $main->cash_id;
+
         $data['type_of_operation'] = $main->type_of_operation;
+        $data['document_number'] = $main->document_number;
+        $data['doc_date'] = $main->doc_date;
+
         $data['currency_symbol'] = $main->currency_symbol;
         $data['exchange_rate'] = $main->exchange_rate;
         $items = [];
         $subs =  $main->subs()->get();
         foreach ($subs as $item) {
+            if (app()->getLocale() == 'ar'){
+                $exp = $item->explained_ar;
+            }else
+                $exp =$main->explained ;
             $items[] = [
                 'debit'          => $item->debit,
                 'credit'         => $item->credit,
                 'account_number' => $item->account_number,
-                'explained'      => $item->explained,
+                'explained'      => $exp,
             ];
         }
         $data['items'] = $items;
+        $total =0;
+        $totalDebit =0;
+        $totalCredit =0;
+        foreach ($main->subs as $sub){
+            if($main->type_of_operation == 0) {
+                $totalDebit += $sub->debit;
+                $totalCredit += $sub->credit;
+            }
+            elseif($main->type_of_operation == 1) {
+                $total+=$sub->credit;
+            }
+            else{
+                $total+=$sub->debit;
+            }
+        }
+        $data['total'] =$total;
+        $data['totalDebit'] =$totalDebit;
+        $data['totalCredit'] =$totalCredit;
         $user_id = checkPermissionHelper::checkPermission();
 
         if ($main->parent_id == $user_id){
@@ -413,34 +469,55 @@ class MainController extends Controller
 
     }
     public function pdfDaily($id){
+
         $main = Main::whereId($id)->first();
+        if (app()->getLocale() == 'ar'){
+            $exp = $main->explained_ar;
+        }else
+            $exp =$main->explained ;
         $data['operation_date'] = $main->operation_date;
         $data['id'] = $main->id;
-        $data['explained'] = $main->explained;
+        $data['explained'] = $exp;
         $data['cash_id'] = $main->cash_id;
         $data['document_number'] = $main->document_number;
+        $data['doc_date'] = $main->doc_date;
         $data['type_of_operation'] = $main->type_of_operation;
         $data['currency_symbol'] = $main->currency_symbol;
         $data['exchange_rate'] = $main->exchange_rate;
         $items = [];
         $subs =  $main->subs()->get();
         foreach ($subs as $item) {
+            if (app()->getLocale() == 'ar'){
+                $exp = $item->explained_ar;
+            }else
+                $exp =$item->explained ;
             $items[] = [
                 'debit'          => $item->debit,
                 'credit'         => $item->credit,
                 'account_number' => $item->account_number,
-                'explained'      => $item->explained,
+                'explained'      => $exp,
             ];
         }
         $data['items'] = $items;
         $user_id = checkPermissionHelper::checkPermission();
         $total =0;
+        $totalDebit =0;
+        $totalCredit =0;
         foreach ($main->subs as $sub){
-            if($main->type_of_operation == "cashing")
+            if($main->type_of_operation == 0) {
+                $totalDebit += $sub->debit;
+                $totalCredit += $sub->credit;
+            }
+            elseif($main->type_of_operation == 1) {
                 $total+=$sub->credit;
-            else $total+=$sub->debit;
+            }
+            else{
+                $total+=$sub->debit;
+            }
         }
         $data['total'] =$total;
+        $data['totalDebit'] =$totalDebit;
+        $data['totalCredit'] =$totalCredit;
            if ($main->parent_id == $user_id){
             $pdf = PDF::loadView('main.pdfDaily', $data);
             return $pdf->download('main'.'.pdf');

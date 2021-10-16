@@ -15,34 +15,43 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                        <table class="table  display responsive">
+                        <table class="table  display responsive table-bordered">
                             <tr>
                                 <th>{{ __('Operation Date') }}</th>
                                 <td>{{ $main->operation_date }}</td>
                                 <th>{{ __('Explained') }}</th>
-                                <td>@if (app()->getLocale() == 'ar'){{$main->explained_ar}} @else  {{$main->explained}} @endif </td>
+                                <td colspan="3">@if (app()->getLocale() == 'ar'){{$main->explained_ar}} @else  {{$main->explained}} @endif </td>
                             </tr>
                             <tr>
                                 <th>{{__('Cash Id')}}</th>
                                 <td>{{ $main->cash_id }} </td>
-                                <th>{{__('document_number')}}</th>
-                                <td>{{ $main->document_number }} </td>
-
+                                <th>{{__('Document Number')}}</th>
+                                <td>{{$main->document_number}}</td>
+                                <th>{{ __('Document Date') }}</th>
+                                <td>{{ $main->doc_date }} </td>
                             </tr>
                             <tr>
                                 <th>{{ __('Type of operation') }}</th>
-                                <td>{{ $main->type_of_operation }}</td>
+                                <td>@if($main->type_of_operation == 0)
+                                        {{__('financial record')}}
+                                    @elseif($main->type_of_operation == 1)
+                                        {{__('Cash in')}}
+                                    @elseif($main->type_of_operation == 2)
+                                        {{__('Cash out')}}
+                                    @else
+                                        {{__('Cash')}}
+                                    @endif</td>
                                 <th>{{ __('Currency symbol') }}</th>
                                 <td>{{ $main->currency_symbol }}</td>
                                 <th>{{ __('Exchange rate') }}</th>
-                                <td>{{ $main->exchange_rate }}</td>
+                                <td>{{ number_format($main->exchange_rate, 2, '.', ',') }}</td>
                             </tr>
 
                         </table>
 
                         <h5>{{ __('details') }}</h5>
 
-                        <table class="table">
+                        <table class="table table-bordered">
                             <thead>
                             <tr>
                                 <th>#</th>
@@ -56,9 +65,9 @@
                                 <tr>
                                     <td width="5%">{{ $loop->iteration }}</td>
                                     @if($main->type_of_operation == "cashing")
-                                        <td width="5%">{{ $sub->credit }}</td>
+                                        <td width="5%">{{number_format($sub->credit, 2, '.', ',')  }}</td>
                                     @else
-                                        <td width="5%">{{ $sub->debit }}</td>
+                                        <td width="5%">{{ number_format($sub->debit, 2, '.', ',') }}</td>
                                     @endif
                                      <td width="5%">{{$sub->account_number}}</td>
                                         <td width="5%">@if (app()->getLocale() == 'ar'){{$sub->explained_ar}} @else  {{$sub->explained}} @endif </td>
@@ -68,7 +77,7 @@
                             <tfoot>
                             <tr>
                                <th>{{__('Total')}}</th>
-                                <td>{{$total}}</td>
+                                <td colspan="3">{{number_format($total, 2, '.', ',')}}</td>
                             </tr>
                             </tfoot>
                         </table>

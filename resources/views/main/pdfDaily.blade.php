@@ -128,7 +128,7 @@
                     <td width="70%"># {{$id}}</td>
                 </tr>
             </table>
-            <table class="table">
+            <table class="table table-bordered">
 
                 <tr>
                     <th>{{ __('Operation Date') }}</th>
@@ -139,17 +139,28 @@
                 <tr>
                     <th>{{__('Cash Id')}}</th>
                     <td>{{ $cash_id }} </td>
-                    <th>{{__('document_number')}}</th>
+                    <th>{{__('Document Number')}}</th>
                     <td>{{ $document_number }} </td>
+                    <th>{{ __('Document Date') }}</th>
+                    <td>{{ $doc_date }} </td>
 
                 </tr>
                 <tr>
                     <th>{{ __('Type of operation') }}</th>
-                    <td>{{ $type_of_operation }}</td>
+                    <td>@if($type_of_operation == 0)
+                            {{__('financial record')}}
+                        @elseif($type_of_operation == 1)
+                            {{__('Cash in')}}
+                        @elseif($type_of_operation == 2)
+                            {{__('Cash out')}}
+                        @else
+                            {{__('Cash')}}
+                        @endif
+                    </td>
                     <th>{{ __('Currency symbol') }}</th>
                     <td>{{ $currency_symbol }}</td>
                     <th>{{ __('Exchange rate') }}</th>
-                    <td>{{ $exchange_rate }}</td>
+                    <td>{{  number_format($exchange_rate , 2, '.', ',')}}</td>
 
                 </tr>
 
@@ -161,7 +172,7 @@
                     <td>#</td>
                     <td>{{ __('Amount') }}</td>
                     <td>{{ __('Account Number') }}</td>
-                    <td>{{ __('explained') }}</td>
+                    <td>{{ __('Explained') }}</td>
                 </tr>
                 </thead>
 
@@ -171,7 +182,7 @@
                         @if($type_of_operation == "cashing")
                         <td>{{ $item['credit'] }}</td>
                         @else
-                            <td>{{ $item['debit'] }}</td>
+                            <td>{{number_format($item['debit'], 2, '.', ',')  }}</td>
                         @endif
                         <td>{{$item['account_number']}}</td>
                         <td>{{ $item['explained'] }}</td>
@@ -182,7 +193,7 @@
                 <tfoot>
                 <tr>
                     <th>{{_('Total')}}</th>
-                    <td>{{$total}}</td>
+                    <td>{{ number_format($total, 2, '.', ',')}}</td>
                 </tr>
                 </tfoot>
             </table>

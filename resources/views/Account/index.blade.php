@@ -7,23 +7,23 @@
 
 
 @section('content')
+    <div class="dropdown dropleft float-right">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+            {{__('More')}}
+        </button>
+        <div class="dropdown-menu">
+                <a class="dropdown-item" href="{{route('print')}}" class="btn btn-primary ml-auto"> pdf</a>
+                <a  class="dropdown-item"href="{{route('pdf')}}" class="btn btn-primary ml-auto">print</a>
+        </div>
+    </div>
     <div class="container">
 
         <div class="row justify-content-center">
-            <div class="col-md-2  ">
-                <div class="card-header d-flex">
-                </div>
-                <div class="card  ">
-                    <a href="{{ route('Accounts.create') }}" class="text-center"><i class="fa fa-plus"></i>
-                        {{ __('create') }}</a>
-                  <a href="{{route('print')}}" class="text-center">{{__('print')}}</a>
-                    <a href="{{route('pdf')}}" class="text-center"> {{__('pdf')}}</a>
-
-                </div>
-            </div>
             <div class="col-md-9">
                 <div class="card">
                     <div class="card-header d-flex">
+                        <a href="{{ route('Accounts.create') }}" class="btn btn-primary ml-auto"><i class="fa fa-plus"></i> {{ __('create') }}</a>
+
                     </div>
                     <div class="card-body">
                         @if (session('status'))
@@ -55,7 +55,12 @@
                                         {{$account->account_number}} </td>
                                     <td>{{$account->account_name}}</td>
                                     <td>{{$account->master_account_number}}</td>
-                                    <td>{{$account->report}}</td>
+                                    <td> @if($account->report== 1)
+                                          {{__('budget')}}
+                                         @else
+                                         {{__('list')}}
+                                         @endif
+                                    </td>
                                     <td>{{$account->mainly}}</td>
                                     <td>  <a href="{{route('Accounts.edit',$account->id) }}"><i class="fa fa-edit"></i></a>
                                         <a href="javascript:void(0)" onclick=" { document.getElementById('delete-{{ $account->id }}').submit(); } " class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>

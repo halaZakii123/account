@@ -184,14 +184,17 @@
                     <td>{{  number_format($totaldb ,2, '.', ',') }} </td>
                     <td>{{  number_format($totalcr, 2, '.', ',')}}</td>
                     <td colspan="4">{{__('Total')}}</td>
+                    <td>{{ number_format($subAmount, 2, '.', ',') }}</td>
+
                 </tr>
                 <tr>
                     <td></td>
 
                     <td>{{  number_format($totaldbc, 2, '.', ',')}} </td>
                     <td>{{  number_format($totalcrc, 2, '.', ',') }} </td>
-
                     <td colspan="4">{{__('Total')}}</td>
+                    <td>{{ number_format($subAmountc, 2, '.', ',') }}</td>
+
                 </tr>
 
             </table>

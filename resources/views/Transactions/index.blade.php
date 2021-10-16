@@ -1,10 +1,29 @@
 @extends('layouts.app')
 @section('style')
 @section('content')
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    @if($trans != null)
+        <div class="dropdown dropleft float-right">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                {{__('More')}}
+            </button>
+            <div class="dropdown-menu">
+
+
+                    @if($searchType == 'account_number')
+                        {{--                                <a class="dropdown-item" href="/printTrans/{{$searchType}}/{{$account_number}}/{{$from}}/{{$to}}" class="btn btn-primary ml-auto">{{__('print')}}</a>--}}
+                        <a class="dropdown-item" href="{{route('printAcc',[$searchType,$account_number,$from,$to])}}" class="btn btn-primary ml-auto">{{__('print')}}</a>
+                        <a class="dropdown-item" href="{{route('pdfAcc',[$searchType,$account_number,$from,$to])}}" class="btn btn-primary ml-auto">{{__('pdf')}}</a>
+                    @elseif($searchType == 'source_id')
+                        <a class="dropdown-item" href="{{route('pdfSource',[$searchType,$source_id])}}" class="btn btn-primary ml-auto">{{__('pdf')}}</a>
+                        <a class="dropdown-item" href="{{route('printSource',[$searchType,$source_id])}}" class="btn btn-primary ml-auto">{{__('print')}}</a>
+                    @else
+                        <a class="dropdown-item" href="{{route('pdfdate',[$searchType,$dateFrom,$dateTo])}}" class="btn btn-primary ml-auto">{{__('pdf')}}</a>
+                        <a class="dropdown-item" href="{{route('printdate',[$searchType,$dateFrom,$dateTo])}}" class="btn btn-primary ml-auto">{{__('print')}}</a>
+                    @endif
+
+            </div>
+        </div>
+    @endif
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
@@ -12,27 +31,7 @@
 
 
                 </div>
-                <div class="dropdown dropleft float-right">
-                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                        {{__('More')}}
-                    </button>
-                    <div class="dropdown-menu">
 
-                        @if($trans != null)
-                            @if($searchType == 'account_number')
-{{--                                <a class="dropdown-item" href="/printTrans/{{$searchType}}/{{$account_number}}/{{$from}}/{{$to}}" class="btn btn-primary ml-auto">{{__('print')}}</a>--}}
-                                <a class="dropdown-item" href="{{route('printAcc',[$searchType,$account_number,$from,$to])}}" class="btn btn-primary ml-auto">{{__('print')}}</a>
-                                <a class="dropdown-item" href="{{route('pdfAcc',[$searchType,$account_number,$from,$to])}}" class="btn btn-primary ml-auto">{{__('pdf')}}</a>
-                            @elseif($searchType == 'source_id')
-                                <a class="dropdown-item" href="{{route('pdfSource',[$searchType,$source_id])}}" class="btn btn-primary ml-auto">{{__('pdf')}}</a>
-                                <a class="dropdown-item" href="{{route('printSource',[$searchType,$source_id])}}" class="btn btn-primary ml-auto">{{__('print')}}</a>
-                            @else
-                                <a class="dropdown-item" href="{{route('pdfdate',[$searchType,$dateFrom,$dateTo])}}" class="btn btn-primary ml-auto">{{__('pdf')}}</a>
-                                <a class="dropdown-item" href="{{route('printdate',[$searchType,$dateFrom,$dateTo])}}" class="btn btn-primary ml-auto">{{__('print')}}</a>
-                            @endif
-                        @endif
-                    </div>
-                </div>
                     <div>
                         <form method="POST"  name ="aa" on onsubmit="return v" action="{!! route('TransSearch') !!}">
                             @csrf
@@ -55,7 +54,11 @@
                                       <label for="html">{{__('Account Number')}} :</label>
                                     <select name="account_number_value">
                                         @foreach($allTrans as $tran)
-                                            <option value="{{$tran->accountid}}"> {{$tran->accountid}}</option>
+                                            @foreach($account as $acc)
+                                                @if($acc->account_number == $tran->accountid)
+                                                 <option value="{{$tran->accountid}}"> {{$tran->accountid}} {{$acc->account_name}}</option>
+                                                @endif
+                                             @endforeach
                                         @endforeach
                                     </select>
                                     <input type="date" id="doc_date_value" name="A_date_from" value="{{$first}}"  >
@@ -160,9 +163,7 @@
         </ul>
     </div>
 @endsection
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 
 @section('script')
 

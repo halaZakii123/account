@@ -145,7 +145,11 @@
                 <td>{{$item['account_number']}}</td>
                 <td>{{$item['account_name']}}</td>
                 <td>{{$item['master_account_number']}}</td>
-                <td>{{$item['report']}}</td>
+                <td>@if($item['report'] == 1)
+                        {{__('budget')}}
+                    @else
+                        {{__('list')}}
+                    @endif </td>
                 <td>
                     @if($item['mainly'] == 1)
                         {{__('Yes')}}

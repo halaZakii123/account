@@ -41,16 +41,16 @@
   <label>{{__('Search between two dates')}}</label>
         <div class="col-4">
             <div class ="form-group" >
-                <label> {{__('start date :')}}</label>
+                <label style="font-size: small"> {{__('start date :')}}</label>
                 <input type="date" id="startDate" name="from" placeholder="yyyy-mm-dd"  autocomplete="on">
             </div>
         </div>
         <div class="col-8">
             <div class ="form-group" >
-                <label> {{__('end date :')}}</label>
+                <label style="font-size: small"> {{__('end date :')}}</label>
                 <input type="date" id="endDate"  name="to"  placeholder="yyyy-mm-dd"  autocomplete="on" >
-                <button type="submit" class="btn btn-primary">
-                    {{ __('Submit') }}
+                <button type="submit" class="btn btn-primary" style="height: 25px;font-size: small">
+                    {{ __('Search') }}
                 </button>
             </div>
         </div>
@@ -93,7 +93,7 @@
                                             @endif
                                             </td>
                                         <td>{{$main->currency_symbol}} </td>
-                                        <td>{{$main->exchange_rate}} </td>
+                                        <td>{{ number_format($main->exchange_rate , 2, '.', ',')}} </td>
                                             <td><a href="{{route('Mains.edit',$main->id) }}"><i class="fa fa-edit"></i></a>
                                                 <a href="javascript:void(0)" onclick=" { document.getElementById('delete-{{ $main->id }}').submit(); } " class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
                                                 <form action="{{ route('Mains.destroy', $main->id) }}" method="post" id="delete-{{ $main->id }}" style="display: none;">

@@ -50,7 +50,6 @@ class AccountController extends Controller
     public function create(){
        $user_id = checkPermissionHelper::checkPermission();
         $views = View_Account_Main::where('parent_id',$user_id)->get();
-
         return view('Account.crud',compact('views'));
 
     }

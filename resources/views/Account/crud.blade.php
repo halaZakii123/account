@@ -54,7 +54,7 @@
                                 <label for="master_account_number" class="col-md-4 col-form-label text-md-right">{{ __('Master Account number') }}</label>
 
                                 <div class="col-md-6">
-                                    <select name="master_account_number" id="master_account_number" >
+                                    <select name="master_account_number" id="master_account_number"  style="width: 200px">
                                         <option value="" disabled> {{__('Select master account number')}}</option>
                                         <option value="-" > {{__('do not have master')}}</option>
                                         @foreach($views as $view)
@@ -78,14 +78,14 @@
                                 <label for="report" class="col-md-4 col-form-label text-md-right">{{ __('Report') }}</label>
 
                                 <div class="col-md-6">
-                                    <select name="report" id="report" >
+                                    <select name="report" id="report" style="width: 200px" >
                                         <option value="" disabled>{{__('disabled Select Type of report')}}</option>
                                         @if(!empty($account))
-                                            <option value="{{__('budget')}}" {{$account->reoprt == 'budget'? 'selected':''}}> {{__('budget')}}</option>
-                                            <option value="{{__('list')}}" {{$account->reoprt == 'list'? 'selected':''}}> {{__('list')}}</option>
+                                            <option value="1" {{$account->reoprt == 1? 'selected':''}}> {{__('budget')}}</option>
+                                            <option value="2" {{$account->reoprt == 2? 'selected':''}}> {{__('list')}}</option>
                                         @else
-                                            <option value="{{__('budget')}}" {{old('report')?'selected' :''}} > {{__('budget')}}</option>
-                                            <option value="{{__('list')}}" {{old('report')?'selected' :''}}> {{__('list')}}</option>
+                                            <option value="1" {{old('report')?'selected' :''}} > {{__('budget')}}</option>
+                                            <option value="2" {{old('report')?'selected' :''}}> {{__('list')}}</option>
                                         @endif
                                     </select>
                                 </div>

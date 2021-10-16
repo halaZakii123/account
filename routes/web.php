@@ -86,10 +86,10 @@ Route::post('/addADaily','MainController@addAccountNumber_Daily');
 Route::get('/print','AccountController@printAccount')->name('print');
 Route::get('/pdf','AccountController@pdf')->name('pdf');
 
-Route::get('/pdfM/{id}','MainController@pdf');
-Route::get('/pdfM/daily/{id}','MainController@pdfDaily');
-Route::get('/main/print/{id}','MainController@printM');
-Route::get('/main/print/daily/{id}','MainController@printMDaily');
+Route::get('/pdfM/{id}','MainController@pdf')->name('pdfMain');
+Route::get('/pdfM/daily/{id}','MainController@pdfDaily')->name('pdfDaily');
+Route::get('/main/print/{id}','MainController@printM')->name('printMain');
+Route::get('/main/print/daily/{id}','MainController@printMDaily')->name('printDaily');
 
 //daily_operation route
 Route::get('Accounts/daily_op_getAll','daily_operationController@getAll')->name('Accounts.daily_op');

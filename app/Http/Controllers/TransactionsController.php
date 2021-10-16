@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\checkPermissionHelper;
 use App\Helpers\currencyHelper;
+use App\TblAccount;
 use App\transactions;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -12,6 +13,12 @@ use PDF;
 
 class TransactionsController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+
+    }
     /**
      * Display a listing of the resource.
      *
@@ -21,6 +28,7 @@ class TransactionsController extends Controller
     public function index(Request $request)
     {
         $user_id = checkPermissionHelper::checkPermission();
+        $account = TblAccount::where('parent_id',$user_id)->get();
         $totaldb=0;
         $totaldbc=0;
         $totalcr=0;
@@ -62,7 +70,7 @@ class TransactionsController extends Controller
                 }
                 $subAmount = $totaldb -$totalcr;
                 $subAmountc = $totaldbc -$totalcrc;
-                return view('Transactions.index', compact('trans', 'allTrans','allTransSource','totaldb','totaldbc','totalcr','totalcrc','searchType','account_number','from','to','first','last','subAmount','subAmountc'));
+                return view('Transactions.index', compact('trans', 'allTrans','allTransSource','totaldb','totaldbc','totalcr','totalcrc','searchType','account_number','from','to','first','last','subAmount','subAmountc','account'));
 
             } elseif ($request->trans == 'source_id') {
                 $source_id = $request->source_id_value;
@@ -78,7 +86,7 @@ class TransactionsController extends Controller
                 }
                 $subAmount = $totaldb -$totalcr;
                 $subAmountc = $totaldbc -$totalcrc;
-                return view('Transactions.index', compact('allTrans','allTransSource', 'trans','totaldb','totaldbc','totalcr','totalcrc','source_id','searchType','first','last','subAmount','subAmountc'));
+                return view('Transactions.index', compact('allTrans','allTransSource', 'trans','totaldb','totaldbc','totalcr','totalcrc','source_id','searchType','first','last','subAmount','subAmountc','account'));
 
             } else {
                 $dateFrom = $request->doc_date_from;
@@ -95,11 +103,11 @@ class TransactionsController extends Controller
                 }
                 $subAmount = $totaldb -$totalcr;
                 $subAmountc = $totaldbc -$totalcrc;
-                return view('Transactions.index', compact('allTrans','allTransSource', 'trans','totaldb','totaldbc','totalcr','totalcrc','searchType','dateTo','dateFrom','first','last','subAmount','subAmountc'));
+                return view('Transactions.index', compact('allTrans','allTransSource', 'trans','totaldb','totaldbc','totalcr','totalcrc','searchType','dateTo','dateFrom','first','last','subAmount','subAmountc','account'));
             }
         }else{
             $trans = null;
-        return view('Transactions.index',compact('trans','allTrans','allTransSource','first','last'));        }
+        return view('Transactions.index',compact('trans','allTrans','allTransSource','first','last','account'));        }
 
     }
 
@@ -132,21 +140,7 @@ class TransactionsController extends Controller
      */
     public function show(Request $request)
     {
-        $total =0;
-        if ($request->trans == 'account_number')
-        {
-            $account_number = $request->account_number_value;
-            $trans =transactions::where('accountid',$account_number)->get();
-        }elseif ($request->trans == 'document_number'){
-            $document_number = $request->document_number_value;
-            $trans =transactions::where('sourceid',$document_number)->get();
-        }else{
-            $dateFrom = $request->doc_date_from;
-            $dateTo = $request->doc_date_to;
-            $trans= transactions::whereBetween('dydate', [$dateFrom, $dateTo])->get();
 
-        }
-        return view('Transactions.show',compact('trans'));
 
     }
 

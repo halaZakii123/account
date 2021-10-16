@@ -146,7 +146,12 @@
             <td>{{$account->account_number}}</td>
             <td>{{$account->account_name}}</td>
             <td>{{$account->master_account_number}}</td>
-            <td>{{$account->report}}</td>
+            <td>@if($account->report == 1)
+                    {{__('budget')}}
+                @else
+                    {{__('list')}}
+                @endif
+                </td>
             <td>
                 @if($account->mainly == 1)
                     <i class="fas fa-check"></i>
