@@ -8,6 +8,7 @@ use App\TblAccount;
 use App\transactions;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use PDF;
 
@@ -45,10 +46,6 @@ class TransactionsController extends Controller
             ->lastOfYear()
             ->format('Y-m-d');
 
-
-//        $allTrans = transactions::where('parent_id', $user_id)->distinct('sourceid')
-//            ->distinct('accountid')
-//            ->get();
         $allTrans  = DB::table('transactions')->select('accountid')->distinct()->get();
         $allTransSource  = DB::table('transactions')->select('sourceid')->distinct()->get();
         if ($request->trans != null) {
@@ -57,15 +54,17 @@ class TransactionsController extends Controller
                 $account_number = $request->account_number_value;
                 $from = $request->A_date_from;
                 $to = $request->A_date_to;
-                $trans = transactions::where('parent_id', $user_id)
-                    ->where('accountid', $account_number)
-                    ->whereBetween('dydate', [$from, $to])
-                    ->get();
+//                $trans = transactions::where('parent_id', $user_id)
+//                    ->where('accountid', $account_number)
+//                    ->whereBetween('dydate', [$from, $to])
+//                    ->get();
+
+                $trans =DB::select("CALL pr_trans_Byacc(" .$user_id.",".$account_number.",'".$from."','".$to."')");
                 foreach ($trans as $tran){
-                    $totaldb+=$tran->amntdb;
-                    $totaldbc+=$tran->amntdbc;
-                    $totalcr+=$tran->amntcr;
-                    $totalcrc+=$tran->amntcrc;
+                    $totaldb+=$tran->trans_db;
+                    $totaldbc+=$tran->trans_dbc;
+                    $totalcr+=$tran->trans_cr;
+                    $totalcrc+=$tran->trans_crc;
 
                 }
                 $subAmount = $totaldb -$totalcr;
@@ -73,15 +72,15 @@ class TransactionsController extends Controller
                 return view('Transactions.index', compact('trans', 'allTrans','allTransSource','totaldb','totaldbc','totalcr','totalcrc','searchType','account_number','from','to','first','last','subAmount','subAmountc','account'));
 
             } elseif ($request->trans == 'source_id') {
+
                 $source_id = $request->source_id_value;
-                $trans = transactions::where('sourceid', $source_id)
-                    ->where('parent_id', $user_id)
-                    ->get();
+
+                $trans =DB::select("CALL pr_trans_Byid(" .$user_id.",".$source_id.")");
                 foreach ($trans as $tran){
-                    $totaldb+=$tran->amntdb;
-                    $totaldbc+=$tran->amntdbc;
-                    $totalcr+=$tran->amntcr;
-                    $totalcrc+=$tran->amntcrc;
+                    $totaldb+=$tran->trans_db;
+                    $totaldbc+=$tran->trans_dbc;
+                    $totalcr+=$tran->trans_cr;
+                    $totalcrc+=$tran->trans_crc;
 
                 }
                 $subAmount = $totaldb -$totalcr;
@@ -91,14 +90,17 @@ class TransactionsController extends Controller
             } else {
                 $dateFrom = $request->doc_date_from;
                 $dateTo = $request->doc_date_to;
-                $trans = transactions::where('parent_id', $user_id)
-                    ->whereBetween('dydate', [$dateFrom, $dateTo])
-                    ->get();
+//                $trans = transactions::where('parent_id', $user_id)
+//                    ->whereBetween('dydate', [$dateFrom, $dateTo])
+//                    ->get();
+//                dd($dateTo);
+                $trans =DB::select("CALL pr_trans_Bydate(" .$user_id.",'".$dateFrom."','".$dateTo."')");
+
                 foreach ($trans as $tran){
-                    $totaldb+=$tran->amntdb;
-                    $totaldbc+=$tran->amntdbc;
-                    $totalcr+=$tran->amntcr;
-                    $totalcrc+=$tran->amntcrc;
+                    $totaldb+=$tran->trans_db;
+                    $totaldbc+=$tran->trans_dbc;
+                    $totalcr+=$tran->trans_cr;
+                    $totalcrc+=$tran->trans_crc;
 
                 }
                 $subAmount = $totaldb -$totalcr;
@@ -185,15 +187,14 @@ class TransactionsController extends Controller
         $totalcr=0;
         $totalcrc=0;
 
-                $trans = transactions::where('parent_id', $user_id)
-                    ->where('accountid', $account_number)
-                    ->whereBetween('dydate', [$from, $to])
-                    ->get();
+        $trans =DB::select("CALL pr_trans_Byacc(" .$user_id.",".$account_number.",'".$from."','".$to."')");
+
+
                 foreach ($trans as $tran){
-                    $totaldb+=$tran->amntdb;
-                    $totaldbc+=$tran->amntdbc;
-                    $totalcr+=$tran->amntcr;
-                    $totalcrc+=$tran->amntcrc;
+                    $totaldb+=$tran->trans_db;
+                    $totaldbc+=$tran->trans_dbc;
+                    $totalcr+=$tran->trans_cr;
+                    $totalcrc+=$tran->trans_crc;
 
                 }
         $subAmount = $totaldb -$totalcr;
@@ -209,15 +210,15 @@ class TransactionsController extends Controller
         $totaldbc=0;
         $totalcr=0;
         $totalcrc=0;
-        $trans = transactions::where('sourceid', $source_id)
-            ->where('parent_id', $user_id)
-            ->get();
+        $trans =DB::select("CALL pr_trans_Byid(" .$user_id.",".$source_id.")");
+
         foreach ($trans as $tran){
-            $totaldb+=$tran->amntdb;
-            $totaldbc+=$tran->amntdbc;
-            $totalcr+=$tran->amntcr;
-            $totalcrc+=$tran->amntcrc;
-    }
+            $totaldb+=$tran->trans_db;
+            $totaldbc+=$tran->trans_dbc;
+            $totalcr+=$tran->trans_cr;
+            $totalcrc+=$tran->trans_crc;
+
+        }
         $subAmount = $totaldb -$totalcr;
         $subAmountc = $totaldbc -$totalcrc;
     return view('Transactions.print', compact( 'trans','totaldb','totaldbc','totalcr','totalcrc','subAmount','subAmountc'));
@@ -228,14 +229,14 @@ class TransactionsController extends Controller
         $totaldbc=0;
         $totalcr=0;
         $totalcrc=0;
-        $trans = transactions::where('parent_id', $user_id)
-            ->whereBetween('dydate', [$from, $to])
-            ->get();
+        $trans =DB::select("CALL pr_trans_Bydate(" .$user_id.",'".$from."','".$to."')");
+
         foreach ($trans as $tran){
-            $totaldb+=$tran->amntdb;
-            $totaldbc+=$tran->amntdbc;
-            $totalcr+=$tran->amntcr;
-            $totalcrc+=$tran->amntcrc;
+            $totaldb+=$tran->trans_db;
+            $totaldbc+=$tran->trans_dbc;
+            $totalcr+=$tran->trans_cr;
+            $totalcrc+=$tran->trans_crc;
+
 
         } $subAmount = $totaldb -$totalcr;
         $subAmountc = $totaldbc -$totalcrc;
@@ -250,35 +251,34 @@ class TransactionsController extends Controller
       $totalcr=0;
       $totalcrc=0;
 
-      $trans = transactions::where('parent_id', $user_id)
-          ->where('accountid', $account_number)
-          ->whereBetween('dydate', [$from, $to])
-          ->get();
+      $trans =DB::select("CALL pr_trans_Byacc(" .$user_id.",".$account_number.",'".$from."','".$to."')");
+
 
       foreach ($trans as $item) {
           if (app()->getLocale() == 'ar'){
-              $des = $item->description_ar;
+              $des = $item->trans_descrip_ar;
            }else
-          $des =$item->description_en ;
+          $des =$item->trans_descrip_en ;
           $items[] = [
-              'amntdb'          => $item->amntdb,
-              'amntcr'         => $item->amntcr,
-              'accountid'         => $item->accountid,
-              'sourceid' => $item->sourceid,
-              'dydate'      => $item->dydate,
-              'amntdbc'      => $item->amntdbc,
-              'amntcrc'      => $item->amntcrc,
-              'docno'      => $item->docno,
-              'docdate'      => $item->docdate,
+              'amntdb'          => $item->trans_db,
+              'amntcr'         => $item->trans_cr,
+              'accountid'         => $item->trans_accno,
+              'sourceid' => $item->trans_sid,
+              'dydate'      => $item->trans_date,
+              'amntdbc'      => $item->trans_dbc,
+              'amntcrc'      => $item->trans_crc,
+              'docno'      => $item->trans_docno,
+              'docdate'      => $item->trans_docdate,
               'description' => $des,
-              'currcode' =>$item->currcode
+              'currcode' =>$item->trans_curr
 
           ];
-          $totaldb+=$item->amntdb;
-          $totaldbc+=$item->amntdbc;
-          $totalcr+=$item->amntcr;
-          $totalcrc+=$item->amntcrc;
-       }
+          $totaldb+=$item->trans_db;
+          $totaldbc+=$item->trans_dbc;
+          $totalcr+=$item->trans_cr;
+          $totalcrc+=$item->trans_crc;
+
+      }
       $data['items'] = $items;
       $data['totaldb'] =$totaldb;
       $data['totaldbc'] =$totaldbc;
@@ -302,33 +302,33 @@ class TransactionsController extends Controller
         $totalcr=0;
         $totalcrc=0;
 
-        $trans = transactions::where('parent_id', $user_id)
-            ->where('sourceid', $source_id)
-            ->get();
+        $trans =DB::select("CALL pr_trans_Byid(" .$user_id.",".$source_id.")");
+
 
         foreach ($trans as $item) {
             if (app()->getLocale() == 'ar'){
-                $des = $item->description_ar;
+                $des = $item->trans_descrip_ar;
             }else
-                $des =$item->description_en ;
+                $des =$item->trans_descrip_en ;
             $items[] = [
-                'amntdb'          => $item->amntdb,
-                'amntcr'         => $item->amntcr,
-                'accountid'         => $item->accountid,
-                'sourceid' => $item->sourceid,
-                'dydate'      => $item->dydate,
-                'amntdbc'      => $item->amntdbc,
-                'amntcrc'      => $item->amntcrc,
-                'docno'      => $item->docno,
-                'docdate'      => $item->docdate,
+                'amntdb'          => $item->trans_db,
+                'amntcr'         => $item->trans_cr,
+                'accountid'         => $item->trans_accno,
+                'sourceid' => $item->trans_sid,
+                'dydate'      => $item->trans_date,
+                'amntdbc'      => $item->trans_dbc,
+                'amntcrc'      => $item->trans_crc,
+                'docno'      => $item->trans_docno,
+                'docdate'      => $item->trans_docdate,
                 'description' => $des,
-                'currcode' =>$item->currcode
+                'currcode' =>$item->trans_curr
 
             ];
-            $totaldb+=$item->amntdb;
-            $totaldbc+=$item->amntdbc;
-            $totalcr+=$item->amntcr;
-            $totalcrc+=$item->amntcrc;
+            $totaldb+=$item->trans_db;
+            $totaldbc+=$item->trans_dbc;
+            $totalcr+=$item->trans_cr;
+            $totalcrc+=$item->trans_crc;
+
         }
         $data['items'] = $items;
         $data['totaldb'] =$totaldb;
@@ -352,33 +352,34 @@ class TransactionsController extends Controller
         $totalcr=0;
         $totalcrc=0;
 
-        $trans = transactions::where('parent_id', $user_id)
-            ->whereBetween('dydate', [$from, $to])
-            ->get();
+        $trans =DB::select("CALL pr_trans_Bydate(" .$user_id.",'".$from."','".$to."')");
+
+
 
         foreach ($trans as $item) {
             if (app()->getLocale() == 'ar'){
-                $des = $item->description_ar;
+                $des = $item->trans_descrip_ar;
             }else
-                $des =$item->description_en ;
+                $des =$item->trans_descrip_en ;
             $items[] = [
-                'amntdb'          => $item->amntdb,
-                'amntcr'         => $item->amntcr,
-                'accountid'         => $item->accountid,
-                'sourceid' => $item->sourceid,
-                'dydate'      => $item->dydate,
-                'amntdbc'      => $item->amntdbc,
-                'amntcrc'      => $item->amntcrc,
-                'docno'      => $item->docno,
-                'docdate'      => $item->docdate,
+                'amntdb'          => $item->trans_db,
+                'amntcr'         => $item->trans_cr,
+                'accountid'         => $item->trans_accno,
+                'sourceid' => $item->trans_sid,
+                'dydate'      => $item->trans_date,
+                'amntdbc'      => $item->trans_dbc,
+                'amntcrc'      => $item->trans_crc,
+                'docno'      => $item->trans_docno,
+                'docdate'      => $item->trans_docdate,
                 'description' => $des,
-                'currcode' =>$item->currcode
+                'currcode' =>$item->trans_curr
 
             ];
-            $totaldb+=$item->amntdb;
-            $totaldbc+=$item->amntdbc;
-            $totalcr+=$item->amntcr;
-            $totalcrc+=$item->amntcrc;
+            $totaldb+=$item->trans_db;
+            $totaldbc+=$item->trans_dbc;
+            $totalcr+=$item->trans_cr;
+            $totalcrc+=$item->trans_crc;
+
         }
         $data['items'] = $items;
         $data['totaldb'] =$totaldb;

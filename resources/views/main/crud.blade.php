@@ -293,11 +293,11 @@
                                         <tr class="cloning_row" id="0">
                                             <td>#</td>
                                             <td>
-                                                <input type="text" name="debit[0]" id='debit' class="debit_filed number-separator" value="{{old('debit')}}" required onchange="gettotald() ,change_Debit(),gettotalc(),Total(),check()" >
+                                                <input type="text" name="debit[0]" id='debit' class="debit_filed " value="{{old('debit')}}" required onchange="gettotald() ,change_Debit(),gettotalc(),Total(),check()" >
                                                 @error('debit')<span class="help-block text-danger">{{ $message }}</span>@enderror
                                             </td>
                                             <td>
-                                                <input id="credit" type="text" class="credit_filed number-separator"  name="credit[0]"  value="{{old('credit')}}" required onchange="gettotalc(),change_Credit(),gettotald(),Total(),check()" >
+                                                <input id="credit" type="text" class="credit_filed "  name="credit[0]"  value="{{old('credit')}}" required onchange="gettotalc(),change_Credit(),gettotald(),Total(),check()" >
                                                 @error('credit')<span class="help-block text-danger">{{ $message }}</span>@enderror
 
                                             </td>

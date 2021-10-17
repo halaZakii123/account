@@ -1,11 +1,11 @@
 <tr>
     <td><button type="button" class="btn btn-danger btn-sm delegated-btn"><i class="fa fa-minus"></i></button></td>
     <td>
-        <input type="text" name="debit[]" id="debit-{{$x}}" class="debit_filed number-separator" value= "{{ old('debit') }} "required onchange="gettotald(),changeDebitt({{$x}}),gettotalc(),Total(),check()" >
+        <input type="text" name="debit[]" id="debit-{{$x}}" class="debit_filed " value= "{{ old('debit') }} "required onchange="gettotald(),changeDebitt({{$x}}),gettotalc(),Total(),check()" >
         @error('debit')<span class="help-block text-danger">{{ $message }}</span>@enderror
     </td>
     <td>
-        <input type="text" name="credit[]" id="credit-{{$x}}" class="credit_filed number-separator" value= "{{ old('credit') }} "required onchange="gettotalc(),changeCreditt({{$x}}),gettotald(),Total(),check()">
+        <input type="text" name="credit[]" id="credit-{{$x}}" class="credit_filed " value= "{{ old('credit') }} "required onchange="gettotalc(),changeCreditt({{$x}}),gettotald(),Total(),check()">
         @error('credit')<span class="help-block text-danger">{{ $message }}</span>@enderror
 
     </td>

@@ -27,8 +27,10 @@ class AccountController extends Controller
     public function index(){
         $user_id = checkPermissionHelper::checkPermission();
         $accounts= TblAccount::where('parent_id',$user_id)->get();
+        $count = count($accounts);
 
-        return view('Account.index',compact('accounts'));
+
+        return view('Account.index',compact('accounts','count'));
     }
 
 //    public function getAccounts(Request $request){
@@ -51,7 +53,12 @@ class AccountController extends Controller
        $user_id = checkPermissionHelper::checkPermission();
         $views = View_Account_Main::where('parent_id',$user_id)->get();
         return view('Account.crud',compact('views'));
+    }
 
+    public function createAccountTree(){
+        $user_id = checkPermissionHelper::checkPermission();
+        $acc =DB::select("CALL pr_buildacc(" .$user_id.")");
+return back();
     }
     public function store(Request $request){
 

@@ -219,7 +219,7 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    <input type="text" name="amount[{{ $loop->index }}]" id="amount_{{$loop->index}}" class="amount_filed" value="@if($main->type_of_operation == __('Cash in')) {{$sub->credit}} @else {{ $sub->debit }} @endif"   onchange="gettotald(),cur()">
+                                                    <input type="text" name="amount[{{ $loop->index }}]" id="amount_{{$loop->index}}" class="amount_filed" value="@if($main->type_of_operation == 1) {{$sub->credit}} @else {{ $sub->debit }} @endif"   onchange="gettotald(),cur()">
                                                     @error('debit')<span class="help-block text-danger">{{ $message }}</span>@enderror
                                                 </td>
                                                 <td>

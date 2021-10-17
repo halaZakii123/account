@@ -23,7 +23,9 @@
                 <div class="card">
                     <div class="card-header d-flex">
                         <a href="{{ route('Accounts.create') }}" class="btn btn-primary ml-auto"><i class="fa fa-plus"></i> {{ __('create') }}</a>
-
+                       @if($count == 0)
+                         <a href="{{ route('createAccountTree') }}" class="btn btn-primary ml-auto"><i class="fa fa-plus"></i> {{ __('create Account Tree') }}</a>
+                       @endif
                     </div>
                     <div class="card-body">
                         @if (session('status'))

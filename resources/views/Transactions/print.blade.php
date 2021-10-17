@@ -35,18 +35,18 @@
                             <tbody>
                             @foreach($trans  as $tran )
                                 <tr class="active" style="border-left: 2px solid black;border-top: 2px solid black;border-right: 2px solid black">
-                                    <td >{{ number_format($tran->amntdb, 2, '.', ',') }}</td>
-                                    <td>{{ number_format($tran->amntcr, 2, '.', ',') }}</td>
-                                    <td>{{$tran->accountid}}</td>
-                                    <td></td>
-                                    <td>{{$tran->sourceid}}</td>
-                                    <td>{{$tran->dydate}}</td>
+                                    <td >{{ number_format($tran->trans_db, 2, '.', ',') }}</td>
+                                    <td>{{ number_format($tran->trans_cr, 2, '.', ',') }}</td>
+                                    <td>{{$tran->trans_accno}}</td>
+                                    <td>{{$tran->acc_name}}</td>
+                                    <td>{{$tran->trans_sid}}</td>
+                                    <td>{{$tran->trans_date}}</td>
                                 </tr>
                                 <tr class="active" style="border-left: 2px solid black;border-right: 2px solid black; border-bottom: 2px solid black">
-                                    <td >{{ number_format($tran->amntdbc, 2, '.', ',') }}</td>
-                                    <td> {{ number_format($tran->amntcrc, 2, '.', ',') }}</td>
-                                    <td>{{$tran->currcode}}</td>
-                                    <td colspan="3" style="text-align: center;padding-right: 30px"> {{$tran->docno}} , {{$tran->docdate}} , @if (app()->getLocale() == 'ar'){{$tran->description_ar}} @else  {{$tran->description_en}} @endif </td>
+                                    <td >{{ number_format($tran->trans_dbc, 2, '.', ',') }}</td>
+                                    <td> {{ number_format($tran->trans_crc, 2, '.', ',') }}</td>
+                                    <td>{{$tran->trans_curr}}</td>
+                                    <td colspan="3" style="text-align: center;padding-right: 30px"> {{$tran->trans_docno}} , {{$tran->trans_docdate}} , @if (app()->getLocale() == 'ar'){{$tran->trans_descrip_ar}} @else  {{$tran->trans_descrip_en}} @endif </td>
 
                                 </tr>
 

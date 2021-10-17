@@ -103,3 +103,4 @@ Route::get('Accounts/dataTable/list','AccountController@getAccounts')->name('acc
 Route::get('Employee/dataTable/list','EmployeeController@getEmployees')->name('employees.list');
 
 Route::post('main/search','MainController@index')->name('search');
+Route::get('AccountsTree','AccountController@createAccountTree')->name('createAccountTree');
