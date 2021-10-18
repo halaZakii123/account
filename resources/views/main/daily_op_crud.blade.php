@@ -98,13 +98,13 @@
                                         <div class="form-group">
                                             <label for="cash id" >{{ __('Cash Id') }}</label>
                                             <select name="cash_id" id="cash_id" class="cash_id form-control" required>
-                                                <option>{{$c}}</option>
+                                                <option value="{{$c->account_number}}">{{ $c->account_number.' '.$c->account_name}}</option>
                                                 @foreach($accounts as $account)
-                                                    @if($account->account_number != $c)
+                                                    @if($account->account_number != $c->account_number)
                                                         @if(!empty($main))
-                                                            <option value=" {{$account->account_number}} "{{ $main->cash_id == $account->account_number? 'selected' : '' }} >{{$account->account_number}} </option>
+                                                            <option value=" {{$account->account_number}} "{{ $main->cash_id == $account->account_number? 'selected' : '' }} >{{$account->account_number.' '.$account->account_name}} </option>
                                                         @else
-                                                            <option value="{{$account->account_number}}" {{ old('cash_id')? 'selected' : '' }} >{{$account->account_number}} </option>
+                                                            <option value="{{$account->account_number}}" {{ old('cash_id')? 'selected' : '' }} >{{$account->account_number.' '.$account->account_name}} </option>
                                                         @endif
                                                     @endif
                                                 @endforeach
@@ -153,6 +153,7 @@
                                                         {{__('Cash')}}
                                                     @endif</option>
                                             @else
+
                                                 <option value="1"@if($cash != 1) disabled @endif>{{__('Cash in')}}</option>
                                                 <option value="2"@if($cash != 2) disabled @endif>{{__('Cash out')}}</option>
                                                 <option value="3"@if($cash != 3) disabled @endif>{{__('Cash')}}</option>
@@ -249,7 +250,7 @@
                                             <td>#</td>
                                             <td>
 
-                                                <input type="text" name="amount[0]" id='amount_0' class="amount_filed " value="{{old('amount[0]')}}" required onchange="gettotald()" >
+                                                <input type="number" name="amount[0]" id='amount_0' class="amount_filed " value="{{old('amount[0]')}}" required onchange="gettotald()" >
                                                 @error('amount')<span class="help-block text-danger">{{ $message }}</span>@enderror
                                             </td>
                                             <td>

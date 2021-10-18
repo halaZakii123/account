@@ -63,12 +63,18 @@ class MainController extends Controller
         $accounts = TblAccount::where('parent_id',$user_id)
             ->where('mainly',0)->get();
      //   $sets = DB::select("CALL pr_set(" ."cash_id".")");
-        $sets = Set::where( 'parent_id',$user_id)->get();
-        foreach ($sets as $set ){
-            if ($set->key == "cash_id"){
-                $c = $set->value;
-            }
-        }
+
+
+        // $sets = Set::where( 'parent_id',$user_id)->get();
+        // foreach ($sets as $set ){
+        //     if ($set->key == "cash_id"){
+        //         $c = $set->value;
+        //     }
+        // }
+
+        $c= Set::where( 'parent_id',$user_id)->where('key','cash_id')->first()->account;
+
+
   return view('Main.crud', compact('cus', 'ops', 'accounts','c'));
 
     }
@@ -82,12 +88,19 @@ class MainController extends Controller
             ->pluck('account_number');
         $accounts = TblAccount::where('parent_id',$user_id)
             ->where('mainly',0)->get();
-        $sets = Set::where( 'parent_id',$user_id)->get();
-        foreach ($sets as $set ){
-            if ($set->key == "cash_id"){
-                $c = $set->value;
-            }
-        }
+
+
+        // $sets = Set::where( 'parent_id',$user_id)->get();
+        // foreach ($sets as $set ){
+        //     if ($set->key == "cash_id"){
+        //         $c = $set->account;
+        //     }
+        // }
+
+        $c= Set::where( 'parent_id',$user_id)->where('key','cash_id')->first()->account;
+
+
+
         if ($cash == 3){
             $v = __('Cash');
         }elseif($cash == 1){
@@ -218,13 +231,14 @@ class MainController extends Controller
         $account_numbers = DB::table('tbl_accounts')->where('parent_id',$user_id)
             ->where('mainly',0)
             ->pluck('account_number');
-        $sets = Set::where( 'parent_id',$user_id)->get();
+        // $sets = Set::where( 'parent_id',$user_id)->get();
 
-        foreach ($sets as $set ){
-            if ($set->key == "cash_id"){
-                $c = $set->value;
-            }
-        }
+        // foreach ($sets as $set ){
+        //     if ($set->key == "cash_id"){
+        //         $c = $set->value;
+        //     }
+        // }
+        $c= Set::where( 'parent_id',$user_id)->where('key','cash_id')->first()->account;
         if ($main->parent_id == $user_id)
         {
             if($main->type_of_operation == 0 )
@@ -403,6 +417,7 @@ class MainController extends Controller
             return view('Main.print',compact('main','totalCredit','totalDebit','total'));}
         else {return ' you do not have permission';}
     }
+
     public function printMDaily($id){
         $main = Main::where('id',$id)->first();
         $user_id = checkPermissionHelper::checkPermission();
@@ -425,6 +440,8 @@ class MainController extends Controller
             return view('Main.printDaily',compact('main','total','totalDebit','totalCredit'));}
         else {return ' you do not have permission';}
     }
+
+
     public function pdf($id){
         $main = Main::whereId($id)->first();
         if (app()->getLocale() == 'ar'){

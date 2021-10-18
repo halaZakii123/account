@@ -93,6 +93,8 @@ Route::get('/main/print/daily/{id}','MainController@printMDaily')->name('printDa
 
 //daily_operation route
 Route::get('Accounts/daily_op_getAll','daily_operationController@getAll')->name('Accounts.daily_op');
+
+// ?? all thies routes hav the same methode !!
 Route::get('main/daily_op_create','MainController@createDailyOperation')->name('daily_op_create');
 Route::get('main/dailyCashing/{cash}','MainController@createDailyOperation')->name('Mains.dailyCash');
 Route::get('main/dailyCashIn/{in}','MainController@createDailyOperation')->name('Mains.dailyCashIn');
