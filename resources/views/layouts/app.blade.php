@@ -122,7 +122,6 @@
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item" href="{{ asset('/locale/ar') }}"> {{__('Arabic')}}</a>
                             <a class="dropdown-item" href="{{ asset('/locale/en') }}"> {{__('Eng')}}</a>
-
                         </div>
                     </li>
                 </ul>

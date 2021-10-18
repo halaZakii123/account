@@ -145,13 +145,13 @@
                                     <div class="form-group">
                                         <label for="cash id" >{{ __('Cash Id') }}</label>
                                         <select name="cash_id" id="cash_id" class="cash_id form-control" required>
-                                            <option>{{$c}}</option>
+                                            <option value="{{$c->account_number}}">{{$c->account_number.' '.$c->account_name}}</option>
                                             @foreach($accounts as $account)
                                                 @if($account->account_number != $c)
                                                     @if(!empty($main))
-                                                        <option value=" {{$account->account_number}} "{{ $main->cash_id == $account->account_number? 'selected' : '' }} >{{$account->account_number}} </option>
+                                                        <option value=" {{$account->account_number}} "{{ $main->cash_id == $account->account_number? 'selected' : '' }} >{{$account->account_number.' '.$account->account_name}} </option>
                                                     @else
-                                                        <option value="{{$account->account_number}}" {{ old('cash_id')? 'selected' : '' }} >{{$account->account_number}} </option>
+                                                        <option value="{{$account->account_number}}" {{ old('cash_id')? 'selected' : '' }} >{{$account->account_number.' '.$account->account_name}} </option>
                                                     @endif
                                                 @endif
                                             @endforeach
