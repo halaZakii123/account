@@ -102,5 +102,6 @@ Route::get('main/dailyCashOut/{out}','MainController@createDailyOperation')->nam
 Route::get('Accounts/dataTable/list','AccountController@getAccounts')->name('accounts.list');
 Route::get('Employee/dataTable/list','EmployeeController@getEmployees')->name('employees.list');
 
-Route::post('main/search','MainController@index')->name('search');
-Route::get('AccountsTree','AccountController@createAccountTree')->name('createAccountTree');
+Route::post('/main/search','MainController@index')->name('search');
+Route::get('/AccountsTree','AccountController@createAccountTree')->name('createAccountTree');
+Route::get('/BlDaily','TransactionsController@getBlDaily')->name('BLdaily');

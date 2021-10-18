@@ -75,7 +75,12 @@
     "Result by source id": "النتيجة حسب رقم القيد",
     "Result by date": "النتيجة حسب التاريخ",
     "From:": "من",
-    "To:": "الى"
+    "To:":"الى",
+    "Sum Trans debit": "مجموع مناقلات دائن",
+    "Sum Trans credit": "مجموع مناقلات مدين",
+    "Sum Trans debit M": "مجموع مناقلات مواز دائن",
+    "Sum Trans credit M":"مجموع مناقلات مواز مدين",
+    "Final Report": "تقرير النهائي"
 
 
 

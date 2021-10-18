@@ -72,6 +72,7 @@
             <button class="btn"><a href="{{route('Sets.index')}}"> {{__('Sets')}}</a></button>
             <button class="btn"><a href="{{route('Mains.index')}}"> {{__('Mains')}}</a></button>
             <button class="btn"><a href="{{route('Transactions.index')}}"> {{__('Transactions')}}</a></button>
+            <button class="btn"><a href="{{route('BLdaily')}}"> {{__('BLdaily')}}</a></button>
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                 <span class="navbar-toggler-icon"></span>

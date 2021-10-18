@@ -116,11 +116,15 @@ class TransactionsController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create()
+    public function getBlDaily()
     {
-        //
+        $user_id = checkPermissionHelper::checkPermission();
+        $BlDailys = DB::select("CALL pr_BLdaily(" .$user_id.")");
+
+        return view('Transactions.Bldaily',compact('BlDailys'));
+
     }
 
     /**
