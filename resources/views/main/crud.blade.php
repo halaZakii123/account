@@ -140,49 +140,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-4">
-                                    <div class="form-group">
-                                        <label for="cash id" >{{ __('Cash Id') }}</label>
-                                        <select name="cash_id" id="cash_id" class="cash_id form-control" required>
-                                            <option value="{{$c->account_number}}">{{$c->account_number.' '.$c->account_name}}</option>
-                                            @foreach($accounts as $account)
-                                                @if($account->account_number != $c)
-                                                    @if(!empty($main))
-                                                        <option value=" {{$account->account_number}} "{{ $main->cash_id == $account->account_number? 'selected' : '' }} >{{$account->account_number.' '.$account->account_name}} </option>
-                                                    @else
-                                                        <option value="{{$account->account_number}}" {{ old('cash_id')? 'selected' : '' }} >{{$account->account_number.' '.$account->account_name}} </option>
-                                                    @endif
-                                                @endif
-                                            @endforeach
-                                        </select>
-                                        @error('cash_id')<span class="help-block text-danger">{{ $message }}</span>@enderror
-                                    </div>
-                                </div>
 
-                                <div class="col-4">
-                                    <div class="form-group">
-                                        <label for="document_number" >{{ __('Document Number') }}</label>
-                                        @if(!empty($main))
-                                            <input id="document_number" type="text" name="document_number" class="form-control "  required value=" {{ $main->document_number}}  "  >
-                                        @else
-                                            <input id="document_number" type="text" name="document_number" class="form-control "  required value="{{ old('document_number') }}"  >
-
-                                        @endif
-                                            @error('document_number')<span class="help-block text-danger">{{ $message }}</span>@enderror
-                                    </div>
-                                </div>
-                                <div class="col-4">
-                                    <div class="form-group">
-                                        <label for="doc_date" >{{ __('Document Date') }}</label>
-                                        @if(!empty($main))
-                                            <input id="doc_date" type="date" class="form-control " name="doc_date"  value= "{{$main->doc_date}}" required >
-                                        @else
-                                            <input id="doc_date" type="date" class="form-control " name="doc_date"  value= "@if (!empty($main)) {{ $main->doc_no}} @else {{ old('doc_no')? 'selected' : '' }} @endif" required >
-                                        @endif
-                                    </div>
-                                </div>
-                            </div>
                             <div class="row">
                                 <div class="col-4">
                                     <div class="form-group">
@@ -227,8 +185,47 @@
                                 </div>
                             </div>
                             <div class="row">
+                                {{--                                <div class="col-4">--}}
+                                {{--                                    <div class="form-group">--}}
+                                {{--                                        <label for="cash id" >{{ __('Cash Id') }}</label>--}}
+                                {{--                                        <select name="cash_id" id="cash_id" class="cash_id form-control" required>--}}
+                                {{--                                            <option value="{{$c->account_number}}">{{$c->account_number.' '.$c->account_name}}</option>--}}
+                                {{--                                            @foreach($accounts as $account)--}}
+                                {{--                                                @if($account->account_number != $c)--}}
+                                {{--                                                    @if(!empty($main))--}}
+                                {{--                                                        <option value=" {{$account->account_number}} "{{ $main->cash_id == $account->account_number? 'selected' : '' }} >{{$account->account_number.' '.$account->account_name}} </option>--}}
+                                {{--                                                    @else--}}
+                                {{--                                                        <option value="{{$account->account_number}}" {{ old('cash_id')? 'selected' : '' }} >{{$account->account_number.' '.$account->account_name}} </option>--}}
+                                {{--                                                    @endif--}}
+                                {{--                                                @endif--}}
+                                {{--                                            @endforeach--}}
+                                {{--                                        </select>--}}
+                                {{--                                        @error('cash_id')<span class="help-block text-danger">{{ $message }}</span>@enderror--}}
+                                {{--                                    </div>--}}
+                                {{--                                </div>--}}
 
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label for="document_number" >{{ __('Document Number') }}</label>
+                                        @if(!empty($main))
+                                            <input id="document_number" type="text" name="document_number" class="form-control "  required value=" {{ $main->document_number}}  "  >
+                                        @else
+                                            <input id="document_number" type="text" name="document_number" class="form-control "  required value="{{ old('document_number') }}"  >
 
+                                        @endif
+                                        @error('document_number')<span class="help-block text-danger">{{ $message }}</span>@enderror
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label for="doc_date" >{{ __('Document Date') }}</label>
+                                        @if(!empty($main))
+                                            <input id="doc_date" type="date" class="form-control " name="doc_date"  value= "{{$main->doc_date}}" required >
+                                        @else
+                                            <input id="doc_date" type="date" class="form-control " name="doc_date"  value= "@if (!empty($main)) {{ $main->doc_no}} @else {{ old('doc_no')? 'selected' : '' }} @endif" required >
+                                        @endif
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="table-responsive">
