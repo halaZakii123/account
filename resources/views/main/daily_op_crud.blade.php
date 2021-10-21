@@ -11,13 +11,14 @@
 
         var arr = document.querySelectorAll('.amount_filed');
         var total =0;
-        for (var i=0; i<arr.length;i++){
-            if (parseInt(arr[i].value)){
-                total+=parseInt(arr[i].value);
+         for (var i=0; i<arr.length;i++){
+            if (parseInt(localStringToNumber(arr[i].value))){
+                total+=parseInt(localStringToNumber(arr[i].value));
             }
         }
 
         document.getElementById("total").value = total;
+        onBlur({ target: document.getElementById("total")});
     });
 
 
@@ -55,7 +56,7 @@
                             </div>
                         @endif
 
-                            <form method="POST"  name ="aa" on onsubmit="return v" action="{!! !empty($main) ? route('Mains.update',$main->id)  : route('Mains.store') !!}">
+                            <form method="POST"  name ="aa" onsubmit="return validateForm()" action="{!! !empty($main) ? route('Mains.update',$main->id)  : route('Mains.store') !!}">
                             @csrf
                             @if (!empty($main))
                                 @method('PUT')
@@ -102,7 +103,9 @@
                                                 @foreach($accounts as $account)
                                                     @if($account->account_number != $c->account_number)
                                                         @if(!empty($main))
-                                                            <option value=" {{$account->account_number}} "{{ $main->cash_id == $account->account_number? 'selected' : '' }} >{{$account->account_number.' '.$account->account_name}} </option>
+                                                            <option value="{{$account->account_number}}"
+                                                                {{ $main->cash_id == $account->account_number? 'selected' : '' }} >
+                                                                {{$account->account_number.' '.$account->account_name}} </option>
                                                         @else
                                                             <option value="{{$account->account_number}}" {{ old('cash_id')? 'selected' : '' }} >{{$account->account_number.' '.$account->account_name}} </option>
                                                         @endif
@@ -220,7 +223,7 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    <input type="text" name="amount[{{ $loop->index }}]" id="amount_{{$loop->index}}" class="amount_filed" value="@if($main->type_of_operation == 1) {{$sub->credit}} @else {{ $sub->debit }} @endif"   onchange="gettotald(),cur()">
+                                                    <input type="currency"  name="amount[{{ $loop->index }}]" id="amount_{{$loop->index}}" class="amount_filed" value="@if($main->type_of_operation == 1) {{$sub->credit}} @else {{ $sub->debit }} @endif"   onchange="gettotald(),cur()">
                                                     @error('debit')<span class="help-block text-danger">{{ $message }}</span>@enderror
                                                 </td>
                                                 <td>
@@ -250,7 +253,7 @@
                                             <td>#</td>
                                             <td>
 
-                                                <input type="number" name="amount[0]" id='amount_0' class="amount_filed " value="{{old('amount[0]')}}" required onchange="gettotald()" >
+                                                <input  type="currency"  name="amount[0]" id='amount_0' class="amount_filed " value="{{old('amount[0]')}}" required onchange="gettotald()" >
                                                 @error('amount')<span class="help-block text-danger">{{ $message }}</span>@enderror
                                             </td>
                                             <td>
@@ -301,7 +304,7 @@
                                     <tbody>
                                     <tr class="total">
 
-                                        <td><input type="number"  name="total" id="total" value="0" class="total" readonly="readonly"  >                                             <span id="error"></span>
+                                        <td><input type="currency"  name="total" id="total" value="0" class="total" readonly="readonly"  >                                             <span id="error"></span>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -382,8 +385,8 @@
             //  total = arr1 + old;
 
             for (var i=0; i<arr.length;i++){
-                if (parseFloat(arr[i].value)){
-                    total+=parseFloat(arr[i].value);
+                if (parseFloat(localStringToNumber(arr[i].value))){
+                    total+=parseFloat(localStringToNumber(arr[i].value));
                 }
             }
             // var formatter = new Intl.NumberFormat('de-DE', {
@@ -391,6 +394,7 @@
             //     currency: 'EUR'
             // });
             document.getElementById('total').value = total;
+            onBlur({ target: document.getElementById("total")});
         }
 
     </script>
@@ -446,6 +450,16 @@
     <script src="{{ asset('js/custom.js') }}"></script>
     <script src="{{asset('js/easy-number-separator.js')}}"></script>
 
+    <script src="{{asset('js/currency.js')}}"></script>
+    <script>
+        function validateForm(){
+
+            var currencis = [...document.querySelectorAll('input[type="currency"]')];
+            currencis.forEach(function (item) {
+                    item.value = localStringToNumber(item.value);
+            });
+        }
+    </script>
 
 @endsection
 

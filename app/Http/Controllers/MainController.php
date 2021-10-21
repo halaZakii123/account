@@ -145,7 +145,7 @@ class MainController extends Controller
         $data['operation_date'] = $request->operation_date;
         $data['explained'] = $request->Explained;
         $data['explained_ar'] = $request->Explained_ar;
-//        $data['cash_id'] = $request->cash_id;
+       $data['cash_id'] = $request->cash_id;
         $data['document_number'] = $request->document_number;
         $data['type_of_operation'] = $request->type_of_operation;
         $data['currency_symbol'] = $request->currency_symbol;
