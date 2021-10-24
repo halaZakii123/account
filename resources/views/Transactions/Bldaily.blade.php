@@ -5,7 +5,16 @@
     <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
 @endsection
 @section('content')
-
+    <div class="dropdown dropleft float-right">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+            {{__('More')}}
+        </button>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="{{route('printBL')}}" class="btn btn-primary ml-auto">{{__('print')}}</a>
+            <a class="dropdown-item" href="{{route('pdfBL')}}" class="btn btn-primary ml-auto">{{__('pdf')}}</a>
+{{--            <a class="dropdown-item" href="{{route('pdfBL')}}" class="btn btn-primary ml-auto">{{__('pdf')}}</a>--}}
+        </div>
+    </div>
         <div class="row ">
 
                 <div class="card">
@@ -18,7 +27,7 @@
                         <div>
                             <table class="table table-bordered display responsive nowrap  optionDataTable">
                                 <thead>
-                                <tr>
+                                <tr style="font-size: small">
                                     <th>{{__('Sum Trans debit')}}</th>
                                     <th>{{__('Sum Trans credit')}}</th>
                                     <th>{{__('Sum Trans debit M')}}</th>
@@ -33,15 +42,15 @@
                                 <tbody>
                                 @foreach($BlDailys as $BlDaily)
                                     <tr class="active">
-                                        <td>
-                                            {{$BlDaily->trans_db}}</td>
-                                        <td>{{$BlDaily->trans_cr}}</td>
-                                        <td>{{$BlDaily->trans_dbc}}</td>
-                                        <td>{{$BlDaily->trans_crc}}</td>
-                                        <td>{{$BlDaily->trans_curr}}</td>
+                                        <td> {{ number_format($BlDaily->trans_db, 2, '.', ',') }} </td>
+                                        <td>{{  number_format($BlDaily->trans_cr, 2, '.', ',') }}</td>
+                                        <td> {{ number_format($BlDaily->trans_dbc, 2, '.', ',') }}</td>
+                                        <td> {{ number_format($BlDaily->trans_crc, 2, '.', ',') }}</td>
+                                        <td>{{ $BlDaily->trans_curr}}</td>
                                         <td>{{$BlDaily->acc_id}}</td>
                                         <td>{{$BlDaily->acc_name}}</td>
-                                        <td>{{$BlDaily->acc_finalReport}}</td>
+                                        <td> {{$BlDaily->acc_finalReport}}</td>
+
 
                                     </tr>
                                 @endforeach

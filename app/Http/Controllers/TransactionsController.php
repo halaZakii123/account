@@ -400,4 +400,35 @@ class TransactionsController extends Controller
 
 
     }
+    public function pdfBLdaily(){
+        $user_id = checkPermissionHelper::checkPermission();
+        $BlDailys = DB::select("CALL pr_BLdaily(" .$user_id.")");
+        $items =[];
+        foreach ($BlDailys as $item) {
+
+            $items[] = [
+                'trans_db'          => $item->trans_db,
+                'trans_cr'         => $item->trans_cr,
+                'trans_dbc'         => $item->trans_dbc,
+                'trans_crc' => $item->trans_crc,
+                'trans_curr'      => $item->trans_curr,
+                'acc_id'      => $item->acc_id,
+                'acc_name'      => $item->acc_name,
+                'acc_finalReport'      => $item->acc_finalReport,
+
+
+            ];
+    }
+       $data['items'] =$items ;
+
+        $pdf = PDF::loadView('Transactions.pdfBldaily', $data);
+        return $pdf->download('BLDaily'.'.pdf');
+    }
+
+    public function printBl(){
+        $user_id = checkPermissionHelper::checkPermission();
+        $BlDailys = DB::select("CALL pr_BLdaily(" .$user_id.")");
+
+        return view('Transactions.printBLdaily',compact('BlDailys'));
+    }
 }

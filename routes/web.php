@@ -107,3 +107,7 @@ Route::get('Employee/dataTable/list','EmployeeController@getEmployees')->name('e
 Route::post('/main/search','MainController@index')->name('search');
 Route::get('/AccountsTree','AccountController@createAccountTree')->name('createAccountTree');
 Route::get('/BlDaily','TransactionsController@getBlDaily')->name('BLdaily');
+
+
+Route::get('/pdfBL','TransactionsController@pdfBLdaily')->name('pdfBL');
+Route::get('/printBL','TransactionsController@printBl')->name('printBL');

@@ -306,7 +306,7 @@ class MainController extends Controller
         else{
             for ($i = 0; $i < count($request->debit); $i++) {
                 $details_list[$i]['debit'] = $request->debit[$i];
-                $details_list[$i]['credit'] = $request->amount[$i];
+                $details_list[$i]['credit'] = $request->credit[$i];
                 $details_list[$i]['account_number'] = $request->account_number[$i];
                 $details_list[$i]['account_name'] = "b";
 
