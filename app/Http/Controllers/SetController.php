@@ -22,8 +22,9 @@ class SetController extends Controller
     public function index(){
         $user_id = checkPermissionHelper::checkPermission();
         $sets = Set::where('parent_id',$user_id)->get();
+        $x = count($sets);
         $accounts = TblAccount::where('parent_id',$user_id)->where('mainly',0)->get();
-        return view('Set.index',compact('sets','accounts'));
+        return view('Set.index',compact('sets','accounts','x'));
     }
     public function create(){
         $user_id = checkPermissionHelper::checkPermission();

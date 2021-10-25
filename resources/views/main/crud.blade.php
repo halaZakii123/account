@@ -12,8 +12,8 @@
         var arr = document.querySelectorAll('.dd');
         var total =0;
         for (var i=0; i<arr.length;i++){
-            if (parseInt(arr[i].value)){
-                total+=parseInt(arr[i].value);
+            if (parseInt(localStringToNumber(arr[i].value))){
+                total+=parseInt(localStringToNumber((arr[i].value)));
             }
         }
             document.getElementById('total').value = total;
@@ -24,23 +24,23 @@
         var arr = document.querySelectorAll('.debit_filed');
         var total =0;
         for (var i=0; i<arr.length;i++){
-            if (parseInt(arr[i].value)){
-                total+=parseInt(arr[i].value);
+            if (parseInt(localStringToNumber(arr[i].value))){
+                total+=parseInt(localStringToNumber(arr[i].value));
             }
         }
         document.getElementById('totalDebit').value = total;
         var arr = document.querySelectorAll('.credit_filed');
         var total =0;
         for (var i=0; i<arr.length;i++){
-            if (parseInt(arr[i].value)){
-                total+=parseInt(arr[i].value);
+            if (parseInt(localStringToNumber(arr[i].value))){
+                total+=parseInt(localStringToNumber(arr[i].value));
             }
         }
         document.getElementById('totalCredit').value = total;
 
         var x = document.getElementById("totalDebit").value;
         var y = document.getElementById("totalCredit").value;
-        var z = parseInt(x-y);
+        var z = parseInt(localStringToNumber(x)-localStringToNumber(y));
         document.getElementById("total").value = z;
     });
 
@@ -96,7 +96,7 @@
                             </div>
                         @endif
 
-                        <form method="POST"  name ="aa" on onsubmit="return v" action="{!! !empty($main) ? route('Mains.update',$main->id)  : route('Mains.store') !!}">
+                        <form method="POST"  name ="aa" onsubmit="return validateForm()" action="{!! !empty($main) ? route('Mains.update',$main->id)  : route('Mains.store') !!}">
                             @csrf
                             @if (!empty($main))
                                 @method('PUT')
@@ -249,15 +249,15 @@
                                                     @if($loop->index == 0)
                                                         {{ '#' }}
                                                     @else
-                                                        <button type="button" class="btn btn-danger btn-sm delegated-btn"><i class="fa fa-minus"></i></button>
+                                                        <button type="button" class="btn btn-danger btn-sm delegated-btn" ><i class="fa fa-minus"></i></button>
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    <input type="text" name="debit[{{ $loop->index }}]" id="debit_{{$loop->index}}" class="debit_filed" value="{{$sub->debit}} "   onchange="gettotald(),changeDebit({{$loop->index}}),gettotalc(),Total(),check()" >
+                                                    <input type="currency"  name="debit[{{ $loop->index }}]" id="debit_{{$loop->index}}" class="debit_filed" value="{{$sub->debit}}"   onchange="gettotald(),changeDebit({{$loop->index}}),gettotalc(),Total(),check()" >
                                                     @error('debit')<span class="help-block text-danger">{{ $message }}</span>@enderror
                                                 </td>
                                                 <td>
-                                                    <input id="credit_{{$loop->index}}" type="text" class="credit_filed"  name="credit[{{ $loop->index }}]" value= " {{ $sub->credit}} "  onchange="gettotalc(),changeCredit({{$loop->index}}),gettotald(),Total(),check()">
+                                                    <input id="credit_{{$loop->index}}" type="currency"  class="credit_filed"  name="credit[{{ $loop->index }}]" value= " {{ $sub->credit}} "  onchange="gettotalc(),changeCredit({{$loop->index}}),gettotald(),Total(),check()">
                                                     @error('credit')<span class="help-block text-danger">{{ $message }}</span>@enderror
 
                                                 </td>
@@ -265,7 +265,7 @@
                                                 <td>
                                                     <select name="account_number[{{ $loop->index }}]" id="account_number" class="account_number form-control">
                                                         @foreach($accounts as $account)
-                                                            <option value=" {{$account->account_number}} "{{ $sub->account_name == $account->account_number ? 'selected' : '' }}  >{{$account->account_number}} {{$account->account_name}} </option>
+                                                            <option value="{{$account->account_number}}" {{ $sub->account_number == $account->account_number ? 'selected' : '' }} >{{$account->account_number}} {{$account->account_name}} </option>
                                                         @endforeach
                                                     </select>
                                                 </td>
@@ -290,19 +290,19 @@
                                         <tr class="cloning_row" id="0">
                                             <td>#</td>
                                             <td>
-                                                <input type="text" name="debit[0]" id='debit' class="debit_filed " value="{{old('debit')}}" required onchange="gettotald() ,change_Debit(),gettotalc(),Total(),check()" >
+                                                <input type="currency"  name="debit[0]" id='debit' class="debit_filed " value="{{old('debit')}}" required onchange="gettotald() ,change_Debit(),gettotalc(),Total(),check()" >
                                                 @error('debit')<span class="help-block text-danger">{{ $message }}</span>@enderror
                                             </td>
                                             <td>
-                                                <input id="credit" type="text" class="credit_filed "  name="credit[0]"  value="{{old('credit')}}" required onchange="gettotalc(),change_Credit(),gettotald(),Total(),check()" >
+                                                <input id="credit" type="currency"  class="credit_filed "  name="credit[0]"  value="{{old('credit')}}" required onchange="gettotalc(),change_Credit(),gettotald(),Total(),check()" >
                                                 @error('credit')<span class="help-block text-danger">{{ $message }}</span>@enderror
 
                                             </td>
                                             <td>
                                                 <select name="account_number[0]" id="account_number" class=" form-control" >
-                                                    <option></option>
+
                                                     @foreach($accounts as $account)
-                                                        <option value="{{$account->account_number}}"{{old('account_number')}} >{{$account->account_number}} {{$account->account_name}} </option>
+                                                        <option value="{{$account->account_number}}">{{$account->account_number}} {{$account->account_name}} </option>
                                                     @endforeach
                                                 </select>
                                                 @error('option')<span class="help-block text-danger">{{ $message }}</span>@enderror
@@ -347,9 +347,9 @@
                                     </thead>
                                     <tbody>
                                         <tr class="total">
-                                             <td><input type="text" id="totalDebit" class="totalD" value="0" readonly="readonly"  onchange=" check(), Total()" ></td>
-                                             <td><input type="text" id="totalCredit"  class="totalC" value="0" readonly="readonly" onchange="check(),Total()"></td>
-                                             <td><input type="text"  name="total" id="total" value="0" class="total" readonly="readonly"  >                                             <span id="error"></span>
+                                             <td><input type="currency"  id="totalDebit" class="totalD" value="0" readonly="readonly"  onchange=" check(), Total()" ></td>
+                                             <td><input type="currency"  id="totalCredit"  class="totalC" value="0" readonly="readonly" onchange="check(),Total()"></td>
+                                             <td><input type="currency"   name="total" id="total"  class="total" readonly="readonly"  >                                             <span id="error"></span>
                                              </td>
                                         </tr>
                                     </tbody>
@@ -507,35 +507,39 @@
             var arr = document.querySelectorAll('.debit_filed');
             var total =0;
             for (var i=0; i<arr.length;i++){
-                if (parseFloat(arr[i].value)){
-                    total+=parseFloat(arr[i].value);
+                if (parseFloat(localStringToNumber(arr[i].value))){
+                    total+=parseFloat(localStringToNumber(arr[i].value));
                 }
             }
 
             document.getElementById('totalDebit').value =  total;
+            onBlur({ target: document.getElementById("totalDebit")});
+
         }
         function gettotalc() {
             var arr = document.querySelectorAll('.credit_filed');
             var total =0;
             for (var i=0; i<arr.length;i++){
-                if (parseFloat(arr[i].value)){
-                    total+=parseFloat(arr[i].value);
+                if (parseFloat(localStringToNumber(arr[i].value))){
+                    total+=parseFloat(localStringToNumber(arr[i].value));
                 }
             }
-            var num = new Intl.NumberFormat("en-US",{
-                maximumSignificantDigits: 3
-            })
+
             document.getElementById('totalCredit').value = total;
+            onBlur({ target: document.getElementById("totalCredit")});
+
         }
 
          function check() {
                  var x = document.getElementById("total").value;
-                      if (x != 0) {
-                 error.innerHTML = "<span style='color: red;'>"+
+                if (x != 0) {
+                    error.innerHTML = "<span style='color: red;'>"+
                      "The Total must be zero</span>"
-                 $('.enableOnInput').prop('disabled', true);
+                   $('.enableOnInput').prop('disabled', true);
 
              } else {
+                     error.innerHTML = "<span style='color: green;'>"+
+                    "good</span>"
                           $('.enableOnInput').prop('disabled', false);
              }
          }
@@ -544,7 +548,7 @@
         function Total() {
             var x = document.getElementById("totalDebit").value;
             var y = document.getElementById("totalCredit").value;
-            var z = parseInt(x-y);
+            var z = parseInt(localStringToNumber(x)-localStringToNumber(y));
 
             document.getElementById("total").value = z;
         }
@@ -553,6 +557,10 @@
      $(document).on('click', '.delegated-btn', function (e) {
          e.preventDefault();
         $(this).parent().parent().remove();
+         gettotalc();
+         gettotald();
+         Total();
+         check();
 
      });
 
@@ -574,6 +582,16 @@
     <script src="{{ asset('js/custom.js') }}"></script>
     <script src="{{asset('js/easy-number-separator.js')}}"></script>
 
+      <script src="{{asset('js/currency.js')}}"></script>
+      <script>
+          function validateForm(){
+
+              var currencis = [...document.querySelectorAll('input[type="currency"]')];
+              currencis.forEach(function (item) {
+                  item.value = localStringToNumber(item.value);
+              });
+          }
+      </script>
 
 @endsection
 

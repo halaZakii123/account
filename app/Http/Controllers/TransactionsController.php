@@ -49,7 +49,6 @@ class TransactionsController extends Controller
         $allTrans  = DB::table('transactions')->select('accountid')->distinct()->get();
         $allTransSource  = DB::table('transactions')->select('sourceid')->distinct()->get();
         if ($request->trans != null) {
-
             if ($request->trans == 'account_number') {
                 $account_number = $request->account_number_value;
                 $from = $request->A_date_from;
@@ -76,6 +75,7 @@ class TransactionsController extends Controller
                 $source_id = $request->source_id_value;
 
                 $trans =DB::select("CALL pr_trans_Byid(" .$user_id.",".$source_id.")");
+
                 foreach ($trans as $tran){
                     $totaldb+=$tran->trans_db;
                     $totaldbc+=$tran->trans_dbc;

@@ -81,8 +81,14 @@
                                     <select name="report" id="report" style="width: 200px" >
                                         <option value="" disabled>{{__('disabled Select Type of report')}}</option>
                                         @if(!empty($account))
-                                            <option value="1" {{$account->reoprt == 1? 'selected':''}}> {{__('budget')}}</option>
-                                            <option value="2" {{$account->reoprt == 2? 'selected':''}}> {{__('list')}}</option>
+                                            @if($account->report == 1)
+                                                <option value=" {{$account->report}} "{{ $account->report == 'report'? 'selected' : '' }} >{{__('budget')}} </option>
+                                                <option value=" 2 ">{{__('list')}} </option>
+                                            @else
+                                                <option value=" {{$account->report}} "{{ $account->report == 'report'? 'selected' : '' }} >{{__('list')}} </option>
+                                                <option value="1">{{__('budget')}} </option>
+                                            @endif
+
                                         @else
                                             <option value="1" {{old('report')?'selected' :''}} > {{__('budget')}}</option>
                                             <option value="2" {{old('report')?'selected' :''}}> {{__('list')}}</option>

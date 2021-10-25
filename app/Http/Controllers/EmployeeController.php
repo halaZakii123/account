@@ -75,6 +75,7 @@ class EmployeeController extends Controller
 //            return $validator->errors()->first();
         }
         else {
+
             User::create(['name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),

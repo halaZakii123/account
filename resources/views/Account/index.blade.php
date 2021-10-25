@@ -12,8 +12,8 @@
             {{__('More')}}
         </button>
         <div class="dropdown-menu">
-                <a class="dropdown-item" href="{{route('print')}}" class="btn btn-primary ml-auto"> pdf</a>
-                <a  class="dropdown-item"href="{{route('pdf')}}" class="btn btn-primary ml-auto">print</a>
+                <a class="dropdown-item" href="{{route('print')}}" class="btn btn-primary ml-auto"> print</a>
+                <a  class="dropdown-item"href="{{route('pdf')}}" class="btn btn-primary ml-auto">pdf</a>
         </div>
     </div>
     <div class="container">
@@ -63,7 +63,11 @@
                                          {{__('list')}}
                                          @endif
                                     </td>
-                                    <td>{{$account->mainly}}</td>
+                                    <td>@if($account->mainly == 1)
+                                            <i class="fas fa-check"></i>
+                                        @elseif($account->mainly == null)
+                                            <i class="fa fa-times"></i>
+                                        @endif</td>
                                     <td>  <a href="{{route('Accounts.edit',$account->id) }}"><i class="fa fa-edit"></i></a>
                                         <a href="javascript:void(0)" onclick=" { document.getElementById('delete-{{ $account->id }}').submit(); } " class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
                                         <form action="{{ route('Accounts.destroy', $account->id) }}" method="post" id="delete-{{ $account->id }}" style="display: none;">

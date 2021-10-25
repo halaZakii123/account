@@ -227,9 +227,9 @@
                                                     @error('debit')<span class="help-block text-danger">{{ $message }}</span>@enderror
                                                 </td>
                                                 <td>
-                                                    <select name="account_number[{{ $loop->index }}]" id="account_number" class="account_number form-control">
-                                                        <option></option>
-                                                        @foreach($accounts as $account)
+                                                    <select name="account_number[{{ $loop->index }}]" id="account_number" class="account_number form-control"><option>dd($sub->account_number)}}
+
+                                                    @foreach($accounts as $account)
                                                             <option value=" {{$account->account_number}} "{{ $sub->account_number == $account->account_number ? 'selected' : '' }}  >{{$account->account_number}} {{$account->account_name}} </option>
                                                         @endforeach
                                                     </select>
@@ -379,20 +379,14 @@
         function gettotald() {
 
             var arr = document.querySelectorAll('.amount_filed')
-            // var arr1 = parseFloat(document.getElementById('amount_'+v).value);
-            //  var old = parseFloat(document.getElementById('total').value);
+
              var total=0;
-            //  total = arr1 + old;
 
             for (var i=0; i<arr.length;i++){
                 if (parseFloat(localStringToNumber(arr[i].value))){
                     total+=parseFloat(localStringToNumber(arr[i].value));
                 }
             }
-            // var formatter = new Intl.NumberFormat('de-DE', {
-            //     style: 'currency',
-            //     currency: 'EUR'
-            // });
             document.getElementById('total').value = total;
             onBlur({ target: document.getElementById("total")});
         }
@@ -408,15 +402,15 @@
 
     </script>
     <script>
-        function cur(v) {
-            var vv = document.getElementById('amount_'+v).value;
-            // var formatter = new Intl.NumberFormat('de-DE', {
-            //     style: 'currency',
-            //     currency: 'EUR'
-            // });
-            var c = new Intl.NumberFormat('en-IN', { maximumSignificantDigits: 3 }).format(vv)
-            document.getElementById('amount_'+v).value = c;
-        }
+        // function cur(v) {
+        //     var vv = document.getElementById('amount_'+v).value;
+        //     // var formatter = new Intl.NumberFormat('de-DE', {
+        //     //     style: 'currency',
+        //     //     currency: 'EUR'
+        //     // });
+        //     var c = new Intl.NumberFormat('en-IN', { maximumSignificantDigits: 3 }).format(vv)
+        //     document.getElementById('amount_'+v).value = c;
+        // }
     </script>
     <script>
         function ajaxA() {

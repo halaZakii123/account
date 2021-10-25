@@ -6,6 +6,7 @@ use App\Helpers\checkPermissionHelper;
 use App\Main;
 use App\Set;
 use App\TblAccount;
+use App\transactions;
 use App\View_CurrencySymbol_main;
 use App\View_TypeOperation_main;
 use Illuminate\Http\Request;
@@ -180,7 +181,7 @@ class MainController extends Controller
         }
         else{
             for ($i = 0; $i < count($request->debit); $i++) {
-                $details_list[$i]['debit'] = $request->debit[$i];
+                 $details_list[$i]['debit'] = $request->debit[$i];
                 $details_list[$i]['credit'] = $request->credit[$i];
                 $details_list[$i]['account_number'] = $request->account_number[$i];
                 $details_list[$i]['explained'] = $request->explained[$i];
@@ -284,6 +285,7 @@ class MainController extends Controller
         $details_list = [];
         if ($request->type_of_operation == 1) {
             for ($i = 0; $i < count($request->amount); $i++) {
+                dd($request->amount[$i]);
                 $details_list[$i]['credit'] = $request->amount[$i];
                 $details_list[$i]['debit'] = 0;
                 $details_list[$i]['account_number'] = $request->account_number[$i];
@@ -344,6 +346,7 @@ class MainController extends Controller
     public function destroy($id)
     {
         Main::where('id',$id)->delete();
+       transactions::where('sourceid','=',$id)->delete();
         return redirect(route('Mains.index'));
     }
 

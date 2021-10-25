@@ -23,8 +23,9 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header d-flex">
-
+                     @if($x <= 0)
                         <a href="{{ route('Sets.create') }}" class="btn btn-primary ml-auto"><i class="fa fa-plus"></i> {{ __('create') }}</a>
+                      @endif
                     </div>
 
                     <div class="card-body">

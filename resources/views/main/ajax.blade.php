@@ -1,16 +1,16 @@
 <tr>
     <td><button type="button" class="btn btn-danger btn-sm delegated-btn"><i class="fa fa-minus"></i></button></td>
     <td>
-        <input type="text" name="debit[]" id="debit-{{$x}}" class="debit_filed " value= "{{ old('debit') }} "required onchange="gettotald(),changeDebitt({{$x}}),gettotalc(),Total(),check()" >
+        <input type="currency" name="debit[]" id="debit-{{$x}}" class="debit_filed " value= "{{ old('debit') }} "required onchange="gettotald(),changeDebitt({{$x}}),gettotalc(),Total(),check()" >
         @error('debit')<span class="help-block text-danger">{{ $message }}</span>@enderror
     </td>
     <td>
-        <input type="text" name="credit[]" id="credit-{{$x}}" class="credit_filed " value= "{{ old('credit') }} "required onchange="gettotalc(),changeCreditt({{$x}}),gettotald(),Total(),check()">
+        <input type="currency" name="credit[]" id="credit-{{$x}}" class="credit_filed " value= "{{ old('credit') }} "required onchange="gettotalc(),changeCreditt({{$x}}),gettotald(),Total(),check()">
         @error('credit')<span class="help-block text-danger">{{ $message }}</span>@enderror
 
     </td>
     <td>
-        <select name="account_number" id="account_number" class=" form-control" >
+        <select name="account_number[]" id="account_number" class=" form-control" >
             <option></option>
             @foreach($accounts as $account)
                 <option value="{{$account->account_number}}"{{old('account_number')}} > {{$account->account_number}}{{$account->account_name}} </option>
@@ -50,4 +50,5 @@
     }
 </script>
 
+<script src="{{asset('js/currency.js')}}"></script>
 
