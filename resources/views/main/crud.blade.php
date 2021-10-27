@@ -253,11 +253,11 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    <input type="currency"  name="debit[{{ $loop->index }}]" id="debit_{{$loop->index}}" class="debit_filed" value="{{$sub->debit}}"   onchange="gettotald(),changeDebit({{$loop->index}}),gettotalc(),Total(),check()" >
+                                                    <input type="currency"  name="debit[{{ $loop->index }}]" id="debit_{{$loop->index}}" class="debit_filed" value="{{$sub->debit}}"   onchange="gettotald(),changeDebit({{$loop->index}}),gettotalc(),Total(),check()" style="text-align: right">
                                                     @error('debit')<span class="help-block text-danger">{{ $message }}</span>@enderror
                                                 </td>
                                                 <td>
-                                                    <input id="credit_{{$loop->index}}" type="currency"  class="credit_filed"  name="credit[{{ $loop->index }}]" value= " {{ $sub->credit}} "  onchange="gettotalc(),changeCredit({{$loop->index}}),gettotald(),Total(),check()">
+                                                    <input id="credit_{{$loop->index}}" type="currency"  class="credit_filed"  name="credit[{{ $loop->index }}]" value= " {{ $sub->credit}} "  onchange="gettotalc(),changeCredit({{$loop->index}}),gettotald(),Total(),check()" style="text-align: right">
                                                     @error('credit')<span class="help-block text-danger">{{ $message }}</span>@enderror
 
                                                 </td>
@@ -290,11 +290,11 @@
                                         <tr class="cloning_row" id="0">
                                             <td>#</td>
                                             <td>
-                                                <input type="currency"  name="debit[0]" id='debit' class="debit_filed " value="{{old('debit')}}" required onchange="gettotald() ,change_Debit(),gettotalc(),Total(),check()" >
+                                                <input type="currency"  name="debit[0]" id='debit' class="debit_filed " value="{{old('debit')}}" required onchange="gettotald() ,change_Debit(),gettotalc(),Total(),check()"  style="text-align: right">
                                                 @error('debit')<span class="help-block text-danger">{{ $message }}</span>@enderror
                                             </td>
                                             <td>
-                                                <input id="credit" type="currency"  class="credit_filed "  name="credit[0]"  value="{{old('credit')}}" required onchange="gettotalc(),change_Credit(),gettotald(),Total(),check()" >
+                                                <input id="credit" type="currency"  class="credit_filed "  name="credit[0]"  value="{{old('credit')}}" required onchange="gettotalc(),change_Credit(),gettotald(),Total(),check()"  style="text-align: right">
                                                 @error('credit')<span class="help-block text-danger">{{ $message }}</span>@enderror
 
                                             </td>
@@ -347,9 +347,9 @@
                                     </thead>
                                     <tbody>
                                         <tr class="total">
-                                             <td><input type="currency"  id="totalDebit" class="totalD" value="0" readonly="readonly"  onchange=" check(), Total()" ></td>
-                                             <td><input type="currency"  id="totalCredit"  class="totalC" value="0" readonly="readonly" onchange="check(),Total()"></td>
-                                             <td><input type="currency"   name="total" id="total"  class="total" readonly="readonly"  >                                             <span id="error"></span>
+                                             <td><input type="currency"  id="totalDebit" class="totalD" value="0" readonly="readonly"  onchange=" check(), Total()"style="text-align: right" ></td>
+                                             <td><input type="currency"  id="totalCredit"  class="totalC" value="0" readonly="readonly" onchange="check(),Total()"style="text-align: right"></td>
+                                             <td><input type="currency"   name="total" id="total"  class="total" readonly="readonly" style="text-align: right" >                                             <span id="error"></span>
                                              </td>
                                         </tr>
                                     </tbody>

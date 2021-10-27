@@ -111,35 +111,37 @@
                         @if($trans != null)
                         @foreach($trans  as $tran )
                             <tr class="active" style="border-left: 2px solid black;border-top: 2px solid black;border-right: 2px solid black">
-                                <td >{{ number_format($tran->trans_db, 2, '.', ',') }}</td>
-                                <td>{{ number_format($tran->trans_cr, 2, '.', ',') }}</td>
+                                <td  style="text-align: right">{{ number_format($tran->trans_db, 2, '.', ',') }}</td>
+                                <td style="text-align: right">{{ number_format($tran->trans_cr, 2, '.', ',') }}</td>
                                 <td>{{$tran->trans_accno}}</td>
                                 <td>{{$tran->acc_name}}</td>
                                 <td>{{$tran->trans_sid}}</td>
                                 <td>{{$tran->trans_date}}</td>
                             </tr>
                             <tr class="active" style="border-left: 2px solid black;border-right: 2px solid black; border-bottom: 2px solid black">
-                                <td >{{ number_format($tran->trans_dbc, 2, '.', ',') }}</td>
-                                <td> {{ number_format($tran->trans_crc, 2, '.', ',') }}</td>
+                                <td style="text-align: right">{{ number_format($tran->trans_dbc, 2, '.', ',') }}</td>
+                                <td style="text-align: right"> {{ number_format($tran->trans_crc, 2, '.', ',') }}</td>
                                 <td>{{$tran->trans_curr}}</td>
                                 <td colspan="3" style="text-align: center;padding-right: 30px"> {{$tran->trans_docno}} , {{$tran->trans_docdate}} , @if (app()->getLocale() == 'ar'){{$tran->trans_descrip_ar}} @else  {{$tran->trans_descrip_en}} @endif </td>
 
                             </tr>
 
                         @endforeach
+                        <th>{{__('Total')}}</th>
+                        <th>{{__('Total')}}</th>
+                        <th>{{__('Sub')}}</th>
                         <tr>
-                            <td>{{ number_format($totaldb, 2, '.', ',') }}
-                            <td>{{ number_format($totalcr, 2, '.', ',') }}
+
+                            <td style="text-align: right">{{ number_format($totaldb, 2, '.', ',') }}
+                            <td style="text-align: right">{{ number_format($totalcr, 2, '.', ',') }}
                             </td>
-                            <td colspan="4">{{__('Total')}}</td>
-                            <td>{{ number_format($subAmount, 2, '.', ',') }} </td>
+                            <td style="text-align: right">{{ number_format($subAmount, 2, '.', ',') }} </td>
                         </tr>
                         <tr>
-                            <td>{{ number_format($totaldbc, 2, '.', ',') }} </td>
-                            <td>{{ number_format($totalcrc, 2, '.', ',') }} </td>
+                            <td style="text-align: right">{{ number_format($totaldbc, 2, '.', ',') }} </td>
+                            <td style="text-align: right">{{ number_format($totalcrc, 2, '.', ',') }} </td>
 
-                            <td colspan="4">{{__('Total')}}</td>
-                            <td>{{ number_format($subAmountc, 2, '.', ',') }} </td>
+                            <td style="text-align: right" >{{ number_format($subAmountc, 2, '.', ',') }} </td>
 
                         </tr>
                         </tbody>

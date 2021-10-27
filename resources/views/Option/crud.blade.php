@@ -60,7 +60,7 @@
                                 <label for="exchange_rate" class="col-md-4 col-form-label text-md-right">{{ __('Exchange rate') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="exchange_rate" type="text" class=" enable form-control @error('exchange_rate') is-invalid @enderror" name="exchange_rate" value="@if(!empty($option)){{$option->exchange_rate}} @else {{old('exchange_rate')? 'selected':''}} @endif" required autocomplete="exchange_rate" autofocus  >
+                                    <input id="exchange_rate" type="text" class=" enable form-control @error('exchange_rate') is-invalid @enderror" name="exchange_rate" value="@if(!empty($option)){{$option->exchange_rate}} @else {{old('exchange_rate')? 'selected':''}} @endif" required autocomplete="exchange_rate" autofocus style="text-align: right" >
 
                                     @error('exchange_rate')
                                     <span class="invalid-feedback" role="alert">
