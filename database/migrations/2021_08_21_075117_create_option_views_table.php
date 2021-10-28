@@ -14,7 +14,7 @@ class CreateOptionViewsTable extends Migration
     public function up()
     {
         DB::statement("
-          CREATE VIEW view_typeOperation_main AS
+          CREATE OR REPLACE VIEW view_typeOperation_main AS
           (
             SELECT * FROM options WHERE type = 'type_of_operation'
             )
@@ -23,7 +23,7 @@ class CreateOptionViewsTable extends Migration
 
 
         DB::statement("
-          CREATE VIEW view_currencySymbol_main AS
+          CREATE OR REPLACE VIEW view_currencySymbol_main AS
           (
             SELECT * FROM options WHERE type = 'currency_symbol'
             )

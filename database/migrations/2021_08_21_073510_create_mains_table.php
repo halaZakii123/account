@@ -20,7 +20,7 @@ class CreateMainsTable extends Migration
             $table->string('explained_ar');
             $table->string('type_of_operation');
             $table->string('currency_symbol');
-            $table->string('cash_id');
+            $table->string('cash_id')->nullable('true');
             $table->string('document_number');
             $table->decimal('exchange_rate');
             $table->date('doc_date');

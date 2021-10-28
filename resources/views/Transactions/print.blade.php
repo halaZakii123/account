@@ -51,21 +51,24 @@
                                 </tr>
 
                             @endforeach
+                            <th>{{__('Total')}}</th>
+                            <th>{{__('Total')}}</th>
+                            <th>{{__('Sub')}}</th>
                             <tr>
-                                <td style="text-align: right">{{ number_format($totaldb, 2, '.', ',') }} </td>
-                                <td style="text-align: right">{{ number_format($totalcr, 2, '.', ',') }}</td>
-                                <td colspan="4">{{__('Total')}}</td>
-                                <td style="text-align: right">{{ number_format($subAmount, 2, '.', ',') }}</td>
 
+                                <td style="text-align: right">{{ number_format($totaldb, 2, '.', ',') }}
+                                <td style="text-align: right">{{ number_format($totalcr, 2, '.', ',') }}
+                                </td>
+                                <td style="text-align: right">{{ number_format($subAmount, 2, '.', ',') }} </td>
                             </tr>
                             <tr>
-                                <td style="text-align: right">{{ number_format($totaldbc, 2, '.', ',') }}
-                                <td style="text-align: right">{{ number_format($totalcrc, 2, '.', ',') }}
+                                <td style="text-align: right">{{ number_format($totaldbc, 2, '.', ',') }} </td>
+                                <td style="text-align: right">{{ number_format($totalcrc, 2, '.', ',') }} </td>
 
-                                <td colspan="4">{{__('Total')}}</td>
-                                <td style="text-align: right">{{ number_format($subAmountc, 2, '.', ',') }}</td>
+                                <td style="text-align: right" >{{ number_format($subAmountc, 2, '.', ',') }} </td>
 
                             </tr>
+
                             </tbody>
 
                         </table>

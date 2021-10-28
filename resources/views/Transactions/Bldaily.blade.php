@@ -25,13 +25,15 @@
                             </div>
                         @endif
                         <div>
-                            <table class="table table-bordered display responsive nowrap  optionDataTable">
+                            <table class="table table-bordered display responsive  optionDataTable">
                                 <thead>
                                 <tr style="font-size: small">
                                     <th>{{__('Sum Trans debit')}}</th>
                                     <th>{{__('Sum Trans credit')}}</th>
+                                    <th>{{__('BAl')}}</th>
                                     <th>{{__('Sum Trans debit M')}}</th>
                                     <th>{{__('Sum Trans credit M')}}</th>
+                                    <th>{{__('BAlc')}}</th>
                                     <th>{{__('Currency symbol')}}</th>
                                     <th>{{__('Account Number')}}</th>
                                     <th>{{__('Account Name')}}</th>
@@ -42,10 +44,12 @@
                                 <tbody>
                                 @foreach($BlDailys as $BlDaily)
                                     <tr class="active">
-                                        <td style="text-align: right"> {{ number_format($BlDaily->trans_db, 2, '.', ',') }} </td>
-                                        <td style="text-align: right">{{  number_format($BlDaily->trans_cr, 2, '.', ',') }}</td>
-                                        <td style="text-align: right"> {{ number_format($BlDaily->trans_dbc, 2, '.', ',') }}</td>
-                                        <td style="text-align: right"> {{ number_format($BlDaily->trans_crc, 2, '.', ',') }}</td>
+                                        <td style="text-align: right"> {{ number_format($BlDaily->Db, 2, '.', ',') }} </td>
+                                        <td style="text-align: right">{{  number_format($BlDaily->CR, 2, '.', ',') }}</td>
+                                        <td style="text-align: right">{{  number_format($BlDaily->BAl, 2, '.', ',') }}</td>
+                                        <td style="text-align: right"> {{ number_format($BlDaily->Dbc, 2, '.', ',') }}</td>
+                                        <td style="text-align: right"> {{ number_format($BlDaily->Crc, 2, '.', ',') }}</td>
+                                        <td style="text-align: right"> {{ number_format($BlDaily->BAlc, 2, '.', ',') }}</td>
                                         <td>{{ $BlDaily->trans_curr}}</td>
                                         <td>{{$BlDaily->acc_id}}</td>
                                         <td>{{$BlDaily->acc_name}}</td>
@@ -55,8 +59,38 @@
                                     </tr>
                                 @endforeach
 
+
+                                </tbody>
+
+
+                            </table>
+
+                            <table class="table table-bordered display responsive ">
+                                <thead>
+                                <tr>
+                                    <th>{{__('Total Trans debit')}}</th>
+                                    <th>{{__('Total Trans credit')}}</th>
+                                    <th>{{__(' Total BAl')}}</th>
+                                    <th>{{__('Total Trans debit M')}}</th>
+                                    <th>{{__('Total Trans credit M')}}</th>
+                                    <th>{{__(' Total BAlc')}}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr >
+                                    <td style="text-align: right"> {{  number_format($totdb, 2, '.', ',') }}</td>
+                                    <td style="text-align: right"> {{  number_format($totcr, 2, '.', ',') }}</td>
+                                    <td style="text-align: right">{{  number_format($totBAl, 2, '.', ',') }}</td>
+                                    <td style="text-align: right"> {{ number_format($totdbc, 2, '.', ',') }}</td>
+                                    <td style="text-align: right"> {{ number_format($totcrc, 2, '.', ',') }}</td>
+                                    <td style="text-align: right"> {{ number_format($totBAlc, 2, '.', ',') }}</td>
+                                    <td></td>
+
+                                </tr>
                                 </tbody>
                             </table>
+
+
                         </div>
 
                     </div>

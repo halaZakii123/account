@@ -16,8 +16,8 @@ class CreateUserAccountPro extends Migration
         $procedure = "DROP PROCEDURE IF EXISTS `pr_userAccounts`;
         CREATE PROCEDURE `pr_userAccounts` (IN id bigint)
         BEGIN
-         SELECT * FROM tbl_accounts WHERE user_id = id or  ;
-        End; ";
+         SELECT * FROM tbl_accounts WHERE user_id = id   ;
+        End;" ;
         DB::unprepared($procedure);
 
 

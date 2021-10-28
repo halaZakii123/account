@@ -46,31 +46,9 @@ class TransactionsController extends Controller
             ->lastOfYear()
             ->format('Y-m-d');
 
-        $allTrans  = DB::table('transactions')->select('accountid')->distinct()->get();
         $allTransSource  = DB::table('transactions')->select('sourceid')->distinct()->get();
         if ($request->trans != null) {
-            if ($request->trans == 'account_number') {
-                $account_number = $request->account_number_value;
-                $from = $request->A_date_from;
-                $to = $request->A_date_to;
-//                $trans = transactions::where('parent_id', $user_id)
-//                    ->where('accountid', $account_number)
-//                    ->whereBetween('dydate', [$from, $to])
-//                    ->get();
-
-                $trans =DB::select("CALL pr_trans_Byacc(" .$user_id.",".$account_number.",'".$from."','".$to."')");
-                foreach ($trans as $tran){
-                    $totaldb+=$tran->trans_db;
-                    $totaldbc+=$tran->trans_dbc;
-                    $totalcr+=$tran->trans_cr;
-                    $totalcrc+=$tran->trans_crc;
-
-                }
-                $subAmount = $totaldb -$totalcr;
-                $subAmountc = $totaldbc -$totalcrc;
-                return view('Transactions.index', compact('trans', 'allTrans','allTransSource','totaldb','totaldbc','totalcr','totalcrc','searchType','account_number','from','to','first','last','subAmount','subAmountc','account'));
-
-            } elseif ($request->trans == 'source_id') {
+            if ($request->trans == 'source_id') {
 
                 $source_id = $request->source_id_value;
 
@@ -85,7 +63,7 @@ class TransactionsController extends Controller
                 }
                 $subAmount = $totaldb -$totalcr;
                 $subAmountc = $totaldbc -$totalcrc;
-                return view('Transactions.index', compact('allTrans','allTransSource', 'trans','totaldb','totaldbc','totalcr','totalcrc','source_id','searchType','first','last','subAmount','subAmountc','account'));
+                return view('Transactions.index', compact('allTransSource', 'trans','totaldb','totaldbc','totalcr','totalcrc','source_id','searchType','first','last','subAmount','subAmountc','account'));
 
             } else {
                 $dateFrom = $request->doc_date_from;
@@ -105,13 +83,52 @@ class TransactionsController extends Controller
                 }
                 $subAmount = $totaldb -$totalcr;
                 $subAmountc = $totaldbc -$totalcrc;
-                return view('Transactions.index', compact('allTrans','allTransSource', 'trans','totaldb','totaldbc','totalcr','totalcrc','searchType','dateTo','dateFrom','first','last','subAmount','subAmountc','account'));
+                return view('Transactions.index', compact('allTransSource', 'trans','totaldb','totaldbc','totalcr','totalcrc','searchType','dateTo','dateFrom','first','last','subAmount','subAmountc','account'));
             }
         }else{
             $trans = null;
-        return view('Transactions.index',compact('trans','allTrans','allTransSource','first','last','account'));        }
+        return view('Transactions.index',compact('trans','allTransSource','first','last','account'));        }
 
     }
+
+    public function getTransByAccount(Request $request){
+        $user_id = checkPermissionHelper::checkPermission();
+        $account = TblAccount::where('parent_id',$user_id)->get();
+        $totaldb=0;
+        $totaldbc=0;
+        $totalcr=0;
+        $totalcrc=0;
+        $subAmount =0;
+        $subAmountc =0;
+        $day = date('m/d/Y');
+        $first = Carbon::createFromFormat('m/d/Y', $day)
+            ->firstOfYear()
+            ->format('Y-m-d');
+        $last =  Carbon::createFromFormat('m/d/Y', $day)
+            ->lastOfYear()
+            ->format('Y-m-d');
+        $allTrans  = DB::table('transactions')->select('accountid')->distinct()->get();
+        $trans = null;
+        if ($request->trans != null) {
+            $account_number = $request->account_number_value;
+            $from = $request->A_date_from;
+            $to = $request->A_date_to;
+
+            $trans = DB::select("CALL pr_trans_Byacc(" . $user_id . "," . $account_number . ",'" . $from . "','" . $to . "')");
+            foreach ($trans as $tran) {
+                $totaldb += $tran->trans_db;
+                $totaldbc += $tran->trans_dbc;
+                $totalcr += $tran->trans_cr;
+                $totalcrc += $tran->trans_crc;
+
+            }
+            $subAmount = $totaldb - $totalcr;
+            $subAmountc = $totaldbc - $totalcrc;
+            return view('Transactions.gl', compact('trans', 'allTrans',  'totaldb', 'totaldbc', 'totalcr', 'totalcrc', 'account_number', 'from', 'to', 'first', 'last', 'subAmount', 'subAmountc', 'account'));
+        }else
+            return view('Transactions.gl',compact('trans','allTrans','first','last','account'));
+
+            }
 
     /**
      * Show the form for creating a new resource.
@@ -122,8 +139,22 @@ class TransactionsController extends Controller
     {
         $user_id = checkPermissionHelper::checkPermission();
         $BlDailys = DB::select("CALL pr_BLdaily(" .$user_id.")");
+        $totdb =0;
+        $totcr =0;
+        $totdbc =0;
+        $totcrc =0;
+        $totBAl =0;
+        $totBAlc =0;
+        foreach ($BlDailys as $blDaily){
+            $totdb += $blDaily->Db;
+            $totcr += $blDaily->CR;
+            $totdbc += $blDaily->Dbc;
+            $totcrc += $blDaily->Crc;
+            $totBAl += $blDaily->BAl;
+            $totBAlc += $blDaily->BAlc;
+        }
 
-        return view('Transactions.Bldaily',compact('BlDailys'));
+        return view('Transactions.Bldaily',compact('BlDailys','totBAl','totdb','totBAlc','totcr','totcrc','totdbc'));
 
     }
 
@@ -183,7 +214,7 @@ class TransactionsController extends Controller
     {
         //
     }
-    public function printtransAcc($searchType,$account_number,$from,$to){
+    public function printtransAcc($account_number,$from,$to){
 
         $user_id = checkPermissionHelper::checkPermission();
         $totaldb=0;
@@ -247,7 +278,7 @@ class TransactionsController extends Controller
     return view('Transactions.print', compact( 'trans','totaldb','totaldbc','totalcr','totalcrc','subAmount','subAmountc'));
 }
 
-  public function pdftransAcc($searchType,$account_number,$from,$to){
+  public function pdftransAcc($account_number,$from,$to){
 
       $user_id = checkPermissionHelper::checkPermission();
       $totaldb=0;
@@ -407,10 +438,12 @@ class TransactionsController extends Controller
         foreach ($BlDailys as $item) {
 
             $items[] = [
-                'trans_db'          => $item->trans_db,
-                'trans_cr'         => $item->trans_cr,
-                'trans_dbc'         => $item->trans_dbc,
-                'trans_crc' => $item->trans_crc,
+                'Db'          => $item->Db,
+                'CR'         => $item->CR,
+                'Dbc'         => $item->Dbc,
+                'Crc' => $item->Crc,
+                'BAl' => $item->BAl,
+                'BAlc' => $item->BAlc,
                 'trans_curr'      => $item->trans_curr,
                 'acc_id'      => $item->acc_id,
                 'acc_name'      => $item->acc_name,

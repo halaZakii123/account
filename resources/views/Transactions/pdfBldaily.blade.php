@@ -80,6 +80,17 @@
                 display: block;
                 text-align: center;
             }
+
+
+        }
+        table{
+            width: 100%;
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        td,th{
+            border: 1px solid black;
+
         }
 
         /** RTL **/
@@ -127,8 +138,10 @@
                     <th>#</th>
                     <th>{{__('Sum Trans debit')}}</th>
                     <th>{{__('Sum Trans credit')}}</th>
+                    <th>{{__('BAl')}}</th>
                     <th>{{__('Sum Trans debit M')}}</th>
                     <th>{{__('Sum Trans credit M')}}</th>
+                    <th>{{__('BAlc')}}</th>
                     <th>{{__('Currency symbol')}}</th>
                     <th>{{__('Account Number')}}</th>
                     <th>{{__('Account Name')}}</th>
@@ -140,10 +153,12 @@
                 @foreach($items as $item)
                     <tr class="item {{ $loop->last ? 'last' : '' }}">
                         <td>{{ $loop->iteration }}</td>
-                        <td style="text-align: right">{{number_format($item['trans_db'], 2, '.', ',')  }}</td>
-                        <td style="text-align: right">{{  number_format($item['trans_cr'], 2, '.', ',') }}</td>
-                        <td style="text-align: right">{{  number_format($item['trans_dbc'], 2, '.', ',') }}</td>
-                        <td style="text-align: right">{{  number_format($item['trans_crc'], 2, '.', ',') }}</td>
+                        <td style="text-align: right">{{number_format($item['Db'], 2, '.', ',')  }}</td>
+                        <td style="text-align: right">{{  number_format($item['CR'], 2, '.', ',') }}</td>
+                        <td style="text-align: right">{{  number_format($item['BAl'], 2, '.', ',') }}</td>
+                        <td style="text-align: right">{{  number_format($item['Dbc'], 2, '.', ',') }}</td>
+                        <td style="text-align: right">{{  number_format($item['Crc'], 2, '.', ',') }}</td>
+                        <td style="text-align: right">{{  number_format($item['BAlc'], 2, '.', ',') }}</td>
                         <td>{{  $item['trans_curr'] }}</td>
                         <td>{{ $item['acc_id'] }}</td>
                         <td>{{ $item['acc_name'] }}</td>

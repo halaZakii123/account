@@ -9,11 +9,7 @@
             <div class="dropdown-menu">
 
 
-                    @if($searchType == 'account_number')
-                        {{--                                <a class="dropdown-item" href="/printTrans/{{$searchType}}/{{$account_number}}/{{$from}}/{{$to}}" class="btn btn-primary ml-auto">{{__('print')}}</a>--}}
-                        <a class="dropdown-item" href="{{route('printAcc',[$searchType,$account_number,$from,$to])}}" class="btn btn-primary ml-auto">{{__('print')}}</a>
-                        <a class="dropdown-item" href="{{route('pdfAcc',[$searchType,$account_number,$from,$to])}}" class="btn btn-primary ml-auto">{{__('pdf')}}</a>
-                    @elseif($searchType == 'source_id')
+                    @if($searchType == 'source_id')
                         <a class="dropdown-item" href="{{route('pdfSource',[$searchType,$source_id])}}" class="btn btn-primary ml-auto">{{__('pdf')}}</a>
                         <a class="dropdown-item" href="{{route('printSource',[$searchType,$source_id])}}" class="btn btn-primary ml-auto">{{__('print')}}</a>
                     @else
@@ -49,20 +45,6 @@
                                             <option value="{{$tran->sourceid}}"> {{$tran->sourceid}}</option>
                                         @endforeach
                                     </select>
-                                </div> <div>
-                                    <input type="radio" id="account_number" name="trans" value="account_number">
-                                      <label for="html">{{__('Account Number')}} :</label>
-                                    <select name="account_number_value">
-                                        @foreach($allTrans as $tran)
-                                            @foreach($account as $acc)
-                                                @if($acc->account_number == $tran->accountid)
-                                                 <option value="{{$tran->accountid}}"> {{$tran->accountid}} {{$acc->account_name}}</option>
-                                                @endif
-                                             @endforeach
-                                        @endforeach
-                                    </select>
-                                    <input type="date" id="doc_date_value" name="A_date_from" value="{{$first}}"  >
-                                    <input type="date" id="doc_date_value" name="A_date_to" value="{{$last}}"><br>
                                 </div>
 
 

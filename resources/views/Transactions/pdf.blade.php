@@ -67,6 +67,18 @@
         .invoice-box table tr.total td {
             font-weight: bold;
         }
+        table{
+            width: 100%;
+            border: 1px solid black;
+           border-collapse: collapse;
+        }
+        th{
+            border: 1px solid black;
+
+        }
+        tr{
+            border-bottom: 1px solid black;
+        }
 
         @media only screen and (max-width: 600px) {
             .invoice-box table tr.top table td {
@@ -124,6 +136,7 @@
             <table class="table table-bordered">
                 <thead>
                 <tr style="background-color: #95999c">
+                    <th></th>
                     <th>{{__('Debit')}}</th>
                     <th>{{__('Credit')}}</th>
                     <th>{{__('Account Number')}}</th>
@@ -133,6 +146,7 @@
 
                 </tr>
                 <tr style="background-color: #95999c">
+                    <th>#</th>
                     <th style="border-bottom: 2px solid black">{{__('Debit M')}}</th>
                     <th style="border-bottom: 2px solid black">{{__('Credit M')}}</th>
                     <th style="border-bottom: 2px solid black">{{__('Currency symbol')}}</th>
@@ -169,34 +183,40 @@
                         <td>{{ $item['sourceid'] }}</td>
                         <td>{{ $item['dydate'] }}</td>
                     </tr>
-                    <tr>
-                        <td> </td>
-                        <td style="text-align: right">{{  number_format($item['amntdbc'], 2, '.', ',') }}</td>
-                        <td style="text-align: right">{{  number_format($item['amntcrc'], 2, '.', ',')}}</td>
-                        <td>{{ $item['currcode'] }}</td>
-                        <td>{{ $item['docno'] }}  {{ $item['docdate'] }}  {{ $item['description'] }} </td>
-
+                    <tr style=" border-bottom: 1px solid black">
+                        <td style=" border-bottom: 1px solid black"> </td>
+                        <td style="text-align: right ;border-bottom: 1px solid black ">{{  number_format($item['amntdbc'], 2, '.', ',') }}</td>
+                        <td style="text-align: right;border-bottom: 1px solid black">{{  number_format($item['amntcrc'], 2, '.', ',')}}</td>
+                        <td style=" border-bottom: 1px solid black">{{ $item['currcode'] }}</td>
+                        <td style=" border-bottom: 1px solid black">{{ $item['docno'] }}  {{ $item['docdate'] }}  {{ $item['description'] }} </td>
+                        <td style=" border-bottom: 1px solid black"></td>
+                        <td style=" border-bottom: 1px solid black"></td>
                     </tr>
+                    <tr></tr>
 
                 @endforeach
                 <tr>
-                   <td></td>
-                    <td style="text-align: right">{{  number_format($totaldb ,2, '.', ',') }} </td>
-                    <td style="text-align: right">{{  number_format($totalcr, 2, '.', ',')}}</td>
-                    <td colspan="4">{{__('Total')}}</td>
-                    <td style="text-align: right">{{ number_format($subAmount, 2, '.', ',') }}</td>
+                    <th></th>
+                <th>{{__('Total')}}</th>
+                <th>{{__('Total')}}</th>
+                <th>{{__('Sub')}}</th>
 
                 </tr>
                 <tr>
                     <td></td>
+                    <td style="text-align: right">{{ number_format($totaldb, 2, '.', ',') }}
+                    <td style="text-align: right">{{ number_format($totalcr, 2, '.', ',') }}
+                    </td>
+                    <td style="text-align: right">{{ number_format($subAmount, 2, '.', ',') }} </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td style="text-align: right">{{ number_format($totaldbc, 2, '.', ',') }} </td>
+                    <td style="text-align: right">{{ number_format($totalcrc, 2, '.', ',') }} </td>
 
-                    <td style="text-align: right">{{  number_format($totaldbc, 2, '.', ',')}} </td>
-                    <td style="text-align: right">{{  number_format($totalcrc, 2, '.', ',') }} </td>
-                    <td colspan="4">{{__('Total')}}</td>
-                    <td style="text-align: right">{{ number_format($subAmountc, 2, '.', ',') }}</td>
+                    <td style="text-align: right" >{{ number_format($subAmountc, 2, '.', ',') }} </td>
 
                 </tr>
-
             </table>
 
         </div>

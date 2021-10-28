@@ -54,11 +54,11 @@ Route::resource('/Mains',MainController::class);
 Route::resource('/Transactions',TransactionsController::class);
 Route::post('/TransSearch','TransactionsController@index')->name('TransSearch');
 
-Route::get('/printTrans/{searchType}/{account_number}/{from}/{to}','TransactionsController@printtransAcc')->name('printAcc');
+Route::get('/printTrans/{account_number}/{from}/{to}','TransactionsController@printtransAcc')->name('printAcc');
 Route::get('/printTrans/{searchType}/{source_id}','TransactionsController@printtransSou')->name('printSource');
 Route::get('/printTrans/{searchType}/{from}/{to}','TransactionsController@printtransDate')->name('printdate');
 
-Route::get('/pdfTrans/{searchType}/{account_number}/{from}/{to}','TransactionsController@pdftransAcc')->name('pdfAcc');
+Route::get('/pdfTrans/{account_number}/{from}/{to}','TransactionsController@pdftransAcc')->name('pdfAcc');
 Route::get('/pdfTrans/{searchType}/{source_id}','TransactionsController@pdftransSou')->name('pdfSource');
 Route::get('/pdfTrans/{searchType}/{from}/{to}','TransactionsController@pdftransDate')->name('pdfdate');
 
@@ -111,3 +111,7 @@ Route::get('/BlDaily','TransactionsController@getBlDaily')->name('BLdaily');
 
 Route::get('/pdfBL','TransactionsController@pdfBLdaily')->name('pdfBL');
 Route::get('/printBL','TransactionsController@printBl')->name('printBL');
+
+Route::post('/transSearchAccount','TransactionsController@getTransByAccount')->name('TransSearchAccount');
+
+Route::get('/transSearch/Account/get','TransactionsController@getTransByAccount')->name('gl');
