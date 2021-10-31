@@ -223,7 +223,7 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    <input type="currency"  name="amount[{{ $loop->index }}]" id="amount_{{$loop->index}}" class="amount_filed" value="@if($main->type_of_operation == 1) {{$sub->credit}} @else {{ $sub->debit }} @endif"   onchange="gettotald(),cur()">
+                                                    <input type="currency"  name="amount[{{ $loop->index }}]" id="amount_{{$loop->index}}" class="amount_filed" value="@if($main->type_of_operation == 1) {{$sub->credit}} @else {{ $sub->debit }} @endif"   onchange="gettotald(),cur()"style="text-align: right">
                                                     @error('debit')<span class="help-block text-danger">{{ $message }}</span>@enderror
                                                 </td>
                                                 <td>
@@ -253,7 +253,7 @@
                                             <td>#</td>
                                             <td>
 
-                                                <input  type="currency"  name="amount[0]" id='amount_0' class="amount_filed " value="{{old('amount[0]')}}" required onchange="gettotald()" >
+                                                <input  type="currency"  name="amount[0]" id='amount_0' class="amount_filed " value="{{old('amount[0]')}}" required onchange="gettotald()" style="text-align: right">
                                                 @error('amount')<span class="help-block text-danger">{{ $message }}</span>@enderror
                                             </td>
                                             <td>
@@ -304,7 +304,7 @@
                                     <tbody>
                                     <tr class="total">
 
-                                        <td><input type="currency"  name="total" id="total" value="0" class="total" readonly="readonly"  >                                             <span id="error"></span>
+                                        <td><input type="currency"  name="total" id="total" value="0" class="total" readonly="readonly" style="text-align: right" >                                             <span id="error"></span>
                                         </td>
                                     </tr>
                                     </tbody>

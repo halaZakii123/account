@@ -140,10 +140,10 @@
                 @foreach($items as $item)
                     <tr class="item {{ $loop->last ? 'last' : '' }}">
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{number_format($item['trans_db'], 2, '.', ',')  }}</td>
-                        <td>{{  number_format($item['trans_cr'], 2, '.', ',') }}</td>
-                        <td>{{  number_format($item['trans_dbc'], 2, '.', ',') }}</td>
-                        <td>{{  number_format($item['trans_crc'], 2, '.', ',') }}</td>
+                        <td style="text-align: right">{{number_format($item['trans_db'], 2, '.', ',')  }}</td>
+                        <td style="text-align: right">{{  number_format($item['trans_cr'], 2, '.', ',') }}</td>
+                        <td style="text-align: right">{{  number_format($item['trans_dbc'], 2, '.', ',') }}</td>
+                        <td style="text-align: right">{{  number_format($item['trans_crc'], 2, '.', ',') }}</td>
                         <td>{{  $item['trans_curr'] }}</td>
                         <td>{{ $item['acc_id'] }}</td>
                         <td>{{ $item['acc_name'] }}</td>

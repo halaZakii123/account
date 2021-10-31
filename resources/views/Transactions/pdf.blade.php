@@ -163,16 +163,16 @@
                 @foreach($items as $item)
                     <tr class="item {{ $loop->last ? 'last' : '' }}">
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{number_format($item['amntdb'], 2, '.', ',')  }}</td>
-                        <td>{{  number_format($item['amntcr'], 2, '.', ',') }}</td>
+                        <td style="text-align: right">{{number_format($item['amntdb'], 2, '.', ',')  }}</td>
+                        <td style="text-align: right">{{  number_format($item['amntcr'], 2, '.', ',') }}</td>
                         <td>{{ $item['accountid'] }}</td>
                         <td>{{ $item['sourceid'] }}</td>
                         <td>{{ $item['dydate'] }}</td>
                     </tr>
                     <tr>
                         <td> </td>
-                        <td>{{  number_format($item['amntdbc'], 2, '.', ',') }}</td>
-                        <td>{{  number_format($item['amntcrc'], 2, '.', ',')}}</td>
+                        <td style="text-align: right">{{  number_format($item['amntdbc'], 2, '.', ',') }}</td>
+                        <td style="text-align: right">{{  number_format($item['amntcrc'], 2, '.', ',')}}</td>
                         <td>{{ $item['currcode'] }}</td>
                         <td>{{ $item['docno'] }}  {{ $item['docdate'] }}  {{ $item['description'] }} </td>
 
@@ -181,19 +181,19 @@
                 @endforeach
                 <tr>
                    <td></td>
-                    <td>{{  number_format($totaldb ,2, '.', ',') }} </td>
-                    <td>{{  number_format($totalcr, 2, '.', ',')}}</td>
+                    <td style="text-align: right">{{  number_format($totaldb ,2, '.', ',') }} </td>
+                    <td style="text-align: right">{{  number_format($totalcr, 2, '.', ',')}}</td>
                     <td colspan="4">{{__('Total')}}</td>
-                    <td>{{ number_format($subAmount, 2, '.', ',') }}</td>
+                    <td style="text-align: right">{{ number_format($subAmount, 2, '.', ',') }}</td>
 
                 </tr>
                 <tr>
                     <td></td>
 
-                    <td>{{  number_format($totaldbc, 2, '.', ',')}} </td>
-                    <td>{{  number_format($totalcrc, 2, '.', ',') }} </td>
+                    <td style="text-align: right">{{  number_format($totaldbc, 2, '.', ',')}} </td>
+                    <td style="text-align: right">{{  number_format($totalcrc, 2, '.', ',') }} </td>
                     <td colspan="4">{{__('Total')}}</td>
-                    <td>{{ number_format($subAmountc, 2, '.', ',') }}</td>
+                    <td style="text-align: right">{{ number_format($subAmountc, 2, '.', ',') }}</td>
 
                 </tr>
 

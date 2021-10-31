@@ -3,7 +3,7 @@
         <button type="button" class="btn btn-danger btn-sm delegated-btn"><i class="fa fa-minus"></i></button>
     </td>
     <td>
-        <input type="currency" name="amount[]" id="amount_{{$x}}" class="amount_filed" value="{{old('amount')}}"  onchange="gettotald()">
+        <input type="currency" name="amount[]" id="amount_{{$x}}" class="amount_filed" value="{{old('amount')}}"  onchange="gettotald()" style="text-align: right">
         @error('debit')<span class="help-block text-danger">{{ $message }}</span>@enderror
     </td>
     <td>

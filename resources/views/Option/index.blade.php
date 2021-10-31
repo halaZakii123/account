@@ -37,7 +37,7 @@
                                         <td>@if($option->type == 'currency_symbol') {{__('Currency symbol')}} @else {{__('Type of operation')}} @endif</td>
                                         <td>
                                             {{$option->contents}}</td>
-                                        <td>{{$option->exchange_rate}}</td>
+                                        <td style="text-align: right"> {{ number_format($option->exchange_rate, 2, '.', ',') }}</td>
                                         <td>
                                             <a href="{{route('Options.edit',$option->id) }}"><i class="fa fa-edit"></i></a>
                                             <a href="javascript:void(0)" onclick=" { document.getElementById('delete-{{ $option->id }}').submit(); } " class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>

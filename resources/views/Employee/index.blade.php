@@ -84,7 +84,7 @@
 
     <script type="text/javascript">
         $(document).ready(function(){
-            var table = $('.employeeDataTable').DataTable();
+            var table = $('.employeeDataTable').DataTable()
 
         });
     </script>

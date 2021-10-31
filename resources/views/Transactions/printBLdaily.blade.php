@@ -32,10 +32,10 @@
                         <tbody>
                         @foreach($BlDailys as $BlDaily)
                             <tr class="active">
-                                <td> {{ number_format($BlDaily->trans_db, 2, '.', ',') }} </td>
-                                <td>{{  number_format($BlDaily->trans_cr, 2, '.', ',') }}</td>
-                                <td> {{ number_format($BlDaily->trans_dbc, 2, '.', ',') }}</td>
-                                <td> {{ number_format($BlDaily->trans_crc, 2, '.', ',') }}</td>
+                                <td style="text-align: right"> {{ number_format($BlDaily->trans_db, 2, '.', ',') }} </td>
+                                <td style="text-align: right">{{  number_format($BlDaily->trans_cr, 2, '.', ',') }}</td>
+                                <td style="text-align: right"> {{ number_format($BlDaily->trans_dbc, 2, '.', ',') }}</td>
+                                <td style="text-align: right"> {{ number_format($BlDaily->trans_crc, 2, '.', ',') }}</td>
                                 <td>{{ $BlDaily->trans_curr}}</td>
                                 <td>{{$BlDaily->acc_id}}</td>
                                 <td>{{$BlDaily->acc_name}}</td>
