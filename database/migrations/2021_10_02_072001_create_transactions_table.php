@@ -15,31 +15,31 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-$table->unsignedBigInteger('sourceid');
-$table->unsignedBigInteger('sourceseq');
-$table->date('dydate');
-$table->integer('sourcetype');
-$table->string('docno')->nullable();
-$table->date('docdate')->nullable();
-$table->decimal('amntdb');
-$table->decimal('amntcr');
-$table->decimal('amntdbc');
-$table->decimal('amntcrc');
-$table->string('currcode');
-$table->string('accountid');
-$table->string('dealerid')->nullable();
-$table->string('costid')->nullable();
-$table->integer('branchid')->nullable();
-$table->string('description_ar')->nullable();
-$table->string('description_en')->nullable();
-$table->string('note_ar')->nullable();
-$table->string('note_en')->nullable();
-$table->date('duedate')->nullable();
-$table->integer('security');
-$table->boolean('checked');
-$table->unsignedBigInteger('user_id');
-$table->unsignedBigInteger('parent_id');
-$table->timestamps();
+            $table->unsignedBigInteger('sourceid');
+            $table->unsignedBigInteger('sourceseq');
+            $table->date('dydate');
+            $table->integer('sourcetype');
+            $table->string('docno')->nullable();
+            $table->date('docdate')->nullable();
+            $table->decimal('amntdb',18,2);
+            $table->decimal('amntcr',18,2);
+            $table->decimal('amntdbc',18,2);
+            $table->decimal('amntcrc',18,2);
+            $table->string('currcode');
+            $table->string('accountid');
+            $table->string('dealerid')->nullable();
+            $table->string('costid')->nullable();
+            $table->integer('branchid')->nullable();
+            $table->string('description_ar')->nullable();
+            $table->string('description_en')->nullable();
+            $table->string('note_ar')->nullable();
+            $table->string('note_en')->nullable();
+            $table->date('duedate')->nullable();
+            $table->integer('security');
+            $table->boolean('checked');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('parent_id');
+            $table->timestamps();
         });
     }
 

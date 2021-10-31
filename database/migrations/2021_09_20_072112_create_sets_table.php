@@ -15,16 +15,13 @@ class CreateSetsTable extends Migration
     {
         Schema::create('sets', function (Blueprint $table) {
             $table->id();
-            $table->string('key')->unique();
+            $table->string('key');
             $table->string('value');
             $table->bigInteger('user_id');
             $table->unsignedBigInteger('parent_id');
             $table->timestamps();
         });
-        Schema::table('mains', function (Blueprint $table) {
-            $table->string('cash_id');
-            $table->string('document_number');
-        });
+
     }
 
     /**

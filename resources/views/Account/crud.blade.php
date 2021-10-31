@@ -101,9 +101,9 @@
 
                                 <div class="col-md-6">
                                     @if((!empty($account)))
-                                        <input type="checkbox" name="mainly" class="switch-input" @if($account->mainly == 1) checked value="1" @else value="1" @endif/>
+                                        <input type="checkbox" name="mainly" class="switch-input" @if($account->mainly == 1) checked value="1" @else value="0" @endif/>
                                     @else
-                                        <input type="checkbox" name="mainly" class="switch-input" value="1" />
+                                        <input type="checkbox" name="mainly" class="switch-input" value="0" />
                                     @endif
 
                                 </div>
