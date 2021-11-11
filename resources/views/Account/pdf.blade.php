@@ -72,6 +72,14 @@
             border-top: 2px solid #eee;
             font-weight: bold;
         }
+        table{
+            border: 1px solid black;
+
+        }
+        td{
+            border: 1px solid black;
+
+        }
 
         @media only screen and (max-width: 600px) {
             .invoice-box table tr.top table td {

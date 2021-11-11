@@ -135,7 +135,7 @@
             <table class="table table-bordered">
                 <thead>
                 <tr style="background-color: #95999c">
-                    <th>#</th>
+
                     <th>{{__('Sum Trans debit')}}</th>
                     <th>{{__('Sum Trans credit')}}</th>
                     <th>{{__('BAl')}}</th>
@@ -152,20 +152,40 @@
 
                 @foreach($items as $item)
                     <tr class="item {{ $loop->last ? 'last' : '' }}">
-                        <td>{{ $loop->iteration }}</td>
+
                         <td style="text-align: right">{{number_format($item['Db'], 2, '.', ',')  }}</td>
                         <td style="text-align: right">{{  number_format($item['CR'], 2, '.', ',') }}</td>
                         <td style="text-align: right">{{  number_format($item['BAl'], 2, '.', ',') }}</td>
                         <td style="text-align: right">{{  number_format($item['Dbc'], 2, '.', ',') }}</td>
                         <td style="text-align: right">{{  number_format($item['Crc'], 2, '.', ',') }}</td>
                         <td style="text-align: right">{{  number_format($item['BAlc'], 2, '.', ',') }}</td>
-                        <td>{{  $item['trans_curr'] }}</td>
-                        <td>{{ $item['acc_id'] }}</td>
-                        <td>{{ $item['acc_name'] }}</td>
-                        <td>{{ $item['acc_finalReport'] }}</td>
+                        <td style="border-bottom: 1px solid black">{{  $item['trans_curr'] }}</td>
+                        <td style="border-bottom: 1px solid black">{{ $item['acc_id'] }}</td>
+                        <td style="border-bottom: 1px solid black">{{ $item['acc_name'] }}</td>
+                        <td style="border-bottom: 1px solid black">{{ $item['acc_finalReport'] }}</td>
                     </tr>
-                    @endforeach
+                @endforeach
+                <tr>
+                    <th>{{__('Total Trans debit')}}</th>
+                    <th>{{__('Total Trans credit')}}</th>
+                    <th>{{__(' Total BAl')}}</th>
+                    <th>{{__('Total Trans debit M')}}</th>
+                    <th>{{__('Total Trans credit M')}}</th>
+                    <th>{{__(' Total BAlc')}}</th>
+                </tr>
+
+                <tr >
+                    <td style="text-align: right"> {{  number_format($totdb, 2, '.', ',') }}</td>
+                    <td style="text-align: right"> {{  number_format($totcr, 2, '.', ',') }}</td>
+                    <td style="text-align: right">{{  number_format($totBAl, 2, '.', ',') }}</td>
+                    <td style="text-align: right"> {{ number_format($totdbc, 2, '.', ',') }}</td>
+                    <td style="text-align: right"> {{ number_format($totcrc, 2, '.', ',') }}</td>
+                    <td style="text-align: right"> {{ number_format($totBAlc, 2, '.', ',') }}</td>
+
+
+                </tr>
             </table>
+
 
         </div>
     </div>

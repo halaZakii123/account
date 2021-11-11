@@ -110,7 +110,7 @@
 
 <body>
 <div class="invoice-box {{ config('app.locale') == 'ar' ? 'rtl' : '' }}">
-    <table cellpadding="0" cellspacing="0">
+    <table class="table-bordered">
         <tr class="top">
             <td colspan="6">
                 <table>
@@ -131,7 +131,7 @@
 
 
         <tr class="heading">
-            <td></td>
+
             <td>{{__('Account Number')}}</td>
             <td>{{__('Account Name')}}</td>
             <td>{{__('Master Account number')}}</td>

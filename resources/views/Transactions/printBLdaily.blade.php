@@ -41,14 +41,30 @@
                                 <td style="text-align: right"> {{ number_format($BlDaily->Crc, 2, '.', ',') }}</td>
                                 <td style="text-align: right"> {{ number_format($BlDaily->BAlc, 2, '.', ',') }}</td>
                                 <td>{{ $BlDaily->trans_curr}}</td>
-                                <td>{{$BlDaily->acc_id}}</td>
+                                <td>{{$BlDaily->acc_no}}</td>
                                 <td>{{$BlDaily->acc_name}}</td>
                                 <td> {{$BlDaily->acc_finalReport}}</td>
 
 
                             </tr>
                         @endforeach
+                        <tr>
+                            <th>{{__('Total Trans debit')}}</th>
+                            <th>{{__('Total Trans credit')}}</th>
+                            <th>{{__(' Total BAl')}}</th>
+                            <th>{{__('Total Trans debit M')}}</th>
+                            <th>{{__('Total Trans credit M')}}</th>
+                            <th>{{__(' Total BAlc')}}</th>
+                        </tr>
+                        <tr >
+                            <td style="text-align: right"> {{  number_format($totdb, 2, '.', ',') }}</td>
+                            <td style="text-align: right"> {{  number_format($totcr, 2, '.', ',') }}</td>
+                            <td style="text-align: right">{{  number_format($totBAl, 2, '.', ',') }}</td>
+                            <td style="text-align: right"> {{ number_format($totdbc, 2, '.', ',') }}</td>
+                            <td style="text-align: right"> {{ number_format($totcrc, 2, '.', ',') }}</td>
+                            <td style="text-align: right"> {{ number_format($totBAlc, 2, '.', ',') }}</td>
 
+                        </tr>
                         </tbody>
                     </table>
                 </div>

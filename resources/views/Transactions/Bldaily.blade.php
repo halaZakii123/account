@@ -51,7 +51,7 @@
                                         <td style="text-align: right"> {{ number_format($BlDaily->Crc, 2, '.', ',') }}</td>
                                         <td style="text-align: right"> {{ number_format($BlDaily->BAlc, 2, '.', ',') }}</td>
                                         <td>{{ $BlDaily->trans_curr}}</td>
-                                        <td>{{$BlDaily->acc_id}}</td>
+                                        <td>{{$BlDaily->acc_no}}</td>
                                         <td>{{$BlDaily->acc_name}}</td>
                                         <td> {{$BlDaily->acc_finalReport}}</td>
 

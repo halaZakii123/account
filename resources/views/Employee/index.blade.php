@@ -5,23 +5,11 @@
     <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
 @endsection
 @section('content')
-{{--<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">--}}
-{{--    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>--}}
-{{--    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"> </script>--}}
+
 
     <div class="container">
         <div class="row justify-content-center">
-{{--            <div class="col-md-2  ">--}}
-{{--                <div class="card-header d-flex">--}}
-{{--                </div>--}}
-{{--                <div class="card  ">--}}
-{{--                    <a href="{{ route('Accounts.create') }}" class="text-center"><i class="fa fa-plus"></i>--}}
-{{--                        {{ __('create') }}</a>--}}
-{{--                    --}}{{--                    <a href="{{route('print')}}" class="text-center">{{__('print')}}</a>--}}
-{{--                    --}}{{--                    <a href="{{route('pdf')}}" class="text-center"> {{__('pdf')}}</a>--}}
-
-{{--                </div>--}}
-{{--            </div>--}}
+        
             <div class="col-md-9">
                 <div class="card">
                     <div class="card-header d-flex">
@@ -36,14 +24,14 @@
                         @endif
 
                         <div>
-                        <table class="table  table-bordered display responsive nowrap employeeDataTable">
-                            <thead>
+                            <table class="table table-bordered  display responsive  yajra-datatable" >
+                                <thead>
                                 <tr>
                                     <th>{{__('Name')}}</th>
                                     <th>{{__('Email')}}</th>
                                     <th>{{__('Action')}}</th>
                                 </tr>
-                            </thead>
+                                </thead>
                                 <tbody>
                                 @foreach($users as $user)
 
@@ -73,9 +61,9 @@
             </div>
         </div>
     </div>
+
 @endsection
 @section('script')
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
@@ -84,8 +72,12 @@
 
     <script type="text/javascript">
         $(document).ready(function(){
-            var table = $('.employeeDataTable').DataTable()
+            $('.yajra-datatable').DataTable();
 
         });
     </script>
-@endsection
+    @endsection
+
+
+
+

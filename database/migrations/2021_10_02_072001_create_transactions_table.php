@@ -21,10 +21,10 @@ class CreateTransactionsTable extends Migration
             $table->integer('sourcetype');
             $table->string('docno')->nullable();
             $table->date('docdate')->nullable();
-            $table->decimal('amntdb',18,2);
-            $table->decimal('amntcr',18,2);
-            $table->decimal('amntdbc',18,2);
-            $table->decimal('amntcrc',18,2);
+            $table->decimal('amntdb',18,2)->default(0.0);
+            $table->decimal('amntcr',18,2)->default(0.0);
+            $table->decimal('amntdbc',18,2)->default(0.0);
+            $table->decimal('amntcrc',18,2)->default(0.0);
             $table->string('currcode');
             $table->string('accountid');
             $table->string('dealerid')->nullable();
@@ -35,8 +35,8 @@ class CreateTransactionsTable extends Migration
             $table->string('note_ar')->nullable();
             $table->string('note_en')->nullable();
             $table->date('duedate')->nullable();
-            $table->integer('security');
-            $table->boolean('checked');
+            $table->integer('security')->default(0.0);
+            $table->boolean('checked')->default(0.0);
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('parent_id');
             $table->timestamps();
