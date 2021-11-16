@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('style')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" />
+{{--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" />--}}
     <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -9,8 +9,7 @@
 @section('content')
 
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-12">
+
                 <div class="card">
                     <div class="card-header d-flex">
                         <div class="dropdown  col-md-2">
@@ -26,40 +25,38 @@
                         </div>
 
                     </div>
+                </div>
 
-                    <div class="card-body">
+
                         @if (session('status'))
                             <div class="alert alert-success" role="alert">
                                 {{ session('status') }}
                             </div>
                         @endif
-<div>
 
 
-    <form method="post" action=" {{route('search')}}" >
-        @csrf
-  <label>{{__('Search between two dates')}}</label>
-        <div class="col-4">
-            <div class ="form-group" >
-                <label style="font-size: small"> {{__('start date :')}}</label>
-                <input type="date" id="startDate" name="from" placeholder="yyyy-mm-dd"  autocomplete="on">
-            </div>
-        </div>
-        <div class="col-8">
-            <div class ="form-group" >
-                <label style="font-size: small"> {{__('end date :')}}</label>
-                <input type="date" id="endDate"  name="to"  placeholder="yyyy-mm-dd"  autocomplete="on" >
-                <button type="submit" class="btn btn-primary" style="height: 25px;font-size: small">
-                    {{ __('Search') }}
-                </button>
-            </div>
-        </div>
-
-
-    </form>
-
-</div>
-                        <div>
+      <div>
+           <form method="post" action=" {{route('search')}}" >
+            @csrf
+                <label>{{__('Search between two dates')}}</label>
+                <div class="col-4">
+                    <div class ="form-group" >
+                        <label style="font-size: small"> {{__('start date :')}}</label>
+                        <input type="date" id="startDate" name="from" placeholder="yyyy-mm-dd"  autocomplete="on">
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class ="form-group" >
+                        <label style="font-size: small"> {{__('end date :')}}</label>
+                        <input type="date" id="endDate"  name="to"  placeholder="yyyy-mm-dd"  autocomplete="on" >
+                        <button type="submit" class="btn btn-primary" style="height: 25px;font-size: small">
+                            {{ __('Search') }}
+                        </button>
+                    </div>
+                </div>
+            </form>
+       </div>
+        <div class="table-responsive">
                             <table class="table table-bordered display responsive  mainDataTable" id="ii">
                                 <thead>
                                 <tr>
@@ -112,10 +109,8 @@
                         </div>
 
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
+
 
 @endsection
 @section('script')

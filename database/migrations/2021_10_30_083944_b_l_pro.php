@@ -14,8 +14,9 @@ class BLPro extends Migration
     public function up()
     {
         $procedure = "DROP PROCEDURE IF EXISTS `PR_BL`;
-            CREATE  PROCEDURE `PR_BL`(IN `v_frm_date` DATE, IN `v_till_date` DATE, IN `bid` INT)
-            BEGIN
+
+          CREATE  PROCEDURE `PR_BL`(IN `v_frm_date` DATE, IN `v_till_date` DATE, IN `bid` INT)
+             BEGIN
               DECLARE v_stp int;
             DECLARE v_cnt int;
             SET v_stp = 0;
@@ -88,7 +89,7 @@ class BLPro extends Migration
             case when SUM(ADBc) - SUM(ACRc) < 0 then abs(SUM(ADBc) - SUM(ACRc)) else 0  end as   Dur_BalCrc,
 
 
-            SUM(ADBBEFc)+ SUM(ADBc) as Tot_DBc,SUM(ACRBEFc) + SUM(ACRc) as Tot_Cr ,(SUM(ADBBEFc)+SUM(ADBc)) - (SUM(ACRBEFc) +SUM(ACRc)) as Tot_Bacl,
+            SUM(ADBBEFc)+ SUM(ADBc) as Tot_DBc,SUM(ACRBEFc) + SUM(ACRc) as Tot_Crc ,(SUM(ADBBEFc)+SUM(ADBc)) - (SUM(ACRBEFc) +SUM(ACRc)) as Tot_Balc,
             case when (SUM(ADBBEFc)+ SUM(ADBc)) - (SUM(ACRBEFc) +SUM(ACRc)) >= 0 then (SUM(ADBBEFc)+ SUM(ADBc)) - (SUM(ACRBEFc) +SUM(ACRc)) else 0  end as Tot_BalDbc,
             case when (SUM(ADBBEFc)+ SUM(ADBc)) - (SUM(ACRBEFc) +SUM(ACRc)) < 0 then abs((SUM(ADBBEFc)+ SUM(ADBc)) - (SUM(ACRBEFc) +SUM(ACRc))) else 0  end as Tot_BalCrc,
 
@@ -154,8 +155,7 @@ class BLPro extends Migration
                   ,nv_accounts.`acc_ismaster`
 
             ORDER BY  nv_accounts.acc_no;
-            END
-             ;";
+            END ;";
         DB::unprepared($procedure);
 
     }

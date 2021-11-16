@@ -38,11 +38,11 @@ Route::get('/locale/ar', function (){
     return redirect()->back();
 });
 
-Auth::routes();
+Auth::routes(['verify'=>true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Auth::routes();
+
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('/Users',EmployeeController::class);
