@@ -15,7 +15,7 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                        <table class="table  display responsive table-bordered">
+                        <table class="table  display responsive ">
                             <tr>
                                 <th>{{ __('Operation Date') }}</th>
                                 <td>{{ $main->operation_date }}</td>
@@ -27,10 +27,11 @@
                                 <td>{{ $main->cash_id }} </td>
                                 <th>{{__('Document Number')}}</th>
                                 <td>{{$main->document_number}}</td>
-                                <th>{{ __('Document Date') }}</th>
-                                <td>{{ $main->doc_date }} </td>
+
                             </tr>
                             <tr>
+                                <th>{{ __('Document Date') }}</th>
+                                <td>{{ $main->doc_date }} </td>
                                 <th>{{ __('Type of operation') }}</th>
                                 <td>@if($main->type_of_operation == 0)
                                         {{__('financial record')}}
@@ -41,6 +42,9 @@
                                     @else
                                         {{__('Cash')}}
                                     @endif</td>
+
+                            </tr>
+                            <tr>
                                 <th>{{ __('Currency symbol') }}</th>
                                 <td>{{ $main->currency_symbol }}</td>
                                 <th>{{ __('Exchange rate') }}</th>
@@ -65,9 +69,9 @@
                                 <tr>
                                     <td width="5%">{{ $loop->iteration }}</td>
                                     @if($main->type_of_operation == "cashing")
-                                        <td width="5%">{{number_format($sub->credit, 2, '.', ',')  }}</td>
+                                        <td width="5%" style="text-align: right">{{number_format($sub->credit, 2, '.', ',')  }}</td>
                                     @else
-                                        <td width="5%">{{ number_format($sub->debit, 2, '.', ',') }}</td>
+                                        <td width="5%" style="text-align: right">{{ number_format($sub->debit, 2, '.', ',') }}</td>
                                     @endif
                                      <td width="5%">{{$sub->account_number}}</td>
                                         <td width="5%">@if (app()->getLocale() == 'ar'){{$sub->explained_ar}} @else  {{$sub->explained}} @endif </td>
@@ -77,7 +81,7 @@
                             <tfoot>
                             <tr>
                                <th>{{__('Total')}}</th>
-                                <td colspan="3">{{number_format($total, 2, '.', ',')}}</td>
+                                <td  style="text-align: right">{{number_format($total, 2, '.', ',')}}</td>
                             </tr>
                             </tfoot>
                         </table>

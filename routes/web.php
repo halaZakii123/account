@@ -38,11 +38,11 @@ Route::get('/locale/ar', function (){
     return redirect()->back();
 });
 
-Auth::routes();
+Auth::routes(['verify'=>true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Auth::routes();
+
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('/Users',EmployeeController::class);
@@ -56,11 +56,11 @@ Route::post('/TransSearch','TransactionsController@index')->name('TransSearch');
 
 Route::get('/printTrans/{account_number}/{from}/{to}','TransactionsController@printtransAcc')->name('printAcc');
 Route::get('/printTrans/{searchType}/{source_id}','TransactionsController@printtransSou')->name('printSource');
-Route::get('/printTrans/{searchType}/{from}/{to}','TransactionsController@printtransDate')->name('printdate');
+Route::get('/printTransdate/{searchType}/{from}/{to}','TransactionsController@printtransDate')->name('printdate');
 
 Route::get('/pdfTrans/{account_number}/{from}/{to}','TransactionsController@pdftransAcc')->name('pdfAcc');
 Route::get('/pdfTrans/{searchType}/{source_id}','TransactionsController@pdftransSou')->name('pdfSource');
-Route::get('/pdfTrans/{searchType}/{from}/{to}','TransactionsController@pdftransDate')->name('pdfdate');
+Route::get('/pdfTransdate/{searchType}/{from}/{to}','TransactionsController@pdftransDate')->name('pdfdate');
 
 
 //Route::get('/create/{id}','SubController@create');
@@ -115,3 +115,11 @@ Route::get('/printBL','TransactionsController@printBl')->name('printBL');
 Route::post('/transSearchAccount','TransactionsController@getTransByAccount')->name('TransSearchAccount');
 
 Route::get('/transSearch/Account/get','TransactionsController@getTransByAccount')->name('gl');
+
+Route::get('/balanceSheet/get','TransactionsController@getBlalanceSheet')->name('BLsheetGet');
+
+Route::post('/balanceSheet','TransactionsController@getBlalanceSheet')->name('BLsheet');
+
+Route::get('/printSheet/{from}/{to}','TransactionsController@printsheet')->name('printSheet');
+
+Route::get('/pdfSheet/{from}/{to}','TransactionsController@pdfBLsheet')->name('pdfSheet');

@@ -20,7 +20,8 @@
         "laravel/ui": "^2.5",
         "niklasravnsborg/laravel-pdf": "^4.1",
         "yajra/laravel-datatables-oracle": "^9.18",
-      "ext-json": "*"
+      "ext-json": "*",
+      "ext-http": "*"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

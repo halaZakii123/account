@@ -13,6 +13,7 @@
                         <a class="dropdown-item" href="{{route('pdfSource',[$searchType,$source_id])}}" class="btn btn-primary ml-auto">{{__('pdf')}}</a>
                         <a class="dropdown-item" href="{{route('printSource',[$searchType,$source_id])}}" class="btn btn-primary ml-auto">{{__('print')}}</a>
                     @else
+
                         <a class="dropdown-item" href="{{route('pdfdate',[$searchType,$dateFrom,$dateTo])}}" class="btn btn-primary ml-auto">{{__('pdf')}}</a>
                         <a class="dropdown-item" href="{{route('printdate',[$searchType,$dateFrom,$dateTo])}}" class="btn btn-primary ml-auto">{{__('print')}}</a>
                     @endif
@@ -62,9 +63,7 @@
                     </div>
 
                     @if($trans != null)
-                    @if($searchType == 'account_number')
-                      <h5>{{__('Result by Account Number')}} {{$account_number}} {{__('between')}} {{$from}} / {{$to}}:</h5>
-                    @elseif($searchType == 'source_id')
+                   @if($searchType == 'source_id')
                         <h5>{{__('Result by source id')}} {{$source_id}} :</h5>
                     @else
                         <h5>{{__('Result by date')}} {{__('From:')}} {{$dateFrom}} {{__('To:')}} {{$dateTo}} : </h5>

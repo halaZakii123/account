@@ -71,6 +71,13 @@
             font-weight: bold;
         }
 
+        .table1 td{
+            border: 1px solid black;
+
+        }
+        .table1 tr{
+            border-bottom: 1px solid black;
+        }
         @media only screen and (max-width: 600px) {
             .invoice-box table tr.top table td {
                 width: 100%;
@@ -128,26 +135,26 @@
                     <td width="70%"># {{$id}}</td>
                 </tr>
             </table>
-        <table class="table">
-
+        <table class="table table-bordered">
+            <thead>
             <tr>
-                <th>{{ __('Operation Date') }}</th>
-                <td>{{ $operation_date }}</td>
-                <th>{{ __('Explained') }}</th>
-                <td>{{ $explained}}</td>
+                <td style="font-weight: bold">{{ __('Operation Date') }} </td>
+                <td >{{ $operation_date }}</td>
+                <td style="font-weight: bold">{{ __('Explained') }}</td>
+                <td >{{ $explained}}</td>
             </tr>
 
             <tr>
-                <th>{{__('Cash Id')}}</th>
-                <td>{{ $cash_id }} </td>
-                <th>{{__('Document Number')}}</th>
+
+                <td style="font-weight: bold">{{__('Document Number')}}</td>
                 <td>{{ $document_number }} </td>
-                <th>{{ __('Document Date') }}</th>
+                <td style="font-weight: bold">{{ __('Document Date') }}</td>
                 <td>{{ $doc_date }} </td>
 
             </tr>
+            <thead>
             <tr>
-                <th>{{ __('Type of operation') }}</th>
+                <td style="font-weight: bold">{{ __('Type of operation') }}</td>
                 <td>@if($type_of_operation == 0)
                         {{__('financial record')}}
                     @elseif($type_of_operation == 1)
@@ -158,15 +165,16 @@
                         {{__('Cash')}}
                     @endif
                 </td>
-                <th>{{ __('Currency symbol') }}</th>
+                <td style="font-weight: bold">{{ __('Currency symbol') }}</td>
                 <td>{{ $currency_symbol }}</td>
-                <th>{{ __('Exchange rate') }}</th>
+            </tr>
+            <tr>
+                <td style="font-weight: bold">{{ __('Exchange rate') }}</td>
                 <td>{{ number_format($exchange_rate , 2, '.', ',')}}</td>
-
             </tr>
 
         </table>
-        <table class="table">
+        <table class="table1">
             <thead>
             <tr class="heading">
                 <td></td>
@@ -180,18 +188,18 @@
         @foreach($items as $item)
             <tr class="item {{ $loop->last ? 'last' : '' }}">
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ number_format($item['debit'], 2, '.', ',') }}</td>
-                <td>{{number_format($item['credit'], 2, '.', ',')  }}</td>
-                <td>{{ $item['account_number'] }}</td>
-                <td>{{ $item['explained'] }}</td>
+                <td style="text-align: right;border-bottom: 1px solid black">{{ number_format($item['debit'], 2, '.', ',') }}</td>
+                <td style="text-align: right ;border-bottom: 1px solid black">{{number_format($item['credit'], 2, '.', ',')  }}</td>
+                <td style="border-bottom: 1px solid black">{{ $item['account_number'] }}</td>
+                <td style="border-bottom: 1px solid black">{{ $item['explained'] }}</td>
 
             </tr>
         @endforeach
             <tfoot>
             <tr>
-                <th>{{_('Total')}}</th>
-                <td colspan=>{{number_format($totalDebit, 2, '.', ',')}}</td>
-                <td colspan="3">{{number_format($totalCredit, 2, '.', ',')}}</td>  </tr>
+                <th style="border:1px solid black ">{{_('Total')}}</th>
+                <td style="text-align: right">{{number_format($totalDebit, 2, '.', ',')}}</td>
+                <td style="text-align: right" >{{number_format($totalCredit, 2, '.', ',')}}</td>  </tr>
             </tfoot>
     </table>
 

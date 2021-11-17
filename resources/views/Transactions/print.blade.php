@@ -16,6 +16,7 @@
                             <thead>
                             <thead >
                             <tr style="background-color: #95999c">
+                                <th>#</th>
                                 <th>{{__('Debit')}}</th>
                                 <th>{{__('Credit')}}</th>
                                 <th>{{__('Account Number')}}</th>
@@ -25,6 +26,7 @@
 
                             </tr>
                             <tr style="background-color: #95999c">
+                                <th></th>
                                 <th style="border-bottom: 2px solid black">{{__('Debit M')}}</th>
                                 <th style="border-bottom: 2px solid black">{{__('Credit M')}}</th>
                                 <th style="border-bottom: 2px solid black">{{__('Currency symbol')}}</th>
@@ -35,6 +37,7 @@
                             <tbody>
                             @foreach($trans  as $tran )
                                 <tr class="active" style="border-left: 2px solid black;border-top: 2px solid black;border-right: 2px solid black">
+                                    <td>{{ $loop->iteration }}</td>
                                     <td  style="text-align: right">{{ number_format($tran->trans_db, 2, '.', ',') }}</td>
                                     <td style="text-align: right">{{ number_format($tran->trans_cr, 2, '.', ',') }}</td>
                                     <td>{{$tran->trans_accno}}</td>
@@ -43,6 +46,7 @@
                                     <td>{{$tran->trans_date}}</td>
                                 </tr>
                                 <tr class="active" style="border-left: 2px solid black;border-right: 2px solid black; border-bottom: 2px solid black">
+                                    <td></td>
                                     <td  style="text-align: right">{{ number_format($tran->trans_dbc, 2, '.', ',') }}</td>
                                     <td style="text-align: right"> {{ number_format($tran->trans_crc, 2, '.', ',') }}</td>
                                     <td>{{$tran->trans_curr}}</td>
@@ -51,17 +55,19 @@
                                 </tr>
 
                             @endforeach
+                            <th></th>
                             <th>{{__('Total')}}</th>
                             <th>{{__('Total')}}</th>
                             <th>{{__('Sub')}}</th>
                             <tr>
-
+                                <td></td>
                                 <td style="text-align: right">{{ number_format($totaldb, 2, '.', ',') }}
                                 <td style="text-align: right">{{ number_format($totalcr, 2, '.', ',') }}
                                 </td>
                                 <td style="text-align: right">{{ number_format($subAmount, 2, '.', ',') }} </td>
                             </tr>
                             <tr>
+                                <td></td>
                                 <td style="text-align: right">{{ number_format($totaldbc, 2, '.', ',') }} </td>
                                 <td style="text-align: right">{{ number_format($totalcrc, 2, '.', ',') }} </td>
 

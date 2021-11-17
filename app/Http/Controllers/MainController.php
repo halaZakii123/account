@@ -193,24 +193,8 @@ class MainController extends Controller
          $bid =$main->id;
          $pid = $main->parent_id;
 
-        if ($main->type_of_operation == 0){
             DB::select("CALL pr_postid(" .$main->id.",".$main->parent_id.")");
-            DB::select("CALL pr_postid0(" .$main->id.",".$main->parent_id.")");
-        }elseif ($main->type_of_operation == 1){
-            DB::select("CALL pr_postid(" .$main->id.",".$main->parent_id.")");
-            DB::select("CALL pr_postid1A(" .$main->id.",".$main->parent_id.")");
-            DB::select("CALL pr_postid1B(" .$main->id.",".$main->parent_id.")");
-        }elseif ($main->type_of_operation == 2){
-            DB::select("CALL pr_postid(" .$main->id.",".$main->parent_id.")");
-            DB::select("CALL pr_postid2A(" .$main->id.",".$main->parent_id.")");
-            DB::select("CALL pr_postid2B(" .$main->id.",".$main->parent_id.")");
-        }elseif ($main->type_of_operation == 3){
-            DB::select("CALL pr_postid(" .$main->id.",".$main->parent_id.")");
-            DB::select("CALL pr_postid3A(" .$main->id.",".$main->parent_id.")");
-            DB::select("CALL pr_postid3B(" .$main->id.",".$main->parent_id.")");
-        }
-
-        return redirect(route('Mains.index'));
+            return redirect(route('Mains.index'));
     }
 
 
@@ -280,12 +264,10 @@ class MainController extends Controller
         $data['user_id'] = Auth::user()->id;
         $main->update($data);
 
-
         $main->subs()->delete();
         $details_list = [];
         if ($request->type_of_operation == 1) {
             for ($i = 0; $i < count($request->amount); $i++) {
-                dd($request->amount[$i]);
                 $details_list[$i]['credit'] = $request->amount[$i];
                 $details_list[$i]['debit'] = 0;
                 $details_list[$i]['account_number'] = $request->account_number[$i];
@@ -318,22 +300,8 @@ class MainController extends Controller
         }
        $main->subs()->createMany($details_list);
 
-        if ($main->type_of_operation == 0){
             DB::select("CALL pr_postid(" .$main->id.",".$main->parent_id.")");
-            DB::select("CALL pr_postid0(" .$main->id.",".$main->parent_id.")");
-        }elseif ($main->type_of_operation == 1){
-            DB::select("CALL pr_postid(" .$main->id.",".$main->parent_id.")");
-            DB::select("CALL pr_postid1A(" .$main->id.",".$main->parent_id.")");
-            DB::select("CALL pr_postid1B(" .$main->id.",".$main->parent_id.")");
-        }elseif ($main->type_of_operation == 2){
-            DB::select("CALL pr_postid(" .$main->id.",".$main->parent_id.")");
-            DB::select("CALL pr_postid2A(" .$main->id.",".$main->parent_id.")");
-            DB::select("CALL pr_postid2B(" .$main->id.",".$main->parent_id.")");
-        }elseif ($main->type_of_operation == 3){
-            DB::select("CALL pr_postid(" .$main->id.",".$main->parent_id.")");
-            DB::select("CALL pr_postid3A(" .$main->id.",".$main->parent_id.")");
-            DB::select("CALL pr_postid3B(" .$main->id.",".$main->parent_id.")");
-        }
+
         return redirect(route('Mains.index'));
     }
 

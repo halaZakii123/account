@@ -222,7 +222,7 @@
                                         @if(!empty($main))
                                             <input id="doc_date" type="date" class="form-control " name="doc_date"  value= "{{$main->doc_date}}" required >
                                         @else
-                                            <input id="doc_date" type="date" class="form-control " name="doc_date"  value= "@if (!empty($main)) {{ $main->doc_no}} @else {{ old('doc_no')? 'selected' : '' }} @endif" required >
+                                            <input id="doc_date" type="date" class="form-control " name="doc_date"  value= " {{ old('doc_no')? 'selected' : '' }}" required >
                                         @endif
                                     </div>
                                 </div>

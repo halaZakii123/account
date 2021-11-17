@@ -130,11 +130,7 @@ class TransactionsController extends Controller
 
             }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
+
     public function getBlDaily()
     {
         $user_id = checkPermissionHelper::checkPermission();
@@ -158,62 +154,8 @@ class TransactionsController extends Controller
 
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param Request $request
-     * @return void
-     */
-    public function show(Request $request)
-    {
 
 
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\transactions  $transactions
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(transactions $transactions)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\transactions  $transactions
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, transactions $transactions)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\transactions  $transactions
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(transactions $transactions)
-    {
-        //
-    }
     public function printtransAcc($account_number,$from,$to){
 
         $user_id = checkPermissionHelper::checkPermission();
@@ -305,7 +247,8 @@ class TransactionsController extends Controller
               'docno'      => $item->trans_docno,
               'docdate'      => $item->trans_docdate,
               'description' => $des,
-              'currcode' =>$item->trans_curr
+              'currcode' =>$item->trans_curr,
+              'acc_name'=>$item->acc_name
 
           ];
           $totaldb+=$item->trans_db;
@@ -356,7 +299,9 @@ class TransactionsController extends Controller
                 'docno'      => $item->trans_docno,
                 'docdate'      => $item->trans_docdate,
                 'description' => $des,
-                'currcode' =>$item->trans_curr
+                'currcode' =>$item->trans_curr,
+                'acc_name'=>$item->acc_name
+
 
             ];
             $totaldb+=$item->trans_db;
@@ -381,6 +326,7 @@ class TransactionsController extends Controller
     }
     public function pdftransDate($searchType,$from,$to){
 
+
         $user_id = checkPermissionHelper::checkPermission();
         $totaldb=0;
         $totaldbc=0;
@@ -388,8 +334,6 @@ class TransactionsController extends Controller
         $totalcrc=0;
 
         $trans =DB::select("CALL pr_trans_Bydate(" .$user_id.",'".$from."','".$to."')");
-
-
 
         foreach ($trans as $item) {
             if (app()->getLocale() == 'ar'){
@@ -407,7 +351,9 @@ class TransactionsController extends Controller
                 'docno'      => $item->trans_docno,
                 'docdate'      => $item->trans_docdate,
                 'description' => $des,
-                'currcode' =>$item->trans_curr
+                'currcode' =>$item->trans_curr,
+                'acc_name'=>$item->acc_name
+
 
             ];
             $totaldb+=$item->trans_db;
@@ -431,10 +377,31 @@ class TransactionsController extends Controller
 
 
     }
+
     public function pdfBLdaily(){
         $user_id = checkPermissionHelper::checkPermission();
         $BlDailys = DB::select("CALL pr_BLdaily(" .$user_id.")");
         $items =[];
+        $totdb =0;
+        $totcr =0;
+        $totdbc =0;
+        $totcrc =0;
+        $totBAl =0;
+        $totBAlc =0;
+        foreach ($BlDailys as $blDaily){
+            $totdb += $blDaily->Db;
+            $totcr += $blDaily->CR;
+            $totdbc += $blDaily->Dbc;
+            $totcrc += $blDaily->Crc;
+            $totBAl += $blDaily->BAl;
+            $totBAlc += $blDaily->BAlc;
+        }
+        $data['totdb'] = $totdb;
+        $data['totcr'] = $totcr;
+        $data['totdbc'] = $totdbc;
+        $data['totcrc'] = $totcrc;
+        $data['totBAl'] = $totBAl;
+        $data['totBAlc'] = $totBAlc;
         foreach ($BlDailys as $item) {
 
             $items[] = [
@@ -445,7 +412,7 @@ class TransactionsController extends Controller
                 'BAl' => $item->BAl,
                 'BAlc' => $item->BAlc,
                 'trans_curr'      => $item->trans_curr,
-                'acc_id'      => $item->acc_id,
+                'acc_id'      => $item->acc_no,
                 'acc_name'      => $item->acc_name,
                 'acc_finalReport'      => $item->acc_finalReport,
 
@@ -461,7 +428,76 @@ class TransactionsController extends Controller
     public function printBl(){
         $user_id = checkPermissionHelper::checkPermission();
         $BlDailys = DB::select("CALL pr_BLdaily(" .$user_id.")");
+        $totdb =0;
+        $totcr =0;
+        $totdbc =0;
+        $totcrc =0;
+        $totBAl =0;
+        $totBAlc =0;
+        foreach ($BlDailys as $blDaily){
+            $totdb += $blDaily->Db;
+            $totcr += $blDaily->CR;
+            $totdbc += $blDaily->Dbc;
+            $totcrc += $blDaily->Crc;
+            $totBAl += $blDaily->BAl;
+            $totBAlc += $blDaily->BAlc;
+        }
 
-        return view('Transactions.printBLdaily',compact('BlDailys'));
+        return view('Transactions.printBLdaily',compact('BlDailys','totBAl','totdb','totBAlc','totcr','totcrc','totdbc'));
+    }
+
+    public function getBlalanceSheet(Request $request){
+        $user_id = checkPermissionHelper::checkPermission();
+        $day = date('m/d/Y');
+        $first = Carbon::createFromFormat('m/d/Y', $day)
+            ->firstOfYear()
+            ->format('Y-m-d');
+        $last =  Carbon::createFromFormat('m/d/Y', $day)
+            ->lastOfYear()
+            ->format('Y-m-d');
+        if ($request->date_from != null){
+            $from = $request->date_from;
+            $to = $request->date_to;
+            $sheets = DB::select("CALL PR_BL('".$from."','".$to."',".$user_id.")") ;
+            return view('Transactions.blSheet',compact('sheets','first','last','from','to'));
+
+      }
+        else{
+            $sheets = null;
+            return view('Transactions.blSheet',compact('first','last','sheets'));
+        }
+    }
+
+    public function pdfBLsheet($from,$to){
+        $user_id = checkPermissionHelper::checkPermission();
+        $sheets = DB::select("CALL PR_BL('".$from."','".$to."',".$user_id.")") ;
+        $items=[];
+        foreach ($sheets as $sheet){
+               $items[]=[
+                   'AccId'=> $sheet->AccID,
+                   'acc_name'=>   $sheet->acc_name,
+                   'acc_belongTo'=>     $sheet->acc_belongTo,
+                   'acc_finalReport'=>     $sheet->acc_finalReport,
+                   'acc_ismaster'=>     $sheet->acc_ismaster,
+                   'Tot_DB'=>      $sheet->Tot_DB,
+                   'Tot_Cr'=>    $sheet->Tot_Cr,
+                   'Tot_Bal'=>  $sheet->Tot_Bal,
+                   'Tot_BalDb'=>  $sheet->Tot_BalDb,
+                   'Tot_BalCr'=>   $sheet->Tot_BalCr,
+                   'Tot_DBc'=>      $sheet->Tot_DBc,
+                   'Tot_Crc'=>      $sheet->Tot_Crc,
+                   'Tot_Balc'=>     $sheet->Tot_Balc,
+                   'Tot_BalDbc'=>      $sheet->Tot_BalDbc,
+                   'Tot_BalCrc'=>     $sheet->Tot_BalCrc,
+                   ];
+        }
+        $data['items'] = $items;
+        $pdf = PDF::loadView('Transactions.pdfSheet', $data);
+        return $pdf->download('BLSheet'.'.pdf');
+    }
+    public function printsheet($from ,$to){
+        $user_id = checkPermissionHelper::checkPermission();
+        $sheets = DB::select("CALL PR_BL('".$from."','".$to."',".$user_id.")") ;
+        return view('transactions.printsheet',compact('sheets'));
     }
 }

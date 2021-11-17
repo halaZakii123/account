@@ -13,16 +13,6 @@ class TransBydatePro extends Migration
      */
     public function up()
     {
-        //
-    }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
         $procedure = "DROP PROCEDURE IF EXISTS `pr_trans_Bydate`;
 
             CREATE  PROCEDURE `pr_trans_Bydate`(IN `bid` INT UNSIGNED, IN `frmdate` DATE, IN `tilldate` DATE)
@@ -60,7 +50,16 @@ class TransBydatePro extends Migration
             acc_Cmpy_id from trans_master where `acc_Cmpy_id` = bid and trans_date >= frmdate and trans_date <= tilldate ;
             End ;";
 
-          DB::unprepared($procedure);
+        DB::unprepared($procedure);
+    }
 
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        //
     }
 }
