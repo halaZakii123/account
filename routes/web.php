@@ -1,5 +1,6 @@
 <?php
 
+//use App\Http\Controllers\PollController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Redirect;
 
@@ -14,18 +15,8 @@ use Illuminate\Support\Facades\Redirect;
 | contains the "web" middleware group. Now create something great!
 |
 */
+//
 
-Route::get('/', function () {
-    return view('home');
-});
-//Route::get('locale/ar', function ($locale){
-//    if (! in_array($locale, ['en', 'ar'])) {
-//        abort(400);
-//    }
-//    Session::put('locale', $locale);
-//    App::setLocale($locale);
-//    return redirect()->back();
-//});
 Route::get('/locale/ar', function (){
 
     Session::put('locale', 'ar');
@@ -43,8 +34,6 @@ Auth::routes(['verify'=>true]);
 Route::get('/home', 'HomeController@index')->name('home');
 
 
-
-Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('/Users',EmployeeController::class);
 Route::resource('/Accounts',AccountController::class);
 Route::resource('/Options',OptionsController::class);
@@ -63,10 +52,6 @@ Route::get('/pdfTrans/{searchType}/{source_id}','TransactionsController@pdftrans
 Route::get('/pdfTransdate/{searchType}/{from}/{to}','TransactionsController@pdftransDate')->name('pdfdate');
 
 
-//Route::get('/create/{id}','SubController@create');
-//Route::post('/store/{id}','SubController@store');
-//Route::get('/sub/{sub}/edit/{main}','SubController@edit');
-//Route::post('/update/{id}/{main}','SubController@update');
 
 //use ajax to add new row in main
 Route::post('/addOption','MainController@addNewRow');
@@ -123,3 +108,13 @@ Route::post('/balanceSheet','TransactionsController@getBlalanceSheet')->name('BL
 Route::get('/printSheet/{from}/{to}','TransactionsController@printsheet')->name('printSheet');
 
 Route::get('/pdfSheet/{from}/{to}','TransactionsController@pdfBLsheet')->name('pdfSheet');
+
+//poll
+Route::resource('/poll', PollController::class);
+
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/getvote', [App\Http\Controllers\PollController::class, 'getvote'])->name('getvote');
+Route::post('/vote/{id}', [App\Http\Controllers\PollController::class, 'vote'])->name('vote');
+Route::get('/result', [App\Http\Controllers\PollController::class, 'result'])->name('result');
+Route::post('/addOption', [App\Http\Controllers\PollController::class, 'addOption'])->name('addOption');
+Route::get('/allResult',[App\Http\Controllers\PollController::class, 'allResult'])->name('allResult');

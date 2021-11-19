@@ -174,6 +174,19 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('BLsheetGet')}}"> {{__('Balance sheet')}}</a>
                 </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="{{route('getvote')}}"> {{__('vote')}}</a>
+                </li>
+                @auth()
+                    @if(Auth::user()->parent_id== null)
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('poll.index')}}">{{__('poll')}}</a>
+                        </li>
+                            <li class="nav-item">
+                            <a class="nav-link" href="{{route('allResult')}}">{{__('allResult')}}</a>
+                        </li>
+                    @endif
+                 @endauth
 
             </ul>
             <ul class="navbar-nav ml-auto">
