@@ -1,5 +1,5 @@
 @auth()
-    @extends('layouts.app')
+    @extends('layouts.amz')
 
 @section('content')
 <script></script>

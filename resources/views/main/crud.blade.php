@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.amz')
 @section('style')
 
 @endsection

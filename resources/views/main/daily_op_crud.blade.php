@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.amz')
 @section('style')
     <link rel="stylesheet" href="{{ asset('css/pickadate/classic.css') }}">
     <link rel="stylesheet" href="{{ asset('css/pickadate/classic.date.css') }}">
