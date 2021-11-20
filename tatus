@@ -1,0 +1,20 @@
+warning: LF will be replaced by CRLF in resources/views/Sub/crud.blade.php.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in resources/views/Sub/index.blade.php.
+The file will have its original line endings in your working directory
+[1mdiff --cc resources/views/Employee/crud.blade.php[m
+[1mindex 0636116,763a95e..0000000[m
+[1m--- a/resources/views/Employee/crud.blade.php[m
+[1m+++ b/resources/views/Employee/crud.blade.php[m
+[36m@@@ -1,5 -1,4 +1,9 @@@[m
+[32m++<<<<<<< HEAD[m
+[32m +@extends('layouts.amz')[m
+[32m +[m
+[32m++=======[m
+[32m+ @extends('layouts.app')[m
+[32m++>>>>>>> 5af94e534ed884b9619fcb404034a058cc2e2737[m
+  @section('content')[m
+      <div class="container">[m
+          <div class="row justify-content-center">[m
+* Unmerged path resources/views/Sub/crud.blade.php
+* Unmerged path resources/views/Sub/index.blade.php

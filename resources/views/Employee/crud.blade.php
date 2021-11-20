@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 @extends('layouts.amz')
 
+=======
+@extends('layouts.app')
+>>>>>>> 5af94e534ed884b9619fcb404034a058cc2e2737
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
