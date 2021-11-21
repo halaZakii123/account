@@ -111,21 +111,21 @@ class PollController extends Controller
         $user_id = checkPermissionHelper::checkPermission();
         $poll = Poll::where('user_id','=',$user_id)->where('status','=',1)->orderby('created_at','desc')->first();
         if ($poll!=null){
-        $options = $poll->options()->get();
-        $total_vote =0;
-        $de =[];
-        foreach ($options as $option){
-            $total_vote += $option->votes;
+            $options = $poll->options()->get();
+            $total_vote =0;
+            $de =[];
+            foreach ($options as $option){
+                $total_vote += $option->votes;
 
-        }
-        for ($i = 0; $i < count($options); $i++) {
-            if ($total_vote == 0)
-                $de[$i]['option'] = (int)$options[$i]->votes/100 ;
-            else
-                $de[$i]['option'] = (int)$options[$i]->votes/$total_vote*100 ;
-            $de[$i]['name'] = $options[$i]->name;
-        }
-        return view('poll.result',compact('poll','de'));}
+            }
+            for ($i = 0; $i < count($options); $i++) {
+                if ($total_vote == 0)
+                    $de[$i]['option'] = (int)$options[$i]->votes/100 ;
+                else
+                    $de[$i]['option'] = (int)$options[$i]->votes/$total_vote*100 ;
+                $de[$i]['name'] = $options[$i]->name;
+            }
+            return view('poll.result',compact('poll','de'));}
         else {
             return view('home');
         }
@@ -151,10 +151,10 @@ class PollController extends Controller
 
             }
             for ($i = 0; $i < count($options); $i++) {
-                  if ($total_vote == 0)
+                if ($total_vote == 0)
                     $de[$i]['option'] = (int)$options[$i]->votes/100 ;
-                  else
-                      $de[$i]['option'] = (int)$options[$i]->votes/$total_vote*100 ;
+                else
+                    $de[$i]['option'] = (int)$options[$i]->votes/$total_vote*100 ;
 
                 $de[$i]['name'] = $options[$i]->name;
             }
@@ -163,9 +163,6 @@ class PollController extends Controller
 
 
         }
-
-
-
     return view('poll.allResult',compact('polls','details'));
     }
 }

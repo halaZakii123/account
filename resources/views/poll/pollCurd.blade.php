@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.amz')
 @section('content')
-    <div class="container">
+
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
@@ -100,13 +100,12 @@
                 </div>
             </div>
         </div>
-    </div>
+
 
 @endsection
 
 
 @section('script')
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <script>
         $(document).on('click', '.delegated-btn', function (e) {

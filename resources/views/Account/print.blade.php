@@ -115,8 +115,6 @@
             <td colspan="6">
                 <table>
                     <tr>
-
-
                         <td width="35%">
 
                             {{__('Date')}} :{{ Carbon\Carbon::now()->format('Y-m-d') }}<br>
@@ -142,7 +140,6 @@
         @foreach($accounts as $account)
 
         <tr class="item">
-            <td></td>
             <td>{{$account->account_number}}</td>
             <td>{{$account->account_name}}</td>
             <td>{{$account->master_account_number}}</td>

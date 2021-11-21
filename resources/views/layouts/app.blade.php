@@ -159,9 +159,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('Mains.index')}}"> {{__('Mains')}}</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{route('Sets.index')}}"> {{__('Sets')}}</a>
-                </li>
+
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('Transactions.index')}}"> {{__('Transactions')}}</a>
                 </li>

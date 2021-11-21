@@ -18,11 +18,11 @@
                         <ul class="wizard-timeline center-align">
                             <li class="completed">
                                 <span class="step-num">1</span>
-                                <label> {{__('Register create your company')}}</label>
+                                <label> {{__('Create your company')}}</label>
                             </li>
                             <li class="completed">
                                 <span class="step-num">2</span>
-                                <label>{{__('Add your employee (option now)')}}</label>
+                                <label>{{__('Add your employee')}}</label>
                             </li>
                             <li class="active">
                                 <span class="step-num">3</span>

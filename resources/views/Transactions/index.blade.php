@@ -21,11 +21,10 @@
             </div>
         </div>
     @endif
-    <div class="container">
+    <div class="card">
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card-header d-flex">
-
 
                 </div>
 

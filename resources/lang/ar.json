@@ -86,7 +86,20 @@
     "A fresh verification link has been sent to your email address.": "تم إرسال رابط تحقق جديد إلى عنوان بريدك الإلكتروني",
     "Before proceeding, please check your email for a verification link.": "قبل المتابعة ، يرجى التحقق من بريدك الإلكتروني للحصول على رابط التحقق.",
     "If you did not receive the email": "إذا لم تستلم البريد الإلكتروني",
-    "click here to request another": "انقر هنا لطلب آخر"
+    "click here to request another": "انقر هنا لطلب آخر",
+    "Create your company": "قم بإنشاء شركتك",
+    "Add your employee": "قم بإضافة الموظفين",
+    "Create Accounts": "قم بإنشاء الحسابات",
+    "Create Options": "قم بإنشاء الخيارات",
+    "Create Sets": "قم بإختيار رقم الصندوق",
+    "Create Mains": "قم بإنشاء الحسابات الرئيسية",
+    "Question":"السؤال",
+    "options":"عدد الخيارات",
+    "Status":"الحالة",
+    "Polls": "استطلاعات الرأي",
+    "Balances": "الموازنة"
+
+
 
 
 
