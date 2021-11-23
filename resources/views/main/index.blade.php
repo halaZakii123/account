@@ -4,25 +4,40 @@
     <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
 @endsection
 @section('content')
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-5 align-self-center">
+                {{--                        <h4 class="page-title">{{ Request::segment(1) }}</h4>--}}
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{{route('home')}}">{{__('Home')}}</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">{{__('Mains')}}</li>
+                    </ol>
+                </nav>
 
+            </div>
+        </div>
+    </div>
 
-
+    <div class="col-md-10" style="margin:auto ">
                 <div class="card">
-                    <div class="card-header d-flex">
-                        <div class="dropdown  col-md-2">
-                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-plus"></i>
-                            </button>
-                            <div class="dropdown-menu">
-                                <a  class="dropdown-item" href ="{{route('Mains.create')}} "> {{__('financial record')}} </a>
-                                <a class="dropdown-item" href=" {{route('Mains.dailyCash',3)}} "> {{__('Cash')}}</a>
-                                <a  class="dropdown-item" href=" {{route('Mains.dailyCashIn',1)}}"> {{__('Cash in')}}</a>
-                                <a  class="dropdown-item" href=" {{route('Mains.dailyCashOut',2)}}"> {{__('Cash out')}}</a>
+                        <div class="card-header d-flex">
+                            <div class="dropdown  col-md-2">
+                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a  class="dropdown-item" href ="{{route('Mains.create')}} "> {{__('financial record')}} </a>
+                                    <a class="dropdown-item" href=" {{route('Mains.dailyCash',3)}} "> {{__('Cash')}}</a>
+                                    <a  class="dropdown-item" href=" {{route('Mains.dailyCashIn',1)}}"> {{__('Cash in')}}</a>
+                                    <a  class="dropdown-item" href=" {{route('Mains.dailyCashOut',2)}}"> {{__('Cash out')}}</a>
+                                </div>
                             </div>
+
                         </div>
 
-                    </div>
-                </div>
 
 
                         @if (session('status'))
@@ -104,6 +119,8 @@
                             </table>
 
                         </div>
+                </div>
+    </div>
 
 
 

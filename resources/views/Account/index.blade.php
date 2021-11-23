@@ -3,7 +3,24 @@
     <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
 @endsection
+
 @section('content')
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-5 align-self-center">
+                {{--                        <h4 class="page-title">{{ Request::segment(1) }}</h4>--}}
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{{route('home')}}">{{__('Home')}}</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">{{__('Accounts')}}</li>
+                    </ol>
+                </nav>
+
+            </div>
+        </div>
+    </div>
     <div class="dropdown dropleft float-right">
         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
             {{__('More')}}
@@ -13,7 +30,7 @@
                 <a  class="dropdown-item"href="{{route('pdf')}}" class="btn btn-primary ml-auto">pdf</a>
         </div>
     </div>
-    <div class="container">
+    <div class="col-md-9" style="margin: auto ;">
                 <div class="card">
                     <div class="card-header d-flex">
                         <a href="{{ route('Accounts.create') }}" class="btn btn-primary ml-auto"><i class="fa fa-plus"></i> {{ __('create') }}</a>
@@ -78,6 +95,7 @@
                          </div>
                 </div>
                     </div>
+
 
 @endsection
 @section('script')

@@ -1,4 +1,4 @@
-<div class="form-group row" style="margin-left:220px ;width: 720px">
+<div class="form-group row" style=" margin-right:280px;width: 870px">
 
     <div class="col-md-6">
         <input id="option_{{$x}}" type="text" class="form-control " name="option[]" placeholder="option{{$x}}" />

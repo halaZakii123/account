@@ -1,6 +1,24 @@
 @extends('layouts.amz')
 @section('style')
 @section('content')
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-5 align-self-center">
+                {{--                        <h4 class="page-title">{{ Request::segment(1) }}</h4>--}}
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{{route('home')}}">{{__('Home')}}</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">{{__('transactions')}}</li>
+
+                    </ol>
+                </nav>
+
+            </div>
+        </div>
+    </div>
+
     @if($trans != null)
         <div class="dropdown dropleft float-right">
             <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
@@ -21,6 +39,7 @@
             </div>
         </div>
     @endif
+    <div class="col-md-10" style="margin: auto ;">
     <div class="card">
         <div class="row justify-content-center">
             <div class="col-md-12">
@@ -133,17 +152,8 @@
 
             </div>
         </div>
-    <div class="social-media">
-        <ul class="list-unstyled social-fa">
-            <li><a href="https://www.facebook.com/siic.sy"><i class="fa fa-facebook"></i></a></li>
-        </ul>
-        <ul class="list-unstyled social-tw">
-            <li><a href="https://twitter.com/SIIC_SY"><i class="fa fa-twitter"></i></a></li>
-        </ul>
-        <ul class="list-unstyled social-gm">
-            <li><a href="mailto:info@siic-insurance.com"><i class="fa fa-google"></i></a></li>
-        </ul>
-    </div>
+        </div>
+
 @endsection
 
 

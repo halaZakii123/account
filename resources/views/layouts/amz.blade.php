@@ -573,12 +573,8 @@
                             <ul aria-expanded="false" class="collapse first-level">
                                 <li class="sidebar-item"><a href="{{route('getvote')}}" class="sidebar-link"><i class="mdi mdi-octagram"></i><span class="hide-menu"> {{__('vote')}}</span></a></li>
                                 @if(Auth::user()->parent_id== null)
-                                <li class="sidebar-item"> <a class="has-arrow sidebar-link" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-playlist-plus"></i> <span class="hide-menu">{{__('poll')}}</span></a>
-                                    <ul aria-expanded="false" class="collapse second-level">
-                                        <li class="sidebar-item"><a href="{{route('poll.index')}}" class="sidebar-link"><i class="mdi mdi-octagram"></i><span class="hide-menu"> {{__('curd')}}</span></a></li>
-                                        <li class="sidebar-item"><a href="{{route('allResult')}}" class="sidebar-link"><i class="mdi mdi-octagram"></i><span class="hide-menu"> {{_('All resault')}}</span></a></li>
-                                    </ul>
-                                </li>
+                                    <li class="sidebar-item"><a href="{{route('poll.index')}}" class="sidebar-link"><i class="mdi mdi-octagram"></i><span class="hide-menu"> {{__('create')}}</span></a></li>
+                                    <li class="sidebar-item"><a href="{{route('allResult')}}" class="sidebar-link"><i class="mdi mdi-octagram"></i><span class="hide-menu"> {{__('All Result')}}</span></a></li>
                                     @endif
                             </ul>
                         </li>
@@ -589,58 +585,9 @@
             <!-- End Sidebar scroll-->
         </aside>
         @endauth
-        <!-- ============================================================== -->
-        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Page wrapper  -->
-        <!-- ============================================================== -->
-        <div class="page-wrapper">
-            <!-- ============================================================== -->
-            <!-- Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            <div class="page-breadcrumb">
-                <div class="row">
-                    <div class="col-5 align-self-center">
-                        <h4 class="page-title">{{ Request::segment(1) }}</h4>
-                        <div class="d-flex align-items-center">
-                        </div>
-                    </div>
-                    <div class="col-7 align-self-center">
-                        <div class="d-flex no-block justify-content-end align-items-center">
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item">
-                                        <a href="#">Home</a>
-                                    </li>
-                                    <li class="breadcrumb-item active" aria-current="page">Library</li>
-                                </ol>
-                            </nav>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- ============================================================== -->
-            <!-- End Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- Container fluid  -->
-            <!-- ============================================================== -->
-            <div class="container-fluid">
 
-
-
-              <main class="py-4">
                 @yield('content')
-            </main>
 
-                </div>
-                <!-- ============================================================== -->
-                <!-- End Container fluid  -->
-                <!-- ============================================================== -->
-                <!-- ============================================================== -->
-                <!-- footer -->
-                <!-- ============================================================== -->
                 <footer class="page-footer font-small blue " >
                         <!-- Copyright -->
                             <div class="footer-copyright text-center py-3">All Rights Reserved by Innovative Systems . Designed and Developed by
@@ -655,7 +602,6 @@
             <!-- ============================================================== -->
             <!-- End Page wrapper  -->
             <!-- ============================================================== -->
-        </div>
      </div>
     <!-- ============================================================== -->
     <!-- End Wrapper -->

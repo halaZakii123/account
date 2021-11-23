@@ -116,5 +116,5 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 Route::get('/getvote', [App\Http\Controllers\PollController::class, 'getvote'])->name('getvote');
 Route::post('/vote/{id}', [App\Http\Controllers\PollController::class, 'vote'])->name('vote');
 Route::get('/result', [App\Http\Controllers\PollController::class, 'result'])->name('result');
-Route::post('/addOption', [App\Http\Controllers\PollController::class, 'addOption'])->name('addOption');
+Route::post('/add', [App\Http\Controllers\PollController::class, 'addOption'])->name('add');
 Route::get('/allResult',[App\Http\Controllers\PollController::class, 'allResult'])->name('allResult');

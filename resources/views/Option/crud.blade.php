@@ -1,9 +1,28 @@
 @extends('layouts.amz')
 
 @section('content')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-5 align-self-center">
+                {{--                        <h4 class="page-title">{{ Request::segment(1) }}</h4>--}}
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{{route('home')}}">{{__('Home')}}</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">{{__('Options')}}</li>
+                        @if(!empty($option))
+                        <li class="breadcrumb-item active" aria-current="page">{{__('update')}}</li>
+                        @else
+                        <li class="breadcrumb-item active" aria-current="page">{{__('create')}}</li>
+                         @endif
+                    </ol>
+                </nav>
+
+            </div>
+        </div>
+    </div>
+            <div class="col-md-8" style="margin: auto ;">
                 <div class="card">
                     <div class="card-header d-flex">
                         <a href="{{ route('Options.index') }}" class="btn btn-primary ml-auto"><i class="fa fa-home"></i> {{ __('Back') }}</a>
@@ -103,8 +122,7 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+
 {{--    <script>--}}
 {{--        function validate()--}}
 {{--        {--}}

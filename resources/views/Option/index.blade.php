@@ -4,8 +4,23 @@
     <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
 @endsection
 @section('content')
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-5 align-self-center">
+                {{--                        <h4 class="page-title">{{ Request::segment(1) }}</h4>--}}
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{{route('home')}}">{{__('Home')}}</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">{{__('Options')}}</li>
+                    </ol>
+                </nav>
 
-    <div class="container">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8" style="margin: auto ;">
 
                 <div class="card">
                     <div class="card-header d-flex">

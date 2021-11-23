@@ -1,6 +1,24 @@
 @extends('layouts.amz')
 @section('style')
 @section('content')
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-5 align-self-center">
+                {{--                        <h4 class="page-title">{{ Request::segment(1) }}</h4>--}}
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{{route('home')}}">{{__('Home')}}</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">{{__('gl')}}</li>
+
+                    </ol>
+                </nav>
+
+            </div>
+        </div>
+    </div>
+
     @if($trans != null)
         <div class="dropdown dropleft float-right">
             <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">

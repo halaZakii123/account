@@ -46,7 +46,7 @@ class TransactionsController extends Controller
             ->lastOfYear()
             ->format('Y-m-d');
 
-        $allTransSource  = DB::table('transactions')->select('sourceid')->distinct()->get();
+        $allTransSource  = DB::table('transactions')->where('parent_id',$user_id)->select('sourceid')->distinct()->get();
         if ($request->trans != null) {
             if ($request->trans == 'source_id') {
 
@@ -107,7 +107,7 @@ class TransactionsController extends Controller
         $last =  Carbon::createFromFormat('m/d/Y', $day)
             ->lastOfYear()
             ->format('Y-m-d');
-        $allTrans  = DB::table('transactions')->select('accountid')->distinct()->get();
+        $allTrans  = DB::table('transactions')->where('parent_id',$user_id)->select('accountid')->distinct()->get();
         $trans = null;
         if ($request->trans != null) {
             $account_number = $request->account_number_value;

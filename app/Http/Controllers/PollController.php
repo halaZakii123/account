@@ -111,21 +111,9 @@ class PollController extends Controller
         $user_id = checkPermissionHelper::checkPermission();
         $poll = Poll::where('user_id','=',$user_id)->where('status','=',1)->orderby('created_at','desc')->first();
         if ($poll!=null){
-            $options = $poll->options()->get();
-            $total_vote =0;
-            $de =[];
-            foreach ($options as $option){
-                $total_vote += $option->votes;
+            $total_vote= OptionPolls::where('poll_id',$poll->id)->sum('votes');
 
-            }
-            for ($i = 0; $i < count($options); $i++) {
-                if ($total_vote == 0)
-                    $de[$i]['option'] = (int)$options[$i]->votes/100 ;
-                else
-                    $de[$i]['option'] = (int)$options[$i]->votes/$total_vote*100 ;
-                $de[$i]['name'] = $options[$i]->name;
-            }
-            return view('poll.result',compact('poll','de'));}
+            return view('poll.result',compact('poll'));}
         else {
             return view('home');
         }
@@ -140,29 +128,7 @@ class PollController extends Controller
     public function allResult(){
         $user_id = checkPermissionHelper::checkPermission();
         $polls = Poll::where('user_id','=',$user_id)->where('status','=',1)->get();
-        $details=[];
-        foreach ($polls as $poll){
-            $options = $poll->options()->get();
-            $total_vote =0;
-            $de =[];
 
-            foreach ($options as $option){
-                $total_vote += $option->votes;
-
-            }
-            for ($i = 0; $i < count($options); $i++) {
-                if ($total_vote == 0)
-                    $de[$i]['option'] = (int)$options[$i]->votes/100 ;
-                else
-                    $de[$i]['option'] = (int)$options[$i]->votes/$total_vote*100 ;
-
-                $de[$i]['name'] = $options[$i]->name;
-            }
-
-            $details[]=$de;
-
-
-        }
-    return view('poll.allResult',compact('polls','details'));
+      return view('poll.allResult',compact('polls'));
     }
 }
