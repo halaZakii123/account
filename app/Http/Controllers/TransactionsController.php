@@ -448,6 +448,7 @@ class TransactionsController extends Controller
 
     public function getBlalanceSheet(Request $request){
         $user_id = checkPermissionHelper::checkPermission();
+
         $day = date('m/d/Y');
         $first = Carbon::createFromFormat('m/d/Y', $day)
             ->firstOfYear()

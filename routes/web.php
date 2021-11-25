@@ -118,3 +118,7 @@ Route::post('/vote/{id}', [App\Http\Controllers\PollController::class, 'vote'])-
 Route::get('/result', [App\Http\Controllers\PollController::class, 'result'])->name('result');
 Route::post('/add', [App\Http\Controllers\PollController::class, 'addOption'])->name('add');
 Route::get('/allResult',[App\Http\Controllers\PollController::class, 'allResult'])->name('allResult');
+
+//
+//Route::get('/login/locked', 'Auth\LoginController@locked')->middleware('auth')->name('login.locked');
+//Route::post('/login/locked', 'Auth\LoginController@unlock')->name('login.unlock');

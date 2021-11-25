@@ -415,6 +415,8 @@ class MainController extends Controller
 
     public function pdf($id){
         $main = Main::whereId($id)->first();
+        $user_id = checkPermissionHelper::checkPermission();
+        $accounts = TblAccount::where('parent_id',$user_id);
         if (app()->getLocale() == 'ar'){
             $exp = $main->explained_ar;
         }else
