@@ -71,7 +71,12 @@
                                         <td>{{ $BlDaily->trans_curr}}</td>
                                         <td>{{$BlDaily->acc_no}}</td>
                                         <td>{{$BlDaily->acc_name}}</td>
-                                        <td> {{$BlDaily->acc_finalReport}}</td>
+                                        <td> 
+                                        @if($BlDaily->acc_finalReport== 1)
+                                          {{__('budget')}}
+                                         @else
+                                         {{__('list')}}
+                                         @endif</td>
 
 
                                     </tr>

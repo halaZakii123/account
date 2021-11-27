@@ -72,14 +72,14 @@
                                 <div class="form-group row">
                                     <label for="option" class="col-md-4 col-form-label text-md-right">{{ __('Options:') }}</label>
                                     <div class="col-md-6">
-                                        <input id="option" type="text" class="form-control" name="option[0]" value="{{old('option[0]')}}"   placeholder="option0" required/>
+                                        <input id="option" type="text" class="form-control" name="option[0]" value="{{old('option[0]')}}"   placeholder="{{__('option')}}1" required/>
                                     </div>
                                 </div>
 
 
-                            <div class="form-group row" style=" margin-right:280px;width: 870px">
+                            <div class="form-group row" style=" @if(app()->getLocale() == 'ar')margin-right:280px;width: 870px @else margin-left:280px;width: 870px @endif ">
                                 <div class="col-md-6">
-                                    <input id="option" type="text" class="form-control" name="option[1]" value="{{old('option[1]')}}"   placeholder="option1" required onclick="my()"/>
+                                    <input id="option" type="text" class="form-control" name="option[1]" value="{{old('option[1]')}}"   placeholder="{{__('option')}}2" required onclick="my()"/>
 
                                 </div>
 

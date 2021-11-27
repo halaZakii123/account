@@ -10,7 +10,7 @@
                             <a href="{{route('home')}}">{{__('Home')}}</a>
                         </li>
                         <li class="breadcrumb-item active" aria-current="page">{{__('Polls')}}</li>
-                        <li class="breadcrumb-item active" aria-current="page">{{__('Vote')}}</li>
+                        <li class="breadcrumb-item active" aria-current="page">{{__('vote')}}</li>
                     </ol>
                 </nav>
 
@@ -18,7 +18,7 @@
         </div>
     </div>
 
-        <div class="col-md-8" style="margin: auto;">
+        <div class="col-md-8" style="rfmargin: auto;">
             <div class="card">
                 <div class="card-header ">
                     <label for="question" class="col-md-9 col-form-label ">{{ $poll->question }}</label>
@@ -52,7 +52,7 @@
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Vote') }}
+                                    {{ __('vote') }}
                                 </button>
                             </div>
                         </div>

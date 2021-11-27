@@ -497,7 +497,7 @@
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="javascript:void(0)">
                                     <i class="ti-settings m-r-5 m-l-5"></i> Account Setting</a>
-                               
+
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
@@ -535,48 +535,58 @@
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
                         <!-- User Profile-->
-                        <li class="nav-small-cap"><i class="mdi mdi-dots-horizontal"></i> <span class="hide-menu">Personal</span></li>
-                        @auth()
-                            @if (Auth::user()->parent_id == null)
-                             <li class="sidebar-item"> <a class="sidebar-link  waves-effect waves-dark" href="{{route('Users.index')}}" aria-expanded="false"><i class="icon-Car-Wheel"></i><span class="hide-menu"> {{__('Employees')}}</span></a></li>
-                            @endif
-                        @endauth
-                        <li class="nav-small-cap"><i class="mdi mdi-dots-horizontal"></i> <span class="hide-menu">{{__('Accounts')}}</span></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark" href="{{route('Accounts.index')}}" aria-expanded="false"><i class="icon-Box-withFolders"></i><span class="hide-menu">{{__('Accounts')}} </span></a></li>
+                        <li class="nav-small-cap"><i class="mdi mdi-dots-horizontal"></i> <span class="hide-menu">{{__('Add Daily Entry')}}</span></li>
+                        <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="icon-Navigation-LeftWindow" style="padding-left: 30px"></i><span class="hide-menu" style="padding-left: 20px">{{__('Add Daily Entry')}}</span></a>
+                            <ul aria-expanded="false" class="collapse first-level">
+                                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('Mains.create')}}" aria-expanded="false"><i class="mdi mdi-border-top"></i><span class="hide-menu">{{__('financial record')}}</span></a></li>
+                                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('Mains.dailyCash',3)}}" aria-expanded="false"><i class="mdi mdi-border-style"></i><span class="hide-menu">{{__('Cash')}}</span></a></li>
+                                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('Mains.dailyCashIn',1)}}" aria-expanded="false"><i class="mdi mdi-border-style"></i><span class="hide-menu">{{__('Cash in')}}</span></a></li>
+                                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('Mains.dailyCashOut',2)}}" aria-expanded="false"><i class="mdi mdi-border-style"></i><span class="hide-menu">{{__('Cash out')}}</span></a></li>
+                            </ul>
+                        </li>
 
+                        <li class="nav-small-cap"><i class="mdi mdi-dots-horizontal"></i> <span class="hide-menu">{{__('Daily Entry')}}</span></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark" href="{{route('Mains.index')}}" aria-expanded="false"><i class="icon-Box-withFolders"></i><span class="hide-menu">{{__('Daily Entry')}}</span></a></li>
+
+                        <li class="nav-small-cap"><i class="mdi mdi-dots-horizontal"></i> <span class="hide-menu">{{__('Financial constraints')}}</span></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark" href="{{route('Transactions.index')}}" aria-expanded="false"><i class="icon-File-HorizontalText"></i><span class="hide-menu">{{__('Financial constraints')}}</span></a></li>
+
+                        <li class="nav-small-cap"><i class="mdi mdi-dots-horizontal"></i> <span class="hide-menu">{{__('General ledger')}}</span></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark" href="{{route('gl')}}" aria-expanded="false"><i class="icon-File-HorizontalText"></i><span class="hide-menu">{{__('General ledger')}}</span></a></li>
+
+<li class="nav-small-cap"><i class="mdi mdi-dots-horizontal"></i> <span class="hide-menu">{{__('Trial Balance')}}</span></li>
+                        <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark sidebar-link" href="javascript:void(0)" aria-expanded="false"><i class="icon-Neutron" style="padding-left: 30px"></i><span class="hide-menu" style="padding-left: 20px"> {{__('Trial Balance')}}</span></a>
+                            <ul aria-expanded="false" class="collapse first-level">
+                                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('BLdaily')}}" aria-expanded="false"><i class="mdi mdi-image-filter-tilt-shift"></i><span class="hide-menu"> {{__('Daily Account Balance')}}</span></a></li>
+                                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('BLsheetGet')}}" aria-expanded="false"><i class="mdi mdi-svg"></i><span class="hide-menu">{{__('General Balance')}}</span></a></li>
+
+                            </ul>
+                        </li>
+                       
                         <li class="nav-small-cap"><i class="mdi mdi-dots-horizontal"></i> <span class="hide-menu">{{__('Options')}}</span></li>
-                        <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="icon-Navigation-LeftWindow"></i><span class="hide-menu">{{__('Options')}}</span></a>
+                        <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="icon-Car-Wheel"></i><span class="hide-menu">{{__('settings')}}</span></a>
                             <ul aria-expanded="false" class="collapse first-level">
-                                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('Options.index')}}" aria-expanded="false"><i class="mdi mdi-border-top"></i><span class="hide-menu">{{__('Options')}}</span></a></li>
-                                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('Sets.index')}}" aria-expanded="false"><i class="mdi mdi-border-style"></i><span class="hide-menu">{{__('Sets')}}</span></a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-small-cap"><i class="mdi mdi-dots-horizontal"></i> <span class="hide-menu">{{__('Mains')}}</span></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark" href="{{route('Mains.index')}}" aria-expanded="false"><i class="icon-File-HorizontalText"></i><span class="hide-menu">{{__('Mains')}}</span></a></li>
+                                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('Accounts.index')}}" aria-expanded="false"><i class="mdi mdi-border-top"></i><span class="hide-menu">{{__('Accounts')}}</span></a></li>
+                                @if (Auth::user()->parent_id == null)
+                                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('Users.index')}}" aria-expanded="false"><i class="mdi mdi-border-top"></i><span class="hide-menu">{{__('Employees')}}</span></a></li>
+                                @endif
+                                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('Options.index')}}" aria-expanded="false"><i class="mdi mdi-border-top"></i><span class="hide-menu">{{__('Options')}}</span></a></li>
 
-                        <li class="nav-small-cap"><i class="mdi mdi-dots-horizontal"></i> <span class="hide-menu">{{__('Transactions')}}</span></li>
-                        <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="icon-Navigation-LeftWindow"></i><span class="hide-menu">{{__('Transactions')}}</span></a>
-                            <ul aria-expanded="false" class="collapse first-level">
-                                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('Transactions.index')}}" aria-expanded="false"><i class="mdi mdi-border-style"></i><span class="hide-menu">{{__('Transactions')}}</span></a></li>
-                                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('gl')}}" aria-expanded="false"><i class="mdi mdi-tab-unselected"></i><span class="hide-menu">{{__('Gl')}}</span></a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-small-cap"><i class="mdi mdi-dots-horizontal"></i> <span class="hide-menu">{{__('Balances')}}</span></li>
-                        <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark sidebar-link" href="javascript:void(0)" aria-expanded="false"><i class="icon-Neutron"></i><span class="hide-menu"> {{__('Balances')}}</span></a>
-                            <ul aria-expanded="false" class="collapse first-level">
-                                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('BLdaily')}}" aria-expanded="false"><i class="mdi mdi-image-filter-tilt-shift"></i><span class="hide-menu"> {{__('Daily balances')}}</span></a></li>
-                                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('BLsheetGet')}}" aria-expanded="false"><i class="mdi mdi-svg"></i><span class="hide-menu">{{__('Balance sheet')}}</span></a></li>
-
+                                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('Sets.index')}}" aria-expanded="false"><i class="mdi mdi-border-style"></i><span class="hide-menu">{{__('Default values')}}</span></a></li>
                             </ul>
                         </li>
 
-                        <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="icon-Increase-Inedit"></i><span class="hide-menu">{{__('Polls')}}</span></a>
+
+                        
+
+                        <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="icon-Increase-Inedit"></i><span class="hide-menu">{{__('Additions')}}</span></a>
                             <ul aria-expanded="false" class="collapse first-level">
+                                 @if(Auth::user()->parent_id== null)
+                                     <li class="sidebar-item"><a href="{{route('poll.index')}}" class="sidebar-link"><i class="mdi mdi-octagram"></i><span class="hide-menu"> {{__('New vote')}}</span></a></li>
+                                     <li class="sidebar-item"><a href="{{route('allResult')}}" class="sidebar-link"><i class="mdi mdi-octagram"></i><span class="hide-menu"> {{__('Voting results')}}</span></a></li>
+                                    @endif   
                                 <li class="sidebar-item"><a href="{{route('getvote')}}" class="sidebar-link"><i class="mdi mdi-octagram"></i><span class="hide-menu"> {{__('vote')}}</span></a></li>
-                                @if(Auth::user()->parent_id== null)
-                                    <li class="sidebar-item"><a href="{{route('poll.index')}}" class="sidebar-link"><i class="mdi mdi-octagram"></i><span class="hide-menu"> {{__('create')}}</span></a></li>
-                                    <li class="sidebar-item"><a href="{{route('allResult')}}" class="sidebar-link"><i class="mdi mdi-octagram"></i><span class="hide-menu"> {{__('All Result')}}</span></a></li>
-                                    @endif
+                                
                             </ul>
                         </li>
                     </ul>

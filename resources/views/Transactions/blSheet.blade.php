@@ -72,10 +72,10 @@
                         <th>{{__('Account ID')}}</th>
                         <th>{{__('Account Name')}}</th>
                         <th>{{__('Account belongTO')}}</th>
-                        <th>{{__('Account finalReport')}}</th>
-                        <th >{{__('Account ismaster')}}</th>
-                        <th>{{__('Total debit')}}</th>
-                        <th>{{__('Total credit')}}</th>
+                        <th>{{__('Final Report')}}</th>
+                        <th >{{__('Master')}}</th>
+                        <th>{{__('Total Debit')}}</th>
+                        <th>{{__('Total Credit')}}</th>
                         <th>{{__('Total Bal')}}</th>
                         <th>{{__('Total BalDb')}}</th>
                         <th>{{__('Total BalCr')}}</th>

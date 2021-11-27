@@ -103,7 +103,40 @@
     "Home": "الصفحة الرئيسية",
     "Result": "النتائج",
     "vote": "تصويت",
-    "create Account Tree": "إنشاء شجرة الحسابات"
+    "create Account Tree": "إنشاء شجرة الحسابات",
+    "Question:": "السؤال",
+    "Options:":"الخيارات",
+    "Status:":"الحالة",
+    "active": "فعال",
+    "inactive": "غير فعال",
+    "Close": "مغلق",
+    "option": "الخيار",
+    "Daily Entry": "الحركات اليومية",
+    "Add Daily Entry" : " اضافة حركة يومية",
+    "Financial constraints": "القيود المالية",
+    "General ledger": "دفتر الاستاذ",
+    "Trial Balance": "ميزان المراجعة",
+    "Daily Account Balance":"ميزان الحسابات اليومية",
+    "General Balance":"الميزان العام",
+    "settings":"الاعدادات",
+    "Default values":"القيم الافتراضية",
+    "Additions":"الإضافات",
+    "New vote":"تصويت جديد",
+    "Voting results":"نتائج التصويت",
+    "Log in":"تسجيل الدخول",
+    "ALMounkez":"المنقذ",
+    "Remember Me":"تذكرني",
+    "Sign In":"تسجيل الدخول",
+    "I forgot my password":"نسيت كلمة المرور",
+    "Register a new membership":"تسجيل بحساب جديد",
+    "Full name":"الاسم الكامل",
+    "I already have a membership":"لدي حساب بالفعل",
+    "Account ID":"",
+    "Account belongTO":"",
+    "Master":"",
+    "Total Debit":"مجموع المدين"
+    
+
 
 
 
