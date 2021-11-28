@@ -161,8 +161,8 @@ class MainController extends Controller
         if ($request->type_of_operation == 1) {
 
             for ($i = 0; $i < count($request->amount); $i++) {
-                $details_list[$i]['credit'] = $request->amount[$i];
-                $details_list[$i]['debit'] = 0.0;
+                $details_list[$i]['debit'] = $request->amount[$i];
+                $details_list[$i]['credit'] =0.0 ;
                 $details_list[$i]['account_number'] = $request->account_number[$i];
 
                 $details_list[$i]['explained'] = $request->explained[$i];
@@ -171,8 +171,8 @@ class MainController extends Controller
         }elseif($request->type_of_operation == 2 or  $request->type_of_operation == 3){
 
             for ($i = 0; $i < count($request->amount); $i++) {
-                $details_list[$i]['credit'] = 0.0;
-                $details_list[$i]['debit'] = $request->amount[$i];
+                $details_list[$i]['debit'] = 0.0;
+                $details_list[$i]['credit'] = $request->amount[$i];
                 $details_list[$i]['account_number'] = $request->account_number[$i];
                 $details_list[$i]['explained'] = $request->explained[$i];
                 $details_list[$i]['explained_ar'] =$request->explained_ar[$i];
@@ -268,8 +268,8 @@ class MainController extends Controller
         $details_list = [];
         if ($request->type_of_operation == 1) {
             for ($i = 0; $i < count($request->amount); $i++) {
-                $details_list[$i]['credit'] = $request->amount[$i];
-                $details_list[$i]['debit'] = 0;
+                $details_list[$i]['debit'] = $request->amount[$i];
+                $details_list[$i]['credit'] =0.0 ;
                 $details_list[$i]['account_number'] = $request->account_number[$i];
                 $details_list[$i]['account_name'] = "b";
 
@@ -278,8 +278,8 @@ class MainController extends Controller
             }
         }elseif($request->type_of_operation == 2 or  $request->type_of_operation == 3){
             for ($i = 0; $i < count($request->amount); $i++) {
-                $details_list[$i]['credit'] = 0;
-                $details_list[$i]['debit'] = $request->amount[$i];
+                $details_list[$i]['debit'] =0.0 ;
+                $details_list[$i]['credit'] = $request->amount[$i];
                 $details_list[$i]['account_number'] = $request->account_number[$i];
                 $details_list[$i]['account_name'] = "b";
 

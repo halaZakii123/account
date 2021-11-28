@@ -39,57 +39,21 @@
             </div>
         </div>
     @endif
-    <div class="col-md-10" style="margin: auto ;">
-    <div class="card">
-        <div class="row justify-content-center">
-            <div class="col-md-12">
-                <div class="card-header d-flex">
-
-                </div>
-
-                    <div>
-                        <form method="POST"  name ="aa" on onsubmit="return v" action="{!! route('TransSearch') !!}">
-                            @csrf
-
-                            <p>{{__('please select one :')}}</p>
-
-                            <div class="form-group">
-
-
-                                <div>
-                                    <input type="radio" id="sourc_id" name="trans" value="source_id" checked>
-                                      <label for="html">{{__('Source id')}} :</label>
-                                    <select name="source_id_value">
-                                        @foreach($allTransSource as $tran)
-                                            <option value="{{$tran->sourceid}}"> {{$tran->sourceid}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-
-
-                                <div>
-                                    <input type="radio" id="doc_date" name="trans" value="doc_date">
-                                      <label for="html">{{__('From date to date')}}</label>
-                                    <input type="date" id="doc_date_value" name="doc_date_from"  value="{{$first}}">
-                                    <input type="date" id="doc_date_value" name="doc_date_to" value="{{$last}}"><br>
-                                <div class="form-group" type="submit">
-                                    <button type="submit"> {{__('Search')}}</button>
-                                </div>
-                            </div>
-                            </div>
-                        </form>
-                    </div>
-
-                    @if($trans != null)
-                   @if($searchType == 'source_id')
-                        <h5>{{__('Result by source id')}} {{$source_id}} :</h5>
-                    @else
-                        <h5>{{__('Result by date')}} {{__('From:')}} {{$dateFrom}} {{__('To:')}} {{$dateTo}} : </h5>
+             
+   
+            <div class="col-md-10"  style="margin: auto;">
+               
+                   @if($trans != null)
+                       @if($searchType == 'source_id')
+                            <h5>{{__('Result by source id')}} {{$source_id}} :</h5>
+                        @else
+                            <h5>{{__('Result by date')}} {{__('From:')}} {{$dateFrom}} {{__('To:')}} {{$dateTo}} : </h5>
+                        @endif
                     @endif
-                    @endif
+
                     <table class="table table-bordered display responsive nowrap  optionDataTable" >
                         <thead >
-                        <tr style="background-color: #95999c">
+                        <tr style="background-color:#D3D3D3">
                             <th>{{__('Debit')}}</th>
                             <th>{{__('Credit')}}</th>
                             <th>{{__('Account Number')}}</th>
@@ -98,7 +62,7 @@
                             <th>{{__('Document Date')}}</th>
 
                         </tr>
-                        <tr style="background-color: #95999c">
+                        <tr style="background-color:#D3D3D3">
                             <th style="border-bottom: 2px solid black">{{__('Debit M')}}</th>
                             <th style="border-bottom: 2px solid black">{{__('Credit M')}}</th>
                             <th style="border-bottom: 2px solid black">{{__('Currency symbol')}}</th>
@@ -109,7 +73,7 @@
                         <tbody>
                         @if($trans != null)
                         @foreach($trans  as $tran )
-                            <tr class="active" style="border-left: 2px solid black;border-top: 2px solid black;border-right: 2px solid black">
+                            <tr class="active" style="border-top: 2px solid black">
                                 <td  style="text-align: right">{{ number_format($tran->trans_db, 2, '.', ',') }}</td>
                                 <td style="text-align: right">{{ number_format($tran->trans_cr, 2, '.', ',') }}</td>
                                 <td>{{$tran->trans_accno}}</td>
@@ -117,7 +81,7 @@
                                 <td>{{$tran->trans_sid}}</td>
                                 <td>{{$tran->trans_date}}</td>
                             </tr>
-                            <tr class="active" style="border-left: 2px solid black;border-right: 2px solid black; border-bottom: 2px solid black">
+                            <tr class="active" style=" border-bottom: 2px solid black">
                                 <td style="text-align: right">{{ number_format($tran->trans_dbc, 2, '.', ',') }}</td>
                                 <td style="text-align: right"> {{ number_format($tran->trans_crc, 2, '.', ',') }}</td>
                                 <td>{{$tran->trans_curr}}</td>
@@ -148,11 +112,6 @@
                     </table>
 
                 </div>
-
-
-            </div>
-        </div>
-        </div>
 
 @endsection
 

@@ -24,18 +24,26 @@
     <div class="col-md-10" style="margin:auto ">
                 <div class="card">
                         <div class="card-header d-flex">
-                            <div class="dropdown  col-md-2">
-                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-plus"></i>
-                                </button>
-                                <div class="dropdown-menu">
-                                    <a  class="dropdown-item" href ="{{route('Mains.create')}} "> {{__('financial record')}} </a>
-                                    <a class="dropdown-item" href=" {{route('Mains.dailyCash',3)}} "> {{__('Cash')}}</a>
-                                    <a  class="dropdown-item" href=" {{route('Mains.dailyCashIn',1)}}"> {{__('Cash in')}}</a>
-                                    <a  class="dropdown-item" href=" {{route('Mains.dailyCashOut',2)}}"> {{__('Cash out')}}</a>
-                                </div>
-                            </div>
-
+                            
+                        <div>
+           <form method="post" action=" {{route('search')}}" >
+            @csrf
+                <label>{{__('Search between two dates')}}</label>
+                <div >
+                    <div class ="form-group" >
+                        <label style="font-size: small"> {{__('start date :')}}</label>
+                        <input type="date" id="startDate" name="from" placeholder="yyyy-mm-dd"  autocomplete="on">
+                        <label style="font-size: small"> {{__('end date :')}}</label>
+                        <input type="date" id="endDate"  name="to"  placeholder="yyyy-mm-dd"  autocomplete="on" >
+                        <button type="submit" class="btn btn-primary" style="height: 25px;font-size: small">
+                            {{ __('Search') }}
+                        </button>
+                    </div>
+                </div>
+                
+               
+            </form>
+       </div>
                         </div>
 
 
@@ -47,27 +55,9 @@
                         @endif
 
 
-      <div>
-           <form method="post" action=" {{route('search')}}" >
-            @csrf
-                <label>{{__('Search between two dates')}}</label>
-                <div class="col-4">
-                    <div class ="form-group" >
-                        <label style="font-size: small"> {{__('start date :')}}</label>
-                        <input type="date" id="startDate" name="from" placeholder="yyyy-mm-dd"  autocomplete="on">
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class ="form-group" >
-                        <label style="font-size: small"> {{__('end date :')}}</label>
-                        <input type="date" id="endDate"  name="to"  placeholder="yyyy-mm-dd"  autocomplete="on" >
-                        <button type="submit" class="btn btn-primary" style="height: 25px;font-size: small">
-                            {{ __('Search') }}
-                        </button>
-                    </div>
-                </div>
-            </form>
-       </div>
+      
+
+       
         <div class="table-responsive">
                             <table class="table table-bordered display responsive  mainDataTable" id="ii">
                                 <thead>

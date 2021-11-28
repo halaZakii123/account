@@ -87,7 +87,7 @@ class TransactionsController extends Controller
             }
         }else{
             $trans = null;
-        return view('Transactions.index',compact('trans','allTransSource','first','last','account'));        }
+        return view('modal',compact('trans','allTransSource','first','last','account'));        }
 
     }
 
@@ -126,7 +126,7 @@ class TransactionsController extends Controller
             $subAmountc = $totaldbc - $totalcrc;
             return view('Transactions.gl', compact('trans', 'allTrans',  'totaldb', 'totaldbc', 'totalcr', 'totalcrc', 'account_number', 'from', 'to', 'first', 'last', 'subAmount', 'subAmountc', 'account'));
         }else
-            return view('Transactions.gl',compact('trans','allTrans','first','last','account'));
+            return view('modalGl',compact('trans','allTrans','first','last','account'));
 
             }
 
@@ -465,7 +465,7 @@ class TransactionsController extends Controller
       }
         else{
             $sheets = null;
-            return view('Transactions.blSheet',compact('first','last','sheets'));
+            return view('modelBlSheet',compact('first','last','sheets'));
         }
     }
 

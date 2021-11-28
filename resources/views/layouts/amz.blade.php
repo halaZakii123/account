@@ -589,6 +589,7 @@
                                 
                             </ul>
                         </li>
+                        
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
@@ -596,7 +597,7 @@
             <!-- End Sidebar scroll-->
         </aside>
         @endauth
-
+ 
                 @yield('content')
 
                 <footer class="page-footer font-small blue " >
