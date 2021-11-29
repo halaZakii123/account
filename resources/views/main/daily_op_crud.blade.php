@@ -22,26 +22,9 @@
             </div>
         </div>
     </div>
-    @if(!empty($main))
-    <div class="row" style="margin-bottom:15px ">
-    <div class="dropdown dropleft float-right">
-        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-            {{__('More')}}
-        </button>
-        <div class="dropdown-menu">
-
-                <a class="dropdown-item" href="{{ route('pdfDaily',$main->id)}}" class="btn btn-primary ml-auto"> pdf</a>
-                <a  class="dropdown-item"href="{{ route('printDaily',$main->id)}}" class="btn btn-primary ml-auto">print</a>
-
-        </div>
-    </div>
-    </div>
-    @endif
-
-
-
+   
         <div class="row justify-content-center">
-            <div class="col-md-12">
+            <div class="col-md-11">
                 <div class="card">
                     <div class="card-header d-flex">
                         <a href="{{ route('Mains.index') }}" class="btn btn-primary ml-auto"><i class="fa fa-home"></i> {{ __('Back') }}</a>
@@ -310,10 +293,14 @@
                                 </table>
                             </div>
 
-                            <div class="text-right pt-3">
-                                <button onclick="check()" name="save" class=" enableOnInput btn btn-primary"  >{{ __('Submit') }}  </button>
+                          @if(!empty($main))  
+                           <div class="col-12">
+                              <button onclick="check()" name="save" rel="noopener" target="_blank" class="btn btn-default"> {{ __('Submit') }}  </button>
+                              <a href="{{ route('printDaily',$main->id)}}" class="btn btn-success float-right"><i class="fas fa-print"></i> {{__('print')}} </a>
+                              <a href="{{ route('pdfDaily',$main->id)}}" class="btn btn-primary float-right" style="margin-left: 10px;"><i class="fas fa-download"></i> {{__('Generate PDF')}} </a>
+                              
                             </div>
-
+                          @endif  
                         </form>
 
                     </div>

@@ -10,6 +10,7 @@
                 <div class="card-body" @if (app()->getLocale() == 'ar') style="text-align: right ;direction: rtl;"@endif>
                     <div class="table-responsive ">
                         <table class="table">
+                        <caption> {{__('Daily Entry')}} </caption>
                             <tr>
                                 <th>{{ __('Operation Date') }}</th>
                                 <td>{{ $main->operation_date }}</td>

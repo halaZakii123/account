@@ -19,26 +19,7 @@
         </div>
     </div>
 
-    @if($trans != null)
-        <div class="dropdown dropleft float-right">
-            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                {{__('More')}}
-            </button>
-            <div class="dropdown-menu">
 
-
-                    @if($searchType == 'source_id')
-                        <a class="dropdown-item" href="{{route('pdfSource',[$searchType,$source_id])}}" class="btn btn-primary ml-auto">{{__('pdf')}}</a>
-                        <a class="dropdown-item" href="{{route('printSource',[$searchType,$source_id])}}" class="btn btn-primary ml-auto">{{__('print')}}</a>
-                    @else
-
-                        <a class="dropdown-item" href="{{route('pdfdate',[$searchType,$dateFrom,$dateTo])}}" class="btn btn-primary ml-auto">{{__('pdf')}}</a>
-                        <a class="dropdown-item" href="{{route('printdate',[$searchType,$dateFrom,$dateTo])}}" class="btn btn-primary ml-auto">{{__('print')}}</a>
-                    @endif
-
-            </div>
-        </div>
-    @endif
              
    
             <div class="col-md-10"  style="margin: auto;">
@@ -110,8 +91,21 @@
                         </tbody>
                         @endif
                     </table>
-
+                       @if(!empty($trans))  
+                       
+                           <div class="col-12">
+                              @if($searchType == 'source_id')
+                                <a href="{{route('printSource',[$searchType,$source_id])}}" class="btn btn-success float-right"><i class="fas fa-print"></i> {{__('print')}} </a>
+                                <a href="{{route('pdfSource',[$searchType,$source_id])}}" class="btn btn-primary float-right" style="margin-left: 10px;"><i class="fas fa-download"></i> {{__('Generate PDF')}} </a>
+                              @else
+                               <a href="{{route('printdate',[$searchType,$dateFrom,$dateTo])}}" class="btn btn-success float-right"><i class="fas fa-print"></i> {{__('print')}} </a>
+                               <a href="{{route('pdfdate',[$searchType,$dateFrom,$dateTo])}}" class="btn btn-primary float-right" style="margin-left: 10px;"><i class="fas fa-download"></i> {{__('Generate PDF')}} </a>
+                              @endif
+                            </div>
+                          @endif 
                 </div>
+               
+                         
 
 @endsection
 

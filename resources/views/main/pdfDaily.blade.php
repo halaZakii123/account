@@ -9,7 +9,7 @@
             font-family: 'XBRiyaz', sans-serif;
         }
 
-        .invoice-box {
+        /* .invoice-box {
             max-width: 800px;
             margin: auto;
             padding: 30px;
@@ -76,6 +76,26 @@
         }
         .table1 tr{
             border-bottom: 1px solid black;
+        } */
+        table{
+            width: 100%;
+            border: 1px solid black;
+           border-collapse: collapse;
+        }
+        th{
+            background: #eee;
+            border: 1px solid black;
+
+        }
+        tr{
+            border: 1px solid black;
+        }
+        td{
+            border: 1px solid black;
+        }
+        caption{
+            font-size:large;
+            color:blue;
         }
 
 
@@ -116,27 +136,12 @@
 
 <body>
 <div class="invoice-box {{ config('app.locale') == 'ar' ? 'rtl' : '' }}">
-    <table cellpadding="0" cellspacing="0">
-        <tr class="top">
-            <td colspan="6">
-                <table>
-                    <tr>
-                        <td width="35%">
-                            {{ __('Date') }}: {{ Carbon\Carbon::now()->format('Y-m-d') }}<br>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    </table>
+    
     <div class="card-body">
         <div class="table-responsive">
-            <table>
-                <tr class="heading">>
-                    <td width="70%"># {{$id}}</td>
-                </tr>
-            </table>
-            <table class="table table-bordered">
+        
+            <table class="table ">
+             <caption> {{__('Daily Entry')}} </caption>
                 <thead>
                     <tr>
                         <td style="font-weight: bold">{{ __('Operation Date') }}</td>
@@ -152,9 +157,9 @@
                     </tr>
 
                     <tr>
-                        <td style="font-weight: bold">{{ __('Document Date') }}</td>
+                        <td style="font-weight: bold">{{__('Document Date') }}</td>
                         <td>{{ $doc_date }} </td>
-                        <td style="font-weight: bold">{{ __('Type of operation') }}</td>
+                        <td style="font-weight: bold">{{__('Type of operation')}}</td>
                         <td>@if($type_of_operation == 0)
                                 {{__('financial record')}}
                             @elseif($type_of_operation == 1)
@@ -167,37 +172,35 @@
                         </td>
                     </tr>
                 <tr>
-                    <td style="font-weight: bold">{{ __('Currency symbol') }}</td>
-                    <td>{{ $currency_symbol }}</td>
+                    <td style="font-weight: bold">{{__('Currency symbol')}}</td>
+                    <td>{{ $currency_symbol}}</td>
 
-                    <td style="font-weight: bold">{{ __('Exchange rate') }}</td>
-                    <td>{{  number_format($exchange_rate , 2, '.', ',')}}</td>
+                    <td style="font-weight: bold">{{__('Exchange rate')}}</td>
+                    <td>{{number_format($exchange_rate , 2, '.', ',')}}</td>
 
                 </tr>
-
-
                 <thead>
             </table>
-            <table class="table1">
+            <table class="table ">
                 <thead>
                 <tr class="heading">
-                    <td>#</td>
-                    <td>{{ __('Amount') }}</td>
-                    <td>{{ __('Account Number') }}</td>
-                    <td>{{ __('Explained') }}</td>
+                    <th>#</th>
+                    <th>{{ __('Amount') }}</th>
+                    <th>{{ __('Account Number') }}</th>
+                    <th>{{ __('Explained') }}</th>
                 </tr>
                 </thead>
 
                 @foreach($items as $item)
                     <tr class="item {{ $loop->last ? 'last' : '' }}">
-                        <td style="border-bottom: 1px solid black">{{ $loop->iteration }}</td>
+                        <td style="text-align: center;">{{ $loop->iteration }}</td>
                         @if($type_of_operation == "cashing")
-                        <td style="border-bottom: 1px solid black ;text-align: right">{{number_format($item['credit'] , 2, '.', ',')}}</td>
+                        <td style="text-align: right">{{number_format($item['credit'] , 2, '.', ',')}}</td>
                         @else
-                            <td style="border-bottom: 1px solid black ; text-align: right">{{number_format($item['debit'], 2, '.', ',')  }}</td>
+                            <td style=" text-align: right">{{number_format($item['debit'], 2, '.', ',')  }}</td>
                         @endif
-                        <td style="border-bottom: 1px solid black">{{$item['account_number']}}</td>
-                        <td style="border-bottom: 1px solid black">{{ $item['explained'] }}</td>
+                        <td style="text-align: center;">{{$item['account_number']}}</td>
+                        <td style="text-align: center">{{ $item['explained'] }}</td>
 
                     </tr>
 

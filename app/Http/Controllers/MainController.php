@@ -366,6 +366,7 @@ class MainController extends Controller
             ->where('mainly',0)->get();
         return view('main.ajaxADaily',compact('account_number','account_numbers'));
     }
+
     public function printM($id){
         $main = Main::where('id',$id)->first();
         $total =0;
@@ -435,6 +436,7 @@ class MainController extends Controller
         $items = [];
         $subs =  $main->subs()->get();
         foreach ($subs as $item) {
+            
             if (app()->getLocale() == 'ar'){
                 $exp = $item->explained_ar;
             }else
@@ -442,10 +444,12 @@ class MainController extends Controller
             $items[] = [
                 'debit'          => $item->debit,
                 'credit'         => $item->credit,
+                // 'account_name'   =>$account_name,
                 'account_number' => $item->account_number,
                 'explained'      => $exp,
             ];
         }
+        
         $data['items'] = $items;
         $total =0;
         $totalDebit =0;

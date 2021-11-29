@@ -14,7 +14,7 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
 
         </div>
-        <div class="container">
+        <div class="modal-body" style="margin:auto">
                     <form method="POST"  name ="aa" on onsubmit="return v" action="{!! route('TransSearchAccount') !!}">
                         @csrf
 
@@ -36,15 +36,15 @@
                                 </select>
                                 <input type="date" id="doc_date_value" name="A_date_from" value="{{$first}}"  >
                                 <input type="date" id="doc_date_value" name="A_date_to" value="{{$last}}"><br>
-                            </div>
+                             </div>
+ 
 
+                             <div class="center" style="display: flex; justify-content: center; margin-top:20px">
 
-                            <div>
-
-                                <div class="form-group" type="submit">
-                                    <button type="submit"> {{__('Search')}}</button>
+                                <div class="form-group" type="submit" >
+                                    <button type="submit" class="btn btn-info"> <i class="fas fa-search"></i> {{__('search')}} </button>
                                 </div>
-                            </div>
+                              </div>
                         </div>
                     </form>
                 </div>

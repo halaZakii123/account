@@ -22,22 +22,7 @@
             </div>
         </div>
     </div>
-    <div class="row" style="margin-bottom:15px ">
-    <div class="dropdown dropleft float-right">
-        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-            {{__('More')}}
-        </button>
-        <div class="dropdown-menu">
-            <a class="dropdown-item" href="{{route('printBL')}}" class="btn btn-primary ml-auto">{{__('print')}}</a>
-            <a class="dropdown-item" href="{{route('pdfBL')}}" class="btn btn-primary ml-auto">{{__('pdf')}}</a>
-{{--            <a class="dropdown-item" href="{{route('pdfBL')}}" class="btn btn-primary ml-auto">{{__('pdf')}}</a>--}}
-        </div>
-    </div>
-    </div>
-  
-
-  
-
+    
         <div class="col-md-12" style="margin: auto ;">
 
                 <div class="card">
@@ -117,8 +102,12 @@
 
 
                             </table>
-                       
-
+                            <div class="col-12">
+                              <a href="{{route('printBL')}}" class="btn btn-success float-right"><i class="fas fa-print"></i> {{__('print')}} </a>
+                              <a href="{{route('pdfBL')}}" class="btn btn-primary float-right" style="margin-left: 10px;"><i class="fas fa-download"></i> {{__('Generate PDF')}} </a>
+                              
+                            </div>
+                
                         </div>
 
                     </div>

@@ -19,17 +19,7 @@
         </div>
     </div>
 
-    @if($trans != null)
-        <div class="dropdown dropleft float-right">
-            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                {{__('More')}}
-            </button>
-            <div class="dropdown-menu">
-'                    <a class="dropdown-item" href="{{route('printAcc',[$account_number,$from,$to])}}" class="btn btn-primary ml-auto">{{__('print')}}</a>
-'                    <a class="dropdown-item" href="{{route('pdfAcc',[$account_number,$from,$to])}}" class="btn btn-primary ml-auto">{{__('pdf')}}</a>
-            </div>
-        </div>
-    @endif
+   
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
@@ -98,7 +88,13 @@
                     </tbody>
                     @endif
                 </table>
-
+                @if(!empty($trans))  
+                           <div class="col-12">
+                              <a href="{{route('printAcc',[$account_number,$from,$to])}}" class="btn btn-success float-right"><i class="fas fa-print"></i> {{__('print')}} </a>
+                              <a href="{{route('pdfAcc',[$account_number,$from,$to])}}" class="btn btn-primary float-right" style="margin-left: 10px;"><i class="fas fa-download"></i> {{__('Generate PDF')}} </a>
+                              
+                            </div>
+                 @endif
             </div>
 
 

@@ -21,15 +21,7 @@
             </div>
         </div>
     </div>
-    <div class="dropdown dropleft float-right">
-        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-            {{__('More')}}
-        </button>
-        <div class="dropdown-menu">
-                <a class="dropdown-item" href="{{route('print')}}" class="btn btn-primary ml-auto"> print</a>
-                <a  class="dropdown-item"href="{{route('pdf')}}" class="btn btn-primary ml-auto">pdf</a>
-        </div>
-    </div>
+   
     <div class="col-md-9" style="margin: auto ;">
                 <div class="card">
                     <div class="card-header d-flex">
@@ -91,7 +83,14 @@
                             @endforeach
                             </tbody>
                         </table>
-
+                        @if(!empty($account))  
+                           <div class="col-12">
+                              <a href="{{route('print')}}" class="btn btn-success float-right"><i class="fas fa-print"></i> {{__('print')}} </a>
+                              <a href="{{route('pdf')}}" class="btn btn-primary float-right" style="margin-left: 10px;"><i class="fas fa-download"></i> {{__('Generate PDF')}} </a>
+                              
+                            </div>
+                        @endif
+                        
                          </div>
                 </div>
                     </div>

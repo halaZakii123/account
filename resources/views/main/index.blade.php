@@ -35,9 +35,10 @@
                         <input type="date" id="startDate" name="from" placeholder="yyyy-mm-dd"  autocomplete="on">
                         <label style="font-size: small"> {{__('end date :')}}</label>
                         <input type="date" id="endDate"  name="to"  placeholder="yyyy-mm-dd"  autocomplete="on" >
-                        <button type="submit" class="btn btn-primary" style="height: 25px;font-size: small">
-                            {{ __('Search') }}
+                        <button type="submit" ><i class="fas fa-search"></i>
+                            
                         </button>
+                        
                     </div>
                 </div>
                 
