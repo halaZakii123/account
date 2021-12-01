@@ -46,7 +46,7 @@ class TransactionsController extends Controller
             ->lastOfYear()
             ->format('Y-m-d');
 
-        $allTransSource  = DB::table('transactions')->select('sourceid')->distinct()->get();
+        $allTransSource  = DB::table('transactions')->where('parent_id',$user_id)->select('sourceid')->distinct()->get();
         if ($request->trans != null) {
             if ($request->trans == 'source_id') {
 
@@ -87,7 +87,7 @@ class TransactionsController extends Controller
             }
         }else{
             $trans = null;
-        return view('Transactions.index',compact('trans','allTransSource','first','last','account'));        }
+        return view('modal',compact('trans','allTransSource','first','last','account'));        }
 
     }
 
@@ -107,7 +107,7 @@ class TransactionsController extends Controller
         $last =  Carbon::createFromFormat('m/d/Y', $day)
             ->lastOfYear()
             ->format('Y-m-d');
-        $allTrans  = DB::table('transactions')->select('accountid')->distinct()->get();
+        $allTrans  = DB::table('transactions')->where('parent_id',$user_id)->select('accountid')->distinct()->get();
         $trans = null;
         if ($request->trans != null) {
             $account_number = $request->account_number_value;
@@ -126,7 +126,7 @@ class TransactionsController extends Controller
             $subAmountc = $totaldbc - $totalcrc;
             return view('Transactions.gl', compact('trans', 'allTrans',  'totaldb', 'totaldbc', 'totalcr', 'totalcrc', 'account_number', 'from', 'to', 'first', 'last', 'subAmount', 'subAmountc', 'account'));
         }else
-            return view('Transactions.gl',compact('trans','allTrans','first','last','account'));
+            return view('modalGl',compact('trans','allTrans','first','last','account'));
 
             }
 
@@ -367,6 +367,7 @@ class TransactionsController extends Controller
         $data['totaldbc'] =$totaldbc;
         $data['totalcrc'] =$totalcrc;
         $data['totalcr'] =$totalcr;
+        $data['search_type']=$searchType;
         $subAmount = $totaldb -$totalcr;
         $subAmountc = $totaldbc -$totalcrc;
 
@@ -448,6 +449,7 @@ class TransactionsController extends Controller
 
     public function getBlalanceSheet(Request $request){
         $user_id = checkPermissionHelper::checkPermission();
+
         $day = date('m/d/Y');
         $first = Carbon::createFromFormat('m/d/Y', $day)
             ->firstOfYear()
@@ -464,7 +466,7 @@ class TransactionsController extends Controller
       }
         else{
             $sheets = null;
-            return view('Transactions.blSheet',compact('first','last','sheets'));
+            return view('modelBlSheet',compact('first','last','sheets'));
         }
     }
 

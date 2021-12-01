@@ -9,7 +9,7 @@
             font-family: 'XBRiyaz', sans-serif;
         }
 
-        .invoice-box {
+        /* .invoice-box {
             max-width: 800px;
             margin: auto;
             padding: 30px;
@@ -90,6 +90,26 @@
                 display: block;
                 text-align: center;
             }
+        } */
+        table{
+            width: 100%;
+            border: 1px solid black;
+           border-collapse: collapse;
+        }
+        th{
+            background: #eee;
+            border: 1px solid black;
+
+        }
+        tr{
+            border: 1px solid black;
+        }
+        td{
+            border: 1px solid black;
+        }
+        caption{
+            font-size:large;
+            color:blue;
         }
 
         /** RTL **/
@@ -115,27 +135,12 @@
 
 <body>
 <div class="invoice-box {{ config('app.locale') == 'ar' ? 'rtl' : '' }}">
-    <table cellpadding="0" cellspacing="0">
-        <tr class="top">
-            <td colspan="6">
-                <table>
-                    <tr>
-                        <td width="35%">
-                            {{ __('Date') }}: {{ Carbon\Carbon::now()->format('Y-m-d') }}<br>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    </table>
+    
     <div class="card-body">
         <div class="table-responsive">
-            <table>
-                <tr class="heading">>
-                    <td width="70%"># {{$id}}</td>
-                </tr>
-            </table>
-        <table class="table table-bordered">
+            
+        <table class="table" >
+            <caption> {{__('Daily Entry')}} </caption>
             <thead>
             <tr>
                 <td style="font-weight: bold">{{ __('Operation Date') }} </td>
@@ -145,7 +150,6 @@
             </tr>
 
             <tr>
-
                 <td style="font-weight: bold">{{__('Document Number')}}</td>
                 <td>{{ $document_number }} </td>
                 <td style="font-weight: bold">{{ __('Document Date') }}</td>
@@ -168,40 +172,42 @@
                 <td style="font-weight: bold">{{ __('Currency symbol') }}</td>
                 <td>{{ $currency_symbol }}</td>
             </tr>
-            <tr>
+            <tr style="padding-bottom: 40px">
                 <td style="font-weight: bold">{{ __('Exchange rate') }}</td>
                 <td>{{ number_format($exchange_rate , 2, '.', ',')}}</td>
             </tr>
 
         </table>
-        <table class="table1">
+        <table class="table ">
             <thead>
-            <tr class="heading">
-                <td></td>
-                <td>{{ __('Debit') }}</td>
-                <td>{{ __('Credit') }}</td>
-                <td>{{ __('Account Number') }}</td>
-                <td>{{ __('Explained') }}</td>
+            <tr >
+                <th>#</td>
+                <th>{{ __('Debit') }}</th>
+                <th>{{ __('Credit') }}</th>
+                <th>{{ __('Account Number') }}</th>
+                <th>{{ __('Explained') }}</th>
             </tr>
             </thead>
 
         @foreach($items as $item)
             <tr class="item {{ $loop->last ? 'last' : '' }}">
                 <td>{{ $loop->iteration }}</td>
-                <td style="text-align: right;border-bottom: 1px solid black">{{ number_format($item['debit'], 2, '.', ',') }}</td>
-                <td style="text-align: right ;border-bottom: 1px solid black">{{number_format($item['credit'], 2, '.', ',')  }}</td>
-                <td style="border-bottom: 1px solid black">{{ $item['account_number'] }}</td>
-                <td style="border-bottom: 1px solid black">{{ $item['explained'] }}</td>
+                <td style="text-align: right;">{{ number_format($item['debit'], 2, '.', ',') }}</td>
+                <td style="text-align: right ">{{number_format($item['credit'], 2, '.', ',')  }}</td>
+
+                <td >{{ $item['account_number'] }}</td>
+                <td >{{ $item['explained'] }}</td>
 
             </tr>
         @endforeach
             <tfoot>
             <tr>
-                <th style="border:1px solid black ">{{_('Total')}}</th>
+                <th >{{_('Total')}}</th>
                 <td style="text-align: right">{{number_format($totalDebit, 2, '.', ',')}}</td>
                 <td style="text-align: right" >{{number_format($totalCredit, 2, '.', ',')}}</td>  </tr>
             </tfoot>
     </table>
+    
 
 </div>
             </div>

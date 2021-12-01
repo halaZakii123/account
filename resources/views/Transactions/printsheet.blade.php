@@ -1,64 +1,69 @@
-@extends('layouts.app')
+@extends('layouts.print')
 @section('style')
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/><link rel="stylesheet" href="{{ asset('css/app.css') }}">
+@endsection
 @section('content')
 
-                <table class="table table-bordered display responsive   optionDataTable" >
+                <table class="table table-bordered display responsive   optionDataTable" @if (app()->getLocale() == 'ar') style="text-align: right ;direction: rtl;"@endif>
                     <thead >
                     <tr style="background-color: #95999c">
-                        <th>{{__('Account ID')}}</th>
+                    <th>{{__('Total Debit')}}</th>
+                        <th>{{__('Total Credit')}}</th>
+                        <th>{{__('Total Balance')}}</th>
+                        <th>{{__('Total Balance Debit')}}</th>
+                        <th>{{__('Total Balance Credit')}}</th>
                         <th>{{__('Account Name')}}</th>
+                        <th>{{__('Account ID')}}</th>
                         <th>{{__('Account belongTO')}}</th>
-                        <th>{{__('Account finalReport')}}</th>
-                        <th >{{__('Account ismaster')}}</th>
-                        <th>{{__('Total debit')}}</th>
-                        <th>{{__('Total credit')}}</th>
-                        <th>{{__('Total Bal')}}</th>
-                        <th>{{__('Total BalDb')}}</th>
-                        <th>{{__('Total BalCr')}}</th>
+                        <th>{{__('Final Report')}}</th>
+                        <th >{{__('Master')}}</th>
+                        
 
 
                     </tr>
                     <tr style="background-color: #95999c">
-                        <th style="border-bottom: 2px solid black"></th>
-                        <th style="border-bottom: 2px solid black"></th>
-                        <th style="border-bottom: 2px solid black"></th>
-                        <th style="border-bottom: 2px solid black"></th>
-                        <th style="border-bottom: 2px solid black"></th>
-                        <th style="border-bottom: 2px solid black">{{__('DTot_DB')}}</th>
-                        <th style="border-bottom: 2px solid black">{{__('DTot_Crc')}}</th>
-                        <th style="border-bottom: 2px solid black">{{__('DTot_Balc')}}</th>
-                        <th style="border-bottom: 2px solid black">{{__('DTot_BalDbc')}}</th>
-                        <th colspan="2" style="text-align: center;border-bottom: 2px solid black">{{__('DTot_Crc')}}</th>
-
+                
+                        <th>{{__('DTot_DB')}}</th>
+                        <th>{{__('DTot_Crc')}}</th>
+                        <th>{{__('DTot_Balc')}}</th>
+                        <th>{{__('DTot_BalDbc')}}</th>
+                        <th  style="text-align: center;">{{__('DTot_Crc')}}</th>
+                        <th colspan="5"></th>
                     </tr>
                     </thead>
                     <tbody>
                     @if($sheets != null)
                         @foreach($sheets  as $sheet )
-                            <tr class="active" style="border-left: 2px solid black;border-top: 2px solid black;border-right: 2px solid black">
-                                <td>{{$sheet->AccID}}</td>
-                                <td>{{$sheet->acc_name}}</td>
-                                <td>{{$sheet->acc_belongTo}}</td>
-                                <td>{{$sheet->acc_finalReport}}</td>
-                                <td>{{$sheet->acc_ismaster}}</td>
-                                <td  style="text-align: right">{{ number_format($sheet->Tot_DB, 2, '.', ',') }}</td>
+                            <tr class="active">
+                            <td  style="text-align: right">{{ number_format($sheet->Tot_DB, 2, '.', ',') }}</td>
                                 <td style="text-align: right">{{ number_format($sheet->Tot_Cr, 2, '.', ',') }}</td>
                                 <td style="text-align: right">{{ number_format($sheet->Tot_Bal, 2, '.', ',') }}</td>
                                 <td style="text-align: right">{{ number_format($sheet->Tot_BalDb, 2, '.', ',') }}</td>
                                 <td style="text-align: right">{{ number_format($sheet->Tot_BalCr, 2, '.', ',') }}</td>
-
+                                <td>{{$sheet->acc_name}}</td>
+                                <td>{{$sheet->AccID}}</td>
+                            
+                                <td>{{$sheet->acc_belongTo}}</td>
+                                <td>@if($sheet->acc_finalReport == 1)
+                                          {{__('budget')}}
+                                         @else
+                                         {{__('list')}}
+                                         @endif</td>
+                                <td>@if($sheet->acc_ismaster == 1)
+                                            <i class="fas fa-check"></i>
+                                        @else
+                                            <i class="fa fa-times"></i>
+                                        @endif</td>
+                                
                             </tr>
-                            <tr class="active" style="border-left: 2px solid black;border-right: 2px solid black; border-bottom: 2px solid black">
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                            <tr class="active" style=" border-bottom: 2px solid black">
+                                
                                 <td style="text-align: right;font-size: small;color: blue">{{ number_format($sheet->Tot_DBc, 2, '.', ',') }}</td>
                                 <td style="text-align: right;font-size: small;color: blue"> {{ number_format($sheet->Tot_Crc, 2, '.', ',') }}</td>
                                 <td style="text-align: right;font-size: small;color: blue"> {{ number_format($sheet->Tot_Balc, 2, '.', ',') }}</td>
                                 <td style="text-align: right;font-size: small;color: blue"> {{ number_format($sheet->Tot_BalDbc, 2, '.', ',') }}</td>
                                 <td style="text-align: right;font-size: small;color: blue"> {{ number_format($sheet->Tot_BalCrc, 2, '.', ',') }}</td>
+                                <td colspan="5"></td>
 
                             </tr>
 

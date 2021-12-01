@@ -100,7 +100,22 @@
                 text-align: center;
             }
         }
+        table{
+            width: 100%;
+            border: 1px solid black;
+           border-collapse: collapse;
+        }
+        th{
+            background: #eee;
+            border: 1px solid black;
 
+        }
+        td{
+            border: 1px solid #eee;
+        }
+      caption{
+            font-size: 20px;
+        }
         /** RTL **/
         .rtl {
             direction: rtl;
@@ -124,75 +139,63 @@
 
 <body>
 <div class="invoice-box {{ config('app.locale') == 'ar' ? 'rtl' : '' }}">
-    <table >
-        <tr class="top">
-            <td colspan="6">
-                <table>
-                    <tr>
-                        <td width="35%">
-                            {{ __('Date') }}: {{ Carbon\Carbon::now()->format('Y-m-d') }}<br>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    </table>
+   
 
 
             <table class="table table-bordered">
+                <caption>{{__('General Balance')}}</caption>
                 <thead>
-                <tr style="background-color: #95999c">
-                    <th>{{__('Account ID')}}</th>
-                    <th style="width:10%;text-align: right">{{__('Account Name')}}</th>
-                    <th>{{__('Account belongTO')}}</th>
-                    <th>{{__('Account finalReport')}}</th>
-                    <th>{{__('Account ismaster')}}</th>
-                    <th>{{__('Total debit')}}</th>
-                    <th>{{__('Total credit')}}</th>
-                    <th>{{__('Total Bal')}}</th>
-                    <th>{{__('Total BalDb')}}</th>
-                    <th>{{__('Total BalCr')}}</th>
+                <tr >
+                        <th>{{__('Total Debit')}}</th>
+                        <th>{{__('Total Credit')}}</th>
+                        <th>{{__('Total Balance')}}</th>
+                        <th>{{__('Total Balance Debit')}}</th>
+                        <th>{{__('Total Balance Credit')}}</th>
+                        <th>{{__('Account Name')}}</th>
+                        <th>{{__('Account ID')}}</th>
+                        <th>{{__('Account belongTO')}}</th>
+                        <th>{{__('Final Report')}}</th>
+                        <th >{{__('Master')}}</th>
+                    
                 </tr>
-                <tr style="background-color: #95999c">
-                    <th style="border-bottom: 2px solid black"></th>
-                    <th style="border-bottom: 2px solid black"></th>
-                    <th style="border-bottom: 2px solid black"></th>
-                    <th style="border-bottom: 2px solid black"></th>
-                    <th style="border-bottom: 2px solid black"></th>
-                    <th style="border-bottom: 2px solid black">{{__('DTot_DB')}}</th>
-                    <th style="border-bottom: 2px solid black">{{__('DTot_Crc')}}</th>
-                    <th style="border-bottom: 2px solid black">{{__('DTot_Balc')}}</th>
-                    <th style="border-bottom: 2px solid black">{{__('DTot_BalDbc')}}</th>
-                    <th colspan="2" style="text-align: center;border-bottom: 2px solid black">{{__('DTot_Crc')}}</th>
+                <tr>
+        
+                    <th >{{__('DTot_DB')}}</th>
+                    <th >{{__('DTot_Crc')}}</th>
+                    <th >{{__('DTot_Balc')}}</th>
+                    <th >{{__('DTot_BalDbc')}}</th>
+                    <th style="text-align: center;">{{__('DTot_Crc')}}</th>
+                    <th colspan="5" ></th>
 
                 </tr>
                 </thead>
 
                 @foreach($items as $item)
                     <tr class="item {{ $loop->last ? 'last' : '' }}">
-                        <td>{{$item['AccId']}}</td>
-                        <td>{{$item['acc_name']}}</td>
-                        <td>{{$item['acc_belongTo']}}</td>
-                        <td>{{$item['acc_finalReport']}}</td>
-                        <td>{{$item['acc_ismaster']}}</td>
-                        <td  style="text-align: right;width: 12%">{{ number_format($item['Tot_DB'], 2, '.', ',') }}</td>
+                       
+                        <td  style="text-align: right;width: 12%;border-right: 1px solid black">{{ number_format($item['Tot_DB'], 2, '.', ',') }}</td>
                         <td style="text-align: right;width: 12%">{{ number_format($item['Tot_Cr'], 2, '.', ',') }}</td>
                         <td style="text-align: right;width: 12%">{{ number_format($item['Tot_Bal'], 2, '.', ',') }}</td>
                         <td style="text-align: right;width: 12%">{{ number_format($item['Tot_BalDb'], 2, '.', ',') }}</td>
                         <td style="text-align: right;width: 12%">{{ number_format($item['Tot_BalCr'], 2, '.', ',') }}</td>
+                        <td>{{$item['acc_name']}}</td>
+                        <td>{{$item['AccId']}}</td>
+
+                        <td>{{$item['acc_belongTo']}}</td>
+                        <td> @if($item['acc_finalReport']== 1)
+                                          {{__('budget')}}
+                                         @else
+                                         {{__('list')}}
+                                         @endif</td>
+                        <td style="border-left: 1px solid black"> @if($item['acc_ismaster']==1)<i style="font-family:fontawesome;">&#xf00c;</i>@endif</td>
                     </tr>
                     <tr class="active1" >
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td style="text-align: right;font-size: small;color: blue">{{ number_format($item['Tot_DBc'], 2, '.', ',') }}</td>
-                        <td style="text-align: right;font-size: small;color: blue"> {{ number_format($item['Tot_Crc'], 2, '.', ',') }}</td>
-                        <td style="text-align: right;font-size: small;color: blue"> {{ number_format($item['Tot_Balc'], 2, '.', ',') }}</td>
-                        <td style="text-align: right;font-size: small;color: blue"> {{ number_format($item['Tot_BalDbc'], 2, '.', ',') }}</td>
-                        <td style="text-align: right;font-size: small;color: blue"> {{ number_format($item['Tot_BalCrc'], 2, '.', ',') }}</td>
-
+                        <td style="text-align: right;font-size: small;color: blue;border-bottom: 1px solid black;border-right: 1px solid black">{{ number_format($item['Tot_DBc'], 2, '.', ',') }}</td>
+                        <td style="text-align: right;font-size: small;color: blue;border-bottom: 1px solid black;"> {{ number_format($item['Tot_Crc'], 2, '.', ',') }}</td>
+                        <td style="text-align: right;font-size: small;color: blue;border-bottom: 1px solid black;"> {{ number_format($item['Tot_Balc'], 2, '.', ',') }}</td>
+                        <td style="text-align: right;font-size: small;color: blue;border-bottom: 1px solid black;"> {{ number_format($item['Tot_BalDbc'], 2, '.', ',') }}</td>
+                        <td style="text-align: right;font-size: small;color: blue;border-bottom: 1px solid black"> {{ number_format($item['Tot_BalCrc'], 2, '.', ',') }}</td>
+                        <td colspan="5" style="border-left:1px solid black"></td>
                     </tr>
 
                 @endforeach

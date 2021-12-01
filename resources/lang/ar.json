@@ -21,13 +21,12 @@
     "Explained":"الشرح",
     "Type of operation": "نوع العملية",
     "Currency symbol":"رمز العملة",
-    "Exchange rate": "سعر الصرف",
     "Operation Date": "تاريخ العملية",
-    "Debit": "دائن",
-    "Credit": "مدين",
+    "Debit": "مدين",
+    "Credit": "دائن",
     "Add another sub": "اضافة حقل جديد",
-    "Total Debit": "مجموع دائن",
-    "Total Credit": "مجموع مدين",
+    "Total Debit": "مجموع مدين",
+    "Total Credit": "مجموع دائن",
     "Total": "المجموع",
     "Name": "الاسم",
     "Email": "البريد الالكتروني",
@@ -67,8 +66,8 @@
     "Search": "بحث",
     "Result by Account Number": "النتيجة حسب رقم الحساب",
     "between": "بين",
-    "Debit M": "دائن مواز",
-    "Credit M": "مدين مواز",
+    "Debit M": "مدين مواز",
+    "Credit M": "دائن مواز",
     "Search between two dates": "البحث بين تاريخين",
     "start date :": "تاريخ البداية:",
     "end date :": "تاريخ النهاية:",
@@ -76,17 +75,139 @@
     "Result by date": "النتيجة حسب التاريخ",
     "From:": "من",
     "To:":"الى",
-    "Sum Trans debit": "مجموع مناقلات دائن",
-    "Sum Trans credit": "مجموع مناقلات مدين",
-    "Sum Trans debit M": "مجموع مناقلات مواز دائن",
-    "Sum Trans credit M":"مجموع مناقلات مواز مدين",
+    "Trans debit": " مناقلات مدين",
+    "Trans credit": " مناقلات دائن",
+    "Trans debit M": " مناقلات مواز مدين",
+    "Trans credit M":" مناقلات مواز دائن",
     "Final Report": "تقرير النهائي",
     "Daily balances" : "الارصدة اليومية",
     "Verify Your Email Address": "تحقق من عنوان بريدك الإلكتروني",
     "A fresh verification link has been sent to your email address.": "تم إرسال رابط تحقق جديد إلى عنوان بريدك الإلكتروني",
     "Before proceeding, please check your email for a verification link.": "قبل المتابعة ، يرجى التحقق من بريدك الإلكتروني للحصول على رابط التحقق.",
     "If you did not receive the email": "إذا لم تستلم البريد الإلكتروني",
-    "click here to request another": "انقر هنا لطلب آخر"
+    "click here to request another": "انقر هنا لطلب آخر",
+    "Create your company": "قم بإنشاء شركتك",
+    "Add your employee": "قم بإضافة الموظفين",
+    "Create Accounts": "قم بإنشاء الحسابات",
+    "Create Options": "قم بإنشاء الخيارات",
+    "Create Sets": "قم بإختيار رقم الصندوق",
+    "Create Mains": "قم بإنشاء الحسابات الرئيسية",
+    "Question":"السؤال",
+    "options":"عدد الخيارات",
+    "Status":"الحالة",
+    "Polls": "استطلاعات الرأي",
+    "Balances": "الموازنة",
+    "All Result": "جميع النتائج",
+    "update": "تعديل",
+    "Home": "الصفحة الرئيسية",
+    "Result": "النتائج",
+    "vote": "تصويت",
+    "create Account Tree": "إنشاء شجرة الحسابات",
+    "Question:": "السؤال",
+    "Options:":"الخيارات",
+    "Status:":"الحالة",
+    "active": "فعال",
+    "inactive": "غير فعال",
+    "Close": "مغلق",
+    "option": "الخيار",
+    "Daily Entry": "الحركات اليومية",
+    "Add Daily Entry" : " اضافة حركة يومية",
+    "Financial constraints": "القيود المالية",
+    "General ledger": "دفتر الاستاذ",
+    "Trial Balance": "ميزان المراجعة",
+    "Daily Account Balance":"ميزان الحسابات اليومية",
+    "General Balance":"الميزان العام",
+    "settings":"الاعدادات",
+    "Default values":"القيم الافتراضية",
+    "Additions":"الإضافات",
+    "New vote":"تصويت جديد",
+    "Voting results":"نتائج التصويت",
+    "Log in":"تسجيل الدخول",
+    "ALMounkez":"المنقذ",
+    "Remember Me":"تذكرني",
+    "Sign In":"تسجيل الدخول",
+    "I forgot my password":"نسيت كلمة المرور",
+    "Register a new membership":"تسجيل بحساب جديد",
+    "Full name":"الاسم الكامل",
+    "I already have a membership":"لدي حساب بالفعل",
+    "Account ID":"رقم الحساب",
+    "Account belongTO":"العائدية",
+    "Master":"رئيسي",
+    "Total Balance":"مجموع الرصيد",
+    "Total Balance Debit":"مجموع رصيد مدين",
+    "Total Balance Credit":"مجموع رصيد دائن",
+    "Balance":"الرصيد",
+    "Total Trans debit":"مجموع مناقلات مدين",
+    "Total Trans credit":"مجموع مناقلات دائن",
+    "Total Trans debit M":" مجموع مناقلات مدين مواز ",
+    "Total Trans credit M":"مجموع مناقلات دائن مواز",
+    "please select date:":"الرجاء اختيار تاريخ:",
+    "Sub":"الباقي",
+    "Delete":"حذف",
+    "close":"إغلاق",
+    "Are you sure?":"هل انت متاكد",
+    "To Delete This Daily Entry":"من حذف هذه الحركة اليومية",
+    "To Delete This Account":"من حذف هذا الحساب",
+    "To Delete This Default values":"من حذف هذه القيمة",
+    "To Delete This option":"من حذف هذا الخيار",
+    "To Delete This Poll":"من حذف هذا التصويت"
+    ,"Task":"المهام"
+,"Assigned From":"مسندة من"
+,"Assigned To":"مسندة لـ"
+,"Due Date":"تاريخ الاستحقاق"
+,"create Date":"تاريخ الإنشاء"
+,"update Date":"تاريخ التعديل"
+
+,"Created Tasks":"المهام المنشأة"
+,"Task Management":"إدارة المهمة"
+,"New Task":"مهمة جديدة"
+,"My Tasks":"مهامي"
+,"Add Employees":"إضافة موظفين"
+,"Archive":"الأرشيف"
+,"Title Task":"عنوان المهمة"
+,"Enter title for task":"ادخل عنوان المهمة"
+,"Description Task":"توصيف المهمة"
+,"Submit task":"تثبيت المهمة"
+,"Assignment Tasks":"المهام المسندة"
+,"New Employees":"موظفين جدد"
+,"Description":"توصيف المهمة"
+,"Add employee":"إضافة موظف"
+,"Company":"شركة"
+,"Ar":"عربي"
+,"En":"انكليزي"
+,"not started":"لم يتم البدء بها"
+,"in progress":"جاري العمل"
+,"waiting":"بانتظار"
+,"finished":"منتهية"
+,"denied":"مرفوضة"
+,"Log Out":"خروج"
+,"account":"الحساب"
+,"forward":"محولة"
+,"Forward to":"تحويل إلى"
+,"Duration":"المدة"
+,"hours":"ساعة"
+,"days":"يوم"
+,"To Do List":"قائمة المهام"
+,"PDF Created Tasks":"طباعة المهام المنشأة"
+,"PDF To Do List":"طباعة قائمة المهام"
+,"Cancel":"إلغاء"
+,"Save changes":"حفظ التغييرات"
+,"Good":"جيد"
+,"success":"نجاح"
+,"Task created successfully":"تم إنشاء المهمة بنجاح"
+,"Status updated successfully":"تم تحديث الحالة بنجاح"
+,"Task deleted successfully":"تم حذف المهمة بنجاح"
+,"Task updated successfully":"تم تحديث المهمة بنجاح",
+"All Task":"جميع المهام",
+"Title":"العنوان"
+
+    
+    
+    
+    
+
+
+
 
 
 

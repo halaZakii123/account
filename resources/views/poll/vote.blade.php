@@ -1,8 +1,24 @@
-@extends('layouts.app')
+@extends('layouts.amz')
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-5 align-self-center">
+                {{--                        <h4 class="page-title">{{ Request::segment(1) }}</h4>--}}
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{{route('home')}}">{{__('Home')}}</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">{{__('Polls')}}</li>
+                        <li class="breadcrumb-item active" aria-current="page">{{__('vote')}}</li>
+                    </ol>
+                </nav>
+
+            </div>
+        </div>
+    </div>
+
+        <div class="col-md-8" style="rfmargin: auto;">
             <div class="card">
                 <div class="card-header ">
                     <label for="question" class="col-md-9 col-form-label ">{{ $poll->question }}</label>
@@ -24,18 +40,19 @@
 
                                 <div class="form-group row">
 
-                                    <div class="col-md-6">
+                                    <div class="col-md-6" >
                                         <input id="option_{{$loop->index}}" type="radio"  name="option" value="{{$option->id}}" required />
                                           <label for="option">{{$option->name}}</label><br>
 
                                     </div>
+
                                 </div>
                             @endforeach
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Vote') }}
+                                    {{ __('vote') }}
                                 </button>
                             </div>
                         </div>
@@ -44,28 +61,6 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
-@endsection
-@section('script')
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
-    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 
-    <script src="{{ asset('js/app.js') }}" ></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.datatables.net/1.11.1/js/jquery.dataTables.min.js"></script>
-    <script>
-        $(document).on('click', '.delegated-btn', function (e) {
-            e.preventDefault();
-            $(this).parent().parent().remove();
-
-
-        });
-
-    </script>
 @endsection

@@ -1,25 +1,28 @@
-@extends('layouts.app')
+@extends('layouts.amz')
 @section('style')
-{{--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" />--}}
     <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
 @endsection
 
-
 @section('content')
-    <div class="dropdown dropleft float-right">
-        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-            {{__('More')}}
-        </button>
-        <div class="dropdown-menu">
-                <a class="dropdown-item" href="{{route('print')}}" class="btn btn-primary ml-auto"> print</a>
-                <a  class="dropdown-item"href="{{route('pdf')}}" class="btn btn-primary ml-auto">pdf</a>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-5 align-self-center">
+                {{--                        <h4 class="page-title">{{ Request::segment(1) }}</h4>--}}
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{{route('home')}}">{{__('Home')}}</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">{{__('Accounts')}}</li>
+                    </ol>
+                </nav>
+
+            </div>
         </div>
     </div>
-    <div class="container">
-
-
-
+   
+    <div class="col-md-9" style="margin: auto ;">
                 <div class="card">
                     <div class="card-header d-flex">
                         <a href="{{ route('Accounts.create') }}" class="btn btn-primary ml-auto"><i class="fa fa-plus"></i> {{ __('create') }}</a>
@@ -27,7 +30,7 @@
                          <a href="{{ route('createAccountTree') }}" class="btn btn-primary ml-auto"><i class="fa fa-plus"></i> {{ __('create Account Tree') }}</a>
                        @endif
                     </div>
-                </div>
+
 
                         @if (session('status'))
                             <div class="alert alert-success" role="alert">
@@ -46,7 +49,6 @@
                                 <th>{{__('Master Account number')}}</th>
                                 <th>{{__('Report')}}</th>
                                 <th>{{__('Mainly')}}</th>
-                                {{-- <th>{{__('Create At')}}</th> --}}
                                 <th>{{__('Action')}}</th>
                             </tr>
                             </thead>
@@ -70,33 +72,60 @@
                                             <i class="fa fa-times"></i>
                                         @endif</td>
                                     <td>  <a href="{{route('Accounts.edit',$account->id) }}"><i class="fa fa-edit"></i></a>
-                                        <a href="javascript:void(0)" onclick=" { document.getElementById('delete-{{ $account->id }}').submit(); } " class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                        <form action="{{ route('Accounts.destroy', $account->id) }}" method="post" id="delete-{{ $account->id }}" style="display: none;">
-                                            @csrf
-                                            @method('DELETE')
-                                        </form>
+                                        <a href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal{{!! @account->id !!}}"  class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                        
                                     </td>
+                                    <div class="modal fade" id="exampleModal{{!! @account->id !!}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-exclamation-triangle"></i></h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body" >
+                                               <div style="text-align:center">
+                                                <h2> {{__('Are you sure?')}}</h2>
+                                               </div>
+                                                <div style="text-align:center">
+                                                <p> {{__('To Delete This Account')}}<p>
+                                               </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{__('close')}}</button>
+                                                <button type="button"  onclick=" { document.getElementById('delete-{{ $account->id }}').submit(); }"  class="btn btn-danger ">{{__('Delete')}}</button>
+                                                <form action="{{ route('Accounts.destroy', $account->id) }}" method="post" id="delete-{{ $account->id }}" style="display: none;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                </form>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        </div>
 
                                 </tr>
+                                
                             @endforeach
                             </tbody>
                         </table>
-
+                        @if(!empty($account))  
+                           <div class="col-12">
+                              <a href="{{route('print')}}" class="btn btn-success float-right"><i class="fas fa-print"></i> {{__('print')}} </a>
+                              <a href="{{route('pdf')}}" class="btn btn-primary float-right" style="margin-left: 10px;"><i class="fas fa-download"></i> {{__('Generate PDF')}} </a>
+                              
+                            </div>
+                        @endif
+                        
                          </div>
-
+                </div>
                     </div>
-
 
 
 @endsection
 @section('script')
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-{{--    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>--}}
     <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
-
     <script type="text/javascript">
         $(document).ready(function(){
             $('.yajra-datatable').DataTable();

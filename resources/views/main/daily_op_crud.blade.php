@@ -1,48 +1,30 @@
-@extends('layouts.app')
-@section('style')
-    <link rel="stylesheet" href="{{ asset('css/pickadate/classic.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/pickadate/classic.date.css') }}">
-@endsection
+@extends('layouts.amz')
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-<script>
-    window.addEventListener('load', (event) => {
-
-        var arr = document.querySelectorAll('.amount_filed');
-        var total =0;
-         for (var i=0; i<arr.length;i++){
-            if (parseInt(localStringToNumber(arr[i].value))){
-                total+=parseInt(localStringToNumber(arr[i].value));
-            }
-        }
-
-        document.getElementById("total").value = total;
-        onBlur({ target: document.getElementById("total")});
-    });
-
-
-</script>
-
-
-{{--@foreach ($account_numbers as $a)--}}
-{{--     {{$a}}--}}
-{{--    @endforeach--}}
 @section('content')
-    <div class="dropdown dropleft float-right">
-        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-            {{__('More')}}
-        </button>
-        <div class="dropdown-menu">
-            @if(!empty($main))
-                <a class="dropdown-item" href="{{ route('pdfDaily',$main->id)}}" class="btn btn-primary ml-auto"> pdf</a>
-                <a  class="dropdown-item"href="{{ route('printDaily',$main->id)}}" class="btn btn-primary ml-auto">print</a>
-            @endif
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-5 align-self-center">
+                {{--                        <h4 class="page-title">{{ Request::segment(1) }}</h4>--}}
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{{route('home')}}">{{__('Home')}}</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">{{__('Mains')}}</li>
+                        @if(!empty($main))
+                            <li class="breadcrumb-item active" aria-current="page">{{__('update')}}</li>
+                        @else
+                            <li class="breadcrumb-item active" aria-current="page">{{__('create')}}</li>
+                        @endif
+                    </ol>
+                </nav>
+
+            </div>
         </div>
     </div>
-    <div class="container">
+   
         <div class="row justify-content-center">
-            <div class="col-md-12">
+            <div class="col-md-11">
                 <div class="card">
                     <div class="card-header d-flex">
                         <a href="{{ route('Mains.index') }}" class="btn btn-primary ml-auto"><i class="fa fa-home"></i> {{ __('Back') }}</a>
@@ -311,18 +293,40 @@
                                 </table>
                             </div>
 
-                            <div class="text-right pt-3">
-                                <button onclick="check()" name="save" class=" enableOnInput btn btn-primary"  >{{ __('Submit') }}  </button>
+                          @if(!empty($main))  
+                           <div class="col-12">
+                              <button onclick="check()" name="save" rel="noopener" target="_blank" class="btn btn-default"> {{ __('Submit') }}  </button>
+                              <a href="{{ route('printDaily',$main->id)}}" class="btn btn-success float-right"><i class="fas fa-print"></i> {{__('print')}} </a>
+                              <a href="{{ route('pdfDaily',$main->id)}}" class="btn btn-primary float-right" style="margin-left: 10px;"><i class="fas fa-download"></i> {{__('Generate PDF')}} </a>
+                              
                             </div>
-
+                          @endif  
                         </form>
 
                     </div>
                 </div>
             </div>
         </div>
+@endsection
+@section('script')
+    <script>
+        window.addEventListener('load', (event) => {
 
-    </div>
+            var arr = document.querySelectorAll('.amount_filed');
+            var total =0;
+            for (var i=0; i<arr.length;i++){
+                if (parseInt(localStringToNumber(arr[i].value))){
+                    total+=parseInt(localStringToNumber(arr[i].value));
+                }
+            }
+
+            document.getElementById("total").value = total;
+            onBlur({ target: document.getElementById("total")});
+        });
+
+
+    </script>
+
 
     <script>
         var c = 0;
@@ -380,7 +384,7 @@
 
             var arr = document.querySelectorAll('.amount_filed')
 
-             var total=0;
+            var total=0;
 
             for (var i=0; i<arr.length;i++){
                 if (parseFloat(localStringToNumber(arr[i].value))){
@@ -450,12 +454,11 @@
 
             var currencis = [...document.querySelectorAll('input[type="currency"]')];
             currencis.forEach(function (item) {
-                    item.value = localStringToNumber(item.value);
+                item.value = localStringToNumber(item.value);
             });
         }
     </script>
-
-@endsection
+ @endsection
 
 
 

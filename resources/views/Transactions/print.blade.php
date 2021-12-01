@@ -15,7 +15,7 @@
                         <table class="table table-bordered">
                             <thead>
                             <thead >
-                            <tr style="background-color: #95999c">
+                            <tr >
                                 <th>#</th>
                                 <th>{{__('Debit')}}</th>
                                 <th>{{__('Credit')}}</th>
@@ -23,20 +23,19 @@
                                 <th>{{__('Account Name')}}</th>
                                 <th>{{__('Source id')}}</th>
                                 <th>{{__('Document Date')}}</th>
-
-                            </tr>
-                            <tr style="background-color: #95999c">
+</tr>
+<tr>
                                 <th></th>
-                                <th style="border-bottom: 2px solid black">{{__('Debit M')}}</th>
-                                <th style="border-bottom: 2px solid black">{{__('Credit M')}}</th>
-                                <th style="border-bottom: 2px solid black">{{__('Currency symbol')}}</th>
-                                <th colspan="3" style="text-align: center;border-bottom: 2px solid black">{{__('Explained')}}</th>
+                                <th >{{__('Debit M')}}</th>
+                                <th >{{__('Credit M')}}</th>
+                                <th>{{__('Currency symbol')}}</th>
+                                <th colspan="3" style="text-align: center;">{{__('Explained')}}</th>
 
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($trans  as $tran )
-                                <tr class="active" style="border-left: 2px solid black;border-top: 2px solid black;border-right: 2px solid black">
+                                <tr class="active" >
                                     <td>{{ $loop->iteration }}</td>
                                     <td  style="text-align: right">{{ number_format($tran->trans_db, 2, '.', ',') }}</td>
                                     <td style="text-align: right">{{ number_format($tran->trans_cr, 2, '.', ',') }}</td>
@@ -45,7 +44,7 @@
                                     <td>{{$tran->trans_sid}}</td>
                                     <td>{{$tran->trans_date}}</td>
                                 </tr>
-                                <tr class="active" style="border-left: 2px solid black;border-right: 2px solid black; border-bottom: 2px solid black">
+                                <tr class="active" style="border-bottom: 2px solid black">
                                     <td></td>
                                     <td  style="text-align: right">{{ number_format($tran->trans_dbc, 2, '.', ',') }}</td>
                                     <td style="text-align: right"> {{ number_format($tran->trans_crc, 2, '.', ',') }}</td>

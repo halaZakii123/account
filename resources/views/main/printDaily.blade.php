@@ -5,8 +5,9 @@
     <div class="row justify-content-center">
         <div class="col-12">
             <div class="card">
-                <div class="card-header d-flex" @if (app()->getLocale() == 'ar') style="text-align: right ;direction: rtl;"@endif>
-                    <h2>{{ $main->id }}</h2>
+                <div class="card-header d-flex"  >
+                  <h4> <b> {{__('Daily Entry')}}</b></h4> <br>
+                  
                 </div>
 
                 <div class="card-body" @if (app()->getLocale() == 'ar') style="text-align: right ;direction: rtl;"@endif>

@@ -94,6 +94,20 @@
                 text-align: center;
             }
         }
+        table{
+            width: 100%;
+            border: 1px solid black;
+           border-collapse: collapse;
+        }
+        th{
+            background: #eee;
+            border: 1px solid black;
+
+        }
+       
+        td{
+            border: 1px solid #eee;
+        }
 
         /** RTL **/
         .rtl {
@@ -118,25 +132,15 @@
 
 <body>
 <div class="invoice-box {{ config('app.locale') == 'ar' ? 'rtl' : '' }}">
-    <table cellpadding="0" cellspacing="0">
-        <tr class="top">
-            <td colspan="6">
-                <table>
-                    <tr>
-                        <td width="35%">
-                            {{ __('Date') }}: {{ Carbon\Carbon::now()->format('Y-m-d') }}<br>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    </table>
+   
     <div class="card-body">
         <div class="table-responsive">
 
             <table class="table table-bordered">
+                      
+                <caption></caption>
                 <thead>
-                <tr style="background-color: #95999c">
+                <tr >
                     <th></th>
                     <th>{{__('Debit')}}</th>
                     <th>{{__('Credit')}}</th>
@@ -146,55 +150,35 @@
                     <th>{{__('Document Date')}}</th>
 
                 </tr>
-                <tr style="background-color: #95999c">
+                <tr>
                     <th>#</th>
-                    <th style="border-bottom: 2px solid black">{{__('Debit M')}}</th>
-                    <th style="border-bottom: 2px solid black">{{__('Credit M')}}</th>
-                    <th style="border-bottom: 2px solid black">{{__('Currency symbol')}}</th>
-                    <th colspan="3" style="text-align: center;border-bottom: 2px solid black">{{__('Explained')}}</th>
+                    <th >{{__('Debit M')}}</th>
+                    <th >{{__('Credit M')}}</th>
+                    <th >{{__('Currency symbol')}}</th>
+                    <th colspan="3" >{{__('Explained')}}</th>
 
                 </tr>
                 </thead>
 
-{{--                @foreach($trans  as $tran )--}}
-{{--                    <tr class="active" style="border-left: 2px solid black;border-top: 2px solid black;border-right: 2px solid black">--}}
-{{--                        <td >{{ number_format($tran->amntdb, 2, ',', '.') }}</td>--}}
-{{--                        <td>{{ number_format($tran->amntcr, 2, ',', '.') }}</td>--}}
-{{--                        <td>{{$tran->accountid}}</td>--}}
-{{--                        <td></td>--}}
-{{--                        <td>{{$tran->sourceid}}</td>--}}
-{{--                        <td>{{$tran->dydate}}</td>--}}
-{{--                    </tr>--}}
-{{--                --}}
-{{--                    <tr class="active" style="border-left: 2px solid black;border-right: 2px solid black; border-bottom: 2px solid black">--}}
-{{--                        <td >{{ number_format($tran->amntdbc, 2, ',', '.') }}</td>--}}
-{{--                        <td> {{ number_format($tran->amntcrc, 2, ',', '.') }}</td>--}}
-{{--                        <td>{{$tran->currcode}}</td>--}}
-{{--                        <td colspan="3" style="text-align: center;padding-right: 30px"> {{$tran->docno}} , {{$tran->docdate}} , @if (app()->getLocale() == 'ar'){{$tran->description_ar}} @else  {{$tran->description_en}} @endif </td>--}}
-
-{{--                    </tr>--}}
-
-{{--                @endforeach--}}
                 @foreach($items as $item)
-                    <tr class="item {{ $loop->last ? 'last' : '' }}">
+                    <tr class="item {{ $loop->last ? 'last' : '' }}" >
                         <td style="border-right: 1px solid black">{{ $loop->iteration }}</td>
-                        <td style="text-align: right;border-right: 1px solid black">{{number_format($item['amntdb'], 2, '.', ',')  }}</td>
-                        <td style="text-align: right ;border-right: 1px solid black">{{  number_format($item['amntcr'], 2, '.', ',') }}</td>
-                        <td style="text-align: center;border-right: 1px solid black">{{ $item['accountid'] }}</td>
+                        <td style="text-align: right;">{{number_format($item['amntdb'], 2, '.', ',')  }}</td>
+                        <td style="text-align: right ">{{  number_format($item['amntcr'], 2, '.', ',') }}</td>
+                        <td style="text-align: center">{{ $item['accountid'] }}</td>
                         <td style="text-align: center">{{ $item['acc_name'] }}</td>
-                        <td>{{ $item['sourceid'] }}</td>
-                        <td>{{ $item['dydate'] }}</td>
+                        <td>{{ $item['sourceid']}}</td>
+                        <td style="border-left: 1px solid black">{{ $item['dydate'] }}</td>
                     </tr>
-                    <tr style=" border-bottom: 1px solid black">
-                        <td style=" border-bottom: 1px solid black ;border-right: 1px solid black"> </td>
-                        <td style="text-align: right ;border-bottom: 1px solid black ;border-right: 1px solid black">{{  number_format($item['amntdbc'], 2, '.', ',') }}</td>
-                        <td style="text-align: right;border-bottom: 1px solid black ;border-right:1px solid black ">{{  number_format($item['amntcrc'], 2, '.', ',')}}</td>
-                        <td style=" text-align: center;border-bottom: 1px solid black ;border-right: 1px solid black">{{ $item['currcode'] }}</td>
-                        <td  colspan="3" style=" border-bottom: 1px solid black ;text-align: center;padding-right: 30px">{{ $item['docno'] }},  {{ $item['docdate'] }},  {{ $item['description'] }} </td>
-{{--                        <td style=" border-bottom: 1px solid black"></td>--}}
-{{--                        <td style=" border-bottom: 1px solid black"></td>--}}
+                    <tr >
+                        <td style="border-bottom: 1px solid black;border-right: 1px solid black; "> </td>
+                        <td style="text-align: right;border-bottom: 1px solid black ">{{  number_format($item['amntdbc'], 2, '.', ',') }}</td>
+                        <td style="text-align: right;border-bottom: 1px solid black">{{  number_format($item['amntcrc'], 2, '.', ',')}}</td>
+                        <td style=" text-align: center; border-bottom: 1px solid black">{{ $item['currcode'] }}</td>
+                        <td  colspan="3" style=" text-align: center;padding-right: 30px;border-bottom: 1px solid black;border-left: 1px solid black">{{ $item['docno'] }},  {{ $item['docdate'] }},  {{ $item['description'] }} </td>
+                     
                     </tr>
-                    <tr></tr>
+                    
 
                 @endforeach
                 <tr>
@@ -205,18 +189,18 @@
 
                 </tr>
                 <tr>
-                    <td></td>
-                    <td style="text-align: right">{{ number_format($totaldb, 2, '.', ',') }}
-                    <td style="text-align: right">{{ number_format($totalcr, 2, '.', ',') }}
+                    <td style="border-right: 1px solid black"></td>
+                    <td style="text-align: right; ">{{ number_format($totaldb, 2, '.', ',') }}
+                    <td style="text-align: right;">{{ number_format($totalcr, 2, '.', ',') }}
                     </td>
                     <td style="text-align: right">{{ number_format($subAmount, 2, '.', ',') }} </td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td style="text-align: right">{{ number_format($totaldbc, 2, '.', ',') }} </td>
-                    <td style="text-align: right">{{ number_format($totalcrc, 2, '.', ',') }} </td>
+                    <td style=" border-bottom: 1px solid black;border-right: 1px solid black"></td>
+                    <td style="text-align: right; border-bottom: 1px solid black">{{ number_format($totaldbc, 2, '.', ',') }} </td>
+                    <td style="text-align: right; border-bottom: 1px solid black">{{ number_format($totalcrc, 2, '.', ',') }} </td>
 
-                    <td style="text-align: right" >{{ number_format($subAmountc, 2, '.', ',') }} </td>
+                    <td style="text-align: right; border-bottom: 1px solid black ">{{ number_format($subAmountc, 2, '.', ',') }} </td>
 
                 </tr>
             </table>

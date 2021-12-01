@@ -1,31 +1,52 @@
-@extends('layouts.app')
+@extends('layouts.amz')
 @section('style')
-{{--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" />--}}
     <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
 @endsection
 @section('content')
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-5 align-self-center">
+                {{--                        <h4 class="page-title">{{ Request::segment(1) }}</h4>--}}
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{{route('home')}}">{{__('Home')}}</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">{{__('Mains')}}</li>
+                    </ol>
+                </nav>
 
-    <div class="container">
+            </div>
+        </div>
+    </div>
 
+    <div class="col-md-10" style="margin:auto ">
                 <div class="card">
-                    <div class="card-header d-flex">
-                        <div class="dropdown  col-md-2">
-                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-plus"></i>
-                            </button>
-                            <div class="dropdown-menu">
-                                <a  class="dropdown-item" href ="{{route('Mains.create')}} "> {{__('financial record')}} </a>
-                                <a class="dropdown-item" href=" {{route('Mains.dailyCash',3)}} "> {{__('Cash')}}</a>
-                                <a  class="dropdown-item" href=" {{route('Mains.dailyCashIn',1)}}"> {{__('Cash in')}}</a>
-                                <a  class="dropdown-item" href=" {{route('Mains.dailyCashOut',2)}}"> {{__('Cash out')}}</a>
-                            </div>
-                        </div>
-
+                        <div class="card-header d-flex">
+                            
+                        <div>
+           <form method="post" action=" {{route('search')}}" >
+            @csrf
+                <label>{{__('Search between two dates')}}</label>
+                <div >
+                    <div class ="form-group" >
+                        <label style="font-size: small"> {{__('start date :')}}</label>
+                        <input type="date" id="startDate" name="from" placeholder="yyyy-mm-dd"  autocomplete="on">
+                        <label style="font-size: small"> {{__('end date :')}}</label>
+                        <input type="date" id="endDate"  name="to"  placeholder="yyyy-mm-dd"  autocomplete="on" >
+                        <button type="submit" ><i class="fas fa-search"></i>
+                            
+                        </button>
+                        
                     </div>
                 </div>
+                
+               
+            </form>
+       </div>
+                        </div>
+
 
 
                         @if (session('status'))
@@ -35,27 +56,9 @@
                         @endif
 
 
-      <div>
-           <form method="post" action=" {{route('search')}}" >
-            @csrf
-                <label>{{__('Search between two dates')}}</label>
-                <div class="col-4">
-                    <div class ="form-group" >
-                        <label style="font-size: small"> {{__('start date :')}}</label>
-                        <input type="date" id="startDate" name="from" placeholder="yyyy-mm-dd"  autocomplete="on">
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class ="form-group" >
-                        <label style="font-size: small"> {{__('end date :')}}</label>
-                        <input type="date" id="endDate"  name="to"  placeholder="yyyy-mm-dd"  autocomplete="on" >
-                        <button type="submit" class="btn btn-primary" style="height: 25px;font-size: small">
-                            {{ __('Search') }}
-                        </button>
-                    </div>
-                </div>
-            </form>
-       </div>
+      
+
+       
         <div class="table-responsive">
                             <table class="table table-bordered display responsive  mainDataTable" id="ii">
                                 <thead>
@@ -92,36 +95,56 @@
                                         <td>{{$main->currency_symbol}} </td>
                                         <td>{{ number_format($main->exchange_rate , 2, '.', ',')}} </td>
                                             <td><a href="{{route('Mains.edit',$main->id) }}"><i class="fa fa-edit"></i></a>
-                                                <a href="javascript:void(0)" onclick=" { document.getElementById('delete-{{ $main->id }}').submit(); } " class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                                <form action="{{ route('Mains.destroy', $main->id) }}" method="post" id="delete-{{ $main->id }}" style="display: none;">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                </form>
+                                                <a href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal{!! $main->id !!}"  class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                                
                                             </td>
 
 
                                     </tr>
+                                    <div class="modal fade" id="exampleModal{!! $main->id !!}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-exclamation-triangle"></i></h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body" >
+                                               <div style="text-align:center">
+                                                <h2> {{__('Are you sure?')}}</h2>
+                                               </div>
+                                                <div style="text-align:center">
+                                                <p> {{__('To Delete This Daily Entry')}}<p>
+                                               </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{__('close')}}</button>
+                                                <button type="button"  onclick=" { document.getElementById('delete-{{ $main->id }}').submit(); }"  class="btn btn-danger ">{{__('Delete')}}</button>
+                                                <form action="{{ route('Mains.destroy', $main->id) }}" method="post" id="delete-{{ $main->id }}" style="display: none;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                </form>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        </div>
                                 @endforeach
 
                                 </tbody>
                             </table>
 
                         </div>
+                </div>
+    </div>
 
-                    </div>
 
 
 
 @endsection
 @section('script')
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
     <script type="text/javascript">
         $(document).ready(function() {
             $('.mainDataTable').DataTable();

@@ -1,89 +1,32 @@
-@extends('layouts.app')
+@extends('layouts.amz')
 @section('style')
 
 @endsection
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script>
-    function my() {
-        var x = document.getElementById("debit");
-        document.getElementById("row_sub_total").value = x.value;}
-        function gettotal() {
-        var arr = document.querySelectorAll('.dd');
-        var total =0;
-        for (var i=0; i<arr.length;i++){
-            if (parseInt(localStringToNumber(arr[i].value))){
-                total+=parseInt(localStringToNumber((arr[i].value)));
-            }
-        }
-            document.getElementById('total').value = total;
-        }
-</script>
-<script>
-    window.addEventListener('load', (event) => {
-        var arr = document.querySelectorAll('.debit_filed');
-        var total =0;
-        for (var i=0; i<arr.length;i++){
-            if (parseInt(localStringToNumber(arr[i].value))){
-                total+=parseInt(localStringToNumber(arr[i].value));
-            }
-        }
-        document.getElementById('totalDebit').value = total;
-        var arr = document.querySelectorAll('.credit_filed');
-        var total =0;
-        for (var i=0; i<arr.length;i++){
-            if (parseInt(localStringToNumber(arr[i].value))){
-                total+=parseInt(localStringToNumber(arr[i].value));
-            }
-        }
-        document.getElementById('totalCredit').value = total;
-
-        var x = document.getElementById("totalDebit").value;
-        var y = document.getElementById("totalCredit").value;
-        var z = parseInt(localStringToNumber(x)-localStringToNumber(y));
-        document.getElementById("total").value = z;
-    });
-
-
-</script>
-<script>
-    window.onbeforeunload = function() {
-        localStorage.setItem("debit_filed", $('.debit_filed').val());
-        localStorage.setItem("credit_filed", $('.credit_filed').val());
-        localStorage.setItem("account_number", $('.account_number').val());
-        localStorage.setItem("explained", $('.explained').val());
-        localStorage.setItem("explained_ar", $('.explained_ar').val());
-        // ...
-    }
-    window.onload = function() {
-        var debit = localStorage.getItem(debit_filed);
-        var credit = localStorage.getItem(credit_filed);
-        if (debit !== null) $('.debit_filed').val(debit); if (credit !== null) $('.credit_filed').val(credit);
-        // ...
-    }
-</script>
-
-
-{{--@foreach ($account_numbers as $a)--}}
-{{--     {{$a}}--}}
-{{--    @endforeach--}}
   @section('content')
-      <div class="dropdown dropleft float-right">
-          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-              {{__('More')}}
-          </button>
-          <div class="dropdown-menu">
-              @if(!empty($main))
-                  <a class="dropdown-item" href="{{ route('pdfMain',$main->id)}}" class="btn btn-primary ml-auto"> pdf</a>
-                  <a  class="dropdown-item"href="{{ route('printMain',$main->id)}}" class="btn btn-primary ml-auto">print</a>
-              @endif
+      <div class="page-breadcrumb">
+          <div class="row">
+              <div class="col-5 align-self-center">
+                  {{--                        <h4 class="page-title">{{ Request::segment(1) }}</h4>--}}
+                  <nav aria-label="breadcrumb">
+                      <ol class="breadcrumb">
+                          <li class="breadcrumb-item">
+                              <a href="{{route('home')}}">{{__('Home')}}</a>
+                          </li>
+                          <li class="breadcrumb-item active" aria-current="page">{{__('Mains')}}</li>
+                          @if(!empty($main))
+                              <li class="breadcrumb-item active" aria-current="page">{{__('update')}}</li>
+                          @else
+                              <li class="breadcrumb-item active" aria-current="page">{{__('create')}}</li>
+                          @endif
+                      </ol>
+                  </nav>
+
+              </div>
           </div>
       </div>
-
-    <div class="container">
-        <div class="row justify-content-center">
-
-            <div class="col-md-12">
+    
+      <div class="col-md-12" style="margin:auto ">
                 <div class="card">
                     <div class="card-header d-flex">
                         <a href="{{ route('Mains.index') }}" class="btn btn-primary ml-auto"><i class="fa fa-home"></i> {{ __('Back') }}</a>
@@ -356,18 +299,90 @@
                                 </table>
                             </div>
 
-                            <div class="text-right pt-3">
-                                <button onclick="check()" name="save" class=" enableOnInput btn btn-primary"  >{{ __('Submit') }}  </button>
-                            </div>
+                            
 
+                            @if(!empty($main))  
+                             <div class="col-12">
+                                <button onclick="check()" name="save" rel="noopener" target="_blank" class="btn btn-default"> {{ __('Submit') }}  </button>
+                                <a href="{{ route('printMain',$main->id)}}" class="btn btn-success float-right"><i class="fas fa-print"></i> {{__('print')}} </a>
+                                <a href="{{ route('pdfMain',$main->id)}}" class="btn btn-primary float-right" style="margin-left: 10px;"><i class="fas fa-download"></i> {{__('Generate PDF')}} </a>
+                                
+                             </div>
+                            @endif 
                         </form>
-
+                        
                     </div>
                 </div>
             </div>
-        </div>
 
-    </div>
+
+
+
+
+@endsection
+
+
+@section('script')
+
+
+    <script>
+        function my() {
+            var x = document.getElementById("debit");
+            document.getElementById("row_sub_total").value = x.value;}
+        function gettotal() {
+            var arr = document.querySelectorAll('.dd');
+            var total =0;
+            for (var i=0; i<arr.length;i++){
+                if (parseInt(localStringToNumber(arr[i].value))){
+                    total+=parseInt(localStringToNumber((arr[i].value)));
+                }
+            }
+            document.getElementById('total').value = total;
+        }
+    </script>
+    <script>
+        window.addEventListener('load', (event) => {
+            var arr = document.querySelectorAll('.debit_filed');
+            var total =0;
+            for (var i=0; i<arr.length;i++){
+                if (parseInt(localStringToNumber(arr[i].value))){
+                    total+=parseInt(localStringToNumber(arr[i].value));
+                }
+            }
+            document.getElementById('totalDebit').value = total;
+            var arr = document.querySelectorAll('.credit_filed');
+            var total =0;
+            for (var i=0; i<arr.length;i++){
+                if (parseInt(localStringToNumber(arr[i].value))){
+                    total+=parseInt(localStringToNumber(arr[i].value));
+                }
+            }
+            document.getElementById('totalCredit').value = total;
+
+            var x = document.getElementById("totalDebit").value;
+            var y = document.getElementById("totalCredit").value;
+            var z = parseInt(localStringToNumber(x)-localStringToNumber(y));
+            document.getElementById("total").value = z;
+        });
+
+
+    </script>
+    <script>
+        window.onbeforeunload = function() {
+            localStorage.setItem("debit_filed", $('.debit_filed').val());
+            localStorage.setItem("credit_filed", $('.credit_filed').val());
+            localStorage.setItem("account_number", $('.account_number').val());
+            localStorage.setItem("explained", $('.explained').val());
+            localStorage.setItem("explained_ar", $('.explained_ar').val());
+            // ...
+        }
+        window.onload = function() {
+            var debit = localStorage.getItem(debit_filed);
+            var credit = localStorage.getItem(credit_filed);
+            if (debit !== null) $('.debit_filed').val(debit); if (credit !== null) $('.credit_filed').val(credit);
+            // ...
+        }
+    </script>
 
     <script>
         var c = 0;
@@ -446,10 +461,10 @@
     <script>
         function changeDebit(x) {
             var a = document.getElementById('debit_'+x);
-                if ((parseInt(a.value) >= 0)){
-                    document.getElementById('credit_'+x).value = 0;
+            if ((parseInt(a.value) >= 0)){
+                document.getElementById('credit_'+x).value = 0;
 
-                }
+            }
         }
 
     </script>
@@ -465,10 +480,10 @@
     <script>
         function changeDebitt(x) {
             var a = document.getElementById('debit-'+x);
-                if ((parseInt(a.value) >= 0)){
-                    document.getElementById('credit-'+x).value = 0;
+            if ((parseInt(a.value) >= 0)){
+                document.getElementById('credit-'+x).value = 0;
 
-                }
+            }
         }
 
     </script>
@@ -485,10 +500,10 @@
     <script>
         function change_Debit() {
             var a = document.getElementById('debit');
-                if ((parseInt(a.value) >= 0)){
-                    document.getElementById('credit').value = 0;
+            if ((parseInt(a.value) >= 0)){
+                document.getElementById('credit').value = 0;
 
-                }
+            }
 
         }
 
@@ -530,19 +545,19 @@
 
         }
 
-         function check() {
-                 var x = document.getElementById("total").value;
-                if (x != 0) {
-                    error.innerHTML = "<span style='color: red;'>"+
-                     "The Total must be zero</span>"
-                   $('.enableOnInput').prop('disabled', true);
+        function check() {
+            var x = document.getElementById("total").value;
+            if (x != 0) {
+                error.innerHTML = "<span style='color: red;'>"+
+                    "The Total must be zero</span>"
+                $('.enableOnInput').prop('disabled', true);
 
-             } else {
-                     error.innerHTML = "<span style='color: green;'>"+
+            } else {
+                error.innerHTML = "<span style='color: green;'>"+
                     "good</span>"
-                          $('.enableOnInput').prop('disabled', false);
-             }
-         }
+                $('.enableOnInput').prop('disabled', false);
+            }
+        }
     </script>
     <script>
         function Total() {
@@ -553,18 +568,18 @@
             document.getElementById("total").value = z;
         }
     </script>
- <script>
-     $(document).on('click', '.delegated-btn', function (e) {
-         e.preventDefault();
-        $(this).parent().parent().remove();
-         gettotalc();
-         gettotald();
-         Total();
-         check();
+    <script>
+        $(document).on('click', '.delegated-btn', function (e) {
+            e.preventDefault();
+            $(this).parent().parent().remove();
+            gettotalc();
+            gettotald();
+            Total();
+            check();
 
-     });
+        });
 
- </script>
+    </script>
 
     <script>
         function cur() {
@@ -582,18 +597,15 @@
     <script src="{{ asset('js/custom.js') }}"></script>
     <script src="{{asset('js/easy-number-separator.js')}}"></script>
 
-      <script src="{{asset('js/currency.js')}}"></script>
-      <script>
-          function validateForm(){
+    <script src="{{asset('js/currency.js')}}"></script>
+    <script>
+        function validateForm(){
 
-              var currencis = [...document.querySelectorAll('input[type="currency"]')];
-              currencis.forEach(function (item) {
-                  item.value = localStringToNumber(item.value);
-              });
-          }
-      </script>
-
-@endsection
-
-
+            var currencis = [...document.querySelectorAll('input[type="currency"]')];
+            currencis.forEach(function (item) {
+                item.value = localStringToNumber(item.value);
+            });
+        }
+    </script>
+    @endsection
 

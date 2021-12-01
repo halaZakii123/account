@@ -161,8 +161,8 @@ class MainController extends Controller
         if ($request->type_of_operation == 1) {
 
             for ($i = 0; $i < count($request->amount); $i++) {
-                $details_list[$i]['credit'] = $request->amount[$i];
-                $details_list[$i]['debit'] = 0.0;
+                $details_list[$i]['debit'] = $request->amount[$i];
+                $details_list[$i]['credit'] =0.0 ;
                 $details_list[$i]['account_number'] = $request->account_number[$i];
 
                 $details_list[$i]['explained'] = $request->explained[$i];
@@ -171,8 +171,8 @@ class MainController extends Controller
         }elseif($request->type_of_operation == 2 or  $request->type_of_operation == 3){
 
             for ($i = 0; $i < count($request->amount); $i++) {
-                $details_list[$i]['credit'] = 0.0;
-                $details_list[$i]['debit'] = $request->amount[$i];
+                $details_list[$i]['debit'] = 0.0;
+                $details_list[$i]['credit'] = $request->amount[$i];
                 $details_list[$i]['account_number'] = $request->account_number[$i];
                 $details_list[$i]['explained'] = $request->explained[$i];
                 $details_list[$i]['explained_ar'] =$request->explained_ar[$i];
@@ -268,8 +268,8 @@ class MainController extends Controller
         $details_list = [];
         if ($request->type_of_operation == 1) {
             for ($i = 0; $i < count($request->amount); $i++) {
-                $details_list[$i]['credit'] = $request->amount[$i];
-                $details_list[$i]['debit'] = 0;
+                $details_list[$i]['debit'] = $request->amount[$i];
+                $details_list[$i]['credit'] =0.0 ;
                 $details_list[$i]['account_number'] = $request->account_number[$i];
                 $details_list[$i]['account_name'] = "b";
 
@@ -278,8 +278,8 @@ class MainController extends Controller
             }
         }elseif($request->type_of_operation == 2 or  $request->type_of_operation == 3){
             for ($i = 0; $i < count($request->amount); $i++) {
-                $details_list[$i]['credit'] = 0;
-                $details_list[$i]['debit'] = $request->amount[$i];
+                $details_list[$i]['debit'] =0.0 ;
+                $details_list[$i]['credit'] = $request->amount[$i];
                 $details_list[$i]['account_number'] = $request->account_number[$i];
                 $details_list[$i]['account_name'] = "b";
 
@@ -313,8 +313,9 @@ class MainController extends Controller
      */
     public function destroy($id)
     {
+        
         Main::where('id',$id)->delete();
-       transactions::where('sourceid','=',$id)->delete();
+        transactions::where('sourceid','=',$id)->delete();
         return redirect(route('Mains.index'));
     }
 
@@ -366,6 +367,7 @@ class MainController extends Controller
             ->where('mainly',0)->get();
         return view('main.ajaxADaily',compact('account_number','account_numbers'));
     }
+
     public function printM($id){
         $main = Main::where('id',$id)->first();
         $total =0;
@@ -415,6 +417,8 @@ class MainController extends Controller
 
     public function pdf($id){
         $main = Main::whereId($id)->first();
+        $user_id = checkPermissionHelper::checkPermission();
+        $accounts = TblAccount::where('parent_id',$user_id);
         if (app()->getLocale() == 'ar'){
             $exp = $main->explained_ar;
         }else
@@ -433,6 +437,7 @@ class MainController extends Controller
         $items = [];
         $subs =  $main->subs()->get();
         foreach ($subs as $item) {
+            
             if (app()->getLocale() == 'ar'){
                 $exp = $item->explained_ar;
             }else
@@ -440,10 +445,12 @@ class MainController extends Controller
             $items[] = [
                 'debit'          => $item->debit,
                 'credit'         => $item->credit,
+                // 'account_name'   =>$account_name,
                 'account_number' => $item->account_number,
                 'explained'      => $exp,
             ];
         }
+        
         $data['items'] = $items;
         $total =0;
         $totalDebit =0;
