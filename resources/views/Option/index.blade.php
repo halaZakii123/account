@@ -20,7 +20,7 @@
                             </div>
                         @endif
                             <div class="table-responsive">
-                            <table class="table table-bordered display responsive nowrap  optionDataTable">
+                            <table class="table table-bordered    optionDataTable">
                                 <thead>
                                 <tr>
                                     <th>{{__('Type')}}</th>
