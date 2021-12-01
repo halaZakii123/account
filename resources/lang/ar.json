@@ -141,7 +141,68 @@
     "Total Trans credit":"مجموع مناقلات دائن",
     "Total Trans debit M":" مجموع مناقلات مدين مواز ",
     "Total Trans credit M":"مجموع مناقلات دائن مواز",
-    "please select date:":"الرجاء اختيار تاريخ:"
+    "please select date:":"الرجاء اختيار تاريخ:",
+    "Sub":"الباقي",
+    "Delete":"حذف",
+    "close":"إغلاق",
+    "Are you sure?":"هل انت متاكد",
+    "To Delete This Daily Entry":"من حذف هذه الحركة اليومية",
+    "To Delete This Account":"من حذف هذا الحساب",
+    "To Delete This Default values":"من حذف هذه القيمة",
+    "To Delete This option":"من حذف هذا الخيار",
+    "To Delete This Poll":"من حذف هذا التصويت"
+    ,"Task":"المهام"
+,"Assigned From":"مسندة من"
+,"Assigned To":"مسندة لـ"
+,"Due Date":"تاريخ الاستحقاق"
+,"create Date":"تاريخ الإنشاء"
+,"update Date":"تاريخ التعديل"
+
+,"Created Tasks":"المهام المنشأة"
+,"Task Management":"إدارة المهمة"
+,"New Task":"مهمة جديدة"
+,"My Tasks":"مهامي"
+,"Add Employees":"إضافة موظفين"
+,"Archive":"الأرشيف"
+,"Title Task":"عنوان المهمة"
+,"Enter title for task":"ادخل عنوان المهمة"
+,"Description Task":"توصيف المهمة"
+,"Submit task":"تثبيت المهمة"
+,"Assignment Tasks":"المهام المسندة"
+,"New Employees":"موظفين جدد"
+,"Description":"توصيف المهمة"
+,"Add employee":"إضافة موظف"
+,"Company":"شركة"
+,"Ar":"عربي"
+,"En":"انكليزي"
+,"not started":"لم يتم البدء بها"
+,"in progress":"جاري العمل"
+,"waiting":"بانتظار"
+,"finished":"منتهية"
+,"denied":"مرفوضة"
+,"Log Out":"خروج"
+,"account":"الحساب"
+,"forward":"محولة"
+,"Forward to":"تحويل إلى"
+,"Duration":"المدة"
+,"hours":"ساعة"
+,"days":"يوم"
+,"To Do List":"قائمة المهام"
+,"PDF Created Tasks":"طباعة المهام المنشأة"
+,"PDF To Do List":"طباعة قائمة المهام"
+,"Cancel":"إلغاء"
+,"Save changes":"حفظ التغييرات"
+,"Good":"جيد"
+,"success":"نجاح"
+,"Task created successfully":"تم إنشاء المهمة بنجاح"
+,"Status updated successfully":"تم تحديث الحالة بنجاح"
+,"Task deleted successfully":"تم حذف المهمة بنجاح"
+,"Task updated successfully":"تم تحديث المهمة بنجاح",
+"All Task":"جميع المهام",
+"Title":"العنوان"
+
+    
+    
     
     
 

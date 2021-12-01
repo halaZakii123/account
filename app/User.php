@@ -46,4 +46,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public  function tblAccounts(){
         return $this->hasMany(TblAccount::class);
     }
+
+
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
+    }
 }

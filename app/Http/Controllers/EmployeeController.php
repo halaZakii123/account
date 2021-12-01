@@ -53,7 +53,7 @@ class EmployeeController extends Controller
         if (Auth::user()->parent_id == 0){
         return view('Employee.crud');}
         else{
-                return ' you do not have permission';
+                return 'you do not have permission';
             }
     }
 
@@ -88,6 +88,7 @@ class EmployeeController extends Controller
 
     public function edit($id)
     {
+       
         $user = User::findOrFail($id);
         if (Auth::user()->parent_id == 0 and $user->parent_id == Auth::user()->id){
         return view('Employee.crud',compact('user'));}
@@ -117,6 +118,7 @@ class EmployeeController extends Controller
     }
 
     public function destroy($id){
+        
         User::where('id',$id)->delete();
         return redirect(route('Users.index'));
     }

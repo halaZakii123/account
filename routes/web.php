@@ -3,6 +3,8 @@
 //use App\Http\Controllers\PollController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Redirect;
+use App\Task;
+use App\User;
 
 
 /*
@@ -122,3 +124,21 @@ Route::get('/allResult',[App\Http\Controllers\PollController::class, 'allResult'
 //
 //Route::get('/login/locked', 'Auth\LoginController@locked')->middleware('auth')->name('login.locked');
 //Route::post('/login/locked', 'Auth\LoginController@unlock')->name('login.unlock');
+
+///tasklist
+Route::resource('tasks', TaskController::class);
+Route::post('/task',[App\Http\Controllers\TaskController::class,'store_status'])->name('tasks.store_status');
+Route::get('/archive',[App\Http\Controllers\TaskController::class,'archive'])->name('archive');
+
+Route::get('/dashboard', function () {
+    if(Auth::User()->parent_id == null){
+        $tasks = DB::select("CALL pr_employees_tasks(".Auth::User()->id.")");//employees who have assign
+    }else{ $tasks = Task::where('user_id', Auth::User()->id)->get();//all tasks that I created it
+     }
+    return view('dashboard',['tasks'=> $tasks]);
+})->middleware(['auth'])->name('dashboard');
+// ->middleware(['auth','verified'])->name('dashboard');
+
+Route::get('/printarchive', [App\Http\Controllers\TaskController::class, 'printArchive'])->name('tasks.printArchive');
+Route::get('/printcreated', [App\Http\Controllers\TaskController::class, 'printCreated'])->name('tasks.printCreated');
+Route::get('/printassign', [App\Http\Controllers\TaskController::class, 'printAssign'])->name('tasks.printAssign');

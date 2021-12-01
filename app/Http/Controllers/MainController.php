@@ -313,8 +313,9 @@ class MainController extends Controller
      */
     public function destroy($id)
     {
+        
         Main::where('id',$id)->delete();
-       transactions::where('sourceid','=',$id)->delete();
+        transactions::where('sourceid','=',$id)->delete();
         return redirect(route('Mains.index'));
     }
 

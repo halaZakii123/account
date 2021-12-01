@@ -367,6 +367,7 @@ class TransactionsController extends Controller
         $data['totaldbc'] =$totaldbc;
         $data['totalcrc'] =$totalcrc;
         $data['totalcr'] =$totalcr;
+        $data['search_type']=$searchType;
         $subAmount = $totaldb -$totalcr;
         $subAmountc = $totaldbc -$totalcrc;
 

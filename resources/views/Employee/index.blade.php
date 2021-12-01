@@ -52,14 +52,40 @@
 
                                         </td>
                                         <td>  <a href="{{route('Users.edit',$user->id) }}"><i class="fa fa-edit"></i></a>
-                                            <a href="javascript:void(0)" onclick=" { document.getElementById('delete-{{ $user->id }}').submit(); } " class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                            <form action="{{ route('Users.destroy', $user->id) }}" method="post" id="delete-{{ $user->id }}" style="display: none;">
-                                                @csrf
-                                                @method('DELETE')
-                                            </form>
+                                            <a href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal{!! $user->id !!}"  data-category="{{ $user->id }}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                         
+                                            <div class="modal fade" id="exampleModal{!! $user->id !!}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-exclamation-triangle"></i></h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body" >
+                                               <div style="text-align:center">
+                                                <h2> {{__('Are you sure?')}}</h2>
+                                               </div>
+                                                <div style="text-align:center">
+                                                <p> {{__('To Delete This Employee')}}<p>
+                                               </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{__('close')}}</button>
+                                                <form action="{{route('Users.destroy', $user->id) }}" method="post" >
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button   type="submit" class="btn btn-danger">{{__('Delete')}}</button>
+                                                </form>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        </div>
                                         </td>
 
                                     </tr>
+                                    
                                 @endforeach
 
                                 </tbody>

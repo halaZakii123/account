@@ -95,15 +95,40 @@
                                         <td>{{$main->currency_symbol}} </td>
                                         <td>{{ number_format($main->exchange_rate , 2, '.', ',')}} </td>
                                             <td><a href="{{route('Mains.edit',$main->id) }}"><i class="fa fa-edit"></i></a>
-                                                <a href="javascript:void(0)" onclick=" { document.getElementById('delete-{{ $main->id }}').submit(); } " class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                                <form action="{{ route('Mains.destroy', $main->id) }}" method="post" id="delete-{{ $main->id }}" style="display: none;">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                </form>
+                                                <a href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal{!! $main->id !!}"  class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                                
                                             </td>
 
 
                                     </tr>
+                                    <div class="modal fade" id="exampleModal{!! $main->id !!}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-exclamation-triangle"></i></h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body" >
+                                               <div style="text-align:center">
+                                                <h2> {{__('Are you sure?')}}</h2>
+                                               </div>
+                                                <div style="text-align:center">
+                                                <p> {{__('To Delete This Daily Entry')}}<p>
+                                               </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{__('close')}}</button>
+                                                <button type="button"  onclick=" { document.getElementById('delete-{{ $main->id }}').submit(); }"  class="btn btn-danger ">{{__('Delete')}}</button>
+                                                <form action="{{ route('Mains.destroy', $main->id) }}" method="post" id="delete-{{ $main->id }}" style="display: none;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                </form>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        </div>
                                 @endforeach
 
                                 </tbody>

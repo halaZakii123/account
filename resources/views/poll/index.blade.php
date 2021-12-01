@@ -62,12 +62,38 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="javascript:void(0)" onclick=" { document.getElementById('delete-{{ $poll->id }}').submit(); } " class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                            
+                                            <a href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal{!! $poll->id !!}"  data-category="{{ $poll->id }}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                         
+                                         <div class="modal fade" id="exampleModal{!! $poll->id !!}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                          <div class="modal-dialog" role="document">
+                                           <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-exclamation-triangle"></i></h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                  <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body" >
+                                                <div style="text-align:center">
+                                                   <h2> {{__('Are you sure?')}}</h2>
+                                                </div>
+                                                <div style="text-align:center">
+                                                   <p> {{__('To Delete This Poll')}}<p>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{__('close')}}</button>
+                                                <form action="{{route('poll.destroy', $poll->id) }}" method="post" >
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button   type="submit" class="btn btn-danger">{{__('Delete')}}</button>
+                                                </form>
+                                             </div>
+                                         </div>
+                                     </div>
+                                    </div>  
 
-                                            <form action="{{ route('poll.destroy', $poll->id) }}" method="post" id="delete-{{ $poll->id }}" style="display: none;">
-                                                @csrf
-                                                @method('DELETE')
-                                            </form>
                                             @if($poll->status==0)
                                              <a href="{{route('poll.edit',$poll->id) }}"><i class="fa fa-edit"></i></a>
                                            @endif

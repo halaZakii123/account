@@ -87,7 +87,7 @@
                                     </tr>
                                 @endforeach
                                 <tr>
-                                    <th>{{__('Total:')}}</th>
+                                    <th>{{__('Total')}}</th>
                                 </tr>
                                 <tr>
                                 <td style="text-align: right"> {{  number_format($totdb, 2, '.', ',') }}</td>

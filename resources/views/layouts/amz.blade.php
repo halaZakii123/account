@@ -590,6 +590,21 @@
                             </ul>
                         </li>
                         
+                        <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="icon-Increase-Inedit"></i><span class="hide-menu">{{__('Task')}}</span></a>
+                            <ul aria-expanded="false" class="collapse first-level">
+                                 
+                                     <li class="sidebar-item"><a href="{{route('dashboard')}}" class="sidebar-link"><i class="mdi mdi-octagram"></i><span class="hide-menu"> {{__('All Task')}}</span></a></li>
+                                     <li class="sidebar-item"><a href="{{route('tasks.create')}}" class="sidebar-link"><i class="mdi mdi-octagram"></i><span class="hide-menu">{{__('New Task')}}</span></a></li>
+                                     <li class="sidebar-item"><a href="{{route('tasks.index')}}" class="sidebar-link"><i class="mdi mdi-octagram"></i><span class="hide-menu">{{__('My Tasks')}}</span></a></li>
+                                     <li class="sidebar-item"><a href="{{route('archive')}}" class="sidebar-link"><i class="mdi mdi-octagram"></i><span class="hide-menu">{{__('Archive')}}</span></a></li>
+
+                                     
+                                
+                            </ul>
+                        </li>
+
+
+                       
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
@@ -600,7 +615,7 @@
  
                 @yield('content')
 
-                <footer class="page-footer font-small blue " >
+                <footer class="page-footer font-small blue " style="position:fixed ;bottom:0;width:100%">
                         <!-- Copyright -->
                             <div class="footer-copyright text-center py-3">All Rights Reserved by Innovative Systems . Designed and Developed by
                                 <a href="https://www.almounkez.com" target="Blank">AlMounkez</a>.

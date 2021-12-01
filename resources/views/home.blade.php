@@ -19,49 +19,93 @@
         </div>
     </div>
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header"></div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
+    
+    <div class="card-group">
+                    <!-- Card -->
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="m-r-10">
+                                    <span class="btn btn-circle btn-lg bg-danger">
+                                        <i class="ti-clipboard text-white"></i>
+                                    </span>
+                                </div>
+                                <div>
+                                    {{__('Daily Entry')}}
+                                </div>
+                                <div class="ml-auto">
+                                    <h2 class="m-b-0 font-light">23</h2>
+                                </div>
+                            </div>
                         </div>
-                    @endif
-                        <ul class="wizard-timeline center-align">
-                            <li class="completed">
-                                <span class="step-num">1</span>
-                                <label> {{__('Create your company')}}</label>
-                            </li>
-                            <li class="completed">
-                                <span class="step-num">2</span>
-                                <label>{{__('Add your employee')}}</label>
-                            </li>
-                            <li class="active">
-                                <span class="step-num">3</span>
-                                <label>{{__('Create Accounts')}}</label>
-                            </li>
-                            <li>
-                                <span class="step-num">4</span>
-                                <label>{{__('Create Options')}}</label>
-                            </li>
-                            <li>
-                                <span class="step-num">4</span>
-                                <label>{{__('Create Sets')}}</label>
-                            </li>
-                            <li>
-                                <span class="step-num">4</span>
-                                <label>{{__('Create Mains')}}</label>
-                            </li>
-                        </ul>
+                    </div>
+                    <!-- Card -->
+                    <!-- Card -->
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="m-r-10">
+                                    <span class="btn btn-circle btn-lg btn-info">
+                                    <i class="mdi mdi-currency-usd text-white"></i>
+                                    </span>
+                                </div>
+                                <div>
+                                    {{__('Financial constraints')}}
+
+                                </div>
+                                <div class="ml-auto">
+                                    <h2 class="m-b-0 font-light">113</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card -->
+                    <!-- Card -->
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="m-r-10">
+                                    <span class="btn btn-circle btn-lg bg-success">
+                                        <i class="ti-shopping-cart text-white"></i>
+                                    </span>
+                                </div>
+                                <div>
+                                    {{__('Accounts')}}
+
+                                </div>
+                                <div class="ml-auto">
+                                    <h2 class="m-b-0 font-light">43</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card -->
+                    <!-- Card -->
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="m-r-10">
+                                    <span class="btn btn-circle btn-lg bg-warning">
+                                    <i class="fas fa-user text-white"></i>
+                                    </span>
+                                </div>
+                                <div>
+                                   {{__('Users')}}
+
+                                </div>
+                                <div class="ml-auto">
+                                    <h2 class="m-b-0 font-light">63</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card -->
+                    <!-- Column -->
 
 
                 </div>
-            </div>
-        </div>
-    </div>
+    
 </div>
 @endsection
+
 @endauth

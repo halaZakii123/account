@@ -145,6 +145,7 @@ return back();
         }
 
         public function destroy($account){
+            
          TblAccount::where('id',$account)->delete();
          return redirect(route('Accounts.index'));
         }
