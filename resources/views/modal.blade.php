@@ -2,8 +2,7 @@
 
 @section('content')
 
-
-<div class="container">
+<div class="container" >
  
   <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
@@ -15,8 +14,8 @@
 
         </div>
         <div class="modal-body" style="margin:auto">
-          <form method="POST"  name ="aa" on onsubmit="return v" action="{!! route('TransSearch') !!}">
-             @csrf
+          <form method="get"  name ="aa" on onsubmit="return v" action="{!! route('TransSearch') !!}">
+             
             <div class="form-group">
              <div>
                   <input type="radio" id="sourc_id" name="trans" value="source_id" checked>
@@ -48,6 +47,7 @@
       </div>
     </div>
   </div>
+
 </div>
 
 

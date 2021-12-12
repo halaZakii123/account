@@ -57,26 +57,11 @@ class MainController extends Controller
         $user_id = checkPermissionHelper::checkPermission();
         $cus = View_CurrencySymbol_main::where('parent_id',$user_id)->get();
         $ops = View_TypeOperation_main::where('parent_id',$user_id)->get();
-//        $account_numbers = DB::table('tbl_accounts')->where('parent_id',$user_id)
-//            ->where('mainly',0)
-//            ->pluck('account_number');
-//        dd($account_numbers);
-        $accounts = TblAccount::where('parent_id',$user_id)
-            ->where('mainly',0)->get();
-     //   $sets = DB::select("CALL pr_set(" ."cash_id".")");
-
-
-        // $sets = Set::where( 'parent_id',$user_id)->get();
-        // foreach ($sets as $set ){
-        //     if ($set->key == "cash_id"){
-        //         $c = $set->value;
-        //     }
-        // }
+        $accounts = TblAccount::where('parent_id',$user_id) ->where('mainly',0)->get();
 
         $c= Set::where( 'parent_id',$user_id)->where('key','cash_id')->first()->account;
 
-
-  return view('Main.crud', compact('cus', 'ops', 'accounts','c'));
+       return view('Main.crud', compact('cus', 'ops', 'accounts','c'));
 
     }
     public function createDailyOperation($cash)
@@ -90,13 +75,6 @@ class MainController extends Controller
         $accounts = TblAccount::where('parent_id',$user_id)
             ->where('mainly',0)->get();
 
-
-        // $sets = Set::where( 'parent_id',$user_id)->get();
-        // foreach ($sets as $set ){
-        //     if ($set->key == "cash_id"){
-        //         $c = $set->account;
-        //     }
-        // }
 
         $c= Set::where( 'parent_id',$user_id)->where('key','cash_id')->first()->account;
 
@@ -122,26 +100,6 @@ class MainController extends Controller
      */
     public function store(Request $request)
     {
-
-//        $validator = Validator::make($request->all(), [
-//            'operation_date' => 'required',
-//            'Explained'=>'required',
-//            'Explained_ar' => 'required',
-//            'cash_id' => 'required',
-//            'document_number' => 'sometimes|required',
-//            'type_of_operation' => 'required',
-//            'currency_symbol' => 'required',
-//            'exchange_rate' => 'required',
-//            'account_number' => 'required',
-//            'explained' => 'required',
-//            'explained_ar' => 'required',
-//            'doc_date' => 'required|date',
-//            'doc_no' => 'required',
-//        ]);
-//        if ($validator->fails()) {
-//           return back()
-//                ->withErrors($validator);
-//        }else{
         $user_id = checkPermissionHelper::checkPermission();
         $data['operation_date'] = $request->operation_date;
         $data['explained'] = $request->Explained;
@@ -216,13 +174,7 @@ class MainController extends Controller
         $account_numbers = DB::table('tbl_accounts')->where('parent_id',$user_id)
             ->where('mainly',0)
             ->pluck('account_number');
-        // $sets = Set::where( 'parent_id',$user_id)->get();
-
-        // foreach ($sets as $set ){
-        //     if ($set->key == "cash_id"){
-        //         $c = $set->value;
-        //     }
-        // }
+     
         $c= Set::where( 'parent_id',$user_id)->where('key','cash_id')->first()->account;
         if ($main->parent_id == $user_id)
         {
@@ -313,7 +265,6 @@ class MainController extends Controller
      */
     public function destroy($id)
     {
-        
         Main::where('id',$id)->delete();
         transactions::where('sourceid','=',$id)->delete();
         return redirect(route('Mains.index'));
@@ -328,7 +279,6 @@ class MainController extends Controller
             ->where('mainly',0)
             ->pluck('account_number');
         $x=request()->count;
-//       $c = 'A'.$x ;
         return view('main.ajax',compact('account_numbers','x','accounts'));
     }
 
@@ -343,12 +293,15 @@ class MainController extends Controller
           $x=request()->count;
         return view('main.ajax_daily',compact('x','account_numbers','accounts'));
     }
+
     public function addExchangeRate(){
         $user_id = checkPermissionHelper::checkPermission();
         $cus = View_CurrencySymbol_main::where('parent_id',$user_id)->get();
         $x=request()->selectedValue;
-    return view('main.ajaxE',compact('cus','x'));
+        return view('main.ajaxE',compact('cus','x'));
     }
+
+
     public function addAccountNumber(){
         $user_id = checkPermissionHelper::checkPermission();
         $x=request()->selectedValue;
@@ -370,6 +323,8 @@ class MainController extends Controller
 
     public function printM($id){
         $main = Main::where('id',$id)->first();
+        $accounts = TblAccount::where('parent_id',$id)->where('mainly',0)->get();
+
         $total =0;
         $totalDebit =0;
         $totalCredit =0;
@@ -379,15 +334,15 @@ class MainController extends Controller
                 $totalCredit += $sub->credit;
             }
             elseif($main->type_of_operation == 1) {
-                $total+=$sub->credit;
+                $total+=$sub->debit;
             }
             else{
-                $total+=$sub->debit;
+                $total+=$sub->credit;
             }
         }
         $user_id = checkPermissionHelper::checkPermission();
         if ($main->parent_id == $user_id){
-            return view('Main.print',compact('main','totalCredit','totalDebit','total'));}
+            return view('Main.print',compact('main','totalCredit','totalDebit','total','accounts'));}
         else {return ' you do not have permission';}
     }
 
@@ -403,10 +358,10 @@ class MainController extends Controller
                 $totalCredit += $sub->credit;
             }
             elseif($main->type_of_operation == 1) {
-                $total+=$sub->credit;
+                $total+=$sub->debit;
             }
             else{
-                $total+=$sub->debit;
+                $total+=$sub->credit;
             }
         }
         if ($main->parent_id == $user_id){
@@ -445,7 +400,7 @@ class MainController extends Controller
             $items[] = [
                 'debit'          => $item->debit,
                 'credit'         => $item->credit,
-                // 'account_name'   =>$account_name,
+                
                 'account_number' => $item->account_number,
                 'explained'      => $exp,
             ];
@@ -461,10 +416,10 @@ class MainController extends Controller
                 $totalCredit += $sub->credit;
             }
             elseif($main->type_of_operation == 1) {
-                $total+=$sub->credit;
+                $total+=$sub->debit;
             }
             else{
-                $total+=$sub->debit;
+                $total+=$sub->credit;
             }
         }
         $data['total'] =$total;
@@ -522,10 +477,10 @@ class MainController extends Controller
                 $totalCredit += $sub->credit;
             }
             elseif($main->type_of_operation == 1) {
-                $total+=$sub->credit;
+                $total+=$sub->debit;
             }
             else{
-                $total+=$sub->debit;
+                $total+=$sub->credit;
             }
         }
         $data['total'] =$total;

@@ -146,7 +146,7 @@
             <td>@if($account->report == 1)
                     {{__('budget')}}
                 @else
-                    {{__('list')}}
+                    {{__('Income list')}}
                 @endif
                 </td>
             <td>

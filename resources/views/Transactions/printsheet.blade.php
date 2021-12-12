@@ -4,35 +4,36 @@
 @endsection
 @section('content')
 
-                <table class="table table-bordered display responsive   optionDataTable" @if (app()->getLocale() == 'ar') style="text-align: right ;direction: rtl;"@endif>
-                    <thead >
+                <table class="table table-bordered display responsive   optionDataTable" @if (app()->getLocale() == 'ar') style="text-align: right ;direction: rtl;" @endif>
+                <caption style=" font-size:20px;caption-side:top;text-align:center"> {{__('General Balance')}} </caption> <br>
+                 <h5 @if (app()->getLocale() == 'ar') style="text-align: right ;direction: rtl;" @endif>{{__('Result')}}  {{__('between')}} {{$from}} / {{$to}}:</h5>
+  
+                <thead >
                     <tr style="background-color: #95999c">
-                    <th>{{__('Total Debit')}}</th>
-                        <th>{{__('Total Credit')}}</th>
-                        <th>{{__('Total Balance')}}</th>
-                        <th>{{__('Total Balance Debit')}}</th>
-                        <th>{{__('Total Balance Credit')}}</th>
+                    <th>{{__('Debit')}}</th>
+                        <th>{{__('Credit')}}</th>
+                        <th>{{__('Balance')}}</th>
+                        <th>{{__('Balance Debit')}}</th>
+                        <th>{{__('Balance Credit')}}</th>
                         <th>{{__('Account Name')}}</th>
                         <th>{{__('Account ID')}}</th>
                         <th>{{__('Account belongTO')}}</th>
                         <th>{{__('Final Report')}}</th>
                         <th >{{__('Master')}}</th>
                         
-
-
                     </tr>
                     <tr style="background-color: #95999c">
                 
-                        <th>{{__('DTot_DB')}}</th>
-                        <th>{{__('DTot_Crc')}}</th>
-                        <th>{{__('DTot_Balc')}}</th>
-                        <th>{{__('DTot_BalDbc')}}</th>
-                        <th  style="text-align: center;">{{__('DTot_Crc')}}</th>
+                       <th >{{__('Total debit')}}</th>
+                        <th >{{__('Total credit')}}</th>
+                        <th >{{__('Total Balance')}}</th>
+                        <th >{{__('Total Balance debit')}}</th>
+                        <th >{{__('Total Balance credit')}}</th>
                         <th colspan="5"></th>
                     </tr>
                     </thead>
                     <tbody>
-                    @if($sheets != null)
+            
                         @foreach($sheets  as $sheet )
                             <tr class="active">
                             <td  style="text-align: right">{{ number_format($sheet->Tot_DB, 2, '.', ',') }}</td>
@@ -47,7 +48,7 @@
                                 <td>@if($sheet->acc_finalReport == 1)
                                           {{__('budget')}}
                                          @else
-                                         {{__('list')}}
+                                         {{__('Income list')}}
                                          @endif</td>
                                 <td>@if($sheet->acc_ismaster == 1)
                                             <i class="fas fa-check"></i>
@@ -68,25 +69,18 @@
                             </tr>
 
                         @endforeach
-                        {{--                        <th>{{__('Total')}}</th>--}}
-                        {{--                        <th>{{__('Total')}}</th>--}}
-                        {{--                        <th>{{__('Sub')}}</th>--}}
-                        {{--                        <tr>--}}
-
-                        {{--                            <td style="text-align: right">{{ number_format($totaldb, 2, '.', ',') }}--}}
-                        {{--                            <td style="text-align: right">{{ number_format($totalcr, 2, '.', ',') }}--}}
-                        {{--                            </td>--}}
-                        {{--                            <td style="text-align: right">{{ number_format($subAmount, 2, '.', ',') }} </td>--}}
-                        {{--                        </tr>--}}
-                        {{--                        <tr>--}}
-                        {{--                            <td style="text-align: right">{{ number_format($totaldbc, 2, '.', ',') }} </td>--}}
-                        {{--                            <td style="text-align: right">{{ number_format($totalcrc, 2, '.', ',') }} </td>--}}
-
-                        {{--                            <td style="text-align: right" >{{ number_format($subAmountc, 2, '.', ',') }} </td>--}}
-
-                        {{--                        </tr>--}}
+                        <tr>
+                                    <th>{{__('Total')}}</th>
+                                </tr>
+                                <tr>
+                                  <td style="text-align: right"> {{  number_format($totdb, 2, '.', ',') }}</td>
+                                    <td style="text-align: right"> {{  number_format($totcr, 2, '.', ',') }}</td>
+                                    <td style="text-align: right">{{  number_format($totBAl, 2, '.', ',') }}</td>
+                                    <td style="text-align: right"> {{ number_format($totBalDb, 2, '.', ',') }}</td>
+                                    <td style="text-align: right"> {{ number_format($totBalCr, 2, '.', ',') }}</td>
+                                </tr>
                     </tbody>
-                    @endif
+                    
                 </table>
 
 

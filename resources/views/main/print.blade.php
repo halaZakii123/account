@@ -3,14 +3,14 @@
     <div class="row justify-content-center">
         <div class="col-12">
             <div class="card">
-                <div class="card-header d-flex" @if (app()->getLocale() == 'ar') style="text-align: right ;direction: rtl;"@endif>
-                    <h2>{{ $main->id }}</h2>
+                <div class="card-header d-flex" >
+                <caption style="font-size:20px;caption-side:top;text-align:center"> {{__('Daily Entry')}} </caption>
+
                 </div>
 
                 <div class="card-body" @if (app()->getLocale() == 'ar') style="text-align: right ;direction: rtl;"@endif>
                     <div class="table-responsive ">
                         <table class="table">
-                        <caption> {{__('Daily Entry')}} </caption>
                             <tr>
                                 <th>{{ __('Operation Date') }}</th>
                                 <td>{{ $main->operation_date }}</td>
@@ -42,7 +42,7 @@
                             </tr>
                         </table>
 
-                        <h3>{{ __('details') }}</h3>
+                        <h4>{{ __('details') }}</h4>
 
                         <table class="table table-bordered">
                             <thead>
@@ -60,7 +60,8 @@
                                     <td >{{ $loop->iteration }}</td>
                                     <td style="text-align: right">{{ number_format($sub->debit, 2, '.', ',')  }}</td>
                                     <td  style="text-align: right">{{  number_format($sub->credit, 2, '.', ',') }}</td>
-                                    <td >{{ $sub->account_number }}</td>
+                                     <td>   {{ $sub->account_number }} </td>
+                                     
                                     <td >@if (app()->getLocale() == 'ar'){{$sub->explained_ar}} @else  {{$sub->explained}} @endif </td>
                                 </tr>
                             @endforeach

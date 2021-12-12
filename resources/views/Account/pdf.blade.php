@@ -156,7 +156,7 @@
                 <td>@if($item['report'] == 1)
                         {{__('budget')}}
                     @else
-                        {{__('list')}}
+                        {{__('Income list')}}
                     @endif </td>
                 <td>
                     @if($item['mainly'] == 1)

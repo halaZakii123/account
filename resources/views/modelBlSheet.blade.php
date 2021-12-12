@@ -14,8 +14,8 @@
           
         </div>
          <div class="modal-body" style="margin:auto">
-                    <form method="POST"  name ="aa" on onsubmit="return v" action="{!! route('BLsheet') !!}">
-                        @csrf
+                    <form method="get"  name ="aa" on onsubmit="return v" action="{!! route('BLsheet') !!}">
+                        
                         <div class="form-group">
 
                             <div>

@@ -26,8 +26,8 @@
                         <div class="card-header d-flex">
                             
                         <div>
-           <form method="post" action=" {{route('search')}}" >
-            @csrf
+           <form method="get" action=" {{route('search')}}" >
+            
                 <label>{{__('Search between two dates')}}</label>
                 <div >
                     <div class ="form-group" >
