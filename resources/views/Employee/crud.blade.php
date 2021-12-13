@@ -45,18 +45,20 @@
                                     <div class="col-md-6">
                                         <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="@if(!empty($user)) {{$user->name}} @else {{old('name')}} @endif" required autocomplete="name" autofocus>
 
-                                        @error('name')
-                                        <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                        @enderror
+                                        <small class="text-danger">{{ $errors->first('name') }}</small>
+
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
                                     <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Email') }}</label>
                                     <div class="col-md-6">
-                                        <input id="email" type="email" class="form-control " name="email" value="@if(!empty($user)) {{$user->email}} @else {{old('email')}} @endif"  autocomplete="email">
+                                        @if(!empty($user))
+                                          <input id="email" type="email" class="form-control " name="email" value="{{$user->email}}"  autocomplete="email">
+                                         @else
+                                          <input id="email" type="email" class="form-control " name="email" value="{{old('email')}}"  autocomplete="email">
+                                         @endif
+                                          <small class="text-danger">{{ $errors->first('email') }}</small>
 
                                     </div>
                                 </div>
@@ -66,12 +68,8 @@
 
                                     <div class="col-md-6">
                                         <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" value="@if(!empty($user)) {{$user->password}} @else {{old('password')}} @endif" required autocomplete="new-password">
+                                        <small class="text-danger">{{ $errors->first('password') }}</small>
 
-                                        @error('password')
-                                        <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                        @enderror
                                     </div>
                                 </div>
 
@@ -82,16 +80,6 @@
                                         <input id="password-confirm" type="password" class="form-control" name="password_confirmation" value="@if(!empty($user)) {{$user->password}} @else {{old('password')}} @endif" required autocomplete="new-password">
                                     </div>
                                 </div>
-
-
-
-{{--                                <div class="form-group row">--}}
-{{--                                    <label for="master_id" class="col-md-4 col-form-label text-md-right">{{ __('master_id') }}</label>--}}
-
-{{--                                    <div class="col-md-6">--}}
-{{--                                        <input id="master_id" type="number" class="form-control" name="master_id" required autocomplete="master_id">--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
 
                                 <div class="form-group row mb-0">
                                     <div class="col-md-6 offset-md-4">

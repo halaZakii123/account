@@ -1,5 +1,4 @@
 @extends('layouts.amz')
-
 @section('content')
     <div class="page-breadcrumb">
         <div class="row">

@@ -84,7 +84,7 @@
                 @if($sheets != null)
                     <h5>{{__('Result')}}  {{__('between')}} {{$from}} / {{$to}}:</h5>
 
-                
+                <div class="table-responsive">
                 <table class="table table-bordered display responsive   optionDataTable" >
                     <thead >
                     <tr style="background-color: #D3D3D3">
@@ -182,7 +182,8 @@
                               <a href="{{route('pdfSheet',[$from,$to])}}" class="btn btn-primary float-right" style="margin-left: 10px;"><i class="fas fa-download"></i> {{__('Generate PDF')}} </a>
                               
                         </div>
-                 @endif           
+                 @endif   
+    </div>        
             </div>
             
 

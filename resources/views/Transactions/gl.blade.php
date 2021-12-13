@@ -99,7 +99,7 @@
                 @if($trans != null)
                         <h5>{{__('Result by Account Number')}} {{$account_number}} {{__('between')}} {{$from}} / {{$to}}:</h5>
 
-                
+                <div class="table-responsive">
                 <table class="table table-bordered display responsive nowrap  optionDataTable" >
                     <thead >
                     <tr style="background-color: #D3D3D3">
@@ -166,6 +166,7 @@
                               
                             </div>
                  @endif
+            </div>
             </div>
 
 

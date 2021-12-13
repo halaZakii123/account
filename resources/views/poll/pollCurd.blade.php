@@ -44,8 +44,11 @@
                             <div class="form-group row">
                                 <label for="question" class="col-md-4 col-form-label text-md-right">{{ __('Question:') }}</label>
                                 <div class="col-md-6">
-                                    <input id="question" type="text" class="form-control @error('question') is-invalid @enderror" name="question" value="@if(!empty($poll)) {{$poll->question}} @else {{old('question')}} @endif" placeholder="enter the question" required  />
-
+                                    @if(!empty($poll))
+                                    <input id="question" type="text" class="form-control @error('question') is-invalid @enderror" name="question" value="{{$poll->question}}" placeholder="enter the question" readonly="readonly" />
+                                    @else
+                                    <input id="question" type="text" class="form-control @error('question') is-invalid @enderror" name="question" value=" {{old('question')}} " placeholder="enter the question" required  />
+                                    @endif
                                     @error('question')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -61,7 +64,7 @@
                                 @foreach($poll->options as $option)
                                     <div class="form-group row" style=" margin-right:280px;width: 870px" >
                                             <div class="col-md-6" >
-                                                <input id="option_{{$loop->index}}" type="text" class="form-control " name="option[{{$loop->index}}]" value="{{$option->name}}" required  />
+                                                <input id="option_{{$loop->index}}" type="text" class="form-control " name="option[{{$loop->index}}]" value="{{$option->name}}"  readonly="readonly" />
                                             </div>
                                      </div>
 
@@ -96,7 +99,7 @@
                                     <select  name="status">
                                         @if(!empty($poll))
 
-                                            <option value="{{$poll->status}} " selected>@if($poll->status==1) {{__('active')}} @elseif($poll->status == 2){{__('close')}} @else {{__('inactive')}} @endif</option>
+                                            <option value="{{$poll->status}} " selected>@if($poll->status==1) {{__('active')}} @elseif($poll->status == 2){{__('Close')}} @else {{__('inactive')}} @endif</option>
                                         @endif
                                             <option value="0">{{__('inactive')}}</option>
                                             <option value="1">{{__('active')}}</option>

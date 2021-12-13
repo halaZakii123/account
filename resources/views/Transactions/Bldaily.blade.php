@@ -32,8 +32,8 @@
                                 {{ session('status') }}
                             </div>
                         @endif
-                        <div>
-                            <table class="table table-bordered display responsive  optionDataTable">
+                        <div class="table-responsive">
+                            <table class="table table-bordered display responsive  optionDataTable" >
                                 <thead>
                                 <tr style="background-color: #D3D3D3">
                                     <th>{{__('Debit')}}</th>
@@ -120,10 +120,12 @@
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
     
-
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('.optionDataTable').DataTable();
-        });
-    </script>
+    $(document).ready(function() {
+    $('#example').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            'colvis'
+        ]
+    } );
+} );
 @endsection

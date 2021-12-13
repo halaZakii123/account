@@ -13,7 +13,7 @@
                         <li class="breadcrumb-item">
                             <a href="{{route('home')}}">{{__('Home')}}</a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">{{__('Sets')}}</li>
+                        <li class="breadcrumb-item active" aria-current="page">{{__('Default values')}}</li>
 
                     </ol>
                 </nav>
@@ -66,7 +66,7 @@
                                 <tbody>
                                 @foreach($sets as $set)
                                     <tr class="active">
-                                        <td>@if($set->key == 'cash_id') {{__('Cash id')}} @else {{__(' ')}} @endif</td>
+                                        <td> {{__('Cash Id')}}</td>
                                         <td>
                                             {{$set->value}}
                                             {{$s}}

@@ -58,7 +58,7 @@
                                            @elseif($poll->status == 1)
                                             {{__('active')}}
                                            @else
-                                                {{__('close')}}
+                                                {{__('Close')}}
                                             @endif
                                         </td>
                                         <td>
@@ -94,9 +94,9 @@
                                      </div>
                                     </div>  
 
-                                            @if($poll->status==0)
+                                            
                                              <a href="{{route('poll.edit',$poll->id) }}"><i class="fa fa-edit"></i></a>
-                                           @endif
+                                          
 
                                         </td>
                                     </tr>

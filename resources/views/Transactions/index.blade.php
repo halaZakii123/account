@@ -96,7 +96,7 @@
                             <h5>{{__('Result by date')}} {{__('From:')}} {{$dateFrom}} {{__('To:')}} {{$dateTo}} : </h5>
                         @endif
                     
-
+                        <div class="table-responsive">
                      <table class="table table-bordered display responsive nowrap  optionDataTable" >
                         <thead >
                         <tr style="background-color:#D3D3D3">
@@ -168,6 +168,7 @@
                             </div>
                           @endif 
              
+                </div>
                 </div>
                
                          
