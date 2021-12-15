@@ -65,7 +65,6 @@
     </head>
     <body>
         <table class="table table-bordered">
-            <caption style="caption-side: top;text-align:center;font-weight:bold;font-size:30px">{{__('Created Tasks')}}</caption>
             <thead>
                 <tr>
                     <th scope="col" style="width: 10%">{{__('Duration')}}</th>

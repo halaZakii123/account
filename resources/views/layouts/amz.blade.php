@@ -96,13 +96,13 @@
                                 <i class="sl-icon-menu font-20"></i>
                             </a>
                         </li>
-                        
+
                     </ul>
                     <!-- ============================================================== -->
                     <!-- Right side toggle and nav items -->
                     <!-- ============================================================== -->
                     <ul class="navbar-nav float-right">
-                        
+
                         <!-- ============================================================== -->
                         <!-- create new -->
                         <!-- ============================================================== -->
@@ -243,7 +243,7 @@
 
                             </ul>
                         </li>
-                       
+
                         <li class="nav-small-cap"><i class="mdi mdi-dots-horizontal"></i> <span class="hide-menu">{{__('Options')}}</span></li>
                         <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="icon-Car-Wheel"></i><span class="hide-menu">{{__('settings')}}</span></a>
                             <ul aria-expanded="false" class="collapse first-level">
@@ -258,34 +258,34 @@
                         </li>
 
 
-                        
+
 
                         <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="icon-Increase-Inedit"></i><span class="hide-menu">{{__('Additions')}}</span></a>
                             <ul aria-expanded="false" class="collapse first-level">
                                  @if(Auth::user()->parent_id== null)
                                      <li class="sidebar-item"><a href="{{route('poll.index')}}" class="sidebar-link"><i class="mdi mdi-octagram"></i><span class="hide-menu"> {{__('New vote')}}</span></a></li>
                                      <li class="sidebar-item"><a href="{{route('allResult')}}" class="sidebar-link"><i class="mdi mdi-octagram"></i><span class="hide-menu"> {{__('Voting results')}}</span></a></li>
-                                    @endif   
+                                    @endif
                                 <li class="sidebar-item"><a href="{{route('getvote')}}" class="sidebar-link"><i class="mdi mdi-octagram"></i><span class="hide-menu"> {{__('vote')}}</span></a></li>
-                                
+
                             </ul>
                         </li>
-                        
+
                         <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="icon-Increase-Inedit"></i><span class="hide-menu">{{__('Task')}}</span></a>
                             <ul aria-expanded="false" class="collapse first-level">
-                                 
-                                     <li class="sidebar-item"><a href="{{route('dashboard')}}" class="sidebar-link"><i class="mdi mdi-octagram"></i><span class="hide-menu"> {{__('All Task')}}</span></a></li>
+
+                                     <li class="sidebar-item"><a href="{{route('delegatedTasks')}}" class="sidebar-link"><i class="mdi mdi-octagram"></i><span class="hide-menu"> {{__('Delegated Tasks')}}</span></a></li>
                                      <li class="sidebar-item"><a href="{{route('tasks.create')}}" class="sidebar-link"><i class="mdi mdi-octagram"></i><span class="hide-menu">{{__('New Task')}}</span></a></li>
                                      <li class="sidebar-item"><a href="{{route('tasks.index')}}" class="sidebar-link"><i class="mdi mdi-octagram"></i><span class="hide-menu">{{__('My Tasks')}}</span></a></li>
                                      <li class="sidebar-item"><a href="{{route('archive')}}" class="sidebar-link"><i class="mdi mdi-octagram"></i><span class="hide-menu">{{__('Archive')}}</span></a></li>
 
-                                     
-                                
+
+
                             </ul>
                         </li>
 
 
-                       
+
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
@@ -293,7 +293,7 @@
             <!-- End Sidebar scroll-->
         </aside>
         @endauth
- 
+
                 @yield('content')
 
                 <footer class="page-footer font-small blue " >

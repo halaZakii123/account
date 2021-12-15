@@ -3,8 +3,8 @@
 //use App\Http\Controllers\PollController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Redirect;
-use App\Task;
-use App\User;
+
+
 
 
 /*
@@ -118,21 +118,16 @@ Route::get('/allResult',[App\Http\Controllers\PollController::class, 'allResult'
 
 
 ///tasklist
+
+Route::any('/', [TaskController::class,'index'])->middleware(['auth']);
+
 Route::resource('tasks', TaskController::class);
-Route::post('/task',[App\Http\Controllers\TaskController::class,'store_status'])->name('tasks.store_status');
-Route::get('/archive',[App\Http\Controllers\TaskController::class,'archive'])->name('archive');
+Route::post('/task',[App\Http\controllers\TaskController::class,'store_status'])->name('tasks.store_status');
+Route::get('/archive',[App\Http\controllers\TaskController::class,'archive'])->name('archive');
 
-Route::get('/dashboard', function () {
-    if(Auth::User()->parent_id == null){
-        $tasks = DB::select("CALL pr_employees_tasks(".Auth::User()->id.")");//employees who have assign
-    }else{ $tasks = Task::where('user_id', Auth::User()->id)->get();//all tasks that I created it
-     }
-    return view('dashboard',['tasks'=> $tasks]);
-})->middleware(['auth'])->name('dashboard');
-// ->middleware(['auth','verified'])->name('dashboard');
-
-Route::get('/printarchive', [App\Http\Controllers\TaskController::class, 'printArchive'])->name('tasks.printArchive');
-Route::get('/printcreated', [App\Http\Controllers\TaskController::class, 'printCreated'])->name('tasks.printCreated');
-Route::get('/printassign', [App\Http\Controllers\TaskController::class, 'printAssign'])->name('tasks.printAssign');
-
-
+Route::get('/dashboard', [ App\Http\controllers\TaskController::class,'index'])->middleware(['auth','verified'])->name('dashboard');
+Route::get('/delegatedTasks', [App\Http\controllers\TaskController::class,'delegatedTasks'])->name('delegatedTasks');
+Route::get('/printarchive', [App\Http\controllers\TaskController::class, 'printArchive'])->name('tasks.printArchive');
+Route::get('/printcreated', [App\Http\controllers\TaskController::class, 'printCreated'])->name('tasks.printCreated');
+Route::get('/printassign', [App\Http\controllers\TaskController::class, 'printAssign'])->name('tasks.printAssign');
+Route::get('/findtasks/{status}', [App\Http\controllers\TaskController::class, 'find'])->name('tasks.find');

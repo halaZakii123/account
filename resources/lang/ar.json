@@ -132,13 +132,13 @@
     "Balance Debit":" رصيد مدين",
     "Balance Credit":" رصيد دائن",
     "Balance":"الرصيد",
-    
+
     "Total debit":"إجمالي مدين",
     "Total credit":"إجمالي دائن",
     "Total Balance":"إجمالي الرصيد",
     "Total Balance debit":" إجمالي رصيد مدين",
     "Total Balance credit":"إجمالي رصيد دائن",
-    
+
     "please select date:":"الرجاء اختيار تاريخ:",
     "Sub":"الباقي",
     "Delete":"حذف",
@@ -205,12 +205,16 @@
 "Generate PDF":"إنشاء pdf",
 "search":"بحث",
 "All Rights Reserved by Innovative Systems . Designed and Developed by":"كل الحقوق محفوظة للأنظمة المتجددة . صمم وطور من قبل",
-"AlMounkez":"المنقذ"
+"AlMounkez":"المنقذ",
+"Delegated Tasks":"المهام المفوضة",
+"finished":"منتهية",
+"create task":"إنشاء مهمة",
+"Save":"حفظ"
 
-    
-    
-    
-    
+
+
+
+
 
 
 

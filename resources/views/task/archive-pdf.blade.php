@@ -65,13 +65,12 @@
     </head>
     <body>
         <table class="table table-bordered">
-            <caption style="caption-side: top;text-align:center;font-weight:bold;font-size:30px">{{__('Archive')}}</caption>
             <thead>
                 <tr>
                     <th scope="col" style="width: 15%">{{__('Title')}}</th>
                     <th scope="col" width="30%">{{__('Description')}}</th>
                     <th scope="col" style="width: 13%">{{__('Assigned From')}}</th>
-                    @if(Auth::User()->parent_id == null)
+                    @if(Auth::User()->parentId == null)
                     <th scope="col" style="width: 13%">{{__('Assigned To')}}</th>
                     @endif
                     <th scope="col" style="width: 20%">{{__('Status')}}</th>
@@ -84,10 +83,10 @@
                             <td>{{$task->title}}</td>
                             <td>{{$task->description}}</td>
                             <td>{{ App\User::where(['id' => $task->user_id])->pluck('name')->first()}}</td>
-                            @if(Auth::User()->parent_id == null)
+                            @if(Auth::User()->parentId == null)
                             <td>{{ App\User::where(['id' => $task->assigned_to])->pluck('name')->first()}}</td>
                             @endif
-                            <td>{{$task->status}} </td>
+                            <td>{{__($task->status)}} </td>
                             <td>{{$task->duedate}}
                         </tr>
                 @endforeach
