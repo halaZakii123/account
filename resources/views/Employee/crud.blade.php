@@ -2,7 +2,7 @@
 @section('content')
     <div class="page-breadcrumb">
         <div class="row">
-            <div class="col-5 align-self-center">
+            <div class="col-5 align-self-center" style="margin-bottom: 20px;">
                 {{--                        <h4 class="page-title">{{ Request::segment(1) }}</h4>--}}
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
@@ -23,9 +23,7 @@
     </div>
             <div class="col-md-9" style="margin: auto ;">
                 <div class="card">
-                    <div class="card-header d-flex">
-                        <a href="{{ route('Users.index') }}" class="btn btn-primary ml-auto"><i class="fa fa-home"></i> {{ __('Back') }}</a>
-                    </div>
+
 
                     <div class="card-body">
                         @if (session('status'))
@@ -83,9 +81,9 @@
 
                                 <div class="form-group row mb-0">
                                     <div class="col-md-6 offset-md-4">
-                                        <button type="submit" class="btn btn-primary">
-                                            {{ __('Submit') }}
-                                        </button>
+                                    <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> {{__('Save')}}</button>
+                                        <a href="{{ route('Users.index') }}"><button type="button" class="btn btn-danger">{{__('Cancel')}}</button></a>
+
                                     </div>
                                 </div>
                             </form>

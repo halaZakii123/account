@@ -134,7 +134,7 @@
             <td>{{__('Account Name')}}</td>
             <td>{{__('Master Account number')}}</td>
             <td>{{__('Report')}}</td>
-            <td>{{__('Mainly')}}</td>
+
         </tr>
 
         @foreach($accounts as $account)
@@ -149,13 +149,7 @@
                     {{__('Income list')}}
                 @endif
                 </td>
-            <td>
-                @if($account->mainly == 1)
-                    <i class="fas fa-check"></i>
-                @elseif($account->mainly == null)
-                    <i class="fa fa-times"></i>
-                @endif
-            </td>
+            
         </tr>
             @endforeach
     </table>

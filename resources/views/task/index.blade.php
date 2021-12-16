@@ -7,13 +7,30 @@
 
 @endsection
 @section('content')
-    <div class="py-12">
+<div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-5 align-self-center">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{{route('home')}}">{{__('Home')}}</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">{{__('My Tasks')}}</li>
+
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12" style="margin: auto ;">
+                <div class="card">
+
+
+                    <div class="card-body">
+
         <form action="{{route('tasks.printAssign')}}" method="GET">
             @csrf
-        @if(count($tasks) <> 0)
-        {{-- <a href="" class="btn btn-danger btn-md active"class="pdf" role="button" aria-pressed="true">{{__('Download')}} PDF</a> --}}
-        <button type="submit" class="btn btn-danger mr-2"> <i class="fa fa-download" aria-hidden="true"></i> {{__('Download')}} PDF</button>
-        @endif<br><br>
+
         <input type="hidden" name="status" value={{$status}}>
         </form>
         <form action="{{route('tasks.store_status')}}" method="POST">
@@ -88,14 +105,18 @@
 
                         @if(count($tasks) <> 0)
                         <button type="submit" class="btn btn-success mr-2"> <i class="fa fa-check"></i> {{__('Save')}}</button>
+                        <button type="submit" class="btn btn-danger mr-2"> <i class="fa fa-download" aria-hidden="true"></i> {{__('Download')}} PDF</button>
+
                         @endif
-                    <a href="{{route('delegatedTasks')}}"><button type="button" class="btn btn-danger">{{__('Cancel')}}</button></a>
                     </form>
                     <br>
                     <br>
+
                 </div>
+
             </div>
         </div>
+    </div>
     </div>
     @endsection
     @section('script')

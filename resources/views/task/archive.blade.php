@@ -3,13 +3,31 @@
     @section('style')
         <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
         <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
-        <link rel="stylesheet" href=" {{asset('css/mystyle.css')}} ">
 
     @endsection
     @section('content')
-    <div class="py-12">
-        <div style="padding: 40px">
-            @if(count($tasks) <> 0)<a href="{{route('tasks.printArchive')}}" class="btn btn-danger btn-md active"class="pdf" role="button" aria-pressed="true">{{__('Download')}} PDF</a>@endif<br><br>
+
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-5 align-self-center">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{{route('home')}}">{{__('Home')}}</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">{{__('Archive')}}</li>
+
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-10" style="margin: auto ;">
+                <div class="card">
+
+
+                    <div class="card-body">
+
 
         <table class="table table-bordered table-responsive tasksTable">
             <thead>
@@ -37,8 +55,11 @@
                     @endforeach
                 </tbody>
         </table>
+        @if(count($tasks) <> 0)<a href="{{route('tasks.printArchive')}}" class="btn btn-danger btn-md active"class="pdf" role="button" aria-pressed="true">{{__('Download')}} PDF</a>@endif<br><br>
+
     </div>
-        <br>
+
+    </div>
     </div>
 @endsection
 @section('script')

@@ -21,7 +21,7 @@
             </div>
         </div>
     </div>
-   
+
     <div class="col-md-9" style="margin: auto ;">
                 <div class="card">
                     <div class="card-header d-flex">
@@ -73,7 +73,7 @@
                                         @endif</td>
                                     <td>  <a href="{{route('Accounts.edit',$account->id) }}"><i class="fa fa-edit"></i></a>
                                        <a href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal{!! $account->id !!}"  data-category="{{ $account->id }}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                         
+
                                          <div class="modal fade" id="exampleModal{!! $account->id !!}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                           <div class="modal-dialog" role="document">
                                            <div class="modal-content">
@@ -101,26 +101,25 @@
                                              </div>
                                          </div>
                                      </div>
-                                    </div> 
+                                    </div>
                                 </td>
 
                                 </tr>
-                                
+
                             @endforeach
                             </tbody>
                         </table>
-                        @if(!empty($account))  
+                        @if(!empty($account))
                            <div class="col-12">
                               <a href="{{route('print')}}" class="btn btn-success float-right"><i class="fas fa-print"></i> {{__('print')}} </a>
-                              <a href="{{route('pdf')}}" class="btn btn-primary float-right" style="margin-left: 10px;"><i class="fas fa-download"></i> {{__('Generate PDF')}} </a>
-                              
+                              <a href="{{route('pdf')}}" class="btn btn-danger float-right btn-md active" style="margin-left: 10px;"class="pdf" role="button" aria-pressed="true"> <i class="fas fa-download"></i>{{__('Download')}} PDF</a>
                             </div>
                             <a class="btn btn-success float-left" href="{{ route('file-export') }}"> {{__('Export Account')}} </a>
 
                         @endif
                           @if(empty($account))
                                    <a href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal1"  data-category="accountImport" class="btn btn btn-primary float-left" style="margin-right: 10px;" >{{__('Import Accounts')}}</a>
-                                         
+
                                          <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                               <div class="modal-content">
@@ -128,7 +127,7 @@
                                                 <button type="button" class="close " data-dismiss="modal" aria-label="Close">
                                                   <span aria-hidden="true">&times;</span>
                                                 </button>
-                                                
+
                                             </div>
                                             <div class="modal-body" >
                                                 <p> {{__('Your Excel File Has Bee like This')}} </p>
@@ -142,10 +141,10 @@
                                                    </thead>
                                                </table>
 
-                                                
+
                                             </div>
                                             <div class="modal-footer">
-                                            
+
                                                 <div style="text-align:center,margin:auto" >
                                                     <form action="{{ route('file-import') }}" method="POST" enctype="multipart/form-data">
                                                         @csrf
@@ -162,7 +161,7 @@
                                          </div>
                                      </div>
                                      @endif
-                                 </div> 
+                                 </div>
 
                          </div>
                 </div>

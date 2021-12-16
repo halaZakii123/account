@@ -119,7 +119,6 @@ Route::get('/allResult',[App\Http\Controllers\PollController::class, 'allResult'
 
 ///tasklist
 
-Route::any('/', [TaskController::class,'index'])->middleware(['auth']);
 
 Route::resource('tasks', TaskController::class);
 Route::post('/task',[App\Http\controllers\TaskController::class,'store_status'])->name('tasks.store_status');

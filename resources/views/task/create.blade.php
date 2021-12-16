@@ -4,7 +4,34 @@
 @endsection
 
 @section('content')
-    <div class="py-12">
+
+<div class="page-breadcrumb">
+            <div class="row">
+                <div class="col-5 align-self-center">
+
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="{{route('home')}}">{{__('Home')}}</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">{{__('Delegated Tasks')}}</li>
+                            <li class="breadcrumb-item active" aria-current="page">{{__('create')}}</li>
+
+                        </ol>
+                    </nav>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8" style="margin: auto;">
+                <div class="card">
+                    
+                    <div class="card-body" >
+                        @if (session('status'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('status') }}
+                            </div>
+                        @endif
         <form class="create-task"action="{!! !empty($task) ? route('tasks.update', $task) :  route('tasks.store')  !!}" method="POST">
             @csrf
             @if (!empty($task))
@@ -59,6 +86,8 @@
                 <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> {{__('Save')}}</button>
                 <a href="{{route('delegatedTasks')}}"><button type="button" class="btn btn-danger">{{__('Cancel')}}</button></a>
         </form>
+    </div>
+    </div>
     </div>
 @endsection
 
