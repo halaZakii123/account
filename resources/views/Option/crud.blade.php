@@ -1,7 +1,7 @@
 @extends('layouts.amz')
 
 @section('content')
-    <div class="page-breadcrumb">
+    <div class="page-breadcrumb" style="margin-bottom:20px">
         <div class="row">
             <div class="col-5 align-self-center">
                 {{--                        <h4 class="page-title">{{ Request::segment(1) }}</h4>--}}
@@ -22,11 +22,10 @@
             </div>
         </div>
     </div>
+
             <div class="col-md-8" style="margin: auto ;">
                 <div class="card">
-                    <div class="card-header d-flex">
-                        <a href="{{ route('Options.index') }}" class="btn btn-primary ml-auto"><i class="fa fa-home"></i> {{ __('Back') }}</a>
-                    </div>
+                   
 
                     <div class="card-body">
                         @if (session('status'))
@@ -44,7 +43,7 @@
 
                                 <div class="col-md-6">
                                     <select name="type" id="type" class="type form-control" onchange="validate()">
-                                        <option >{{__('select type')}}</option>
+                                        <option disabled>{{__('select type')}}</option>
                                         @if(!empty($option))
                                             <option  value="currency_symbol" {{$option->type == 'currency_symbol'? 'selected':''}}> {{__('Currency symbol')}}</option>
 
@@ -89,32 +88,13 @@
                                 </div>
                             </div>
 
-{{--                            <div class="C form-group row" >--}}
-{{--                                <label for="account_number" class="col-md-4 col-form-label text-md-right" >{{ __('Account Number') }}</label>--}}
-
-{{--                                   <div class="col-md-6" >--}}
-
-{{--                                    <select name="account_number" id="account_number" class="account_number form-control" disabled="true">--}}
-{{--                                        <option></option>--}}
-
-{{--                                        @foreach($account_numbers as $account)--}}
-{{--                                            @if(!empty($option))--}}
-{{--                                                <option value=" {{$account}} "{{ $option->contents == $account ? 'selected' : '' }}  >{{$account}} </option>--}}
-{{--                                            @else--}}
-{{--                                                <option value=" {{$account}} "{{old('account_number')}} >{{$account}} </option>--}}
-{{--                                            @endif--}}
-
-{{--                                        @endforeach--}}
-{{--                                    </select>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-
 
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
-                                    <button type="submit" class="btn btn-primary">
-                                        {{ __('Submit') }}
-                                    </button>
+                                    
+                <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> {{__('Save')}}</button>
+                <a href="{{ route('Options.index') }}"><button type="button" class="btn btn-danger">{{__('Cancel')}}</button></a>
+       
                                 </div>
                             </div>
                         </form>
@@ -123,22 +103,7 @@
                 </div>
             </div>
 
-{{--    <script>--}}
-{{--        function validate()--}}
-{{--        {--}}
-{{--            var ddl = document.getElementById("type");--}}
-{{--            var selectedValue = ddl.options[ddl.selectedIndex].value;--}}
-{{--            if (selectedValue === 'currency_symbol')--}}
-{{--            {--}}
-{{--                $('.enable').prop('disable', false);--}}
-{{--                $('.account_number').prop('disable', true);--}}
 
-{{--            }--}}
-{{--            else if(selectedValue === 'type_of_operation'){--}}
-{{--                $('.enable').prop('disabled', true);--}}
-{{--            }--}}
-{{--        }--}}
-{{--        </script>--}}
 @endsection
 
 

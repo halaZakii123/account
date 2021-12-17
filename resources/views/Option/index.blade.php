@@ -73,7 +73,7 @@
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{__('close')}}</button>
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{__('Cancel')}}</button>
                                                 <form action="{{route('Options.destroy', $option->id) }}" method="post" >
                                                     @csrf
                                                     @method('DELETE')

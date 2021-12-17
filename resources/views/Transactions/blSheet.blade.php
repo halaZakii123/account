@@ -179,8 +179,8 @@
                 
                       <div class="col-12" style="margin-bottom":40px>
                               <a href="{{route('printSheet',[$from,$to])}}" class="btn btn-success float-right"><i class="fas fa-print"></i> {{__('print')}} </a>
-                              <a href="{{route('pdfSheet',[$from,$to])}}" class="btn btn-primary float-right" style="margin-left: 10px;"><i class="fas fa-download"></i> {{__('Generate PDF')}} </a>
-                              
+                              <a href="{{route('pdfSheet',[$from,$to])}}" class="btn btn-danger btn-md active float-right" style="margin-left: 10px;" class="pdf" role="button" aria-pressed="true"><i class="fas fa-download"></i>{{__('Download')}} PDF</a>
+
                         </div>
                  @endif   
     </div>        

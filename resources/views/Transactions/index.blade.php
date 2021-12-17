@@ -160,11 +160,13 @@
                            <div class="col-12">
                               @if($searchType == 'source_id')
                                 <a href="{{route('printSource',[$searchType,$source_id])}}" class="btn btn-success float-right"><i class="fas fa-print"></i> {{__('print')}} </a>
-                                <a href="{{route('pdfSource',[$searchType,$source_id])}}" class="btn btn-primary float-right" style="margin-left: 10px;"><i class="fas fa-download"></i> {{__('Generate PDF')}} </a>
-                              @else
+                                <a href="{{route('pdfSource',[$searchType,$source_id])}}" class="btn btn-danger btn-md active float-right" style="margin-left: 10px;" class="pdf" role="button" aria-pressed="true"><i class="fas fa-download"></i>{{__('Download')}} PDF</a>
+
+                                @else
                                <a href="{{route('printdate',[$searchType,$dateFrom,$dateTo])}}" class="btn btn-success float-right"><i class="fas fa-print"></i> {{__('print')}} </a>
-                               <a href="{{route('pdfdate',[$searchType,$dateFrom,$dateTo])}}" class="btn btn-primary float-right" style="margin-left: 10px;"><i class="fas fa-download"></i> {{__('Generate PDF')}} </a>
-                              @endif
+                               <a href="{{route('pdfdate',[$searchType,$dateFrom,$dateTo])}}" class="btn btn-danger btn-md active float-right" style="margin-left: 10px;" class="pdf" role="button" aria-pressed="true"><i class="fas fa-download"></i>{{__('Download')}} PDF</a>
+
+                               @endif
                             </div>
                           @endif 
              

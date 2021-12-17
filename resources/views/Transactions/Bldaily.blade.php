@@ -5,7 +5,7 @@
 @endsection
 @section('content')
 
-    <div class="page-breadcrumb">
+    <div class="page-breadcrumb" style="margin-bottom:20px">
         <div class="row">
             <div class="col-5 align-self-center">
                 {{--                        <h4 class="page-title">{{ Request::segment(1) }}</h4>--}}
@@ -104,8 +104,8 @@
                             </table>
                             <div class="col-12">
                               <a href="{{route('printBL')}}" class="btn btn-success float-right"><i class="fas fa-print"></i> {{__('print')}} </a>
-                              <a href="{{route('pdfBL')}}" class="btn btn-primary float-right" style="margin-left: 10px;"><i class="fas fa-download"></i> {{__('Generate PDF')}} </a>
-                              
+                             <a href="{{route('pdfBL')}}" class="btn btn-danger btn-md active float-right" style="margin-left: 10px;" class="pdf" role="button" aria-pressed="true"><i class="fas fa-download"></i>{{__('Download')}} PDF</a>
+
                             </div>
                 
                         </div>
@@ -116,16 +116,4 @@
 
 
 @endsection
-@section('script')
-    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
-    
-    $(document).ready(function() {
-    $('#example').DataTable( {
-        dom: 'Bfrtip',
-        buttons: [
-            'colvis'
-        ]
-    } );
-} );
-@endsection
+

@@ -148,8 +148,9 @@
     "To Delete This Account":"من حذف هذا الحساب",
     "To Delete This Default values":"من حذف هذه القيمة",
     "To Delete This option":"من حذف هذا الخيار",
-    "To Delete This Poll":"من حذف هذا التصويت"
-    ,"Task":"المهام"
+    "To Delete This Poll":"من حذف هذا التصويت",
+    "To Delete This Employee":"من حذف هذا الموظف",
+"Task":"المهام"
 ,"Assigned From":"مسندة من"
 ,"Assigned To":"مسندة لـ"
 ,"Due Date":"تاريخ الاستحقاق"

@@ -28,9 +28,7 @@
     
       <div class="col-md-12" style="margin:auto ">
                 <div class="card">
-                    <div class="card-header d-flex">
-                        <a href="{{ route('Mains.index') }}" class="btn btn-primary ml-auto"><i class="fa fa-home"></i> {{ __('Back') }}</a>
-                    </div>
+                    
 
                     <div class="card-body">
                         @if (session('status'))
@@ -281,10 +279,14 @@
                             
                 
                              <div class="col-12">
-                                <button onclick="check()" id="save" name="save" rel="noopener" target="_blank" class="btn btn-default"> {{ __('Submit') }}  </button>
+                                 
+                <button type="submit" class="btn btn-success" id="save"> <i class="fa fa-check"></i> {{__('Save')}}</button>
+                <a href="{{route('Mains.index')}}"><button type="button" class="btn btn-danger">{{__('Cancel')}}</button></a>
+        
                                 @if(!empty($main)) 
                                 <a href="{{ route('printMain',$main->id)}}" class="btn btn-success float-right"><i class="fas fa-print"></i> {{__('print')}} </a>
-                                <a href="{{ route('pdfMain',$main->id)}}" class="btn btn-primary float-right" style="margin-left: 10px;"><i class="fas fa-download"></i> {{__('Generate PDF')}} </a>
+                                <a href="{{ route('pdfMain',$main->id)}}" class="btn btn-danger btn-md active float-right" style="margin-left: 10px;" class="pdf" role="button" aria-pressed="true"><i class="fas fa-download"></i>{{__('Download')}} PDF</a>
+
                                 @endif
                              </div>
                              

@@ -1,7 +1,7 @@
 @extends('layouts.amz')
 
 @section('content')
-    <div class="page-breadcrumb">
+    <div class="page-breadcrumb" style="margin-bottom:20px">
         <div class="row">
             <div class="col-5 align-self-center">
                 <nav aria-label="breadcrumb">
@@ -23,10 +23,7 @@
     </div>
             <div class="col-md-8" style="margin: auto ;">
                 <div class="card">
-                    <div class="card-header d-flex">
-                        <a href="{{ route('Sets.index') }}" class="btn btn-primary ml-auto"><i class="fa fa-home"></i> {{ __('Back') }}</a>
-                    </div>
-
+                    
                     <div class="card-body">
                         @if (session('status'))
                             <div class="alert alert-success" role="alert">
@@ -89,9 +86,9 @@
 
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
-                                    <button type="submit" class="btn btn-primary">
-                                        {{ __('Submit') }}
-                                    </button>
+                                <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> {{__('Save')}}</button>
+                         <a href="{{ route('Sets.index') }}"><button type="button" class="btn btn-danger">{{__('Cancel')}}</button></a>
+       
                                 </div>
                             </div>
                         </form>

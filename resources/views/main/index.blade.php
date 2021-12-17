@@ -119,7 +119,7 @@
                                                </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{__('close')}}</button>
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{__('Cancel')}}</button>
                                                 <button type="button"  onclick=" { document.getElementById('delete-{{ $main->id }}').submit(); }"  class="btn btn-danger ">{{__('Delete')}}</button>
                                                 <form action="{{ route('Mains.destroy', $main->id) }}" method="post" id="delete-{{ $main->id }}" style="display: none;">
                                                     @csrf
