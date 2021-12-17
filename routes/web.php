@@ -43,7 +43,7 @@ Route::resource('/Sets',SetController::class);
 Route::resource('/Subs',SubController::class);
 Route::resource('/Mains',MainController::class);
 Route::resource('/Transactions',TransactionsController::class);
-Route::post('/TransSearch','TransactionsController@index')->name('TransSearch');
+Route::get('/TransSearch','TransactionsController@index')->name('TransSearch');
 
 Route::get('/printTrans/{account_number}/{from}/{to}','TransactionsController@printtransAcc')->name('printAcc');
 Route::get('/printTrans/{searchType}/{source_id}','TransactionsController@printtransSou')->name('printSource');
@@ -91,7 +91,7 @@ Route::get('main/dailyCashOut/{out}','MainController@createDailyOperation')->nam
 Route::get('Accounts/dataTable/list','AccountController@getAccounts')->name('accounts.list');
 Route::get('Employee/dataTable/list','EmployeeController@getEmployees')->name('employees.list');
 
-Route::post('/main/search','MainController@index')->name('search');
+Route::get('/main/search','MainController@index')->name('search');
 Route::get('/AccountsTree','AccountController@createAccountTree')->name('createAccountTree');
 Route::get('/BlDaily','TransactionsController@getBlDaily')->name('BLdaily');
 
@@ -99,13 +99,13 @@ Route::get('/BlDaily','TransactionsController@getBlDaily')->name('BLdaily');
 Route::get('/pdfBL','TransactionsController@pdfBLdaily')->name('pdfBL');
 Route::get('/printBL','TransactionsController@printBl')->name('printBL');
 
-Route::post('/transSearchAccount','TransactionsController@getTransByAccount')->name('TransSearchAccount');
+Route::get('/transSearchAccount','TransactionsController@getTransByAccount')->name('TransSearchAccount');
 
 Route::get('/transSearch/Account/get','TransactionsController@getTransByAccount')->name('gl');
 
 Route::get('/balanceSheet/get','TransactionsController@getBlalanceSheet')->name('BLsheetGet');
 
-Route::post('/balanceSheet','TransactionsController@getBlalanceSheet')->name('BLsheet');
+Route::get('/balanceSheet','TransactionsController@getBlalanceSheet')->name('BLsheet');
 
 Route::get('/printSheet/{from}/{to}','TransactionsController@printsheet')->name('printSheet');
 

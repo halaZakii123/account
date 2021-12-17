@@ -15,8 +15,8 @@
 
         </div>
         <div class="modal-body" style="margin:auto">
-                    <form method="POST"  name ="aa" on onsubmit="return v" action="{!! route('TransSearchAccount') !!}">
-                        @csrf
+                    <form method="Get"  name ="aa" on onsubmit="return v" action="{!! route('TransSearchAccount') !!}">
+                        
 
                         <p>{{__('please select one :')}}</p>
 
