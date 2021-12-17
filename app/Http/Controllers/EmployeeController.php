@@ -72,7 +72,7 @@ class EmployeeController extends Controller
         if ($validator->fails()) {
             return back()
                 ->withErrors($validator);
-//            return $validator->errors()->first();
+
         }
         else {
 

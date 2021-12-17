@@ -9,12 +9,11 @@
                 <div class="card-body" @if (app()->getLocale() == 'ar') style="text-align: right ;direction: rtl;"@endif>
                     <div class="table-responsive">
 
-
-                        <h3>{{ __('details') }}</h3>
-
                         <table class="table table-bordered">
+                         <caption style="font-size:20px;caption-side:top;text-align:center"> {{__('Financial constraints')}}</caption>
+
                             <thead>
-                            <thead >
+                        
                             <tr >
                                 <th>#</th>
                                 <th>{{__('Debit')}}</th>
@@ -26,8 +25,8 @@
 </tr>
 <tr>
                                 <th></th>
-                                <th >{{__('Debit M')}}</th>
-                                <th >{{__('Credit M')}}</th>
+                                <th >{{__('Debit Curr.')}}</th>
+                                <th >{{__('Credit Curr.')}}</th>
                                 <th>{{__('Currency symbol')}}</th>
                                 <th colspan="3" style="text-align: center;">{{__('Explained')}}</th>
 
@@ -56,8 +55,7 @@
                             @endforeach
                             <th></th>
                             <th>{{__('Total')}}</th>
-                            <th>{{__('Total')}}</th>
-                            <th>{{__('Sub')}}</th>
+                            
                             <tr>
                                 <td></td>
                                 <td style="text-align: right">{{ number_format($totaldb, 2, '.', ',') }}

@@ -22,26 +22,30 @@
     </div>
 
     <div class="col-md-10" style="margin:auto ">
-       <div class="card">
-          <div class="card-header d-flex">            
-            <div>
-              <form method="get" action=" {{route('search')}}" >
-                    <label>{{__('Search between two dates')}}</label>
-                        <div >
-                            <div class ="form-group" >
-                                <label style="font-size: small"> {{__('start date :')}}</label>
-                                <input type="date" id="startDate" name="from" placeholder="yyyy-mm-dd"  autocomplete="on">
-                                <label style="font-size: small"> {{__('end date :')}}</label>
-                                <input type="date" id="endDate"  name="to"  placeholder="yyyy-mm-dd"  autocomplete="on" >
-                                <button type="submit" ><i class="fas fa-search"></i>
-                                    
-                                </button>
-                                
-                            </div>
+                <div class="card">
+                        <div class="card-header d-flex">
+                            
+                        <div>
+           <form method="get" action=" {{route('search')}}" >
+            
+                <label>{{__('Search between two dates')}}</label>
+                <div >
+                    <div class ="form-group" >
+                        <label style="font-size: small"> {{__('start date :')}}</label>
+                        <input type="date" id="startDate" name="from" placeholder="yyyy-mm-dd"  autocomplete="on">
+                        <label style="font-size: small"> {{__('end date :')}}</label>
+                        <input type="date" id="endDate"  name="to"  placeholder="yyyy-mm-dd"  autocomplete="on" >
+                        <button type="submit" ><i class="fas fa-search"></i>
+                            
+                        </button>
+                        
+                    </div>
+                </div>
+                
+               
+            </form>
+       </div>
                         </div>
-                </form>
-            </div>
-         </div>
 
 
 

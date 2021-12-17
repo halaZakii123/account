@@ -133,8 +133,8 @@
                 <thead>
                 <tr style="background-color: #95999c">
 
-                    <th>{{__('Trans debit')}}</th>
-                    <th>{{__('Trans credit')}}</th>
+                    <th>{{__('Debit')}}</th>
+                    <th>{{__('Credit')}}</th>
                     <th>{{__('Balance')}}</th>
                     <th>{{__('Currency symbol')}}</th>
                     <th>{{__('Account Name')}}</th>
@@ -143,9 +143,9 @@
 
                 </tr>
                 <tr>
-                    <th >{{__('Trans debit M')}}</th>
-                    <th>{{__('Trans credit M')}}</th>
-                    <th>{{__('BAlc')}}</th>
+                    <th>{{__('Debit Curr.')}}</th>
+                    <th>{{__('Credit Curr.')}}</th>
+                     <th>{{__('Balance Curr.')}}</th> 
                     <th colspan="4"></th>
                   
                 </tr>

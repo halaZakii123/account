@@ -1,7 +1,43 @@
 @extends('layouts.amz')
 @section('style')
+  <style>
+      .callout {
+  padding: 20px;
+  margin: 20px 0;
+  border: 1px solid #eee;
+  
+  border-radius: 3px;
+  h4 {
+    margin-top: 0;
+    margin-bottom: 5px;
+  }
+  p:last-child {
+    margin-bottom: 0;
+  }
+  code {
+    border-radius: 3px;
+  }
+  & + .bs-callout {
+    margin-top: -5px;
+  }
+}</style>
+  @if(app()->getLocale() == 'ar')
+   <style>
+       .callout{
+        border-right-width: 5px ; 
+        border-right-color: #428bca
+       }
+   </style>
+  @else
+   <style>
+       .callout{
+        border-left-width: 5px; 
+        border-left-color: #428bca
+       }
+   </style> 
+  @endif
 
-@endsection
+ @endsection 
 @section('content')
     <div class="page-breadcrumb">
         <div class="row">
@@ -12,7 +48,7 @@
                         <li class="breadcrumb-item">
                             <a href="{{route('home')}}">{{__('Home')}}</a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">{{__('gl')}}</li>
+                        <li class="breadcrumb-item active" aria-current="page">{{__('General ledger')}}</li>
 
                     </ol>
                 </nav>
@@ -22,32 +58,48 @@
     </div>
 
    
-    <div class="col-md-10" style="margin:auto ">
-       <div class="card">
-          <div class="card-header d-flex">            
-            <div>
-              <form method="get" action=" {{route('search')}}" >
-                    <label>{{__('Search between two dates')}}</label>
-                        <div >
-                            <div class ="form-group" >
-                                <label style="font-size: small"> {{__('start date :')}}</label>
-                                <input type="date" id="startDate" name="from" placeholder="yyyy-mm-dd"  autocomplete="on">
-                                <label style="font-size: small"> {{__('end date :')}}</label>
-                                <input type="date" id="endDate"  name="to"  placeholder="yyyy-mm-dd"  autocomplete="on" >
-                                <button type="submit" ><i class="fas fa-search"></i>
-                                    
-                                </button>
-                                
-                            </div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="callout callout-primary">
+                  <h5>{{__('please select one :')}} </h5>
+
+                  <form method="get"  name ="aa" on onsubmit="return v" action="{!! route('TransSearchAccount') !!}">
+                    
+
+                        <div class="form-group">
+
+                               <div>
+                                <input type="radio" id="account_number" name="trans" value="account_number" checked>
+                                  <label for="html">{{__('Account Number')}} :</label>
+                                <select name="account_number_value">
+                                    @foreach($allTrans as $tran)
+                                        @foreach($account as $acc)
+                                            @if($acc->account_number == $tran->accountid)
+                                                <option value="{{$tran->accountid}}"> {{$tran->accountid}} {{$acc->account_name}}</option>
+                                            @endif
+                                        @endforeach
+                                    @endforeach
+                                </select>
+                                <input type="date" id="doc_date_value" name="A_date_from" value="{{$first}}"  >
+                                <input type="date" id="doc_date_value" name="A_date_to" value="{{$last}}"><br>
+                             </div>
+ 
+
+                             <div class="center" style="display: flex; justify-content: center; margin-top:20px">
+
+                                <div class="form-group" type="submit" >
+                                    <button type="submit" class="btn btn-info"> <i class="fas fa-search"></i> {{__('search')}} </button>
+                                </div>
+                              </div>
                         </div>
-                </form>
-            </div>
-         </div>
-    </div>
+                    </form>
+                </div>
+
                 @if($trans != null)
                         <h5>{{__('Result by Account Number')}} {{$account_number}} {{__('between')}} {{$from}} / {{$to}}:</h5>
 
-                @endif
+                <div class="table-responsive">
                 <table class="table table-bordered display responsive nowrap  optionDataTable" >
                     <thead >
                     <tr style="background-color: #D3D3D3">
@@ -60,8 +112,8 @@
 
                     </tr>
                     <tr style="background-color: #D3D3D3">
-                        <th style="border-bottom: 2px solid black">{{__('Debit M')}}</th>
-                        <th style="border-bottom: 2px solid black">{{__('Credit M')}}</th>
+                        <th style="border-bottom: 2px solid black">{{__('Debit Curr.')}}</th>
+                        <th style="border-bottom: 2px solid black">{{__('Credit Curr.')}}</th>
                         <th style="border-bottom: 2px solid black">{{__('Currency symbol')}}</th>
                         <th colspan="3" style="text-align: center;border-bottom: 2px solid black">{{__('Explained')}}</th>
 
@@ -88,8 +140,7 @@
 
                         @endforeach
                         <th>{{__('Total')}}</th>
-                        <th>{{__('Total')}}</th>
-                        <th>{{__('Sub')}}</th>
+                        
                         <tr>
 
                             <td style="text-align: right">{{ number_format($totaldb, 2, '.', ',') }}
@@ -107,6 +158,7 @@
                     </tbody>
                     @endif
                 </table>
+                @endif
                 @if(!empty($trans))  
                            <div class="col-12">
                               <a href="{{route('printAcc',[$account_number,$from,$to])}}" class="btn btn-success float-right"><i class="fas fa-print"></i> {{__('print')}} </a>
@@ -114,6 +166,7 @@
                               
                             </div>
                  @endif
+            </div>
             </div>
 
 

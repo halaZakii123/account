@@ -127,7 +127,7 @@ class PollController extends Controller
 
     public function allResult(){
         $user_id = checkPermissionHelper::checkPermission();
-        $polls = Poll::where('user_id','=',$user_id)->where('status','=',1)->get();
+        $polls = Poll::where('user_id','=',$user_id)->whereIn('status',[1,2])->get();
 
       return view('poll.allResult',compact('polls'));
     }

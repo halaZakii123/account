@@ -1,7 +1,6 @@
 @extends('layouts.amz')
-
 @section('content')
-    <div class="page-breadcrumb">
+    <div class="page-breadcrumb" style="margin-bottom:20px">
         <div class="row">
             <div class="col-5 align-self-center">
                 {{--                        <h4 class="page-title">{{ Request::segment(1) }}</h4>--}}

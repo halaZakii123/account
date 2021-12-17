@@ -140,31 +140,30 @@
 <body>
 <div class="invoice-box {{ config('app.locale') == 'ar' ? 'rtl' : '' }}">
    
-
-
             <table class="table table-bordered">
-                <caption>{{__('General Balance')}}</caption>
+                <caption style=" font-size:20px;caption-side:top;text-align:center">{{__('General Balance')}}</caption>
+                <!-- <h5>{{__('Result')}}  {{__('between')}} {{$from}} {{__('/')}} {{$to}}:</h5> -->
+
                 <thead>
-                <tr >
-                        <th>{{__('Total Debit')}}</th>
-                        <th>{{__('Total Credit')}}</th>
-                        <th>{{__('Total Balance')}}</th>
-                        <th>{{__('Total Balance Debit')}}</th>
-                        <th>{{__('Total Balance Credit')}}</th>
+                <tr>
+                        <th>{{__('Debit')}}</th>
+                        <th>{{__('Credit')}}</th>
+                        <th>{{__('Balance')}}</th>
+                        <th>{{__('Balance Debit')}}</th>
+                        <th>{{__('Balance Credit')}}</th>
                         <th>{{__('Account Name')}}</th>
                         <th>{{__('Account ID')}}</th>
                         <th>{{__('Account belongTO')}}</th>
                         <th>{{__('Final Report')}}</th>
                         <th >{{__('Master')}}</th>
-                    
                 </tr>
                 <tr>
         
-                    <th >{{__('DTot_DB')}}</th>
-                    <th >{{__('DTot_Crc')}}</th>
-                    <th >{{__('DTot_Balc')}}</th>
-                    <th >{{__('DTot_BalDbc')}}</th>
-                    <th style="text-align: center;">{{__('DTot_Crc')}}</th>
+                        <th >{{__('Total debit')}}</th>
+                        <th >{{__('Total credit')}}</th>
+                        <th >{{__('Total Balance')}}</th>
+                        <th >{{__('Total Balance debit')}}</th>
+                        <th >{{__('Total Balance credit')}}</th>
                     <th colspan="5" ></th>
 
                 </tr>
@@ -185,7 +184,7 @@
                         <td> @if($item['acc_finalReport']== 1)
                                           {{__('budget')}}
                                          @else
-                                         {{__('list')}}
+                                         {{__('Income list')}}
                                          @endif</td>
                         <td style="border-left: 1px solid black"> @if($item['acc_ismaster']==1)<i style="font-family:fontawesome;">&#xf00c;</i>@endif</td>
                     </tr>
@@ -199,7 +198,16 @@
                     </tr>
 
                 @endforeach
-
+                <tr>
+                                    <th>{{__('Total')}}</th>
+                                </tr>
+                                <tr >
+                                  <td style="text-align: right;border-bottom:1px solid black;border-right:1px solid black"> {{  number_format($totdb, 2, '.', ',') }}</td>
+                                    <td style="text-align: right;border-bottom:1px solid black;"> {{  number_format($totcr, 2, '.', ',') }}</td>
+                                    <td style="text-align: right;border-bottom:1px solid black;">{{  number_format($totBAl, 2, '.', ',') }}</td>
+                                    <td style="text-align: right;border-bottom:1px solid black;"> {{ number_format($totBalDb, 2, '.', ',') }}</td>
+                                    <td style="text-align: right;border-bottom:1px solid black;"> {{ number_format($totBalCr, 2, '.', ',') }}</td>
+                                </tr>
             </table>
 
         </div>

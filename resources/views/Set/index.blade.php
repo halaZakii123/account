@@ -13,7 +13,7 @@
                         <li class="breadcrumb-item">
                             <a href="{{route('home')}}">{{__('Home')}}</a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">{{__('Sets')}}</li>
+                        <li class="breadcrumb-item active" aria-current="page">{{__('Default values')}}</li>
 
                     </ol>
                 </nav>
@@ -51,9 +51,7 @@
                         @endif
 
 
-                        <div>
-
-                        </div>
+                
                             <div class="table-responsive">
                             <table class="table table-bordered  display responsive nowrap  setDataTable">
                                 <thead>
@@ -66,7 +64,7 @@
                                 <tbody>
                                 @foreach($sets as $set)
                                     <tr class="active">
-                                        <td>@if($set->key == 'cash_id') {{__('Cash id')}} @else {{__(' ')}} @endif</td>
+                                        <td> {{__('Cash Id')}}</td>
                                         <td>
                                             {{$set->value}}
                                             {{$s}}
@@ -75,9 +73,9 @@
 
                                         <td>
                                             <a href="{{route('Sets.edit',$set->id) }}"><i class="fa fa-edit"></i></a>
-                                            
+
                                             <a href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal{!! $set->id !!}"  data-category="{{ $set->id }}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                         
+
                                          <div class="modal fade" id="exampleModal{!! $set->id !!}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                           <div class="modal-dialog" role="document">
                                            <div class="modal-content">
@@ -105,7 +103,7 @@
                                              </div>
                                          </div>
                                      </div>
-                                    </div>  
+                                    </div>
                                         </td>
                                     </tr>
                                 @endforeach

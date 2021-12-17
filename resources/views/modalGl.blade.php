@@ -15,7 +15,7 @@
 
         </div>
         <div class="modal-body" style="margin:auto">
-                    <form method="Get"  name ="aa" on onsubmit="return v" action="{!! route('TransSearchAccount') !!}">
+                    <form method="get"  name ="aa" on onsubmit="return v" action="{!! route('TransSearchAccount') !!}">
                         
 
                         <p>{{__('please select one :')}}</p>

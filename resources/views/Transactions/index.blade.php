@@ -1,16 +1,53 @@
 @extends('layouts.amz')
 @section('style')
+  <style>
+      .callout {
+  padding: 20px;
+  margin: 20px 0;
+  border: 1px solid #eee;
+  
+  border-radius: 3px;
+  h4 {
+    margin-top: 0;
+    margin-bottom: 5px;
+  }
+  p:last-child {
+    margin-bottom: 0;
+  }
+  code {
+    border-radius: 3px;
+  }
+  & + .bs-callout {
+    margin-top: -5px;
+  }
+}</style>
+  @if(app()->getLocale() == 'ar')
+   <style>
+       .callout{
+        border-right-width: 5px ; 
+        border-right-color: #428bca
+       }
+   </style>
+  @else
+   <style>
+       .callout{
+        border-left-width: 5px; 
+        border-left-color: #428bca
+       }
+   </style> 
+  @endif
+
+ @endsection
 @section('content')
     <div class="page-breadcrumb">
         <div class="row">
             <div class="col-5 align-self-center">
-                {{--                        <h4 class="page-title">{{ Request::segment(1) }}</h4>--}}
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
                             <a href="{{route('home')}}">{{__('Home')}}</a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">{{__('transactions')}}</li>
+                        <li class="breadcrumb-item active" aria-current="page">{{__('Financial constraints')}}</li>
 
                     </ol>
                 </nav>
@@ -23,16 +60,44 @@
              
    
             <div class="col-md-10"  style="margin: auto;">
-               
+            <div class="callout callout-primary">
+                  <h5>{{__('please select one :')}} </h5>
+
+            <form method="get"  name ="aa" on onsubmit="return v" action="{!! route('TransSearch') !!}">
+             
+                <div class="form-group">
+                <div>
+                    <input type="radio" id="sourc_id" name="trans" value="source_id" checked>
+                      <label for="html">{{__('Source id')}} :</label>
+                    <select name="source_id_value">
+                        @foreach($allTransSource as $tran)
+                            <option value="{{$tran->sourceid}}"> {{$tran->sourceid}}</option>
+                        @endforeach
+                    </select>
+                </div>
+    
+                <div>
+                    <input type="radio" id="doc_date" name="trans" value="doc_date">
+                    <label for="html">{{__('From date to date')}}</label>
+                    <input type="date" id="doc_date_value" name="doc_date_from"  value="{{$first}}">
+                    <input type="date" id="doc_date_value" name="doc_date_to" value="{{$last}}">
+                    <button type="submit" class="btn btn-info"> <i class="fas fa-search"></i> {{__('search')}} </button>
+
+                    </div>
+                
+                </div>       
+            </form>
+                </div>   
+
                    @if($trans != null)
                        @if($searchType == 'source_id')
                             <h5>{{__('Result by source id')}} {{$source_id}} :</h5>
                         @else
                             <h5>{{__('Result by date')}} {{__('From:')}} {{$dateFrom}} {{__('To:')}} {{$dateTo}} : </h5>
                         @endif
-                    @endif
-
-                    <table class="table table-bordered display responsive nowrap  optionDataTable" >
+                    
+                        <div class="table-responsive">
+                     <table class="table table-bordered display responsive nowrap  optionDataTable" >
                         <thead >
                         <tr style="background-color:#D3D3D3">
                             <th>{{__('Debit')}}</th>
@@ -44,8 +109,8 @@
 
                         </tr>
                         <tr style="background-color:#D3D3D3">
-                            <th style="border-bottom: 2px solid black">{{__('Debit M')}}</th>
-                            <th style="border-bottom: 2px solid black">{{__('Credit M')}}</th>
+                            <th style="border-bottom: 2px solid black">{{__('Debit Curr.')}}</th>
+                            <th style="border-bottom: 2px solid black">{{__('Credit Curr.')}}</th>
                             <th style="border-bottom: 2px solid black">{{__('Currency symbol')}}</th>
                             <th colspan="3" style="text-align: center;border-bottom: 2px solid black">{{__('Explained')}}</th>
 
@@ -72,8 +137,7 @@
 
                         @endforeach
                         <th>{{__('Total')}}</th>
-                        <th>{{__('Total')}}</th>
-                        <th>{{__('Sub')}}</th>
+                        
                         <tr>
 
                             <td style="text-align: right">{{ number_format($totaldb, 2, '.', ',') }}
@@ -91,7 +155,7 @@
                         </tbody>
                         @endif
                     </table>
-                       @if(!empty($trans))  
+                    
                        
                            <div class="col-12">
                               @if($searchType == 'source_id')
@@ -103,13 +167,11 @@
                               @endif
                             </div>
                           @endif 
+             
+                </div>
                 </div>
                
                          
 
 @endsection
 
-
-@section('script')
-
-@endsection

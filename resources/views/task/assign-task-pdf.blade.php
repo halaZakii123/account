@@ -65,7 +65,6 @@
     </head>
     <body>
         <table class="table table-bordered">
-            <caption style="caption-side: top;text-align:center;font-weight:bold;font-size:30px">{{__('To Do List')}}</caption>
             <thead>
                 <tr>
                     <th scope="col" style="width: 10%">{{__('Duration')}}</th>
@@ -73,7 +72,6 @@
                     <th scope="col" style="width: 25%">{{__('Description')}}</th>
                     <th scope="col" style="width: 13%">{{__('Assigned From')}}</th>
                     <th scope="col" style="width: 15%">{{__('Status')}}</th>
-                    {{-- <th scope="col" style="width: 13%">{{__('Forward to')}}</th> --}}
                     <th scope="col" style="width: 25%">{{__('Due Date')}}</th>
                 </tr>
             </thead>
@@ -91,7 +89,7 @@
                     </td>
                     <td>{{$task->title}}</td>
                     <td>{{$task->description}}</td>
-                    <td>{{ App\Models\User::where(['id' => $task->user_id])->pluck('name')->first()}}</td>
+                    <td>{{ App\User::where(['id' => $task->user_id])->pluck('name')->first()}}</td>
                     <td>
                         {{__($task->status)}}
                     </td>

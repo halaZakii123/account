@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use PDF;
 use DataTables;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\AccountsExport;
+use App\Imports\AccountImport;
 
 
 class AccountController extends Controller
@@ -26,6 +29,7 @@ class AccountController extends Controller
 
     public function index(){
         $user_id = checkPermissionHelper::checkPermission();
+        
         $accounts= TblAccount::where('parent_id',$user_id)->get();
         $count = count($accounts);
 
@@ -33,21 +37,6 @@ class AccountController extends Controller
         return view('Account.index',compact('accounts','count'));
     }
 
-//    public function getAccounts(Request $request){
-//        $user_id = checkPermissionHelper::checkPermission();
-//        $accounts= TblAccount::where('parent_id',$user_id);
-//        if ($request->ajax()) {
-//            $data = $accounts;
-//            return Datatables::of($data)
-//                ->addIndexColumn()
-//                ->addColumn('action', function($row){
-//                    $actionBtn = '<a href="javascript:void(0)" class="edit btn btn-success btn-sm">Edit</a> <a href="javascript:void(0)" class="delete btn btn-danger btn-sm">Delete</a>';
-//                    return $actionBtn;
-//                })
-//                ->rawColumns(['action'])
-//                ->make(true);
-//        }
-//    }
 
     public function create(){
        $user_id = checkPermissionHelper::checkPermission();
@@ -58,7 +47,7 @@ class AccountController extends Controller
     public function createAccountTree(){
         $user_id = checkPermissionHelper::checkPermission();
         $acc =DB::select("CALL pr_buildacc(" .$user_id.")");
-return back();
+        return back();
     }
     public function store(Request $request){
 
@@ -93,10 +82,6 @@ return back();
         return redirect(route('Accounts.index'));
     }
 
-//    public function show(  $id){
-//        $account = TblAccount::findOrFail($id);
-//        return view('Account.showAccount',compact('account'));
-//    }
 
     public function edit($id){
         $user_id = checkPermissionHelper::checkPermission();
@@ -178,4 +163,29 @@ return back();
                 return $pdf->download('accounts'.'.pdf');
 
         }
+
+         /**
+    * @return \Illuminate\Support\Collection
+    */
+    public function fileImportExport()
+    {
+       return view('file-import');
+    }
+   
+    /**
+    * @return \Illuminate\Support\Collection
+    */
+    public function fileImport(Request $request) 
+    {
+        Excel::import(new AccountImport, $request->file('file')->store('temp'));
+        return back();
+    }
+
+    /**
+    * @return \Illuminate\Support\Collection
+    */
+    public function fileExport() 
+    {
+        return Excel::download(new AccountsExport, 'users-collection.xlsx');
+    }  
     }

@@ -2,8 +2,7 @@
 
 @section('content')
 
-
-<div class="container">
+<div class="container" >
  
   <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
@@ -48,6 +47,7 @@
       </div>
     </div>
   </div>
+
 </div>
 
 

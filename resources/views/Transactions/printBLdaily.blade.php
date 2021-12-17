@@ -19,8 +19,8 @@
                         <caption style="font-size:20px;caption-side:top;text-align:center"> {{__('Daily Account Balance')}}</caption>
                         <thead>
                         <tr >
-                         <th>{{__('Trans debit')}}</th>
-                                    <th>{{__('Trans credit')}}</th>
+                                    <th>{{__('Debit')}}</th>
+                                    <th>{{__('Credit')}}</th>
                                     <th>{{__('Balance')}}</th>
                                     <th>{{__('Currency symbol')}}</th>
                                     <th>{{__('Account Name')}}</th>
@@ -29,9 +29,9 @@
 
                         </tr>
                         <tr>
-                        <th >{{__('Trans debit M')}}</th>
-                        <th>{{__('Trans credit M')}}</th>
-                        <th>{{__('BAlc')}}</th>
+                                    <th>{{__('Debit Curr.')}}</th>
+                                    <th>{{__('Credit Curr.')}}</th>
+                                    <th>{{__('Balance Curr.')}}</th>
                             <th colspan="4"></th>
 
                         </tr>
@@ -46,7 +46,11 @@
                                 <td>{{$BlDaily->acc_name}}</td>
                                  <td>{{$BlDaily->acc_no}}</td>
                                 
-                                <td> {{$BlDaily->acc_finalReport}}</td>
+                                <td>@if($BlDaily->acc_finalReport== 1)
+                                          {{__('budget')}}
+                                         @else
+                                         {{__('Income list')}}
+                                         @endif </td>
 
 
                             </tr>

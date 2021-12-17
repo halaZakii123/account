@@ -128,25 +128,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                {{--                                <div class="col-4">--}}
-                                {{--                                    <div class="form-group">--}}
-                                {{--                                        <label for="cash id" >{{ __('Cash Id') }}</label>--}}
-                                {{--                                        <select name="cash_id" id="cash_id" class="cash_id form-control" required>--}}
-                                {{--                                            <option value="{{$c->account_number}}">{{$c->account_number.' '.$c->account_name}}</option>--}}
-                                {{--                                            @foreach($accounts as $account)--}}
-                                {{--                                                @if($account->account_number != $c)--}}
-                                {{--                                                    @if(!empty($main))--}}
-                                {{--                                                        <option value=" {{$account->account_number}} "{{ $main->cash_id == $account->account_number? 'selected' : '' }} >{{$account->account_number.' '.$account->account_name}} </option>--}}
-                                {{--                                                    @else--}}
-                                {{--                                                        <option value="{{$account->account_number}}" {{ old('cash_id')? 'selected' : '' }} >{{$account->account_number.' '.$account->account_name}} </option>--}}
-                                {{--                                                    @endif--}}
-                                {{--                                                @endif--}}
-                                {{--                                            @endforeach--}}
-                                {{--                                        </select>--}}
-                                {{--                                        @error('cash_id')<span class="help-block text-danger">{{ $message }}</span>@enderror--}}
-                                {{--                                    </div>--}}
-                                {{--                                </div>--}}
-
+                              
                                 <div class="col-4">
                                     <div class="form-group">
                                         <label for="document_number" >{{ __('Document Number') }}</label>
@@ -220,9 +202,6 @@
                                                     <input id="explained_ar" type="text" class="form-control "name="explained_ar[{{ $loop->index }}]" value= "{{ $sub->explained_ar}}" required autocomplete="on">
                                                     @error('explained_ar')<span class="help-block text-danger">{{ $message }}</span>@enderror
                                                 </td>
-{{--                                                <td>--}}
-{{--                                                   <input class="box" id="total" value="0" >--}}
-{{--                                                </td>--}}
 
                                             </tr>
 
@@ -283,8 +262,8 @@
                                     <thead>
                                         <tr>
 
-                                            <th>{{ __('Total Debit') }}</th>
-                                            <th>{{ __('Total Credit') }}</th>
+                                            <th>{{ __('Total debit') }}</th>
+                                            <th>{{ __('Total credit') }}</th>
                                             <th>{{ __('Total') }}</th>
                                         </tr>
                                     </thead>
@@ -300,15 +279,15 @@
                             </div>
 
                             
-
-                            @if(!empty($main))  
+                
                              <div class="col-12">
-                                <button onclick="check()" name="save" rel="noopener" target="_blank" class="btn btn-default"> {{ __('Submit') }}  </button>
+                                <button onclick="check()" id="save" name="save" rel="noopener" target="_blank" class="btn btn-default"> {{ __('Submit') }}  </button>
+                                @if(!empty($main)) 
                                 <a href="{{ route('printMain',$main->id)}}" class="btn btn-success float-right"><i class="fas fa-print"></i> {{__('print')}} </a>
                                 <a href="{{ route('pdfMain',$main->id)}}" class="btn btn-primary float-right" style="margin-left: 10px;"><i class="fas fa-download"></i> {{__('Generate PDF')}} </a>
-                                
+                                @endif
                              </div>
-                            @endif 
+                             
                         </form>
                         
                     </div>
@@ -550,12 +529,12 @@
             if (x != 0) {
                 error.innerHTML = "<span style='color: red;'>"+
                     "The Total must be zero</span>"
-                $('.enableOnInput').prop('disabled', true);
+                $('#save').prop('disabled', true);
 
             } else {
                 error.innerHTML = "<span style='color: green;'>"+
                     "good</span>"
-                $('.enableOnInput').prop('disabled', false);
+                $('#save').prop('disabled', false);
             }
         }
     </script>

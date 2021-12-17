@@ -14,7 +14,7 @@
                         <li class="breadcrumb-item">
                             <a href="{{route('home')}}">{{__('Home')}}</a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">{{__('Bldaily')}}</li>
+                        <li class="breadcrumb-item active" aria-current="page">{{__('Daily Account Balance')}}</li>
 
                     </ol>
                 </nav>
@@ -32,12 +32,12 @@
                                 {{ session('status') }}
                             </div>
                         @endif
-                        <div>
-                            <table class="table table-bordered display responsive  optionDataTable">
+                        <div class="table-responsive">
+                            <table class="table table-bordered display responsive  optionDataTable" >
                                 <thead>
-                                <tr style="background-color: #95999c">
-                                    <th>{{__('Trans debit')}}</th>
-                                    <th>{{__('Trans credit')}}</th>
+                                <tr style="background-color: #D3D3D3">
+                                    <th>{{__('Debit')}}</th>
+                                    <th>{{__('Credit')}}</th>
                                     <th>{{__('Balance')}}</th>
                                     <th>{{__('Currency symbol')}}</th>
                                     <th>{{__('Account Name')}}</th>
@@ -45,11 +45,11 @@
                                     <th>{{__('Final Report')}}</th>
 
                                 </tr>
-                                <tr style="background-color: #95999c">
+                                <tr style="background-color: #D3D3D3">
                         
-                                    <th >{{__('Trans debit M')}}</th>
-                                    <th>{{__('Trans credit M')}}</th>
-                                    <th>{{__('BAlc')}}</th>
+                                    <th>{{__('Debit Curr.')}}</th>
+                                    <th>{{__('Credit Curr.')}}</th>
+                                    <th>{{__('Balance Curr.')}}</th>
                                     <th></th>
                                     <th></th>
                                     <th></th>
@@ -70,15 +70,15 @@
                                         @if($BlDaily->acc_finalReport== 1)
                                           {{__('budget')}}
                                          @else
-                                         {{__('list')}}
+                                         {{__('Income list')}}
                                          @endif</td>
 
 
                                     </tr>
                                     <tr  style="border-bottom: 2px solid black">
-                                    <td style="text-align: right"> {{ number_format($BlDaily->Dbc, 2, '.', ',') }}</td>
-                                        <td style="text-align: right"> {{ number_format($BlDaily->Crc, 2, '.', ',') }}</td>
-                                        <td style="text-align: right"> {{ number_format($BlDaily->BAlc, 2, '.', ',') }}</td>
+                                    <td style="text-align: right;font-size: small;color: blue"> {{ number_format($BlDaily->Dbc, 2, '.', ',') }}</td>
+                                        <td style="text-align: right;font-size: small;color: blue"> {{ number_format($BlDaily->Crc, 2, '.', ',') }}</td>
+                                        <td style="text-align: right;font-size: small;color: blue"> {{ number_format($BlDaily->BAlc, 2, '.', ',') }}</td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
@@ -120,10 +120,12 @@
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
     
-
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('.optionDataTable').DataTable();
-        });
-    </script>
+    $(document).ready(function() {
+    $('#example').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            'colvis'
+        ]
+    } );
+} );
 @endsection

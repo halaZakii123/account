@@ -205,11 +205,11 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    <input type="currency"  name="amount[{{ $loop->index }}]" id="amount_{{$loop->index}}" class="amount_filed" value="@if($main->type_of_operation == 1) {{$sub->credit}} @else {{ $sub->debit }} @endif"   onchange="gettotald(),cur()"style="text-align: right">
+                                                    <input type="currency"  name="amount[{{ $loop->index }}]" id="amount_{{$loop->index}}" class="amount_filed" value="@if($main->type_of_operation == 1) {{$sub->debit}} @else {{ $sub->cridet }} @endif"   onchange="gettotald(),cur()"style="text-align: right">
                                                     @error('debit')<span class="help-block text-danger">{{ $message }}</span>@enderror
                                                 </td>
                                                 <td>
-                                                    <select name="account_number[{{ $loop->index }}]" id="account_number" class="account_number form-control"><option>dd($sub->account_number)}}
+                                                    <select name="account_number[{{ $loop->index }}]" id="account_number" class="account_number form-control"><option>
 
                                                     @foreach($accounts as $account)
                                                             <option value=" {{$account->account_number}} "{{ $sub->account_number == $account->account_number ? 'selected' : '' }}  >{{$account->account_number}} {{$account->account_name}} </option>
@@ -293,14 +293,15 @@
                                 </table>
                             </div>
 
-                          @if(!empty($main))  
+                            
                            <div class="col-12">
                               <button onclick="check()" name="save" rel="noopener" target="_blank" class="btn btn-default"> {{ __('Submit') }}  </button>
-                              <a href="{{ route('printDaily',$main->id)}}" class="btn btn-success float-right"><i class="fas fa-print"></i> {{__('print')}} </a>
-                              <a href="{{ route('pdfDaily',$main->id)}}" class="btn btn-primary float-right" style="margin-left: 10px;"><i class="fas fa-download"></i> {{__('Generate PDF')}} </a>
-                              
+                              @if(!empty($main))
+                               <a href="{{ route('printDaily',$main->id)}}" class="btn btn-success float-right"><i class="fas fa-print"></i> {{__('print')}} </a>
+                               <a href="{{ route('pdfDaily',$main->id)}}" class="btn btn-primary float-right" style="margin-left: 10px;"><i class="fas fa-download"></i> {{__('Generate PDF')}} </a>
+                              @endif
                             </div>
-                          @endif  
+                            
                         </form>
 
                     </div>

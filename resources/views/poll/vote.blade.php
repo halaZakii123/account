@@ -18,7 +18,7 @@
         </div>
     </div>
 
-        <div class="col-md-8" style="rfmargin: auto;">
+        <div class="col-md-8" style="margin: auto;">
             <div class="card">
                 <div class="card-header ">
                     <label for="question" class="col-md-9 col-form-label ">{{ $poll->question }}</label>

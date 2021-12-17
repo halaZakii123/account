@@ -68,10 +68,6 @@ class TransactionsController extends Controller
             } else {
                 $dateFrom = $request->doc_date_from;
                 $dateTo = $request->doc_date_to;
-//                $trans = transactions::where('parent_id', $user_id)
-//                    ->whereBetween('dydate', [$dateFrom, $dateTo])
-//                    ->get();
-//                dd($dateTo);
                 $trans =DB::select("CALL pr_trans_Bydate(" .$user_id.",'".$dateFrom."','".$dateTo."')");
 
                 foreach ($trans as $tran){
@@ -87,7 +83,7 @@ class TransactionsController extends Controller
             }
         }else{
             $trans = null;
-        return view('modal',compact('trans','allTransSource','first','last','account'));        }
+        return view('Transactions.index',compact('trans','allTransSource','first','last','account'));        }
 
     }
 
@@ -126,7 +122,7 @@ class TransactionsController extends Controller
             $subAmountc = $totaldbc - $totalcrc;
             return view('Transactions.gl', compact('trans', 'allTrans',  'totaldb', 'totaldbc', 'totalcr', 'totalcrc', 'account_number', 'from', 'to', 'first', 'last', 'subAmount', 'subAmountc', 'account'));
         }else
-            return view('modalGl',compact('trans','allTrans','first','last','account'));
+            return view('Transactions.gl',compact('trans','allTrans','first','last','account'));
 
             }
 
@@ -448,6 +444,8 @@ class TransactionsController extends Controller
     }
 
     public function getBlalanceSheet(Request $request){
+        
+        
         $user_id = checkPermissionHelper::checkPermission();
 
         $day = date('m/d/Y');
@@ -461,12 +459,24 @@ class TransactionsController extends Controller
             $from = $request->date_from;
             $to = $request->date_to;
             $sheets = DB::select("CALL PR_BL('".$from."','".$to."',".$user_id.")") ;
-            return view('Transactions.blSheet',compact('sheets','first','last','from','to'));
+            $totdb =0;
+            $totcr =0;
+            $totBAl =0;
+            $totBalCr =0;
+            $totBalDb =0;
+            foreach ($sheets as $sheet){
+                $totdb += $sheet->Tot_DB;
+                $totcr += $sheet->Tot_Cr;
+                $totBalDb += $sheet->Tot_BalDb;
+                $totBalCr += $sheet->Tot_BalCr;
+                $totBAl += $sheet->Tot_Bal;
+            }
+            return view('Transactions.blSheet',compact('sheets','first','last','from','to','totdb','totcr','totBalDb','totBalCr','totBAl'));
 
       }
         else{
             $sheets = null;
-            return view('modelBlSheet',compact('first','last','sheets'));
+            return view('Transactions.blSheet',compact('first','last','sheets'));
         }
     }
 
@@ -474,6 +484,13 @@ class TransactionsController extends Controller
         $user_id = checkPermissionHelper::checkPermission();
         $sheets = DB::select("CALL PR_BL('".$from."','".$to."',".$user_id.")") ;
         $items=[];
+        $totdb =0;
+        $totcr =0;
+        $totBAl =0;
+        $totBalCr =0;
+        $totBalDb =0;
+        $data['from'] =$from;
+        $data['to'] = $to;
         foreach ($sheets as $sheet){
                $items[]=[
                    'AccId'=> $sheet->AccID,
@@ -492,14 +509,38 @@ class TransactionsController extends Controller
                    'Tot_BalDbc'=>      $sheet->Tot_BalDbc,
                    'Tot_BalCrc'=>     $sheet->Tot_BalCrc,
                    ];
+                   $totdb += $sheet->Tot_DB;
+                   $totcr += $sheet->Tot_Cr;
+                   $totBalDb += $sheet->Tot_BalDb;
+                   $totBalCr += $sheet->Tot_BalCr;
+                   $totBAl += $sheet->Tot_Bal;
         }
+        
         $data['items'] = $items;
+        $data['totdb'] =$totdb;
+        $data['totcr'] =$totcr;
+        $data['totBalDb'] =$totBalDb;
+        $data['totBalCr'] =$totBalCr;
+        $data['totBAl'] =$totBAl;
+       
         $pdf = PDF::loadView('Transactions.pdfSheet', $data);
         return $pdf->download('BLSheet'.'.pdf');
     }
     public function printsheet($from ,$to){
         $user_id = checkPermissionHelper::checkPermission();
         $sheets = DB::select("CALL PR_BL('".$from."','".$to."',".$user_id.")") ;
-        return view('transactions.printsheet',compact('sheets'));
+        $totdb =0;
+        $totcr =0;
+        $totBAl =0;
+        $totBalCr =0;
+        $totBalDb =0;
+        foreach ($sheets as $sheet){
+            $totdb += $sheet->Tot_DB;
+            $totcr += $sheet->Tot_Cr;
+            $totBalDb += $sheet->Tot_BalDb;
+            $totBalCr += $sheet->Tot_BalCr;
+            $totBAl += $sheet->Tot_Bal;
+        }
+        return view('transactions.printsheet',compact('sheets','totdb','totcr','totBalDb','totBalCr','totBAl','from','to'));
     }
 }

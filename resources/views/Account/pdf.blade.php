@@ -144,7 +144,6 @@
             <td>{{__('Account Name')}}</td>
             <td>{{__('Master Account number')}}</td>
             <td>{{__('Report')}}</td>
-            <td>{{__('Mainly')}}</td>
         </tr>
 
         @foreach($items as $item)
@@ -156,15 +155,9 @@
                 <td>@if($item['report'] == 1)
                         {{__('budget')}}
                     @else
-                        {{__('list')}}
+                        {{__('Income list')}}
                     @endif </td>
-                <td>
-                    @if($item['mainly'] == 1)
-                        {{__('Yes')}}
-                    @elseif($item['mainly'] == null)
-                        {{__('No')}}
-                    @endif
-                </td>
+               
             </tr>
          @endforeach
     </table>

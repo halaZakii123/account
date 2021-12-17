@@ -138,9 +138,10 @@
 
             <table class="table table-bordered">
                       
-                <caption></caption>
+            <caption style="font-size:20px;caption-side:top;text-align:center"> {{__('Financial constraints')}}</caption>
+
                 <thead>
-                <tr >
+                <tr>
                     <th></th>
                     <th>{{__('Debit')}}</th>
                     <th>{{__('Credit')}}</th>
@@ -152,8 +153,8 @@
                 </tr>
                 <tr>
                     <th>#</th>
-                    <th >{{__('Debit M')}}</th>
-                    <th >{{__('Credit M')}}</th>
+                    <th >{{__('Debit Curr.')}}</th>
+                    <th >{{__('Credit Curr.')}}</th>
                     <th >{{__('Currency symbol')}}</th>
                     <th colspan="3" >{{__('Explained')}}</th>
 
@@ -184,8 +185,7 @@
                 <tr>
                     <th>#</th>
                 <th>{{__('Total')}}</th>
-                <th>{{__('Total')}}</th>
-                <th>{{__('Sub')}}</th>
+            
 
                 </tr>
                 <tr>
