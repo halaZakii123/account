@@ -46,7 +46,7 @@
                                             @if(!empty($main))
                                                 <input id="operation_date" type="text" class=" form-control" name="operation_date" required  value= "{{$main->operation_date}}" >
                                             @else
-                                                <input id="operation_date" type="text" class=" form-control" name="operation_date" required  value= " {{ Carbon\Carbon::now()->format('Y/m/d') }}" >
+                                                <input id="operation_date" type="date" class=" form-control" name="operation_date" required data-date-start-date="d"  value= "{{date('Y-m-d', )}}" >
                                             @endif
                                         </div>
                                     </div>
@@ -112,7 +112,7 @@
                                             @if(!empty($main))
                                                 <input id="doc_date" type="date" class="form-control " name="doc_date"  value= "{{$main->doc_date}}" required >
                                             @else
-                                                <input id="doc_date" type="date" class="form-control " name="doc_date"  value= "@if (!empty($main)) {{ $main->doc_no}} @else {{ old('doc_no')? 'selected' : '' }} @endif" required >
+                                                <input id="doc_date" type="date" class="form-control " name="doc_date"  data-date-start-date="d"  value= "{{date('Y-m-d', )}}"  required >
                                             @endif
                                         </div>
                                     </div>
@@ -244,12 +244,12 @@
                                             </td>
 
                                             <td>
-                                                <input id="explained" type="text" class="form-control" name="explained[0]" value= " {{ old('explained') }}" required  >
+                                                <input id="explained" type="text" class="form-control" name="explained[0]" value= " {{ old('explained') }}" >
                                                 @error('explained')<span class="help-block text-danger">{{ $message }}</span>@enderror
 
                                             </td>
                                             <td>
-                                                <input id="explained_ar" type="text" class="form-control "name="explained_ar[0]" value= "{{ old('explained_ar') }}" required >
+                                                <input id="explained_ar" type="text" class="form-control "name="explained_ar[0]" value= "{{ old('explained_ar') }}">
                                                 @error('explained_ar')<span class="help-block text-danger">{{ $message }}</span>@enderror
                                             </td>
 

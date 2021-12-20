@@ -33,8 +33,10 @@
                     </tr>
                     </thead>
                     <tbody>
-            
+              
                         @foreach($sheets  as $sheet )
+                         @if($b == 0)
+                         @if($sheet->acc_finalReport == 0 )
                             <tr class="active">
                             <td  style="text-align: right">{{ number_format($sheet->Tot_DB, 2, '.', ',') }}</td>
                                 <td style="text-align: right">{{ number_format($sheet->Tot_Cr, 2, '.', ',') }}</td>
@@ -67,7 +69,46 @@
                                 <td colspan="5"></td>
 
                             </tr>
+                         
+                         @endif
 
+                         @else
+                         @if($sheet->acc_finalReport == 1 )
+                            <tr class="active">
+                            <td  style="text-align: right">{{ number_format($sheet->Tot_DB, 2, '.', ',') }}</td>
+                                <td style="text-align: right">{{ number_format($sheet->Tot_Cr, 2, '.', ',') }}</td>
+                                <td style="text-align: right">{{ number_format($sheet->Tot_Bal, 2, '.', ',') }}</td>
+                                <td style="text-align: right">{{ number_format($sheet->Tot_BalDb, 2, '.', ',') }}</td>
+                                <td style="text-align: right">{{ number_format($sheet->Tot_BalCr, 2, '.', ',') }}</td>
+                                <td>{{$sheet->acc_name}}</td>
+                                <td>{{$sheet->AccID}}</td>
+                            
+                                <td>{{$sheet->acc_belongTo}}</td>
+                                <td>@if($sheet->acc_finalReport == 1)
+                                          {{__('budget')}}
+                                         @else
+                                         {{__('Income list')}}
+                                         @endif</td>
+                                <td>@if($sheet->acc_ismaster == 1)
+                                            <i class="fas fa-check"></i>
+                                        @else
+                                            <i class="fa fa-times"></i>
+                                        @endif</td>
+                                
+                            </tr>
+                            <tr class="active" style=" border-bottom: 2px solid black">
+                                
+                                <td style="text-align: right;font-size: small;color: blue">{{ number_format($sheet->Tot_DBc, 2, '.', ',') }}</td>
+                                <td style="text-align: right;font-size: small;color: blue"> {{ number_format($sheet->Tot_Crc, 2, '.', ',') }}</td>
+                                <td style="text-align: right;font-size: small;color: blue"> {{ number_format($sheet->Tot_Balc, 2, '.', ',') }}</td>
+                                <td style="text-align: right;font-size: small;color: blue"> {{ number_format($sheet->Tot_BalDbc, 2, '.', ',') }}</td>
+                                <td style="text-align: right;font-size: small;color: blue"> {{ number_format($sheet->Tot_BalCrc, 2, '.', ',') }}</td>
+                                <td colspan="5"></td>
+
+                            </tr>
+                         
+                         @endif
+                         @endif
                         @endforeach
                         <tr>
                                     <th>{{__('Total')}}</th>

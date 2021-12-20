@@ -170,6 +170,8 @@
                 </thead>
 
                 @foreach($items as $item)
+                 @if($b == 0)
+                  @if($item['acc_finalReport'] == 0)
                     <tr class="item {{ $loop->last ? 'last' : '' }}">
                        
                         <td  style="text-align: right;width: 12%;border-right: 1px solid black">{{ number_format($item['Tot_DB'], 2, '.', ',') }}</td>
@@ -196,7 +198,38 @@
                         <td style="text-align: right;font-size: small;color: blue;border-bottom: 1px solid black"> {{ number_format($item['Tot_BalCrc'], 2, '.', ',') }}</td>
                         <td colspan="5" style="border-left:1px solid black"></td>
                     </tr>
+                 @endif
+                @else
+                @if($item['acc_finalReport'] == 1)
+                    <tr class="item {{ $loop->last ? 'last' : '' }}">
+                       
+                        <td  style="text-align: right;width: 12%;border-right: 1px solid black">{{ number_format($item['Tot_DB'], 2, '.', ',') }}</td>
+                        <td style="text-align: right;width: 12%">{{ number_format($item['Tot_Cr'], 2, '.', ',') }}</td>
+                        <td style="text-align: right;width: 12%">{{ number_format($item['Tot_Bal'], 2, '.', ',') }}</td>
+                        <td style="text-align: right;width: 12%">{{ number_format($item['Tot_BalDb'], 2, '.', ',') }}</td>
+                        <td style="text-align: right;width: 12%">{{ number_format($item['Tot_BalCr'], 2, '.', ',') }}</td>
+                        <td>{{$item['acc_name']}}</td>
+                        <td>{{$item['AccId']}}</td>
 
+                        <td>{{$item['acc_belongTo']}}</td>
+                        <td> @if($item['acc_finalReport']== 1)
+                                          {{__('budget')}}
+                                         @else
+                                         {{__('Income list')}}
+                                         @endif</td>
+                        <td style="border-left: 1px solid black"> @if($item['acc_ismaster']==1)<i style="font-family:fontawesome;">&#xf00c;</i>@endif</td>
+                    </tr>
+                    <tr class="active1" >
+                        <td style="text-align: right;font-size: small;color: blue;border-bottom: 1px solid black;border-right: 1px solid black">{{ number_format($item['Tot_DBc'], 2, '.', ',') }}</td>
+                        <td style="text-align: right;font-size: small;color: blue;border-bottom: 1px solid black;"> {{ number_format($item['Tot_Crc'], 2, '.', ',') }}</td>
+                        <td style="text-align: right;font-size: small;color: blue;border-bottom: 1px solid black;"> {{ number_format($item['Tot_Balc'], 2, '.', ',') }}</td>
+                        <td style="text-align: right;font-size: small;color: blue;border-bottom: 1px solid black;"> {{ number_format($item['Tot_BalDbc'], 2, '.', ',') }}</td>
+                        <td style="text-align: right;font-size: small;color: blue;border-bottom: 1px solid black"> {{ number_format($item['Tot_BalCrc'], 2, '.', ',') }}</td>
+                        <td colspan="5" style="border-left:1px solid black"></td>
+                    </tr>
+                 @endif
+                 @endif
+                
                 @endforeach
                 <tr>
                                     <th>{{__('Total')}}</th>

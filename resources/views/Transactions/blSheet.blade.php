@@ -61,10 +61,10 @@
     </div>
     
             <div class="col-md-11"style="margin: auto">
-            <div class="callout callout-primary">
+             <div class="callout callout-primary">
                   <h5>{{__('please select date:')}} </h5>
 
-                  <form method="get"  name ="aa" on onsubmit="return v" action="{!! route('BLsheet') !!}">
+                  <form method="get"  name ="aa" on onsubmit="return v" action="{!! route('BLsheet',$b) !!}">
                         
                         <div class="form-group">
 
@@ -123,6 +123,9 @@
                     <tbody>
                     
                         @foreach($sheets  as $sheet )
+                         
+                          @if($sheet->acc_finalReport == $b)
+                           
                             <tr class="active" style="border-top: 2px solid black">
                               
                                 <td  style="text-align: right">{{ number_format($sheet->Tot_DB, 2, '.', ',') }}</td>
@@ -160,7 +163,7 @@
                                 <td></td>
                                 <td></td>
                             </tr>
-
+                        @endif
                         @endforeach
                         <tr>
                                     <th>{{__('Total')}}</th>
@@ -178,8 +181,8 @@
                 
                 
                       <div class="col-12" style="margin-bottom":40px>
-                              <a href="{{route('printSheet',[$from,$to])}}" class="btn btn-success float-right"><i class="fas fa-print"></i> {{__('print')}} </a>
-                              <a href="{{route('pdfSheet',[$from,$to])}}" class="btn btn-danger btn-md active float-right" style="margin-left: 10px;" class="pdf" role="button" aria-pressed="true"><i class="fas fa-download"></i>{{__('Download')}} PDF</a>
+                              <a href="{{route('printSheet',[$from,$to,$b])}}" class="btn btn-success float-right"><i class="fas fa-print"></i> {{__('print')}} </a>
+                              <a href="{{route('pdfSheet',[$from,$to,$b])}}" class="btn btn-danger btn-md active float-right" style="margin-left: 10px;" class="pdf" role="button" aria-pressed="true"><i class="fas fa-download"></i>{{__('Download')}} PDF</a>
 
                         </div>
                  @endif   

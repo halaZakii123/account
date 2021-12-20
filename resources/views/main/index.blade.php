@@ -2,7 +2,44 @@
 @section('style')
     <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
-@endsection
+
+    <style>
+      .callout {
+  padding: 20px;
+  margin: 20px 0;
+  border: 1px solid #eee;
+  
+  border-radius: 3px;
+  h4 {
+    margin-top: 0;
+    margin-bottom: 5px;
+  }
+  p:last-child {
+    margin-bottom: 0;
+  }
+  code {
+    border-radius: 3px;
+  }
+  & + .bs-callout {
+    margin-top: -5px;
+  }
+}</style>
+  @if(app()->getLocale() == 'ar')
+   <style>
+       .callout{
+        border-right-width: 5px ; 
+        border-right-color: #428bca
+       }
+   </style>
+  @else
+   <style>
+       .callout{
+        border-left-width: 5px; 
+        border-left-color: #428bca
+       }
+   </style> 
+  @endif
+    @endsection
 @section('content')
     <div class="page-breadcrumb">
         <div class="row">
@@ -20,32 +57,31 @@
             </div>
         </div>
     </div>
-
+    
     <div class="col-md-10" style="margin:auto ">
-                <div class="card">
-                        <div class="card-header d-flex">
-                            
-                        <div>
-           <form method="get" action=" {{route('search')}}" >
-            
-                <label>{{__('Search between two dates')}}</label>
-                <div >
-                    <div class ="form-group" >
-                        <label style="font-size: small"> {{__('start date :')}}</label>
-                        <input type="date" id="startDate" name="from" placeholder="yyyy-mm-dd"  autocomplete="on">
-                        <label style="font-size: small"> {{__('end date :')}}</label>
-                        <input type="date" id="endDate"  name="to"  placeholder="yyyy-mm-dd"  autocomplete="on" >
-                        <button type="submit" ><i class="fas fa-search"></i>
-                            
-                        </button>
+
+    <div class="callout callout-primary">
+                  <h5>{{__('please select date:')}} </h5>
+
+                  <form method="get"  name ="aa" on onsubmit="return v" action="{{route('search')}}">
                         
-                    </div>
-                </div>
-                
-               
-            </form>
-       </div>
+                        <div class="form-group">
+
+                            <div>
+                                <lable> {{__('From:')}}</lable>
+                                <input type="date" id="startDate" name="from" value= "{{$first}}"  >
+                                <lable> {{__('To:')}}</lable>
+                                <input type="date" id="endDate"  name="to"  value= "{{$last}}" >
+                                <button type="submit" class="btn btn-info"> <i class="fas fa-search"></i> {{__('search')}} </button>
+
+                            </div>
+
+            
                         </div>
+                    </form>
+                </div>
+                <div class="card">
+                        
 
 
 
@@ -58,8 +94,8 @@
 
       
 
-       
-        <div class="table-responsive">
+       @if(!empty($mains))
+                           <div class="table-responsive">
                             <table class="table table-bordered display responsive  mainDataTable" id="ii">
                                 <thead>
                                 <tr>
@@ -135,6 +171,7 @@
                             </table>
 
                         </div>
+                        @endif
                 </div>
     </div>
 

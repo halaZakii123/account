@@ -93,10 +93,10 @@ Route::get('/BlDaily','TransactionsController@getBlDaily')->name('BLdaily');
 Route::get('/pdfBL','TransactionsController@pdfBLdaily')->name('pdfBL');
 Route::get('/printBL','TransactionsController@printBl')->name('printBL');
 
-Route::get('/balanceSheet','TransactionsController@getBlalanceSheet')->name('BLsheet');
-Route::get('/balanceSheet/get','TransactionsController@getBlalanceSheet')->name('BLsheetGet');
-Route::get('/printSheet/{from}/{to}','TransactionsController@printsheet')->name('printSheet');
-Route::get('/pdfSheet/{from}/{to}','TransactionsController@pdfBLsheet')->name('pdfSheet');
+Route::get('/balanceSheet/{b}','TransactionsController@getBlalanceSheet')->name('BLsheet');
+Route::get('/balanceSheet/get/{b}','TransactionsController@getBlalanceSheet')->name('BLsheetGet');
+Route::get('/printSheet/{from}/{to}/{b}','TransactionsController@printsheet')->name('printSheet');
+Route::get('/pdfSheet/{from}/{to}/{b}','TransactionsController@pdfBLsheet')->name('pdfSheet');
 
 
 

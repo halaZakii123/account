@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use PDF;
 use DataTables;
+use Carbon\Carbon;
 
 
 
@@ -34,7 +35,15 @@ class MainController extends Controller
      */
     public function index(Request $request)
     {
+
         $user_id = checkPermissionHelper::checkPermission();
+        $day = date('m/d/Y');
+        $first = Carbon::createFromFormat('m/d/Y', $day)
+            ->firstOfMonth()
+            ->format('Y-m-d');
+        $last =  Carbon::createFromFormat('m/d/Y', $day)
+            ->lastOfMonth()
+            ->format('Y-m-d');
             if ($request->from != null){
             $from = $request->from;
             $to = $request->to;
@@ -43,8 +52,9 @@ class MainController extends Controller
                 ->get();
         }
         else{
-        $mains = Main::where('parent_id',$user_id)->get();}
-        return view('Main.index',compact('mains'));
+        $mains = null;
+    }
+        return view('Main.index',compact('mains','first','last'));
     }
 
     /**

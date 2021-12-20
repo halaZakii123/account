@@ -81,8 +81,9 @@ class TransByaccPro extends Migration
                 acc_name,
                 acc_finalReport,
                 acc_Cmpy_id
-              from trans_master where trans_accno = accid and `acc_Cmpy_id` = bid and trans_date >= frmdate and trans_date <= tilldate ;
-            END;";
+              from trans_master where trans_accno = accid and `acc_Cmpy_id` = bid and trans_date >= frmdate and trans_date <= tilldate 
+              ORDER BY trans_date ASC ;
+              END;";
 
 
              DB::unprepared($procedure);

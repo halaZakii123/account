@@ -47,9 +47,9 @@
                                     <div class="form-group">
                                         <label for="operation_date">{{ __('Operation Date') }}</label>
                                         @if(!empty($main))
-                                        <input id="operation_date" type="text" class=" form-control" name="operation_date" required  value= "{{$main->operation_date}}" >
+                                        <input id="operation_date" type="date" class=" form-control" name="operation_date" required  value= "{{$main->operation_date}}" >
                                        @else
-                                        <input id="operation_date" type="text" class=" form-control" name="operation_date" required  value= " {{ Carbon\Carbon::now()->format('Y/m/d') }}" >
+                                        <input id="operation_date" type="date" class=" form-control" name="operation_date" required  data-date-start-date="d" value= "{{date('Y-m-d', )}}"  >
                                        @endif
                                         @error('operation_date')<span class="help-block text-danger">{{ $message }}</span>@enderror
 
@@ -145,7 +145,7 @@
                                         @if(!empty($main))
                                             <input id="doc_date" type="date" class="form-control " name="doc_date"  value= "{{$main->doc_date}}" required >
                                         @else
-                                            <input id="doc_date" type="date" class="form-control " name="doc_date"  value= " {{ old('doc_no')? 'selected' : '' }}" required >
+                                            <input id="doc_date" type="date" class="form-control " name="doc_date" data-date-start-date="d"  value= "{{date('Y-m-d', )}}" required >
                                         @endif
                                     </div>
                                 </div>
@@ -229,11 +229,11 @@
                                             </td>
 
                                             <td>
-                                                <input id="explained" type="text" class="explained form-control "name="explained[0]" value= " {{ old('explained') }}" required autocomplete="on" >
+                                                <input id="explained" type="text" class="explained form-control "name="explained[0]" value= " {{ old('explained') }}" autocomplete="on" >
 
                                             </td>
                                             <td>
-                                                <input id="explained_ar" type="text" class=" explained_ar form-control "name="explained_ar[0]" value= "{{ old('explained_ar') }}" required autocomplete="on">
+                                                <input id="explained_ar" type="text" class=" explained_ar form-control "name="explained_ar[0]" value= "{{ old('explained_ar') }}" autocomplete="on">
                                             </td>
 
                                         </tr>

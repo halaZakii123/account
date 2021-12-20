@@ -25,16 +25,27 @@
             <p class="login-box-msg"> {{__('Register a new membership')}}</p>
 
             <form method="POST" action="{{ route('register') }}">
+            @csrf
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" id="name" name="name" placeholder=" {{__('Full name')}}">
+                    <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" placeholder=" {{__('Full name')}}">
+                    @error('name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-user"></span>
                         </div>
-                    </div>
+                    </div>           
                 </div>
                 <div class="input-group mb-3">
-                    <input type="email" class="form-control" id="email" name="email" placeholder=" {{__('Email')}}">
+                    <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder=" {{__('Email')}}">
+                          @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-envelope"></span>
@@ -42,7 +53,12 @@
                     </div>
                 </div>
                 <div class="input-group mb-3">
-                    <input type="password" class="form-control" placeholder=" {{__('Password')}}">
+                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder=" {{__('Password')}}">
+                     @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-lock"></span>
@@ -50,12 +66,25 @@
                     </div>
                 </div>
                 <div class="input-group mb-3">
-                    <input type="password" class="form-control" placeholder="{{__('Confirm Password')}}">
+                    <input type="password" class="form-control" id="password-confirm" name="password_confirmation" placeholder="{{__('Confirm Password')}}">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-lock"></span>
                         </div>
                     </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control @error('company_name') is-invalid @enderror" id="company_name" name="company_name" placeholder=" {{__('Company Name')}}">
+                    @error('company_name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-user"></span>
+                        </div>
+                    </div>           
                 </div>
                 <div class="row">
                    

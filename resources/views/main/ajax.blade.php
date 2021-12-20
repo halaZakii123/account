@@ -19,10 +19,10 @@
     </td>
 
     <td>
-        <input id="explained" type="text" class="explained form-control "name="explained[]" value= " {{ old('explained') }}" required autocomplete="on" >
+        <input id="explained" type="text" class="explained form-control "name="explained[]" value= " {{ old('explained') }}"  autocomplete="on" >
     </td>
     <td>
-        <input id="explained_ar" type="text" class=" explained_ar form-control "name="explained_ar[]" value= "{{ old('explained_ar')}}" required autocomplete="on">
+        <input id="explained_ar" type="text" class=" explained_ar form-control "name="explained_ar[]" value= "{{ old('explained_ar')}}" autocomplete="on">
     </td>
 </tr>
 <script>
