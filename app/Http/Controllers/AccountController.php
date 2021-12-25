@@ -188,4 +188,11 @@ class AccountController extends Controller
     {
         return Excel::download(new AccountsExport, 'users-collection.xlsx');
     }  
+
+    // public function getAccountNumber(){
+    //     $id = Auth::user()->parent_id;
+    //     $num = DB::select("CALL PR_Account_number(" .$id.")");
+
+    //     return view()
+    // }
     }

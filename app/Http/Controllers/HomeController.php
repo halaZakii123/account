@@ -23,6 +23,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $id = Auth::user()->parent_id;
+        $num = DB::select("CALL PR_Account_number(" .$id.")");
+        return view('home' ,compact('num'));
     }
 }
