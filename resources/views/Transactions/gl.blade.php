@@ -5,7 +5,7 @@
   padding: 20px;
   margin: 20px 0;
   border: 1px solid #eee;
-  
+
   border-radius: 3px;
   h4 {
     margin-top: 0;
@@ -24,20 +24,20 @@
   @if(app()->getLocale() == 'ar')
    <style>
        .callout{
-        border-right-width: 5px ; 
+        border-right-width: 5px ;
         border-right-color: #428bca
        }
    </style>
   @else
    <style>
        .callout{
-        border-left-width: 5px; 
+        border-left-width: 5px;
         border-left-color: #428bca
        }
-   </style> 
+   </style>
   @endif
 
- @endsection 
+ @endsection
 @section('content')
     <div class="page-breadcrumb">
         <div class="row">
@@ -57,7 +57,7 @@
         </div>
     </div>
 
-   
+
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
@@ -65,7 +65,7 @@
                   <h5>{{__('please select one :')}} </h5>
 
                   <form method="get"  name ="aa" on onsubmit="return v" action="{!! route('TransSearchAccount') !!}">
-                    
+
 
                         <div class="form-group">
 
@@ -84,7 +84,7 @@
                                 <input type="date" id="doc_date_value" name="A_date_from" value="{{$first}}"  >
                                 <input type="date" id="doc_date_value" name="A_date_to" value="{{$last}}"><br>
                              </div>
- 
+
 
                              <div class="center" style="display: flex; justify-content: center; margin-top:20px">
 
@@ -107,7 +107,7 @@
                         <th>{{__('Credit')}}</th>
                         <th>{{__('Account Number')}}</th>
                         <th>{{__('Account Name')}}</th>
-                        <th>{{__('Source id')}}</th>
+                        <th>{{__('Document Number')}}</th>
                         <th>{{__('Document Date')}}</th>
 
                     </tr>
@@ -127,20 +127,20 @@
                                 <td style="text-align: right">{{ number_format($tran->trans_cr, 2, '.', ',') }}</td>
                                 <td>{{$tran->trans_accno}}</td>
                                 <td>{{$tran->acc_name}}</td>
-                                <td>{{$tran->trans_sid}}</td>
+                                <td>{{$tran->trans_docno}}</td>
                                 <td>{{$tran->trans_date}}</td>
                             </tr>
                             <tr class="active" style=" border-bottom: 2px solid black">
                                 <td style="text-align: right">{{ number_format($tran->trans_dbc, 2, '.', ',') }}</td>
                                 <td style="text-align: right"> {{ number_format($tran->trans_crc, 2, '.', ',') }}</td>
                                 <td>{{$tran->trans_curr}}</td>
-                                <td colspan="3" style="text-align: center;padding-right: 30px"> {{$tran->trans_docno}} , {{$tran->trans_docdate}} , @if (app()->getLocale() == 'ar'){{$tran->trans_descrip_ar}} @else  {{$tran->trans_descrip_en}} @endif </td>
+                                <td colspan="3" style="text-align: center;padding-right: 30px"> {{$tran->trans_docdate}} , @if (app()->getLocale() == 'ar'){{$tran->trans_descrip_ar}} @else  {{$tran->trans_descrip_en}} @endif </td>
 
                             </tr>
 
                         @endforeach
                         <th>{{__('Total')}}</th>
-                        
+
                         <tr>
 
                             <td style="text-align: right">{{ number_format($totaldb, 2, '.', ',') }}
@@ -159,7 +159,7 @@
                     @endif
                 </table>
                 @endif
-                @if(!empty($trans))  
+                @if(!empty($trans))
                            <div class="col-12">
                               <a href="{{route('printAcc',[$account_number,$from,$to])}}" class="btn btn-success float-right"><i class="fas fa-print"></i> {{__('print')}} </a>
                               <a href="{{route('pdfAcc',[$account_number,$from,$to])}}" class="btn btn-danger btn-md active float-right" style="margin-left: 10px;" class="pdf" role="button" aria-pressed="true"><i class="fas fa-download"></i>{{__('Download')}} PDF</a>
