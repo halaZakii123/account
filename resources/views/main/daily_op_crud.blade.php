@@ -54,9 +54,9 @@
                                         <div class="form-group">
                                             <label for="Explained" >{{ __('Explained in eng') }}</label>
                                             @if(!empty($main))
-                                                <input id="Explained" type="text" class="form-control" name="Explained" value= " {{ $main->explained}}" required autocomplete="on">
+                                                <input id="Explained" type="text" class="form-control" name="Explained" value= " {{ $main->explained}}"  autocomplete="on">
                                             @else
-                                                <input id="Explained" type="text" class="form-control " name="Explained" required autocomplete="on">
+                                                <input id="Explained" type="text" class="form-control " name="Explained" autocomplete="on">
                                             @endif
                                         </div>
                                     </div>
@@ -65,9 +65,9 @@
                                         <div class="form-group">
                                             <label for="Explained_ar" >{{ __('Explained in ar') }}</label>
                                             @if(!empty($main))
-                                                <input id="Explained_ar" type="text" class="form-control " name="Explained_ar" value= " {{ $main->explained_ar}} " required autocomplete="on">
+                                                <input id="Explained_ar" type="text" class="form-control " name="Explained_ar" value= " {{ $main->explained_ar}} "  autocomplete="on">
                                             @else
-                                                <input id="Explained_ar" type="text" class="form-control " name="Explained_ar" required autocomplete="on">
+                                                <input id="Explained_ar" type="text" class="form-control " name="Explained_ar"  autocomplete="on">
                                             @endif
                                         </div>
                                     </div>
@@ -146,7 +146,7 @@
                                     <div class="form-group">
                                         <label for="currency_symbol">{{ __('Currency symbol') }}</label>
                                         <select name="currency_symbol" id="currency_symbol" class="unit form-control" onchange="ajaxE()" required>
-                                            <option value="" > {{__('select currency')}}</option>
+                                            
                                             @foreach($cus as $cu)
                                                 @if(!empty($main))
                                                     <option value=" {{$cu->contents}} "{{ $main->currency_symbol == $cu->contents? 'selected' : '' }} >{{$cu->contents}} </option>
@@ -214,11 +214,11 @@
                                                 </td>
 
                                                 <td>
-                                                    <input id="explained" type="text" class="form-control "name="explained[{{ $loop->index }}]" value= "{{ $sub->explained}}" required  autocomplete="on">
+                                                    <input id="explained" type="text" class="form-control "name="explained[{{ $loop->index }}]" value= "{{ $sub->explained}}"  autocomplete="on">
                                                     @error('explained')<span class="help-block text-danger">{{ $message }}</span>@enderror
                                                 </td>
                                                 <td>
-                                                    <input id="explained_ar" type="text" class="form-control " name="explained_ar[{{ $loop->index }}]" value= "{{ $sub->explained_ar}}" required  autocomplete="on">
+                                                    <input id="explained_ar" type="text" class="form-control " name="explained_ar[{{ $loop->index }}]" value= "{{ $sub->explained_ar}}"   autocomplete="on">
                                                     @error('explained_ar')<span class="help-block text-danger">{{ $message }}</span>@enderror
                                                 </td>
 
@@ -322,6 +322,7 @@
 
             document.getElementById("total").value = total;
             onBlur({ target: document.getElementById("total")});
+            ajaxE();
         });
 
 

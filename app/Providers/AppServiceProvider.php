@@ -26,6 +26,17 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
 //        Paginator::useBootstrap();
-
+    //     Schema::defaultStringLength(191);
+    //     if(Schema::hasTable('sets')){
+    //         $sets = \App\Models\Set::count();
+    //         if($sets==0)
+    //             \App\Models\Sete::create([
+    //                 'key'=>'cash_id',
+    //                 'value'=>'171'
+    //             ]);
+    //         $settings = \App\Models\Setting::first();
+    //         View::share('settings', $settings);
+    //     }
+    // }
     }
 }

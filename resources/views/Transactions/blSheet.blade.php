@@ -124,7 +124,7 @@
                     
                         @foreach($sheets  as $sheet )
                          
-                          @if($sheet->acc_finalReport == $b)
+                          <!-- @if($sheet->acc_finalReport == $b) -->
                            
                             <tr class="active" style="border-top: 2px solid black">
                               
@@ -137,11 +137,12 @@
                                 <td>{{$sheet->AccID}}</td>
                                 
                                 <td>{{$sheet->acc_belongTo}}</td>
-                                <td> @if($sheet->acc_finalReport == 1)
+                                <td>{{$sheet->acc_finalReport}}</td>
+                                <!-- <td> @if($sheet->acc_finalReport == 1)
                                           {{__('budget')}}
                                          @else
                                          {{__('Income list')}}
-                                         @endif</td>
+                                         @endif</td> -->
                                 <td>@if($sheet->acc_ismaster == 1)
                                             <i class="fas fa-check"></i>
                                         @else
@@ -163,7 +164,7 @@
                                 <td></td>
                                 <td></td>
                             </tr>
-                        @endif
+                        <!-- @endif -->
                         @endforeach
                         <tr>
                                     <th>{{__('Total')}}</th>

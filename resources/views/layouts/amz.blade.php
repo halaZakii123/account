@@ -238,8 +238,9 @@
                         <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark sidebar-link" href="javascript:void(0)" aria-expanded="false"><i class="icon-Neutron" style="padding-left: 30px"></i><span class="hide-menu" style="padding-left: 20px"> {{__('Trial Balance')}}</span></a>
                             <ul aria-expanded="false" class="collapse first-level">
                                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('BLdaily')}}" aria-expanded="false"><i class="mdi mdi-image-filter-tilt-shift"></i><span class="hide-menu"> {{__('Daily Account Balance')}}</span></a></li>
-                                <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-collage"></i><span class="hide-menu">{{__('General Balance')}}</span></a>
+                                <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-collage"></i><span class="hide-menu">{{__('Balances List')}}</span></a>
                                     <ul aria-expanded="false" class="collapse second-level">
+                                        <li class="sidebar-item"><a href="{{route('BLsheetGet','general')}}" class="sidebar-link"><i class="mdi mdi-priority-low"></i><span class="hide-menu"> {{__('General Balance')}}</span></a></li>
                                         <li class="sidebar-item"><a href="{{route('BLsheetGet','budget')}}" class="sidebar-link"><i class="mdi mdi-priority-low"></i><span class="hide-menu"> {{__('budget')}}</span></a></li>
                                         <li class="sidebar-item"><a href="{{route('BLsheetGet','Income_list')}}" class="sidebar-link"><i class="mdi mdi-rounded-corner"></i><span class="hide-menu"> {{__('Income list')}}</span></a></li>
                                          </ul>

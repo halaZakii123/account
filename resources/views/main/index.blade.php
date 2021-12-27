@@ -99,7 +99,7 @@
                             <table class="table table-bordered display responsive  mainDataTable" id="ii">
                                 <thead>
                                 <tr>
-                                    <th>{{__('Operation_number')}}</th>
+                                    
                                     <th>{{__('Date')}}</th>
                                     <th>{{__('Explained')}}</th>
                                     <th>{{__('Document Number')}}</th>
@@ -114,7 +114,7 @@
                                 <tbody>
                                 @foreach($mains as $main)
                                     <tr class="active">
-                                        <td>{{$main->id}} </td>
+                                        
                                         <td>{{$main->operation_date}} </td>
                                         <td> @if (app()->getLocale() == 'ar'){{$main->explained_ar}} @else  {{$main->explained}} @endif </td>
                                         <td>{{$main->document_number}} </td>

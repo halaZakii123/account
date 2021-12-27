@@ -476,8 +476,11 @@ class TransactionsController extends Controller
             
             if($b == 'budget') {
                 $b = 1 ;}
+               elseif($b == 'Income_list'){
+               $b = 2; }
                else{
-               $b = 0 ; }
+                   $b = 3;
+               }
          return view('Transactions.blSheet',compact('sheets','first','last','from','to','totdb','totcr','totBalDb','totBalCr','totBAl','b'));
 
       }
