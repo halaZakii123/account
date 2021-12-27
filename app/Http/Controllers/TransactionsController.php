@@ -466,13 +466,40 @@ class TransactionsController extends Controller
             $totBalCr =0;
             $totBalDb =0;
             foreach ($sheets as $sheet){
-                if($sheet->acc_ismaster == 0){
-                $totdb += $sheet->Tot_DB;
-                $totcr += $sheet->Tot_Cr;
-                $totBalDb += $sheet->Tot_BalDb;
-                $totBalCr += $sheet->Tot_BalCr;
-                $totBAl += $sheet->Tot_Bal;
-            }}
+             if($b == 'budget') {
+                if(($sheet->acc_ismaster == 0) && ($sheet->acc_finalReport == 1))
+                {
+                    $totdb += $sheet->Tot_DB;
+                    $totcr += $sheet->Tot_Cr;
+                    $totBalDb += $sheet->Tot_BalDb;
+                    $totBalCr += $sheet->Tot_BalCr;
+                    $totBAl += $sheet->Tot_Bal;
+                } 
+                
+             }
+              elseif($b =='Income_list') 
+              {
+                if(($sheet->acc_ismaster == 0) && ($sheet->acc_finalReport == 2))
+                {
+                    $totdb += $sheet->Tot_DB;
+                    $totcr += $sheet->Tot_Cr;
+                    $totBalDb += $sheet->Tot_BalDb;
+                    $totBalCr += $sheet->Tot_BalCr;
+                    $totBAl += $sheet->Tot_Bal;
+                } 
+
+              }elseif($b == 'general'){
+                if($sheet->acc_ismaster == 0 )
+                {
+                    $totdb += $sheet->Tot_DB;
+                    $totcr += $sheet->Tot_Cr;
+                    $totBalDb += $sheet->Tot_BalDb;
+                    $totBalCr += $sheet->Tot_BalCr;
+                    $totBAl += $sheet->Tot_Bal;
+                } 
+                
+              }
+            }
             
             if($b == 'budget') {
                 $b = 1 ;}
