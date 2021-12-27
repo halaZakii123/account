@@ -5,7 +5,7 @@
   padding: 20px;
   margin: 20px 0;
   border: 1px solid #eee;
-  
+
   border-radius: 3px;
   h4 {
     margin-top: 0;
@@ -24,17 +24,17 @@
   @if(app()->getLocale() == 'ar')
    <style>
        .callout{
-        border-right-width: 5px ; 
+        border-right-width: 5px ;
         border-right-color: #428bca
        }
    </style>
   @else
    <style>
        .callout{
-        border-left-width: 5px; 
+        border-left-width: 5px;
         border-left-color: #428bca
        }
-   </style> 
+   </style>
   @endif
 
  @endsection
@@ -57,14 +57,14 @@
     </div>
 
 
-             
-   
+
+
             <div class="col-md-10"  style="margin: auto;">
             <div class="callout callout-primary">
                   <h5>{{__('please select one :')}} </h5>
 
             <form method="get"  name ="aa" on onsubmit="return v" action="{!! route('TransSearch') !!}">
-             
+
                 <div class="form-group">
                 <div>
                     <input type="radio" id="sourc_id" name="trans" value="source_id" checked>
@@ -75,7 +75,7 @@
                         @endforeach
                     </select>
                 </div>
-    
+
                 <div>
                     <input type="radio" id="doc_date" name="trans" value="doc_date">
                     <label for="html">{{__('From date to date')}}</label>
@@ -84,10 +84,10 @@
                     <button type="submit" class="btn btn-info"> <i class="fas fa-search"></i> {{__('search')}} </button>
 
                     </div>
-                
-                </div>       
+
+                </div>
             </form>
-                </div>   
+                </div>
 
                    @if($trans != null)
                        @if($searchType == 'source_id')
@@ -95,7 +95,7 @@
                         @else
                             <h5>{{__('Result by date')}} {{__('From:')}} {{$dateFrom}} {{__('To:')}} {{$dateTo}} : </h5>
                         @endif
-                    
+
                         <div class="table-responsive">
                      <table class="table table-bordered display responsive nowrap  optionDataTable" >
                         <thead >
@@ -104,7 +104,7 @@
                             <th>{{__('Credit')}}</th>
                             <th>{{__('Account Number')}}</th>
                             <th>{{__('Account Name')}}</th>
-                            <th>{{__('Source id')}}</th>
+                            <th>{{__('Document Number')}}</th>
                             <th>{{__('Document Date')}}</th>
 
                         </tr>
@@ -124,20 +124,20 @@
                                 <td style="text-align: right">{{ number_format($tran->trans_cr, 2, '.', ',') }}</td>
                                 <td>{{$tran->trans_accno}}</td>
                                 <td>{{$tran->acc_name}}</td>
-                                <td>{{$tran->trans_sid}}</td>
+                                <td>{{$tran->trans_docno}}</td>
                                 <td>{{$tran->trans_date}}</td>
                             </tr>
                             <tr class="active" style=" border-bottom: 2px solid black">
                                 <td style="text-align: right">{{ number_format($tran->trans_dbc, 2, '.', ',') }}</td>
                                 <td style="text-align: right"> {{ number_format($tran->trans_crc, 2, '.', ',') }}</td>
                                 <td>{{$tran->trans_curr}}</td>
-                                <td colspan="3" style="text-align: center;padding-right: 30px"> {{$tran->trans_docno}} , {{$tran->trans_docdate}} , @if (app()->getLocale() == 'ar'){{$tran->trans_descrip_ar}} @else  {{$tran->trans_descrip_en}} @endif </td>
+                                <td colspan="3" style="text-align: center;padding-right: 30px">  {{$tran->trans_docdate}} , @if (app()->getLocale() == 'ar'){{$tran->trans_descrip_ar}} @else  {{$tran->trans_descrip_en}} @endif </td>
 
                             </tr>
 
                         @endforeach
                         <th>{{__('Total')}}</th>
-                        
+
                         <tr>
 
                             <td style="text-align: right">{{ number_format($totaldb, 2, '.', ',') }}
@@ -155,8 +155,8 @@
                         </tbody>
                         @endif
                     </table>
-                    
-                       
+
+
                            <div class="col-12">
                               @if($searchType == 'source_id')
                                 <a href="{{route('printSource',[$searchType,$source_id])}}" class="btn btn-success float-right"><i class="fas fa-print"></i> {{__('print')}} </a>
@@ -168,12 +168,12 @@
 
                                @endif
                             </div>
-                          @endif 
-             
+                          @endif
+
                 </div>
                 </div>
-               
-                         
+
+
 
 @endsection
 

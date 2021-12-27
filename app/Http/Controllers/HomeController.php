@@ -25,6 +25,6 @@ class HomeController extends Controller
     {
         // $id = Auth::user()->parent_id;
         // $num = DB::select("CALL PR_Account_number(" .$id.")");
-        return view('home');
+        return view('home' );
     }
 }
