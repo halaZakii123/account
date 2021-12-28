@@ -79,7 +79,7 @@
 
                                 </div>
                                 <div class="ml-auto">
-                                    <h2 class="m-b-0 font-light">43</h2>
+                                    <h2 class="m-b-0 font-light">{{$num[0]}}</h2>
                                 </div>
                             </div>
                         </div>

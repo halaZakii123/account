@@ -3,6 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use App\Helpers\checkPermissionHelper;
+
+
+
 
 class HomeController extends Controller
 {
@@ -23,8 +29,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // $id = Auth::user()->parent_id;
-        // $num = DB::select("CALL PR_Account_number(" .$id.")");
-        return view('home' );
+        $user_id = checkPermissionHelper::checkPermission();
+        
+        $num = DB::select("CALL PR_userAccounts(".$user_id.")");
+        
+        dd($num[0]);
+        return view('home' ,compact('num'));
     }
 }
