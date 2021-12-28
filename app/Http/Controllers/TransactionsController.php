@@ -547,12 +547,39 @@ class TransactionsController extends Controller
                    'Tot_BalDbc'=>      $sheet->Tot_BalDbc,
                    'Tot_BalCrc'=>     $sheet->Tot_BalCrc,
                    ];
-                   if($sheet->acc_ismaster == 0){
-                   $totdb += $sheet->Tot_DB;
-                   $totcr += $sheet->Tot_Cr;
-                   $totBalDb += $sheet->Tot_BalDb;
-                   $totBalCr += $sheet->Tot_BalCr;
-                   $totBAl += $sheet->Tot_Bal;}
+                   if($b == 1) {
+                    if(($sheet->acc_ismaster == 0) && ($sheet->acc_finalReport == 1))
+                    {
+                        $totdb += $sheet->Tot_DB;
+                        $totcr += $sheet->Tot_Cr;
+                        $totBalDb += $sheet->Tot_BalDb;
+                        $totBalCr += $sheet->Tot_BalCr;
+                        $totBAl += $sheet->Tot_Bal;
+                    } 
+                    
+                 }
+                  elseif($b == 2) 
+                  {
+                    if(($sheet->acc_ismaster == 0) && ($sheet->acc_finalReport == 2))
+                    {
+                        $totdb += $sheet->Tot_DB;
+                        $totcr += $sheet->Tot_Cr;
+                        $totBalDb += $sheet->Tot_BalDb;
+                        $totBalCr += $sheet->Tot_BalCr;
+                        $totBAl += $sheet->Tot_Bal;
+                    } 
+    
+                  }elseif($b == 3){
+                    if($sheet->acc_ismaster == 0 )
+                    {
+                        $totdb += $sheet->Tot_DB;
+                        $totcr += $sheet->Tot_Cr;
+                        $totBalDb += $sheet->Tot_BalDb;
+                        $totBalCr += $sheet->Tot_BalCr;
+                        $totBAl += $sheet->Tot_Bal;
+                    } 
+                    
+                  }
         }
         
            $data['b'] =$b;
@@ -577,13 +604,40 @@ class TransactionsController extends Controller
         $totBalDb =0;
         
         foreach ($sheets as $sheet){
-            if($sheet->acc_ismaster == 0){
-            $totdb += $sheet->Tot_DB;
-            $totcr += $sheet->Tot_Cr;
-            $totBalDb += $sheet->Tot_BalDb;
-            $totBalCr += $sheet->Tot_BalCr;
-            $totBAl += $sheet->Tot_Bal;
-        }}
+            if($b == 1) {
+                if(($sheet->acc_ismaster == 0) && ($sheet->acc_finalReport == 1))
+                {
+                    $totdb += $sheet->Tot_DB;
+                    $totcr += $sheet->Tot_Cr;
+                    $totBalDb += $sheet->Tot_BalDb;
+                    $totBalCr += $sheet->Tot_BalCr;
+                    $totBAl += $sheet->Tot_Bal;
+                } 
+                
+             }
+              elseif($b == 2) 
+              {
+                if(($sheet->acc_ismaster == 0) && ($sheet->acc_finalReport == 2))
+                {
+                    $totdb += $sheet->Tot_DB;
+                    $totcr += $sheet->Tot_Cr;
+                    $totBalDb += $sheet->Tot_BalDb;
+                    $totBalCr += $sheet->Tot_BalCr;
+                    $totBAl += $sheet->Tot_Bal;
+                } 
+
+              }elseif($b == 3){
+                if($sheet->acc_ismaster == 0 )
+                {
+                    $totdb += $sheet->Tot_DB;
+                    $totcr += $sheet->Tot_Cr;
+                    $totBalDb += $sheet->Tot_BalDb;
+                    $totBalCr += $sheet->Tot_BalCr;
+                    $totBAl += $sheet->Tot_Bal;
+                } 
+                
+              }
+        }
        
         return view('transactions.printsheet',compact('sheets','totdb','totcr','totBalDb','totBalCr','totBAl','from','to','b'));
     }
