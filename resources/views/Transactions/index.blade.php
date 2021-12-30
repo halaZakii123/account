@@ -96,7 +96,8 @@
                             <h5>{{__('Result by date')}} {{__('From:')}} {{$dateFrom}} {{__('To:')}} {{$dateTo}} : </h5>
                         @endif
 
-                        <div class="table-responsive">
+                        <div class=" table-responsive">
+                            
                      <table class="table table-bordered display responsive nowrap  optionDataTable" >
                         <thead >
                         <tr style="background-color:#D3D3D3">
@@ -136,7 +137,7 @@
                             </tr>
 
                         @endforeach
-                        <th>{{__('Total')}}</th>
+                        
 
                         <tr>
 
@@ -144,6 +145,7 @@
                             <td style="text-align: right">{{ number_format($totalcr, 2, '.', ',') }}
                             </td>
                             <td style="text-align: right">{{ number_format($subAmount, 2, '.', ',') }} </td>
+                             <th> {{__('Total')}}</th> 
                         </tr>
                         <tr>
                             <td style="text-align: right">{{ number_format($totaldbc, 2, '.', ',') }} </td>
@@ -152,6 +154,7 @@
                             <td style="text-align: right" >{{ number_format($subAmountc, 2, '.', ',') }} </td>
 
                         </tr>
+
                         </tbody>
                         @endif
                     </table>

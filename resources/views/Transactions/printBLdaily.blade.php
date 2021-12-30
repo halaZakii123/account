@@ -61,14 +61,12 @@
                                 <td colspan="4"></td>
                             </tr>
                         @endforeach
-                        <tr>
-                            <th>{{__('Total')}}</th>
                         
-                        </tr>
                         <tr >
                             <td style="text-align: right"> {{  number_format($totdb, 2, '.', ',') }}</td>
                             <td style="text-align: right"> {{  number_format($totcr, 2, '.', ',') }}</td>
                             <td style="text-align: right">{{  number_format($totBAl, 2, '.', ',') }}</td>
+                            <th> {{__('Total')}}</th> 
                         </tr>  
                         <tr>  
                             <td style="text-align: right"> {{ number_format($totdbc, 2, '.', ',') }}</td>

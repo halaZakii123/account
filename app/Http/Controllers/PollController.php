@@ -16,7 +16,7 @@ class PollController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(['auth','verified']);
     }
     public function index(){
         $user_id = checkPermissionHelper::checkPermission();

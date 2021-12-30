@@ -39,7 +39,7 @@
                                     {{__('Daily Entry')}}
                                 </div>
                                 <div class="ml-auto">
-                                    <h2 class="m-b-0 font-light">23</h2>
+                                    <h2 class="m-b-0 font-light"> {{$main_num}}</h2>
                                 </div>
                             </div>
                         </div>
@@ -79,7 +79,7 @@
 
                                 </div>
                                 <div class="ml-auto">
-                                    <h2 class="m-b-0 font-light">{{$num[0]}}</h2>
+                                    <h2 class="m-b-0 font-light">{{$userAccount}}</h2>
                                 </div>
                             </div>
                         </div>
@@ -99,7 +99,7 @@
 
                                 </div>
                                 <div class="ml-auto">
-                                    <h2 class="m-b-0 font-light">63</h2>
+                                    <h2 class="m-b-0 font-light"> {{$user_num}} </h2>
                                 </div>
                             </div>
                         </div>

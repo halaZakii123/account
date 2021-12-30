@@ -1,13 +1,29 @@
-@extends('layouts.amz')
+<!DOCTYPE html>
+<html dir="{{ str_replace('_', '-', app()->getLocale()) == 'ar' ? 'rtl' : 'ltr' }}"
+      lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> {{__('log in')}} </title>
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
-
-                <div class="card-body">
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{asset('fontawesome-free/css/all.min.css')}}">
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="{{asset('icheck-bootstrap/icheck-bootstrap.min.css')}}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{asset('dist/css/adminlte.min.css')}}">
+</head>
+<body class="hold-transition login-page">
+<div class="login-box">
+    <!-- /.login-logo -->
+    <div class="card card-outline card-primary">
+        <div class="card-header text-center">
+            <a href="../../index2.html" class="h1"><b> {{__('ALMounkez')}}</b></a>
+        </div>
+        <div class="card-body">
+         <p class="login-box-msg">{{__('Reset Password')}}</p>
                     <form method="POST" action="{{ route('password.update') }}">
                         @csrf
 
@@ -57,9 +73,20 @@
                             </div>
                         </div>
                     </form>
-                </div>
-            </div>
-        </div>
+          <!-- /.social-auth-links -->
+       
+        <!-- /.card-body -->
     </div>
+    <!-- /.card -->
 </div>
-@endsection
+<!-- /.login-box -->
+
+<!-- jQuery -->
+<script src="{{asset('jquery/jquery.min.js')}}"></script>
+<!-- Bootstrap 4 -->
+<script src="{{asset('bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<!-- AdminLTE App -->
+<script src="{{asset('dist/js/adminlte.min.js')}}"></script>
+</body>
+</html>
+

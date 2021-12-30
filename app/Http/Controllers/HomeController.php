@@ -31,9 +31,15 @@ class HomeController extends Controller
     {
         $user_id = checkPermissionHelper::checkPermission();
         
-        $num = DB::select("CALL PR_userAccounts(".$user_id.")");
+        $nums = DB::select("CALL PR_userAccounts(".$user_id.")");
+        $userAccount = count($nums);
         
-        dd($num[0]);
-        return view('home' ,compact('num'));
+        $users = DB::select("CALL pr_users(".$user_id.")");
+        $user_num = count($users);
+
+        $mains = DB::select("CALL pr_userMains(".$user_id.")");
+        $main_num = count($mains);
+
+        return view('home' ,compact('userAccount','user_num','main_num'));
     }
 }

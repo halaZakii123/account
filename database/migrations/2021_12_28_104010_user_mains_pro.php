@@ -17,7 +17,7 @@ class UserMainsPro extends Migration
 
         CREATE  PROCEDURE `pr_userMains`(IN id bigint)
         BEGIN
-         SELECT count(*) FROM mains  WHERE parent_id = id ;
+         SELECT * FROM mains  WHERE parent_id = id ;
         END;" ;
 
         DB::unprepared($procedure);

@@ -53,8 +53,7 @@
                                 </tr>
 
                             @endforeach
-                            <th></th>
-                            <th>{{__('Total')}}</th>
+                            
                             
                             <tr>
                                 <td></td>
@@ -62,6 +61,7 @@
                                 <td style="text-align: right">{{ number_format($totalcr, 2, '.', ',') }}
                                 </td>
                                 <td style="text-align: right">{{ number_format($subAmount, 2, '.', ',') }} </td>
+                                <th> {{__('Total')}}</th> 
                             </tr>
                             <tr>
                                 <td></td>

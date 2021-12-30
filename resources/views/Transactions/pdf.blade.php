@@ -182,18 +182,14 @@
                     
 
                 @endforeach
-                <tr>
-                    <th>#</th>
-                <th>{{__('Total')}}</th>
-            
-
-                </tr>
+                
                 <tr>
                     <td style="border-right: 1px solid black"></td>
                     <td style="text-align: right; ">{{ number_format($totaldb, 2, '.', ',') }}
                     <td style="text-align: right;">{{ number_format($totalcr, 2, '.', ',') }}
                     </td>
                     <td style="text-align: right">{{ number_format($subAmount, 2, '.', ',') }} </td>
+                    <th> {{__('Total')}}</th> 
                 </tr>
                 <tr>
                     <td style=" border-bottom: 1px solid black;border-right: 1px solid black"></td>

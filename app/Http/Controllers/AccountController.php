@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use PDF;
 use DataTables;
-use Maatwebsite\Excel\Facades\Excel;
+//use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\AccountsExport;
 use App\Imports\AccountImport;
 
@@ -23,13 +23,14 @@ class AccountController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(['auth','verified']);
+
 
     }
 
     public function index(){
         $user_id = checkPermissionHelper::checkPermission();
-        
+
         $accounts= TblAccount::where('parent_id',$user_id)->get();
         $count = count($accounts);
 
@@ -130,7 +131,7 @@ class AccountController extends Controller
         }
 
         public function destroy($account){
-            
+
          TblAccount::where('id',$account)->delete();
          return redirect(route('Accounts.index'));
         }
@@ -171,11 +172,11 @@ class AccountController extends Controller
     {
        return view('file-import');
     }
-   
+
     /**
     * @return \Illuminate\Support\Collection
     */
-    public function fileImport(Request $request) 
+    public function fileImport(Request $request)
     {
         Excel::import(new AccountImport, $request->file('file')->store('temp'));
         return back();
@@ -184,10 +185,10 @@ class AccountController extends Controller
     /**
     * @return \Illuminate\Support\Collection
     */
-    public function fileExport() 
+    public function fileExport()
     {
         return Excel::download(new AccountsExport, 'users-collection.xlsx');
-    }  
+    }
 
     // public function getAccountNumber(){
     //     $id = Auth::user()->parent_id;

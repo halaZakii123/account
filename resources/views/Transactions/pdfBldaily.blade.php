@@ -175,15 +175,14 @@
                          
                     </tr>
                 @endforeach
-                <tr>
-                  <th >{{__('Total')}}</th>
-                 </tr>
+                
 
                  <tr >
                     <td style="border-right: 1px solid black"> {{  number_format($totdb, 2, '.', ',') }}</td>
                     <td style="text-align: right"> {{  number_format($totcr, 2, '.', ',') }}</td>
                     <td style="text-align: right;">{{  number_format($totBAl, 2, '.', ',') }}</td>
-                 </tr>
+                    <th> {{__('Total')}}</th>  
+                </tr>
                  <tr>
                     <td style="text-align: right;border-bottom: 1px solid black;border-right: 1px solid black;"> {{ number_format($totdbc, 2, '.', ',') }}</td>
                     <td style="text-align: right;border-bottom: 1px solid black;"> {{ number_format($totcrc, 2, '.', ',') }}</td>

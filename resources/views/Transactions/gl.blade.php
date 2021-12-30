@@ -139,7 +139,7 @@
                             </tr>
 
                         @endforeach
-                        <th>{{__('Total')}}</th>
+                        
 
                         <tr>
 
@@ -147,6 +147,7 @@
                             <td style="text-align: right">{{ number_format($totalcr, 2, '.', ',') }}
                             </td>
                             <td style="text-align: right">{{ number_format($subAmount, 2, '.', ',') }} </td>
+                            <th> {{__('Total')}}</th> 
                         </tr>
                         <tr>
                             <td style="text-align: right">{{ number_format($totaldbc, 2, '.', ',') }} </td>

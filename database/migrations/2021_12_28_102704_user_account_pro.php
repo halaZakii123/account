@@ -17,7 +17,7 @@ class UserAccountPro extends Migration
 
         CREATE  PROCEDURE `PR_userAccounts`(IN id bigint)
         BEGIN
-         SELECT count(*) FROM tbl_accounts  WHERE parent_id = id ;
+         SELECT * FROM tbl_accounts  WHERE parent_id = id ;
         END;" ;
 
         DB::unprepared($procedure);
